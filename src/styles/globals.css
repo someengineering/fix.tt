@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* #region  /**=========== Primary Color =========== */
+  --tw-color-primary-50: 241 247 253;
+  --tw-color-primary-100: 223 236 250;
+  --tw-color-primary-200: 199 223 246;
+  --tw-color-primary-300: 160 202 240;
+  --tw-color-primary-400: 115 173 231;
+  --tw-color-primary-500: 83 144 222;
+  --tw-color-primary-600: 62 116 210;
+  --tw-color-primary-700: 53 97 192;
+  --tw-color-primary-800: 48 80 157;
+  --tw-color-primary-900: 48 76 137;
+  --tw-color-primary-950: 31 43 76;
+  --color-primary-50: rgb(var(--tw-color-primary-50));
+  --color-primary-100: rgb(var(--tw-color-primary-100));
+  --color-primary-200: rgb(var(--tw-color-primary-200));
+  --color-primary-300: rgb(var(--tw-color-primary-300));
+  --color-primary-400: rgb(var(--tw-color-primary-400));
+  --color-primary-500: rgb(var(--tw-color-primary-500));
+  --color-primary-600: rgb(var(--tw-color-primary-600));
+  --color-primary-700: rgb(var(--tw-color-primary-700));
+  --color-primary-800: rgb(var(--tw-color-primary-800));
+  --color-primary-900: rgb(var(--tw-color-primary-900));
+  --color-primary-950: rgb(var(--tw-color-primary-950));
+  /* #endregion  /**======== Primary Color =========== */
+  /* #region  /**=========== Secondary Color =========== */
+  --tw-color-secondary-50: 255 252 235;
+  --tw-color-secondary-100: 253 245 200;
+  --tw-color-secondary-200: 252 233 139;
+  --tw-color-secondary-300: 250 216 79;
+  --tw-color-secondary-400: 249 197 38;
+  --tw-color-secondary-500: 243 167 18;
+  --tw-color-secondary-600: 215 126 8;
+  --tw-color-secondary-700: 178 89 11;
+  --tw-color-secondary-800: 145 68 15;
+  --tw-color-secondary-900: 119 57 16;
+  --tw-color-secondary-950: 68 28 4;
+  --color-secondary-50: rgb(var(--tw-color-secondary-50));
+  --color-secondary-100: rgb(var(--tw-color-secondary-100));
+  --color-secondary-200: rgb(var(--tw-color-secondary-200));
+  --color-secondary-300: rgb(var(--tw-color-secondary-300));
+  --color-secondary-400: rgb(var(--tw-color-secondary-400));
+  --color-secondary-500: rgb(var(--tw-color-secondary-500));
+  --color-secondary-600: rgb(var(--tw-color-secondary-600));
+  --color-secondary-700: rgb(var(--tw-color-secondary-700));
+  --color-secondary-800: rgb(var(--tw-color-secondary-800));
+  --color-secondary-900: rgb(var(--tw-color-secondary-900));
+  --color-secondary-950: rgb(var(--tw-color-secondary-950));
+  /* #endregion  /**======== Secondary Color =========== */
+}
+
+@layer base {
+  /* #region  /**=========== Typography =========== */
+  .h0 {
+    @apply text-3xl font-bold md:text-5xl;
+  }
+
+  h1,
+  .h1 {
+    @apply text-2xl font-bold md:text-4xl;
+  }
+
+  h2,
+  .h2 {
+    @apply text-xl font-bold md:text-3xl;
+  }
+
+  h3,
+  .h3 {
+    @apply text-lg font-bold md:text-2xl;
+  }
+
+  h4,
+  .h4 {
+    @apply text-base font-bold md:text-lg;
+  }
+
+  body,
+  .p {
+    @apply text-sm md:text-base;
+  }
+  /* #endregion  /**======== Typography =========== */
+
+  .layout {
+    /* 1100px */
+    max-width: 68.75rem;
+    @apply mx-auto w-11/12;
+  }
+
+  .bg-dark a.custom-link {
+    @apply border-gray-200 hover:border-gray-200/0;
+  }
+
+  /* Class to adjust with sticky footer */
+  .min-h-main {
+    @apply min-h-[calc(100vh-56px)];
+  }
+}
+
+@layer utilities {
+  .balanced {
+    white-space: unset;
+    text-wrap: balance;
+  }
+
+  .animated-underline {
+    background-image: linear-gradient(#33333300, #33333300),
+      linear-gradient(
+        to right,
+        var(--color-primary-400),
+        var(--color-primary-500)
+      );
+    background-size:
+      100% 2px,
+      0 2px;
+    background-position:
+      100% 100%,
+      0 100%;
+    background-repeat: no-repeat;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .animated-underline {
+      transition: 0.3s ease;
+      transition-property: background-size, color, background-color,
+        border-color;
+    }
+  }
+  .animated-underline:hover,
+  .animated-underline:focus-visible {
+    background-size:
+      0 2px,
+      100% 2px;
+  }
+}
+
+.calendly-spinner {
+  display: none;
+}
