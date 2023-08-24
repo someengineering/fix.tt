@@ -250,13 +250,15 @@ export default function HomePage() {
             sales reps.
           </div>
           <Disclosure as="dl" className="mt-10">
-            <dt>
-              <Disclosure.Button className="text-base font-semibold leading-7 text-primary-50 underline transition hover:text-white motion-reduce:transition-none motion-reduce:hover:transform-none">
-                Why request early access?
-              </Disclosure.Button>
-            </dt>
+            <Disclosure.Button
+              as="dt"
+              className="cursor-pointer text-base font-semibold leading-7 text-primary-50 underline transition hover:text-white motion-reduce:transition-none motion-reduce:hover:transform-none"
+            >
+              Why request early access?
+            </Disclosure.Button>
             <Disclosure.Panel
               as="dd"
+              unmount={false}
               className="space-y-2 pt-2 text-base leading-7 text-primary-100"
             >
               <p>
