@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.title}`,
   },
   description: siteConfig.description,
-  // robots: { index: true, follow: true },
-  robots: { index: false },
+  robots: { index: true, follow: true },
+  themeColor: '#304c89',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',

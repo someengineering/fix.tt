@@ -6,7 +6,6 @@ module.exports = {
   siteUrl: 'https://fix.tt',
   generateRobotsTxt: true,
   robotsTxtOptions: {
-    // policies: [{ userAgent: '*', allow: '/' }],
-    policies: [{ userAgent: '*', disallow: '/' }],
+    policies: [{ userAgent: '*', allow: '/' }],
   },
 };

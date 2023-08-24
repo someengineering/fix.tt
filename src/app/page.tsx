@@ -1,8 +1,9 @@
 'use client';
 
+import { Disclosure } from '@headlessui/react';
 import * as React from 'react';
 import { InlineWidget } from 'react-calendly';
-import { LuBug, LuCheck, LuListChecks, LuShip } from 'react-icons/lu';
+import { LuBug, LuCheck, LuListChecks, LuShuffle } from 'react-icons/lu';
 
 import ButtonLink from '@/components/links/ButtonLink';
 
@@ -25,20 +26,20 @@ const features: {
   {
     name: 'Complete cloud risk visibility',
     description:
-      'Fix builds an up-to-date representation of your cloud infrastructure on a regular schedule. View all resources in one place, for quicker insights and informed decision-making.',
+      'Fix builds an up-to-date representation of your cloud infrastructure on a regular schedule. View all resources and their configuration data in this baseline inventory, for quicker insights and informed decision-making.',
     icon: (props) => <LuListChecks {...props} />,
   },
   {
-    name: 'Cloud-native solution',
+    name: 'Address the risks that matter',
     description:
-      'With a single deployment and one data layer, Fix eliminates the need to stitch together fragmented tools.',
-    icon: (props) => <LuShip {...props} />,
+      'Fix asseses vulnerabilities and misconfigurations based on attack path and business impact. Build security intelligence on top of your inventory to stay in control and escalate the risks that are critical.',
+    icon: (props) => <LuBug {...props} />,
   },
   {
-    name: 'Address risks that matter',
+    name: 'Effortless remediation',
     description:
-      'Fix asseses vulnerabilities and misconfigurations based on severity, exposure, exploitability, blast radius, and business impact.',
-    icon: (props) => <LuBug {...props} />,
+      'Fix integrates with your workflow, ticketing, and messaging tools to share essential information where it is most useful. Make it easy for your engineers to keep infrastructure updated and tidy.',
+    icon: (props) => <LuShuffle {...props} />,
   },
 ];
 
@@ -47,7 +48,6 @@ const pricingTiers: {
   id: string;
   price: string;
   priceUnit?: string;
-  priceDescription?: string;
   description: string;
   features: string[];
 }[] = [
@@ -55,7 +55,7 @@ const pricingTiers: {
     name: 'Cloud',
     id: 'tier-cloud',
     price: '$5',
-    priceUnit: 'cloud account, per month',
+    priceUnit: 'cloud account per month',
     description:
       'For security teams who want a hosted solution and are budget-conscious.',
     features: [
@@ -71,7 +71,6 @@ const pricingTiers: {
     name: 'Enterprise',
     id: 'tier-enterprise',
     price: 'Custom',
-    priceDescription: 'per-resource pricing',
     description:
       'For security teams in large enterprises or regulated industries who want on-prem deployment.',
     features: [
@@ -112,11 +111,11 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              This is a big benefit for the user
+              Keep your cloud infrastructure secure without slowing down
+              engineering.
             </h2>
             <p className="mt-6 text-lg leading-8 text-gray-600">
-              This sentence explains the big benefit for the user a bit more in
-              detail, across two rows of text.
+              Create a developer experience that pays dividends for security.
             </p>
           </div>
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
@@ -144,19 +143,26 @@ export default function HomePage() {
       <div className="isolate py-24 sm:py-32" id="pricing">
         <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-base font-semibold leading-7 text-primary-700">
+            <h2 className="text-lg font-semibold leading-7 text-primary-700">
               Pricing
             </h2>
             <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-              Build securely in the cloud, without breaking the bank.
+              Build securely in the cloud without overspending.
             </p>
           </div>
-          <div className="relative mt-6">
-            <p className="mx-auto max-w-2xl text-lg leading-8 text-gray-600">
-              Fix has usage-based pricing. There are no minimum commitments for
-              the Cloud tier, and we also offer the option to self-host our
-              open-source product for free. Our goal is to give everyone great
-              cloud security, regardless of budget.
+          <div className="relative mx-auto max-w-2xl text-lg leading-8 text-gray-600">
+            <p className="mt-6">
+              Fix charges a fee per connected cloud account. Usage-based pricing
+              means you only pay for the cloud accounts you actually use and
+              need to keep secure.
+            </p>
+            <p className="mt-6">
+              There are no minimum commitments for the Cloud tier, and you can
+              even self-host the open-source version for free.
+            </p>
+            <p className="mt-6">
+              Our goal is to give everyone great cloud security, regardless of
+              budget.
             </p>
           </div>
         </div>
@@ -183,11 +189,6 @@ export default function HomePage() {
                         / {tier.priceUnit}
                       </span>
                     ) : null}
-                    {tier.priceDescription ? (
-                      <span className="text-base font-semibold leading-7 text-gray-600">
-                        {tier.priceDescription}
-                      </span>
-                    ) : null}
                   </div>
                   <p className="mt-6 text-base leading-7 text-gray-600">
                     {tier.description}
@@ -199,7 +200,7 @@ export default function HomePage() {
                     {tier.features.map((feature) => (
                       <li key={feature} className="flex gap-x-3">
                         <LuCheck
-                          className="h-6 w-5 flex-none text-primary-900"
+                          className="h-6 w-6 flex-none text-primary-900"
                           aria-hidden="true"
                         />
                         {feature}
@@ -245,12 +246,46 @@ export default function HomePage() {
           <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
             Request early access.
           </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-indigo-200">
-            Incididunt sint fugiat pariatur cupidatat consectetur sit cillum
-            anim id veniam aliqua proident excepteur commodo do ea.
-          </p>
+          <div className="mx-auto mt-6 max-w-xl text-lg leading-8 text-primary-200">
+            Schedule a call to get a demo and see Fix in action. Talk directly
+            to our founders&mdash;no{' '}
+            <abbr title="business development representative">BDR</abbr>s, no
+            sales reps.
+          </div>
+          <Disclosure as="dl" className="mt-10">
+            <dt>
+              <Disclosure.Button className="text-base font-semibold leading-7 text-primary-50 underline transition hover:text-white motion-reduce:transition-none motion-reduce:hover:transform-none">
+                Why request early access?
+              </Disclosure.Button>
+            </dt>
+            <Disclosure.Panel
+              as="dd"
+              className="space-y-2 pt-2 text-base leading-7 text-primary-100"
+            >
+              <p>
+                <strong>Cloud security requires trust.</strong> That&rsquo;s why
+                we establish a personal connection to determine if Fix can help.
+                We work with early access partners to:
+              </p>
+              <ul role="list" className="space-y-1 text-sm leading-6">
+                {[
+                  'Understand security requirements.',
+                  'Establish a security baseline.',
+                  'Automate security operations.',
+                ].map((goal) => (
+                  <li
+                    key={goal}
+                    className="flex items-center justify-center gap-x-2"
+                  >
+                    <LuCheck className="h-4 w-4 flex-none" aria-hidden="true" />
+                    {goal}
+                  </li>
+                ))}
+              </ul>
+            </Disclosure.Panel>
+          </Disclosure>
         </div>
-        <div className="mt-10 flex h-[64rem] items-center justify-center sm:h-[68rem] md:mt-0 xl:h-[44rem]">
+        <div className="mt-10 flex h-[72rem] items-center justify-center sm:h-[74rem] md:mt-0 xl:h-[44rem]">
           <InlineWidget
             url="https://calendly.com/larskamp/fix-early-access"
             pageSettings={{
