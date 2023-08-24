@@ -238,11 +238,8 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div
-        className="bg-primary-900 px-6 py-24 sm:px-6 sm:py-32 lg:px-8"
-        id="request-early-access"
-      >
-        <div className="mx-auto max-w-2xl text-center">
+      <div className="bg-primary-900 py-24 sm:py-32" id="request-early-access">
+        <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">
           <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
             Request early access.
           </h2>
@@ -285,7 +282,7 @@ export default function HomePage() {
             </Disclosure.Panel>
           </Disclosure>
         </div>
-        <div className="mt-10 flex h-[72rem] items-center justify-center sm:h-[74rem] md:mt-0 xl:h-[44rem]">
+        <div className="mt-10 flex h-[72rem] items-center justify-center px-6 sm:h-[76rem] md:mt-0 md:px-0 lg:h-[44rem]">
           <InlineWidget
             url="https://calendly.com/larskamp/fix-early-access"
             pageSettings={{
