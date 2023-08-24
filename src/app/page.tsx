@@ -36,7 +36,7 @@ const features: {
     icon: (props) => <LuBug {...props} />,
   },
   {
-    name: 'Effortless remediation',
+    name: 'Easy remediation',
     description:
       'Fix integrates with your workflow, ticketing, and messaging tools to share essential information where it is most useful. Make it easy for your engineers to keep infrastructure updated and tidy.',
     icon: (props) => <LuShuffle {...props} />,
