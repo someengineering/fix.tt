@@ -6,6 +6,10 @@ module.exports = {
   siteUrl: 'https://fix.tt',
   generateRobotsTxt: true,
   robotsTxtOptions: {
-    policies: [{ userAgent: '*', allow: '/' }],
+    policies: [
+      process.env.VERCEL_ENV === 'production'
+        ? { userAgent: '*', allow: '/' }
+        : { userAgent: '*', disallow: '/' },
+    ],
   },
 };

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 
 import { cn } from '@/lib/utils';
@@ -29,7 +29,7 @@ type ButtonLinkProps = {
   };
 } & UnstyledLinkProps;
 
-const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
   (
     {
       children,

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import * as React from 'react';
 
 export const metadata: Metadata = {
   title: 'Not Found',
@@ -13,7 +12,7 @@ export default function NotFound() {
         Page not found
       </h1>
       <p className="mt-6 text-lg leading-7 text-gray-600">
-        Sorry, we couldn’t find the page you’re looking for.
+        Sorry, we couldn&rsquo;t find the page you&rsquo;re looking for.
       </p>
       <div className="mt-10">
         <a

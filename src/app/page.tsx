@@ -1,7 +1,6 @@
 'use client';
 
 import { Disclosure } from '@headlessui/react';
-import * as React from 'react';
 import { InlineWidget } from 'react-calendly';
 import { LuBug, LuCheck, LuListChecks, LuShuffle } from 'react-icons/lu';
 
@@ -83,7 +82,7 @@ const pricingTiers: {
 ];
 
 export default function HomePage() {
-  // const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <>
@@ -288,7 +287,7 @@ export default function HomePage() {
           <InlineWidget
             url="https://calendly.com/larskamp/fix-early-access"
             pageSettings={{
-              primaryColor: 'd77e08',
+              primaryColor: 'b2590b',
             }}
             styles={{
               flexGrow: 1,

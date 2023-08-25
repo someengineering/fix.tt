@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 import { ImSpinner2 } from 'react-icons/im';
 
@@ -22,7 +22,7 @@ type IconButtonProps = {
   };
 } & React.ComponentPropsWithRef<'button'>;
 
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   (
     {
       className,

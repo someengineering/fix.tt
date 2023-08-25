@@ -1,6 +1,8 @@
+import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
-import * as React from 'react';
+import Script from 'next/script';
+import { Suspense } from 'react';
 import { FaGithub } from 'react-icons/fa6';
 
 import '@/styles/globals.css';
@@ -8,9 +10,12 @@ import '@/styles/globals.css';
 import { openGraph } from '@/lib/og';
 
 import ButtonLink from '@/components/links/ButtonLink';
+import { NavigationEvents } from '@/components/NavigationEvents';
 
 import Logo from '@/assets/logo.svg';
 import { siteConfig } from '@/constant/config';
+import { isProd } from '@/constant/env';
+import { gtagId } from '@/constant/env';
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
@@ -24,7 +29,9 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.title}`,
   },
   description: siteConfig.description,
-  robots: { index: true, follow: true },
+  robots: isProd
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   themeColor: '#304c89',
   icons: {
     icon: '/favicon.ico',
@@ -191,6 +198,34 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
+        <Analytics />
+        {gtagId ? (
+          <>
+            <Script
+              strategy="afterInteractive"
+              src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
+            />
+            <Script
+              id="google-analytics"
+              strategy="afterInteractive"
+              dangerouslySetInnerHTML={{
+                __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+                
+                gtag('config', ${gtagId}, {
+                  'send_page_view': false,
+                  'anonymize_ip': true
+                });
+              `,
+              }}
+            />
+            <Suspense fallback={null}>
+              <NavigationEvents />
+            </Suspense>
+          </>
+        ) : null}
       </body>
     </html>
   );
