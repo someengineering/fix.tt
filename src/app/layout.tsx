@@ -1,4 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
 import { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import Script from 'next/script';
@@ -198,7 +197,6 @@ export default function RootLayout({
             </p>
           </div>
         </footer>
-        <Analytics />
         {gtagId ? (
           <>
             <Script
