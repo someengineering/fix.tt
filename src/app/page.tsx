@@ -56,14 +56,13 @@ const pricingTiers: {
     price: '$5',
     priceUnit: 'cloud account per month',
     description:
-      'For security teams who want a hosted solution and are budget-conscious.',
+      'For security teams who want a hosted solution to take control of cloud misconfigurations.',
     features: [
-      'CSPM',
-      'Daily scans',
-      'ChatOps integrations',
-      'Workflow integrations',
-      'API access',
-      'Premium support',
+      'CSPM & KSPM',
+      'Compliance checks',
+      'Jira integrations',
+      'PagerDuty integrations',
+      'Chat integrations (Slack, Discord)',
     ],
   },
   {
@@ -71,12 +70,13 @@ const pricingTiers: {
     id: 'tier-enterprise',
     price: 'Custom',
     description:
-      'For security teams in large enterprises or regulated industries who want on-prem deployment.',
+      'For security teams in regulated industries who need on-prem deployment and a full view of cloud assets and security posture.',
     features: [
       'Everything in Cloud',
+      'Asset inventory',
+      'Attack surface discovery',
       'Custom scan frequency',
-      'Cloud asset inventory',
-      'Technical account manager',
+      'Custom reports',
     ],
   },
 ];
@@ -192,6 +192,8 @@ export default function HomePage() {
                   <p className="mt-6 text-base leading-7 text-gray-600">
                     {tier.description}
                   </p>
+                </div>
+                <div>
                   <ul
                     role="list"
                     className="mt-10 space-y-4 text-sm leading-6 text-gray-600"
@@ -206,14 +208,14 @@ export default function HomePage() {
                       </li>
                     ))}
                   </ul>
+                  <ButtonLink
+                    href="#request-early-access"
+                    variant="secondary"
+                    className="mt-8 block text-center"
+                  >
+                    Request early access
+                  </ButtonLink>
                 </div>
-                <ButtonLink
-                  href="#request-early-access"
-                  variant="secondary"
-                  className="mt-8 block text-center"
-                >
-                  Request early access
-                </ButtonLink>
               </div>
             ))}
             <div className="flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
