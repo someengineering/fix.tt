@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 
 import * as gtag from '@/lib/gtag';
 
+import { siteConfig } from '@/constant/config';
 import { gtagId } from '@/constant/env';
 
 export function NavigationEvents() {
@@ -13,7 +14,7 @@ export function NavigationEvents() {
 
   useEffect(() => {
     if (gtagId) {
-      gtag.pageview(new URL(`${pathname}?${searchParams}`));
+      gtag.pageview(new URL(`${siteConfig.url}${pathname}?${searchParams}`));
     }
   }, [pathname, searchParams]);
 
