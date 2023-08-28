@@ -212,7 +212,7 @@ export default function RootLayout({
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
                 
-                gtag('config', ${gtagId}, {
+                gtag('config', '${gtagId}', {
                   'send_page_view': false,
                   'anonymize_ip': true
                 });
