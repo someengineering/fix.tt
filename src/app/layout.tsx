@@ -213,7 +213,6 @@ export default function RootLayout({
                 gtag('js', new Date());
                 
                 gtag('config', '${gtagId}', {
-                  'send_page_view': false,
                   'anonymize_ip': true
                 });
               `,
