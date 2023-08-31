@@ -99,14 +99,14 @@ export default function HomePage() {
               {siteConfig.description}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <ButtonLink href="#request-early-access" variant="secondary">
+              <ButtonLink href="#request-early-access" variant="tangerine">
                 Request early access
               </ButtonLink>
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-primary-50 py-24 sm:py-32">
+      <div className="bg-tangerine-50 py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
             <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
@@ -122,7 +122,7 @@ export default function HomePage() {
               {features.map((feature) => (
                 <div key={feature.name} className="flex flex-col">
                   <dt className="text-lg font-semibold leading-7 text-gray-900">
-                    <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-lg bg-primary-900">
+                    <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-xl bg-primary-900">
                       <feature.icon
                         className="h-6 w-6 text-white"
                         aria-hidden="true"
@@ -142,10 +142,10 @@ export default function HomePage() {
       <div className="isolate py-24 sm:py-32" id="pricing">
         <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-lg font-semibold leading-7 text-primary-700">
+            <h2 className="text-xl font-semibold leading-7 text-primary-900">
               Pricing
             </h2>
-            <p className="mt-2 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            <p className="mx-auto mt-2 max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
               Build securely in the cloud without overspending.
             </p>
           </div>
@@ -201,7 +201,7 @@ export default function HomePage() {
                     {tier.features.map((feature) => (
                       <li key={feature} className="flex gap-x-3">
                         <LuCheck
-                          className="h-6 w-6 flex-none text-primary-900"
+                          className="h-6 w-6 flex-none text-jade-600"
                           aria-hidden="true"
                         />
                         {feature}
@@ -210,7 +210,7 @@ export default function HomePage() {
                   </ul>
                   <ButtonLink
                     href="#request-early-access"
-                    variant="secondary"
+                    variant="tangerine"
                     className="mt-8 block text-center"
                   >
                     Request early access
@@ -289,7 +289,7 @@ export default function HomePage() {
           <InlineWidget
             url="https://calendly.com/larskamp/fix-early-access"
             pageSettings={{
-              primaryColor: 'b2590b',
+              primaryColor: 'f78400',
             }}
             styles={{
               flexGrow: 1,

@@ -1,40 +1,84 @@
 import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      primary: {
+        '50': '#eef7ff',
+        '100': '#daecff',
+        '200': '#bddfff',
+        '300': '#8fccff',
+        '400': '#5baeff',
+        '500': '#358dfc',
+        '600': '#1e6ef2',
+        '700': '#1757de',
+        '800': '#1946b4',
+        '900': '#1c4396', // Marian Blue
+        '950': '#152856',
+      },
+      'cornflower-blue': {
+        '50': '#f1f4fd',
+        '100': '#dfe7fa',
+        '200': '#c7d6f6',
+        '300': '#a0bcf0',
+        '400': '#648de5', // Cornflower Blue
+        '500': '#5275df',
+        '600': '#3d58d3',
+        '700': '#3447c1',
+        '800': '#2f3b9e',
+        '900': '#2b357d',
+        '950': '#1e234d',
+      },
+      tangerine: {
+        '50': '#fffbec',
+        '100': '#fff5d3',
+        '200': '#ffe8a5',
+        '300': '#ffd66d',
+        '400': '#ffb832',
+        '500': '#ffa00a',
+        '600': '#f78400', // Tangerine
+        '700': '#cc6402',
+        '800': '#a14d0b',
+        '900': '#82410c',
+        '950': '#461f04',
+      },
+      jade: {
+        '50': '#ebfef4',
+        '100': '#d0fbe2',
+        '200': '#a4f6ca',
+        '300': '#6aebaf',
+        '400': '#2fd88f',
+        '500': '#0abf77',
+        '600': '#00ac6b', // Jade
+        '700': '#007c51',
+        '800': '#036241',
+        '900': '#045037',
+        '950': '#012d20',
+      },
+      amaranth: {
+        '50': '#fff1f3',
+        '100': '#ffe4e7',
+        '200': '#ffccd5',
+        '300': '#fea3b2',
+        '400': '#fd6f8b',
+        '500': '#f63d65',
+        '600': '#e01a4f', // Amaranth
+        '700': '#c01043',
+        '800': '#a1103f',
+        '900': '#8a113c',
+        '950': '#4d041d',
+      },
+    },
     extend: {
       fontFamily: {
         sans: ['var(--font-nunito-sans)'],
-      },
-      colors: {
-        primary: {
-          50: 'rgb(var(--tw-color-primary-50) / <alpha-value>)',
-          100: 'rgb(var(--tw-color-primary-100) / <alpha-value>)',
-          200: 'rgb(var(--tw-color-primary-200) / <alpha-value>)',
-          300: 'rgb(var(--tw-color-primary-300) / <alpha-value>)',
-          400: 'rgb(var(--tw-color-primary-400) / <alpha-value>)',
-          500: 'rgb(var(--tw-color-primary-500) / <alpha-value>)',
-          600: 'rgb(var(--tw-color-primary-600) / <alpha-value>)',
-          700: 'rgb(var(--tw-color-primary-700) / <alpha-value>)',
-          800: 'rgb(var(--tw-color-primary-800) / <alpha-value>)',
-          900: 'rgb(var(--tw-color-primary-900) / <alpha-value>)',
-          950: 'rgb(var(--tw-color-primary-950) / <alpha-value>)',
-        },
-        secondary: {
-          50: 'rgb(var(--tw-color-secondary-50) / <alpha-value>)',
-          100: 'rgb(var(--tw-color-secondary-100) / <alpha-value>)',
-          200: 'rgb(var(--tw-color-secondary-200) / <alpha-value>)',
-          300: 'rgb(var(--tw-color-secondary-300) / <alpha-value>)',
-          400: 'rgb(var(--tw-color-secondary-400) / <alpha-value>)',
-          500: 'rgb(var(--tw-color-secondary-500) / <alpha-value>)',
-          600: 'rgb(var(--tw-color-secondary-600) / <alpha-value>)',
-          700: 'rgb(var(--tw-color-secondary-700) / <alpha-value>)',
-          800: 'rgb(var(--tw-color-secondary-800) / <alpha-value>)',
-          900: 'rgb(var(--tw-color-secondary-900) / <alpha-value>)',
-          950: 'rgb(var(--tw-color-secondary-950) / <alpha-value>)',
-        },
-        dark: '#222222',
       },
       keyframes: {
         flicker: {

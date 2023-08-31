@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   robots: isProd
     ? { index: true, follow: true }
     : { index: false, follow: false },
-  themeColor: '#304c89',
+  themeColor: '#1946b4',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
@@ -98,7 +98,10 @@ export default function RootLayout({
             aria-label="Global"
           >
             <div className="flex lg:flex-1">
-              <a href="#" className="-m-1.5 p-1.5">
+              <a
+                href="#"
+                className="-m-1.5 p-1.5 text-primary-900 hover:text-primary-950"
+              >
                 <span className="sr-only">{siteConfig.title}</span>
                 <Logo className="h-16 w-auto" src="/images/logo.png" />
               </a>
@@ -128,7 +131,7 @@ export default function RootLayout({
           <ButtonLink href="#">Get a demo</ButtonLink>
         </div> */}
             <div className="flex flex-1 justify-end">
-              <ButtonLink href="#request-early-access" variant="secondary">
+              <ButtonLink href="#request-early-access" variant="tangerine">
                 Request early access
               </ButtonLink>
             </div>

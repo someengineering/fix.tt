@@ -9,7 +9,7 @@ import UnstyledLink, {
 
 const ButtonLinkVariant = [
   'primary',
-  'secondary',
+  'tangerine',
   'outline',
   'ghost',
   'light',
@@ -49,7 +49,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         ref={ref}
         {...rest}
         className={cn(
-          'inline-flex items-center rounded-lg font-semibold',
+          'inline-flex items-center rounded-xl font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
           'transition-colors duration-75',
@@ -68,17 +68,17 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
               'active:bg-primary-800',
               'disabled:bg-primary-800',
             ],
-            variant === 'secondary' && [
-              'bg-secondary-700 text-white',
-              'border border-secondary-700',
-              'hover:bg-secondary-800 hover:text-white',
-              'active:bg-secondary-900',
-              'disabled:bg-secondary-900',
+            variant === 'tangerine' && [
+              'bg-tangerine-600 text-white',
+              'border border-tangerine-600',
+              'hover:bg-tangerine-700 hover:text-white',
+              'active:bg-tangerine-800',
+              'disabled:bg-tangerine-800',
             ],
             variant === 'outline' && [
-              'text-secondary-700',
-              'border border-secondary-700',
-              'hover:bg-secondary-50 active:bg-secondary-100 disabled:bg-secondary-100',
+              'text-tangerine-600',
+              'border border-tangerine-600',
+              'hover:bg-tangerine-50 active:bg-tangerine-100 disabled:bg-tangerine-100',
               isDarkBg &&
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
@@ -92,7 +92,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
             variant === 'light' && [
               'bg-white text-gray-700',
               'border border-gray-300',
-              'hover:bg-gray-100 hover:text-dark',
+              'hover:text-dark hover:bg-gray-100',
               'active:bg-white/80 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
