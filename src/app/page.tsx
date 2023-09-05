@@ -122,10 +122,10 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="bg-primary-50 py-24 sm:py-32">
+      <div className="bg-primary-50 py-24 sm:py-32" id="why">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-xl font-semibold leading-7 text-primary-900">
+            <h2 className="mb-3 text-xl font-semibold uppercase leading-7 text-primary-900">
               Why Fix?
             </h2>
             <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
@@ -175,7 +175,7 @@ export default function HomePage() {
       <div className="isolate py-24 sm:py-32" id="pricing">
         <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-xl font-semibold leading-7 text-primary-900">
+            <h2 className="mb-3 text-xl font-semibold uppercase leading-7 text-primary-900">
               Pricing
             </h2>
             <p className="mx-auto mt-2 max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
