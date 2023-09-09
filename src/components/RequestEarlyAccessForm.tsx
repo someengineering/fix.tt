@@ -26,6 +26,7 @@ export function RequestEarlyAccessForm() {
     register,
     watch,
     handleSubmit,
+    setError,
     formState: {
       touchedFields,
       errors,
@@ -97,15 +98,24 @@ export function RequestEarlyAccessForm() {
         ) : (
           <form
             onSubmit={handleSubmit(async (data) => {
-              const captcha = await captchaRef.current?.executeAsync();
+              try {
+                const captcha = await captchaRef.current?.executeAsync();
 
-              await axios.post(
-                '/api/request-early-access',
-                { ...data, captcha },
-                {
-                  headers: { 'Content-type': 'multipart/form-data' },
-                },
-              );
+                await axios.post(
+                  '/api/request-early-access',
+                  { ...data, captcha },
+                  {
+                    headers: { 'Content-type': 'multipart/form-data' },
+                  },
+                );
+              } catch (e) {
+                if (e instanceof Error) {
+                  setError('root.serverError', {
+                    type: e.name,
+                    message: e.message,
+                  });
+                }
+              }
             })}
             className="mx-auto mt-10 flex max-w-md gap-x-4"
           >
