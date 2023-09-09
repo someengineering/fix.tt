@@ -55,6 +55,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           'inline-flex items-center rounded-xl font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
+          'disabled:text-opacity-75',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
@@ -66,14 +67,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           [
             variant === 'primary' && [
               'bg-primary-600 text-white',
-              'border border-primary-600',
               'hover:bg-primary-700 hover:text-white',
               'active:bg-primary-800',
               'disabled:bg-primary-800',
             ],
             variant === 'tangerine' && [
               'bg-tangerine-600 text-white',
-              'border border-tangerine-600',
               'hover:bg-tangerine-700 hover:text-white',
               'active:bg-tangerine-800',
               'disabled:bg-tangerine-800',

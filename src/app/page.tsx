@@ -1,10 +1,9 @@
 'use client';
 
-import { Disclosure } from '@headlessui/react';
-import { InlineWidget } from 'react-calendly';
 import { LuBug, LuCheck, LuListChecks, LuShuffle } from 'react-icons/lu';
 
 import ButtonLink from '@/components/links/ButtonLink';
+import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
 
 import { siteConfig } from '@/constant/config';
 
@@ -275,67 +274,7 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <div className="bg-primary-900 py-24 sm:py-32" id="request-early-access">
-        <div className="mx-auto max-w-2xl px-6 text-center lg:px-8">
-          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Request early access.
-          </h2>
-          <div className="mx-auto mt-6 max-w-xl text-lg leading-8 text-primary-200">
-            Schedule a call to get a demo and see Fix in action. Talk directly
-            to our founders&mdash;no{' '}
-            <abbr title="business development representative">BDR</abbr>s, no
-            sales reps.
-          </div>
-          <Disclosure as="dl" className="mt-10">
-            <Disclosure.Button
-              as="dt"
-              className="cursor-pointer text-base font-semibold leading-7 text-primary-50 underline transition hover:text-white motion-reduce:transition-none motion-reduce:hover:transform-none"
-            >
-              Why request early access?
-            </Disclosure.Button>
-            <Disclosure.Panel
-              as="dd"
-              unmount={false}
-              className="space-y-2 pt-2 text-base leading-7 text-primary-100"
-            >
-              <p>
-                <strong>Cloud security requires trust.</strong> That&rsquo;s why
-                we establish a personal connection to determine if Fix can help.
-                We work with early access partners to:
-              </p>
-              <ul role="list" className="space-y-1 text-sm leading-6">
-                {[
-                  'Understand security requirements.',
-                  'Establish a security baseline.',
-                  'Automate security operations.',
-                ].map((goal) => (
-                  <li
-                    key={goal}
-                    className="flex items-center justify-center gap-x-2"
-                  >
-                    <LuCheck className="h-4 w-4 flex-none" aria-hidden="true" />
-                    {goal}
-                  </li>
-                ))}
-              </ul>
-            </Disclosure.Panel>
-          </Disclosure>
-        </div>
-        <div className="mt-10 flex h-[72rem] items-center justify-center px-6 sm:h-[76rem] md:mt-0 md:px-0 lg:h-[44rem]">
-          <InlineWidget
-            url="https://calendly.com/larskamp/fix-early-access"
-            pageSettings={{
-              primaryColor: 'f78400',
-            }}
-            styles={{
-              flexGrow: 1,
-              height: '100%',
-              width: '100%',
-              minWidth: '320px',
-            }}
-          />
-        </div>
-      </div>
+      <RequestEarlyAccessForm />
     </>
   );
 }
