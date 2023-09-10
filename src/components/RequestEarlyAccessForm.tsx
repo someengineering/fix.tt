@@ -127,7 +127,7 @@ export function RequestEarlyAccessForm() {
               />
             ) : null}
           </form>
-          <Disclosure as="dl" className="mt-10">
+          <Disclosure as="dl" className="mt-6">
             <Disclosure.Button
               as="dt"
               className="cursor-pointer text-base font-semibold leading-7 text-gray-400 underline transition hover:text-gray-500 motion-reduce:transition-none motion-reduce:hover:transform-none"
