@@ -113,11 +113,7 @@ export default function HomePage() {
             <p className="balanced mt-6 text-lg leading-8 text-gray-600">
               {siteConfig.description}
             </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <ButtonLink href="#request-early-access" variant="tangerine">
-                Request early access
-              </ButtonLink>
-            </div>
+            <RequestEarlyAccessForm />
           </div>
         </div>
       </div>
@@ -274,7 +270,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-      <RequestEarlyAccessForm />
     </>
   );
 }

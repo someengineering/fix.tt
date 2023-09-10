@@ -52,7 +52,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           'inline-flex items-center rounded-xl font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
-          'disabled:text-opacity-75',
+          'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
@@ -66,13 +66,13 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
               'bg-primary-600 text-white',
               'hover:bg-primary-700 hover:text-white',
               'active:bg-primary-800',
-              'disabled:bg-primary-800',
+              'disabled:bg-primary-600',
             ],
             variant === 'tangerine' && [
               'bg-tangerine-600 text-white',
               'hover:bg-tangerine-700 hover:text-white',
               'active:bg-tangerine-800',
-              'disabled:bg-tangerine-800',
+              'disabled:bg-tangerine-600',
             ],
             variant === 'outline' && [
               'text-tangerine-600',

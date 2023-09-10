@@ -1,5 +1,6 @@
 'use client';
 
+import { Disclosure } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRef, useState } from 'react';
@@ -47,55 +48,31 @@ export function RequestEarlyAccessForm() {
   }
 
   return (
-    <div
-      className="mx-auto max-w-7xl sm:px-6 lg:px-8"
-      id="request-early-access"
-    >
-      <div className="relative isolate overflow-hidden bg-primary-950 px-6 py-24 shadow-2xl sm:rounded-3xl sm:px-24 xl:py-32">
-        <h2 className="mx-auto max-w-2xl text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Request early access.
-        </h2>
-        <div className="mx-auto max-w-prose text-center text-lg leading-8 text-gray-300">
-          <p className="mt-6">
-            We have a limited number of spaces in a private beta where we work
-            with you to tailor an early-access version of Fix to your
-            organization&rsquo;s specific needs.
-          </p>
-          <p className="mt-6">
-            Leave your email below if you'd like to participate in this private
-            beta program&mdash;we&rsquo;re adding new users every week on a
-            rolling basis.
-          </p>
+    <div className="mt-10" id="request-early-access">
+      {isSubmitted ? (
+        <div className="mx-auto max-w-md rounded-xl bg-white px-4 pb-4 pt-5 text-center shadow-xl ring-1 ring-black ring-opacity-5 transition-all sm:w-full sm:max-w-sm sm:p-6">
+          {isSubmitSuccessful ? (
+            <>
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-jade-50">
+                <LuCheck className="h-6 w-6 text-jade-600" aria-hidden="true" />
+              </div>
+              <p className="mt-3 text-base font-semibold leading-6 text-gray-900 sm:mt-5">
+                Thanks for signing up! We&rsquo;ll be in touch soon.
+              </p>
+            </>
+          ) : (
+            <>
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amaranth-50">
+                <LuX className="h-6 w-6 text-amaranth-600" aria-hidden="true" />
+              </div>
+              <p className="mt-3 text-base font-semibold leading-6 text-gray-900 sm:mt-5">
+                Something went wrong. Please try again later.
+              </p>
+            </>
+          )}
         </div>
-        {isSubmitted ? (
-          <div className="mx-auto mt-10 max-w-md rounded-xl bg-white px-4 pb-4 pt-5 text-center shadow-xl transition-all sm:w-full sm:max-w-sm sm:p-6">
-            {isSubmitSuccessful ? (
-              <>
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-jade-50">
-                  <LuCheck
-                    className="h-6 w-6 text-jade-600"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p className="mt-3 text-base font-semibold leading-6 text-gray-900 sm:mt-5">
-                  Thanks for signing up! We&rsquo;ll be in touch soon.
-                </p>
-              </>
-            ) : (
-              <>
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-amaranth-50">
-                  <LuX
-                    className="h-6 w-6 text-amaranth-600"
-                    aria-hidden="true"
-                  />
-                </div>
-                <p className="mt-3 text-base font-semibold leading-6 text-gray-900 sm:mt-5">
-                  Something went wrong. Please try again later.
-                </p>
-              </>
-            )}
-          </div>
-        ) : (
+      ) : (
+        <>
           <form
             onSubmit={handleSubmit(async (data) => {
               try {
@@ -117,7 +94,7 @@ export function RequestEarlyAccessForm() {
                 }
               }
             })}
-            className="mx-auto mt-10 flex max-w-md gap-x-4"
+            className="mx-auto flex max-w-lg items-center justify-center gap-x-4"
           >
             <label htmlFor="email" className="sr-only">
               Company email
@@ -129,10 +106,10 @@ export function RequestEarlyAccessForm() {
               placeholder="Company email"
               required
               {...register('email', { required: true })}
-              className={`min-w-0 flex-auto rounded-xl border-0 bg-primary-950 px-3.5 py-2 text-base text-white placeholder-white/75 shadow-sm ring-1 ring-inset focus:bg-white/5 focus:ring-1 focus:ring-inset ${
+              className={`min-w-0 flex-auto rounded-xl border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                 !touchedFields.email || !errors.email
-                  ? 'ring-white/50 focus:ring-white'
-                  : 'ring-amaranth-600/75 focus:ring-amaranth-600'
+                  ? 'ring-gray-400 focus:ring-cornflower-blue-400'
+                  : 'ring-amaranth-600 focus:ring-amaranth-600'
               }`}
             />
             <Button
@@ -140,7 +117,7 @@ export function RequestEarlyAccessForm() {
               type="submit"
               disabled={!isValid || isSubmitting}
             >
-              Submit
+              Request early access
             </Button>
             {captchaEnabled ? (
               <ReCAPTCHA
@@ -150,8 +127,32 @@ export function RequestEarlyAccessForm() {
               />
             ) : null}
           </form>
-        )}
-      </div>
+          <Disclosure as="dl" className="mt-10">
+            <Disclosure.Button
+              as="dt"
+              className="cursor-pointer text-base font-semibold leading-7 text-gray-400 underline transition hover:text-gray-500 motion-reduce:transition-none motion-reduce:hover:transform-none"
+            >
+              Why request early access?
+            </Disclosure.Button>
+            <Disclosure.Panel
+              as="dd"
+              unmount={false}
+              className="mx-auto max-w-prose space-y-2 pt-2 text-base leading-7 text-gray-600"
+            >
+              <p>
+                We have a limited number of spaces in a private beta where we
+                work with you to tailor an early-access version of Fix to your
+                organization&rsquo;s specific needs.
+              </p>
+              <p>
+                Submit your email address above if you&rsquo;d like to
+                participate&mdash;we&rsquo;re adding new users every week on a
+                rolling basis.
+              </p>
+            </Disclosure.Panel>
+          </Disclosure>
+        </>
+      )}
     </div>
   );
 }
