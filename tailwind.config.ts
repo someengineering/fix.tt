@@ -10,6 +10,7 @@ export default {
       black: colors.black,
       white: colors.white,
       gray: colors.gray,
+      red: colors.red,
       primary: {
         '50': '#eef7ff',
         '100': '#daecff',
