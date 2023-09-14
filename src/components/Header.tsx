@@ -1,8 +1,8 @@
 'use client';
 
-// import { Dialog } from '@headlessui/react';
-// import { useState } from 'react';
-// import { LuMenu, LuX } from 'react-icons/lu';
+import { Dialog } from '@headlessui/react';
+import { useState } from 'react';
+import { LuMenu, LuX } from 'react-icons/lu';
 
 import '@/styles/globals.css';
 
@@ -10,14 +10,14 @@ import '@/styles/globals.css';
 import Logo from '@/assets/logo.svg';
 import { siteConfig } from '@/constant/config';
 
-// const navigation = [
-//   { name: 'Why Fix', href: '#why' },
-//   { name: 'Pricing', href: '#pricing' },
-//   { name: 'FAQ', href: '#faq' },
-// ];
+const navigation = [
+  { name: 'Why Fix?', href: '#why' },
+  { name: 'Pricing', href: '#pricing' },
+  { name: 'FAQ', href: '#faq' },
+];
 
 export default function Header() {
-  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header>
@@ -34,7 +34,7 @@ export default function Header() {
             <Logo className="h-16 w-auto" />
           </a>
         </div>
-        {/* <div className="flex lg:hidden">
+        <div className="flex lg:hidden">
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700"
@@ -56,12 +56,12 @@ export default function Header() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <ButtonLink href="#request-early-access">
+          {/* <ButtonLink href="#request-early-access">
             Request early access
-          </ButtonLink>
-        </div> */}
+          </ButtonLink> */}
+        </div>
       </nav>
-      {/* <Dialog
+      <Dialog
         as="div"
         className="lg:hidden"
         open={mobileMenuOpen}
@@ -96,15 +96,15 @@ export default function Header() {
                   </a>
                 ))}
               </div>
-              <div className="py-6">
+              {/* <div className="py-6">
                 <ButtonLink href="#request-early-access" variant="tangerine">
                   Request early access
                 </ButtonLink>
-              </div>
+              </div> */}
             </div>
           </div>
         </Dialog.Panel>
-      </Dialog> */}
+      </Dialog>
     </header>
   );
 }
