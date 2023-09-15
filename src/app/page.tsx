@@ -1,3 +1,4 @@
+import Faq from '@/components/Faq';
 import Pricing from '@/components/Pricing';
 import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
 import Why from '@/components/Why';
@@ -22,6 +23,7 @@ export default function HomePage() {
       </div>
       <Why />
       <Pricing />
+      <Faq />
     </>
   );
 }
