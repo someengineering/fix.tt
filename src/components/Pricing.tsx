@@ -35,9 +35,9 @@ const tiers: {
     description:
       'For security teams who want to harden multiple cloud accounts.',
     features: [
-      'Everything in Starter',
       'Daily scans of up to 200K resources per account',
       'Additional scans priced at $0.10 per account per scan',
+      'Everything in Starter',
     ],
   },
   {
@@ -47,9 +47,8 @@ const tiers: {
     cta: 'Request early access',
     price: 'Custom',
     description:
-      'For security teams in regulated industries who need on-prem deployment.',
+      'For security teams in regulated industries who require on-prem deployment.',
     features: [
-      'Everything in Cloud',
       'Custom scan frequency',
       'Deploy Fix to your VPC',
       'Workflow integrations (ticketing, chat, etc.)',
@@ -75,12 +74,11 @@ export default function Pricing() {
         </div>
         <div className="relative mx-auto max-w-2xl text-lg leading-8 text-gray-600">
           <p className="mt-6">
-            Fix charges a fee per connected cloud account. Usage-based pricing
-            means you only pay for the cloud accounts you actually use and need
-            to keep secure.
+            Fix&rsquo;s pricing is based on the number of scanned cloud
+            accounts.
           </p>
           <p className="mt-6">
-            There are no minimum commitments, and you can even start scanning a
+            There is no minimum commitment, and you can even start scanning a
             single cloud account for free.
           </p>
         </div>
