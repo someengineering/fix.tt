@@ -2,44 +2,54 @@ import { LuCheck } from 'react-icons/lu';
 
 import ButtonLink from '@/components/links/ButtonLink';
 
-const pricingTiers: {
+const tiers: {
   name: string;
   id: string;
-  price: string;
-  priceUnit?: string;
+  href: string;
+  price: string | { monthly: string; annually?: string };
   description: string;
-  features: (string | JSX.Element)[];
+  features: string[];
 }[] = [
+  {
+    name: 'Starter',
+    id: 'tier-starter',
+    href: '#request-early-access',
+    price: 'Free',
+    description:
+      'For solo engineers who want to perform security checks on a single cloud account.',
+    features: [
+      'Monthly scans of up to 200K resources',
+      'Compliance checks',
+      'Issue tracking',
+      'Email reports',
+    ],
+  },
   {
     name: 'Cloud',
     id: 'tier-cloud',
-    price: '$5',
-    priceUnit: 'cloud account per month',
+    href: '#request-early-access',
+    price: { monthly: '$5' },
     description:
-      'For security teams who want a hosted solution to take control of cloud misconfigurations.',
+      'For security teams who want to harden multiple cloud accounts.',
     features: [
-      <>
-        <abbr title="Cloud Security and Posture Management">CSPM</abbr> &amp;{' '}
-        <abbr title="Kubernetes Security Posture Management">KSPM</abbr>
-      </>,
-      'Compliance checks',
-      'Jira integrations',
-      'PagerDuty integrations',
-      'Chat integrations (Slack, Discord)',
+      'Everything in Starter',
+      'Daily scans of up to 200K resources per account',
+      'Additional scans priced at $0.10 per account per scan',
     ],
   },
   {
     name: 'Enterprise',
     id: 'tier-enterprise',
+    href: '#request-early-access',
     price: 'Custom',
     description:
-      'For security teams in regulated industries who need on-prem deployment and a full view of cloud assets and security posture.',
+      'For security teams in regulated industries who need on-prem deployment.',
     features: [
       'Everything in Cloud',
-      'Asset inventory',
-      'Attack surface discovery',
       'Custom scan frequency',
-      'Custom reports',
+      'Deploy Fix to your VPC',
+      'Workflow integrations (ticketing, chat, etc.)',
+      'Dedicated onboarding support',
     ],
   },
 ];
@@ -66,88 +76,62 @@ export default function Pricing() {
             to keep secure.
           </p>
           <p className="mt-6">
-            There are no minimum commitments for the Cloud tier, and you can
-            even self-host the open-source version for free.
-          </p>
-          <p className="mt-6">
-            Our goal is to give everyone great cloud security, regardless of
-            budget.
+            There are no minimum commitments, and you can even start scanning a
+            single cloud account for free.
           </p>
         </div>
-      </div>
-      <div className="mx-auto mt-16 max-w-7xl px-6 sm:mt-20 lg:mt-24 lg:px-8">
-        <div className="mx-auto grid max-w-md grid-cols-1 gap-8 lg:max-w-4xl lg:grid-cols-2">
-          {pricingTiers.map((tier) => (
-            <div
-              key={tier.id}
-              className="flex flex-col justify-between rounded-3xl bg-white p-8 shadow-xl ring-1 ring-gray-900/10 sm:p-10"
-            >
-              <div>
+        <div className="mt-20 flow-root">
+          <div className="isolate -mt-16 grid max-w-sm grid-cols-1 gap-y-16 divide-y divide-gray-100 text-left sm:mx-auto lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:divide-x lg:divide-y-0 xl:-mx-4">
+            {tiers.map((tier) => (
+              <div key={tier.id} className="pt-16 lg:px-8 lg:pt-0 xl:px-14">
                 <h3
                   id={tier.id}
                   className="text-xl font-semibold leading-7 text-primary-900"
                 >
                   {tier.name}
                 </h3>
-                <div className="mt-4 flex items-baseline gap-x-2">
-                  <span className="text-5xl font-bold tracking-tight text-gray-900">
-                    {tier.price}
-                  </span>
-                  {tier.priceUnit ? (
-                    <span className="text-base font-semibold leading-7 text-gray-600">
-                      / {tier.priceUnit}
+                <p className="mt-6 flex items-baseline gap-x-1">
+                  {typeof tier.price === 'string' ? (
+                    <span className="text-5xl font-bold tracking-tight text-gray-900">
+                      {tier.price}
                     </span>
-                  ) : null}
-                </div>
-                <p className="mt-6 text-base leading-7 text-gray-600">
+                  ) : (
+                    <>
+                      <span className="text-5xl font-bold tracking-tight text-gray-900">
+                        {tier.price.monthly}
+                      </span>
+                      <span className="text-sm font-semibold leading-6 text-gray-600">
+                        / cloud account per month
+                      </span>
+                    </>
+                  )}
+                </p>
+                <ButtonLink
+                  href="#request-early-access"
+                  variant="tangerine"
+                  className="mt-10 block text-center"
+                >
+                  Request early access
+                </ButtonLink>
+                <p className="mt-10 text-base font-semibold leading-6 text-gray-900">
                   {tier.description}
                 </p>
-              </div>
-              <div>
                 <ul
                   role="list"
-                  className="mt-10 space-y-4 text-sm leading-6 text-gray-600"
+                  className="mt-6 space-y-3 text-sm leading-6 text-gray-600"
                 >
-                  {tier.features.map((feature, index) => (
-                    <li
-                      key={`pricing-${tier}-${index}`}
-                      className="flex gap-x-3"
-                    >
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex gap-x-3">
                       <LuCheck
                         className="h-6 w-6 flex-none text-jade-600"
                         aria-hidden="true"
                       />
-                      <span>{feature}</span>
+                      {feature}
                     </li>
                   ))}
                 </ul>
-                <ButtonLink
-                  href="#request-early-access"
-                  variant="tangerine"
-                  className="mt-8 block text-center"
-                >
-                  Request early access
-                </ButtonLink>
               </div>
-            </div>
-          ))}
-          <div className="flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
-            <div className="lg:min-w-0 lg:flex-1">
-              <h3 className="text-xl font-semibold leading-8 text-primary-900">
-                Free Self-Hosted
-              </h3>
-              <p className="mt-1 text-base leading-7 text-gray-600">
-                For software engineers and SREs who are also in charge of
-                security.
-              </p>
-            </div>
-            <ButtonLink
-              href="#request-early-access"
-              variant="outline"
-              className="block"
-            >
-              Request early access <span aria-hidden="true">&rarr;</span>
-            </ButtonLink>
+            ))}
           </div>
         </div>
       </div>
