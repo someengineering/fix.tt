@@ -6,6 +6,7 @@ const tiers: {
   name: string;
   id: string;
   href: string;
+  cta: string;
   price: string | { monthly: string; annually?: string };
   description: string;
   features: string[];
@@ -14,6 +15,7 @@ const tiers: {
     name: 'Starter',
     id: 'tier-starter',
     href: '#request-early-access',
+    cta: 'Request early access',
     price: 'Free',
     description:
       'For solo engineers who want to perform security checks on a single cloud account.',
@@ -28,6 +30,7 @@ const tiers: {
     name: 'Cloud',
     id: 'tier-cloud',
     href: '#request-early-access',
+    cta: 'Request early access',
     price: { monthly: '$5' },
     description:
       'For security teams who want to harden multiple cloud accounts.',
@@ -41,6 +44,7 @@ const tiers: {
     name: 'Enterprise',
     id: 'tier-enterprise',
     href: '#request-early-access',
+    cta: 'Request early access',
     price: 'Custom',
     description:
       'For security teams in regulated industries who need on-prem deployment.',
@@ -107,11 +111,11 @@ export default function Pricing() {
                   )}
                 </p>
                 <ButtonLink
-                  href="#request-early-access"
+                  href={tier.href}
                   variant="tangerine"
                   className="mt-10 block text-center"
                 >
-                  Request early access
+                  {tier.cta}
                 </ButtonLink>
                 <p className="mt-10 text-base font-semibold leading-6 text-gray-900">
                   {tier.description}
