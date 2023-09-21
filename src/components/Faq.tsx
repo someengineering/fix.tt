@@ -207,6 +207,26 @@ const faqs: {
     ),
   },
   {
+    question: 'What is the licensing for Fix?',
+    answer: (
+      <>
+        <p>
+          Fix is licensed under the{' '}
+          <abbr title="GNU Affero General Public License version 3">
+            GNU AGPL v3
+          </abbr>
+          . This open-source license ensures that the source code of Fix is
+          freely available to the community.
+        </p>
+        <p>
+          The ability to access and inspect the source code is of particular
+          importance for security engineers, as it allows for the software to be
+          vetted for potential vulnerabilities and security flaws.
+        </p>
+      </>
+    ),
+  },
+  {
     question: <>My question isn&rsquo;t listed above.</>,
     answer: (
       <p>
