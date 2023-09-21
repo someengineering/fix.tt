@@ -94,7 +94,7 @@ export function RequestEarlyAccessForm() {
                 }
               }
             })}
-            className="mx-auto flex max-w-lg items-center justify-center gap-x-4"
+            className="mx-auto flex max-w-lg flex-wrap items-center justify-center gap-x-4 gap-y-4"
           >
             <label htmlFor="email" className="sr-only">
               Company email
