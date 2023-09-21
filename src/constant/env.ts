@@ -5,6 +5,6 @@ export const showLogger = isLocal
   ? true
   : process.env.NEXT_PUBLIC_SHOW_LOGGER === 'true' ?? false;
 
-export const gtagId = isProd
-  ? process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
+export const gtmContainerId = isProd
+  ? process.env.NEXT_PUBLIC_GTM_CONTAINER_ID
   : undefined;

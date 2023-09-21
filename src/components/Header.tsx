@@ -11,9 +11,9 @@ import Logo from '@/assets/logo.svg';
 import { siteConfig } from '@/constant/config';
 
 const navigation = [
-  { name: 'Why Fix?', href: '#why' },
-  { name: 'Pricing', href: '#pricing' },
-  { name: 'FAQ', href: '#faq' },
+  { name: 'Why Fix?', href: '/#why' },
+  { name: 'Pricing', href: '/#pricing' },
+  { name: 'FAQ', href: '/#faq' },
 ];
 
 export default function Header() {

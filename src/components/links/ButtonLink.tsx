@@ -18,7 +18,6 @@ const ButtonLinkVariant = [
 const ButtonLinkSize = ['sm', 'base'] as const;
 
 type ButtonLinkProps = {
-  isDarkBg?: boolean;
   variant?: (typeof ButtonLinkVariant)[number];
   size?: (typeof ButtonLinkSize)[number];
   leftIcon?: IconType;
@@ -36,7 +35,6 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
       className,
       variant = 'primary',
       size = 'base',
-      isDarkBg = false,
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
       classNames,
@@ -63,10 +61,10 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           //#region  //*=========== Variants ===========
           [
             variant === 'primary' && [
-              'bg-primary-600 text-white',
-              'hover:bg-primary-700 hover:text-white',
-              'active:bg-primary-800',
-              'disabled:bg-primary-600',
+              'bg-primary-800 text-white',
+              'hover:bg-primary-900 hover:text-white',
+              'active:bg-primary-950',
+              'disabled:bg-primary-800',
             ],
             variant === 'tangerine' && [
               'bg-tangerine-600 text-white',
@@ -78,15 +76,11 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
               'text-tangerine-600',
               'border border-tangerine-600',
               'hover:bg-tangerine-50 active:bg-tangerine-100 disabled:bg-tangerine-100',
-              isDarkBg &&
-                'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
             variant === 'ghost' && [
-              'text-primary-500',
+              'text-primary-900',
               'shadow-none',
-              'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
-              isDarkBg &&
-                'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
+              'hover:bg-primary-50 active:bg-primary-100 active:text-primary-950 disabled:bg-primary-100',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',

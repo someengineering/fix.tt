@@ -1919,9 +1919,9 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 axe-core@^4.6.2:
-  version "4.8.1"
-  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.1.tgz#6948854183ee7e7eae336b9877c5bafa027998ea"
-  integrity sha512-9l850jDDPnKq48nbad8SiEelCv4OrUWrKab/cPj0GScVg6cb6NbCCt/Ulk26QEq5jP9NnGr04Bit1BHyV6r5CQ==
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.8.2.tgz#2f6f3cde40935825cf4465e3c1c9e77b240ff6ae"
+  integrity sha512-/dlp0fxyM3R8YW7MFzaHWXrf4zzbr0vaYb23VBFCl83R7nWNPg/yaQw2Dc8jzCMmDVLhSdzH8MjrsuIUuvX+6g==
 
 axios@1.5.0:
   version "1.5.0"
@@ -3541,6 +3541,11 @@ jiti@^1.18.2:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.20.0.tgz#2d823b5852ee8963585c8dd8b7992ffc1ae83b42"
   integrity sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==
 
+js-cookie@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.5.tgz#0b7e2fd0c01552c58ba86e0841f94dc2557dcdbc"
+  integrity sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -3948,6 +3953,13 @@ natural-compare@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
+
+next-client-cookies@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/next-client-cookies/-/next-client-cookies-1.0.3.tgz#d7200c602efa8f0daa136f4538efbc45cdb0fbc1"
+  integrity sha512-9XgdzgxuGkxiA9VTYoIgqkbudp2PH/tVbbj1+cgTASQkVg/QwFFvunexjG2FF41mR1dE8AMpmB0wG0Hq1cgI6A==
+  dependencies:
+    js-cookie "^3.0.5"
 
 next-sitemap@4.2.3:
   version "4.2.3"

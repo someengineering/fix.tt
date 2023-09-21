@@ -1,19 +1,19 @@
 import { Metadata } from 'next';
 import { Nunito_Sans } from 'next/font/google';
+import { cookies } from 'next/headers';
 import Script from 'next/script';
-import { Suspense } from 'react';
 
 import '@/styles/globals.css';
 
 import { openGraph } from '@/lib/og';
 
+import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import { NavigationEvents } from '@/components/NavigationEvents';
 
 import { siteConfig } from '@/constant/config';
-import { isProd } from '@/constant/env';
-import { gtagId } from '@/constant/env';
+import { gtmContainerId, isProd } from '@/constant/env';
+import { ClientCookiesProvider } from '@/provider/ClientCookiesProvider';
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],
@@ -69,39 +69,58 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const cookieStore = cookies();
+  const consent = cookieStore.get('cookie_consent')?.value === 'true';
+
   return (
-    <html lang="en" className={nunitoSans.variable}>
-      <body className="bg-white">
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        {gtagId ? (
-          <>
-            <Script
-              strategy="afterInteractive"
-              src={`https://www.googletagmanager.com/gtag/js?id=${gtagId}`}
-            />
-            <Script
-              id="google-analytics"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag() { dataLayer.push(arguments); }
-                gtag('js', new Date());
-                
-                gtag('config', '${gtagId}', {
-                  'anonymize_ip': true
-                });
-              `,
-              }}
-            />
-            <Suspense fallback={null}>
-              <NavigationEvents />
-            </Suspense>
-          </>
-        ) : null}
-      </body>
-    </html>
+    <ClientCookiesProvider value={cookieStore.getAll()}>
+      <html lang="en" className={nunitoSans.variable}>
+        <body className="bg-white">
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          {gtmContainerId ? (
+            <>
+              <Script
+                id="google-tag-manager"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('consent', 'default', {
+                    'ad_storage': 'denied',
+                    'analytics_storage': 'denied'
+                  });
+                  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                  })(window,document,'script','dataLayer','${gtmContainerId}');`,
+                }}
+              />
+              {consent ? (
+                <>
+                  <Script
+                    id="consent-update"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                      __html: `
+                        gtag('consent', 'update', {
+                          'ad_storage': 'granted',
+                          'analytics_storage': 'granted'
+                        });
+                      `,
+                    }}
+                  />
+                </>
+              ) : (
+                <CookieConsent />
+              )}
+            </>
+          ) : null}
+        </body>
+      </html>
+    </ClientCookiesProvider>
   );
 }
