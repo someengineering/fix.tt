@@ -43,7 +43,7 @@ export default function CookieConsent() {
             });
           }}
         >
-          Accept all
+          Accept
         </Button>
         <Button
           variant="ghost"
@@ -55,7 +55,7 @@ export default function CookieConsent() {
             setShowConsent(false);
           }}
         >
-          Reject all
+          Reject
         </Button>
       </div>
     </div>
