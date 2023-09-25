@@ -24,41 +24,43 @@ export default function CookieConsent() {
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 flex flex-col justify-between gap-x-8 gap-y-4 bg-white p-6 ring-1 ring-gray-900/10 md:flex-row md:items-center lg:px-8">
-      <p className="max-w-4xl text-base leading-6 text-gray-900">
-        We use cookies and other tracking technologies to analyze site usage and
-        assist in marketing efforts. For details, see our{' '}
-        <PrimaryLink href="/cookie-policy">cookie policy</PrimaryLink>.
-      </p>
-      <div className="flex flex-none items-center gap-x-2">
-        <Button
-          variant="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            cookies.set('cookie_consent', 'true', {
-              expires: Date.now() + 365 * 24 * 60 * 60 * 1000,
-            });
-            setShowConsent(false);
-            gtag('consent', 'update', {
-              ad_storage: 'granted',
-              analytics_storage: 'granted',
-            });
-          }}
-        >
-          Accept
-        </Button>
-        <Button
-          variant="ghost"
-          onClick={(e) => {
-            e.preventDefault();
-            cookies.set('cookie_consent', 'false', {
-              expires: Date.now() + 24 * 60 * 60 * 1000,
-            });
-            setShowConsent(false);
-          }}
-        >
-          Reject
-        </Button>
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 px-6 pb-6">
+      <div className="pointer-events-auto ml-auto max-w-xl rounded-md bg-white p-6 shadow-lg ring-1 ring-gray-900/10">
+        <p className="text-base leading-6 text-gray-900">
+          We use cookies and other tracking technologies to analyze site usage
+          and assist in marketing efforts. For details, see our{' '}
+          <PrimaryLink href="/cookie-policy">cookie policy</PrimaryLink>.
+        </p>
+        <div className="mt-4 flex items-center gap-x-5">
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              cookies.set('cookie_consent', 'true', {
+                expires: Date.now() + 365 * 24 * 60 * 60 * 1000,
+              });
+              setShowConsent(false);
+              gtag('consent', 'update', {
+                ad_storage: 'granted',
+                analytics_storage: 'granted',
+              });
+            }}
+          >
+            Accept
+          </Button>
+          <Button
+            variant="ghost"
+            onClick={(e) => {
+              e.preventDefault();
+              cookies.set('cookie_consent', 'false', {
+                expires: Date.now() + 24 * 60 * 60 * 1000,
+              });
+              setShowConsent(false);
+            }}
+          >
+            Reject
+          </Button>
+        </div>
       </div>
     </div>
   );
