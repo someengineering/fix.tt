@@ -8,7 +8,7 @@ import '@/styles/globals.css';
 
 // import ButtonLink from '@/components/links/ButtonLink';
 import Logo from '@/assets/logo.svg';
-import { siteConfig } from '@/constant/config';
+import { siteConfig } from '@/constants/config';
 
 const navigation = [
   { name: 'Why Fix?', href: '/#why' },

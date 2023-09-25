@@ -3,7 +3,7 @@ import Pricing from '@/components/Pricing';
 import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
 import Why from '@/components/Why';
 
-import { siteConfig } from '@/constant/config';
+import { siteConfig } from '@/constants/config';
 
 export default function HomePage() {
   return (

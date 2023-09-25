@@ -11,8 +11,9 @@ import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
-import { siteConfig } from '@/constant/config';
-import { gtmContainerId, isProd } from '@/constant/env';
+import { siteConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
+import { GTM_CONTAINER_ID } from '@/constants/google';
 import { ClientCookiesProvider } from '@/provider/ClientCookiesProvider';
 
 const nunitoSans = Nunito_Sans({
@@ -79,7 +80,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
-          {gtmContainerId ? (
+          {GTM_CONTAINER_ID ? (
             <>
               <Script
                 id="google-tag-manager"
@@ -96,7 +97,7 @@ export default function RootLayout({
                   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
                   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','${gtmContainerId}');`,
+                  })(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
                 }}
               />
               {consent ? (
