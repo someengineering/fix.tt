@@ -3,6 +3,8 @@
 import { Disclosure } from '@headlessui/react';
 import { LuMinus, LuPlus } from 'react-icons/lu';
 
+import PrimaryLink from '@/components/links/PrimaryLink';
+
 const faqs: {
   question: string | JSX.Element;
   answer: string | JSX.Element;
@@ -153,8 +155,9 @@ const faqs: {
     answer: (
       <p>
         Yes! This is supported in our <a href="#pricing">Enterprise plan</a>.
-        Please contact us via email at <a href="mailto:hi@fix.tt">hi@fix.tt</a>{' '}
-        for details.
+        Please contact us via email at{' '}
+        <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink> for
+        details.
       </p>
     ),
   },
@@ -180,7 +183,7 @@ const faqs: {
           frameworks and benchmarks. If there is a particular framework or
           benchmark you&rsquo;d like us to prioritize on our roadmap, please
           don&rsquo;t hesitate to reach out to us via email at{' '}
-          <a href="mailto:hi@fix.tt">hi@fix.tt</a>.
+          <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>.
         </p>
       </>
     ),
@@ -202,7 +205,8 @@ const faqs: {
       <p>
         Yes! We designed Fix with support for data export to various
         destinations, including S3, Postgres, and Snowflake. For details, get in
-        touch with us via email at <a href="mailto:hi@fix.tt">hi@fix.tt</a>.
+        touch with us via email at{' '}
+        <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>.
       </p>
     ),
   },
@@ -230,8 +234,8 @@ const faqs: {
     question: <>My question isn&rsquo;t listed above.</>,
     answer: (
       <p>
-        Email us at <a href="mailto:hi@fix.tt">hi@fix.tt</a>! We'll be more than
-        happy to assist you.
+        Email us at <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>
+        ! We'll be more than happy to assist you.
       </p>
     ),
   },

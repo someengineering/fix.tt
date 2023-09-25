@@ -50,7 +50,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type="button"
         disabled={disabled}
         className={cn(
-          'inline-flex items-center whitespace-nowrap rounded-xl font-bold',
+          'inline-flex items-center whitespace-nowrap rounded-md font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
           'shadow-sm',
           'disabled:opacity-50',

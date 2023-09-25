@@ -50,7 +50,7 @@ export function RequestEarlyAccessForm() {
   return (
     <div className="mt-10" id="request-early-access">
       {isSubmitted ? (
-        <div className="mx-auto max-w-md rounded-xl bg-white px-4 pb-4 pt-5 text-center shadow-xl ring-1 ring-black ring-opacity-5 transition-all sm:w-full sm:max-w-sm sm:p-6">
+        <div className="mx-auto max-w-md rounded-md bg-white px-4 pb-4 pt-5 text-center shadow-xl ring-1 ring-black ring-opacity-5 transition-all sm:w-full sm:max-w-sm sm:p-6">
           {isSubmitSuccessful ? (
             <>
               <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-jade-50">
@@ -106,7 +106,7 @@ export function RequestEarlyAccessForm() {
               placeholder="Company email"
               required
               {...register('email', { required: true })}
-              className={`min-w-0 flex-auto rounded-xl border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
+              className={`min-w-0 flex-auto rounded-md border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                 !touchedFields.email || !errors.email
                   ? 'ring-gray-400 focus:ring-cornflower-blue-400'
                   : 'ring-amaranth-600 focus:ring-amaranth-600'

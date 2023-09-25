@@ -27,7 +27,7 @@ export default function Header() {
       >
         <div className="flex lg:flex-1">
           <a
-            href="#"
+            href="/"
             className="-m-1.5 p-1.5 text-primary-900 hover:text-primary-950"
           >
             <span className="sr-only">{siteConfig.title}</span>
@@ -37,7 +37,7 @@ export default function Header() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -56,7 +56,7 @@ export default function Header() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {/* <ButtonLink href="#request-early-access">
+          {/* <ButtonLink href="/#request-early-access">
             Request early access
           </ButtonLink> */}
         </div>
@@ -70,13 +70,13 @@ export default function Header() {
         <div className="fixed inset-0 z-50" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">{siteConfig.title}</span>
               <Logo className="h-16 w-auto text-primary-900 hover:text-primary-950" />
             </a>
             <button
               type="button"
-              className="-m-2.5 rounded-lg p-2.5 text-gray-700"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -90,14 +90,14 @@ export default function Header() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-lg font-medium leading-7 text-gray-900 hover:bg-gray-50"
+                    className="-mx-3 block rounded-md px-3 py-2 text-lg font-medium leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     {item.name}
                   </a>
                 ))}
               </div>
               {/* <div className="py-6">
-                <ButtonLink href="#request-early-access" variant="tangerine">
+                <ButtonLink href="/#request-early-access" variant="tangerine">
                   Request early access
                 </ButtonLink>
               </div> */}
