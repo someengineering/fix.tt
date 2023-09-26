@@ -1,12 +1,7 @@
 export interface HashnodePostsResponse {
   data: {
     publication: {
-      posts: {
-        edges: {
-          node: HashnodePost;
-          cursor: string;
-        }[];
-      };
+      posts: HashnodePublicationPostConnection;
     };
   };
 }
@@ -19,17 +14,64 @@ export interface HashnodePostResponse {
   };
 }
 
+interface HashnodeContent {
+  markdown?: string;
+  html?: string;
+  text?: string;
+}
+
+interface HashnodeCoverImage {
+  url: string;
+  isPortrait?: boolean;
+}
+
+interface HashnodeFeedPostConnection {
+  edges: HashnodePostEdge[];
+  pageInfo: HashnodePageInfo;
+}
+
+interface HashnodePageInfo {
+  hasNextPage: boolean;
+  endCursor: string;
+}
+
 interface HashnodePost {
   title: string;
   brief: string;
   slug: string;
-  author?: HashnodeAuthor;
-  content?: { markdown: string };
+  coverImage?: HashnodeCoverImage;
+  author?: HashnodeUser;
+  tags?: HashnodeTag[];
+  content?: HashnodeContent;
   readTimeInMinutes: number;
+  publishedAt: string;
+  updatedAt: string;
 }
 
-interface HashnodeAuthor {
+interface HashnodePostEdge {
+  node: HashnodePost;
+  cursor: string;
+}
+
+interface HashnodePublicationPostConnection {
+  edges: HashnodePostEdge[];
+  pageInfo: HashnodePageInfo;
+  totalDocuments: number;
+}
+
+interface HashnodeTag {
+  id: string;
+  name: string;
+  slug: string;
+  logo: string;
+  tagline: string;
+  postsCount: number;
+  posts: HashnodeFeedPostConnection;
+}
+
+interface HashnodeUser {
   name: string;
   tagline: string;
   profilePicture: string;
+  bioV2: HashnodeContent;
 }

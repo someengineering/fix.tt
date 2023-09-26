@@ -19,6 +19,9 @@ export async function GET(req: NextRequest) {
               title
               brief
               slug
+              coverImage {
+                url
+              }
               author {
                 name
                 tagline
