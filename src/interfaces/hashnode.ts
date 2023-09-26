@@ -1,16 +1,12 @@
 export interface HashnodePostsResponse {
-  data: {
-    publication: {
-      posts: HashnodePublicationPostConnection;
-    };
+  publication: {
+    posts: HashnodePublicationPostConnection;
   };
 }
 
 export interface HashnodePostResponse {
-  data: {
-    publication: {
-      post: HashnodePost;
-    };
+  publication: {
+    post: HashnodePost;
   };
 }
 
@@ -40,7 +36,7 @@ interface HashnodePost {
   brief: string;
   slug: string;
   coverImage?: HashnodeCoverImage;
-  author?: HashnodeUser;
+  author: HashnodeUser;
   tags?: HashnodeTag[];
   content?: HashnodeContent;
   readTimeInMinutes: number;
@@ -48,12 +44,12 @@ interface HashnodePost {
   updatedAt: string;
 }
 
-interface HashnodePostEdge {
+export interface HashnodePostEdge {
   node: HashnodePost;
   cursor: string;
 }
 
-export interface HashnodePublicationPostConnection {
+interface HashnodePublicationPostConnection {
   edges: HashnodePostEdge[];
   pageInfo: HashnodePageInfo;
   totalDocuments: number;
@@ -63,9 +59,6 @@ interface HashnodeSocialMediaLinks {
   website?: string;
   github?: string;
   twitter?: string;
-  instagram?: string;
-  facebook?: string;
-  stackoverflow?: string;
   linkedin?: string;
   youtube?: string;
 }
@@ -80,7 +73,7 @@ interface HashnodeTag {
   posts: HashnodeFeedPostConnection;
 }
 
-interface HashnodeUser {
+export interface HashnodeUser {
   name: string;
   tagline: string;
   profilePicture: string;

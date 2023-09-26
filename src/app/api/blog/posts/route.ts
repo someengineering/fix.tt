@@ -32,6 +32,7 @@ export async function GET(req: NextRequest) {
                 }
               }
               readTimeInMinutes
+              publishedAt
             }
             cursor
           }
@@ -46,5 +47,7 @@ export async function GET(req: NextRequest) {
     variables,
   );
 
-  return NextResponse.json(data, { status: 200 });
+  return NextResponse.json(data.publication.posts.edges, {
+    status: 200,
+  });
 }

@@ -33,6 +33,7 @@ export async function GET(req: NextRequest) {
             markdown
           }
           readTimeInMinutes
+          publishedAt
         }
       }
     }
@@ -44,5 +45,5 @@ export async function GET(req: NextRequest) {
     variables,
   );
 
-  return NextResponse.json(data, { status: 200 });
+  return NextResponse.json(data.publication.post, { status: 200 });
 }

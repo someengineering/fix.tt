@@ -12,7 +12,8 @@ import Header from '@/components/Header';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
-import { ClientCookiesProvider } from '@/context/ClientCookies';
+import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
+import { SWRProvider } from '@/providers/SWRProvider';
 import { openGraph } from '@/utils/og';
 
 const nunitoSans = Nunito_Sans({
@@ -73,19 +74,20 @@ export default function RootLayout({
   const consent = cookieStore.get('cookie_consent')?.value === 'true';
 
   return (
-    <ClientCookiesProvider value={cookieStore.getAll()}>
-      <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
-        <body className="bg-white">
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          {GTM_CONTAINER_ID ? (
-            <>
-              <Script
-                id="google-tag-manager"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                  __html: `
+    <SWRProvider>
+      <ClientCookiesProvider value={cookieStore.getAll()}>
+        <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
+          <body className="bg-white">
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            {GTM_CONTAINER_ID ? (
+              <>
+                <Script
+                  id="google-tag-manager"
+                  strategy="afterInteractive"
+                  dangerouslySetInnerHTML={{
+                    __html: `
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('consent', 'default', {
@@ -97,30 +99,31 @@ export default function RootLayout({
                   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                   })(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
-                }}
-              />
-              {consent ? (
-                <>
-                  <Script
-                    id="consent-update"
-                    strategy="afterInteractive"
-                    dangerouslySetInnerHTML={{
-                      __html: `
+                  }}
+                />
+                {consent ? (
+                  <>
+                    <Script
+                      id="consent-update"
+                      strategy="afterInteractive"
+                      dangerouslySetInnerHTML={{
+                        __html: `
                         gtag('consent', 'update', {
                           'ad_storage': 'granted',
                           'analytics_storage': 'granted'
                         });
                       `,
-                    }}
-                  />
-                </>
-              ) : (
-                <CookieConsent />
-              )}
-            </>
-          ) : null}
-        </body>
-      </html>
-    </ClientCookiesProvider>
+                      }}
+                    />
+                  </>
+                ) : (
+                  <CookieConsent />
+                )}
+              </>
+            ) : null}
+          </body>
+        </html>
+      </ClientCookiesProvider>
+    </SWRProvider>
   );
 }
