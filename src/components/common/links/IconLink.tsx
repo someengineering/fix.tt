@@ -1,11 +1,11 @@
 import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 
-import { cn } from '@/lib/utils';
-
 import UnstyledLink, {
   UnstyledLinkProps,
-} from '@/components/links/UnstyledLink';
+} from '@/components/common/links/UnstyledLink';
+
+import { cn } from '@/utils/css';
 
 const IconLinkVariant = [
   'primary',

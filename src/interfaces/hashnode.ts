@@ -53,10 +53,21 @@ interface HashnodePostEdge {
   cursor: string;
 }
 
-interface HashnodePublicationPostConnection {
+export interface HashnodePublicationPostConnection {
   edges: HashnodePostEdge[];
   pageInfo: HashnodePageInfo;
   totalDocuments: number;
+}
+
+interface HashnodeSocialMediaLinks {
+  website?: string;
+  github?: string;
+  twitter?: string;
+  instagram?: string;
+  facebook?: string;
+  stackoverflow?: string;
+  linkedin?: string;
+  youtube?: string;
 }
 
 interface HashnodeTag {
@@ -73,5 +84,6 @@ interface HashnodeUser {
   name: string;
   tagline: string;
   profilePicture: string;
+  socialMediaLinks: HashnodeSocialMediaLinks;
   bioV2: HashnodeContent;
 }

@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 import { ImSpinner2 } from 'react-icons/im';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/css';
 
 const IconButtonVariant = [
   'primary',

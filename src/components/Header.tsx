@@ -6,7 +6,7 @@ import { LuMenu, LuX } from 'react-icons/lu';
 
 import '@/styles/globals.css';
 
-// import ButtonLink from '@/components/links/ButtonLink';
+// import ButtonLink from '@/components/common/links/ButtonLink';
 import Logo from '@/assets/logo.svg';
 import { siteConfig } from '@/constants/config';
 
@@ -91,13 +91,18 @@ export default function Header() {
                     key={item.name}
                     href={item.href}
                     className="-mx-3 block rounded-md px-3 py-2 text-lg font-medium leading-7 text-gray-900 hover:bg-gray-50"
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
                   </a>
                 ))}
               </div>
               {/* <div className="py-6">
-                <ButtonLink href="/#request-early-access" variant="tangerine">
+                <ButtonLink
+                  href="/#request-early-access"
+                  variant="tangerine"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
                   Request early access
                 </ButtonLink>
               </div> */}

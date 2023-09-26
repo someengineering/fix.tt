@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { LuCheck, LuX } from 'react-icons/lu';
 import { z } from 'zod';
 
-import Button from '@/components/buttons/Button';
+import Button from '@/components/common/buttons/Button';
 
 const validationSchema = z.object({
   email: z

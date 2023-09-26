@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import PrimaryLink from '@/components/links/PrimaryLink';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 export const metadata: Metadata = {
   title: 'Cookie policy',

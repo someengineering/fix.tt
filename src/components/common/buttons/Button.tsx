@@ -1,13 +1,10 @@
 import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
+import { ImSpinner2 } from 'react-icons/im';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/utils/css';
 
-import UnstyledLink, {
-  UnstyledLinkProps,
-} from '@/components/links/UnstyledLink';
-
-const ButtonLinkVariant = [
+const ButtonVariant = [
   'primary',
   'tangerine',
   'outline',
@@ -15,24 +12,27 @@ const ButtonLinkVariant = [
   'light',
   'dark',
 ] as const;
-const ButtonLinkSize = ['sm', 'base'] as const;
+const ButtonSize = ['sm', 'base'] as const;
 
-type ButtonLinkProps = {
-  variant?: (typeof ButtonLinkVariant)[number];
-  size?: (typeof ButtonLinkSize)[number];
+type ButtonProps = {
+  isLoading?: boolean;
+  variant?: (typeof ButtonVariant)[number];
+  size?: (typeof ButtonSize)[number];
   leftIcon?: IconType;
   rightIcon?: IconType;
   classNames?: {
     leftIcon?: string;
     rightIcon?: string;
   };
-} & UnstyledLinkProps;
+} & React.ComponentPropsWithRef<'button'>;
 
-const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       children,
       className,
+      disabled: buttonDisabled,
+      isLoading,
       variant = 'primary',
       size = 'base',
       leftIcon: LeftIcon,
@@ -42,10 +42,13 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     },
     ref,
   ) => {
+    const disabled = isLoading || buttonDisabled;
+
     return (
-      <UnstyledLink
+      <button
         ref={ref}
-        {...rest}
+        type="button"
+        disabled={disabled}
         className={cn(
           'inline-flex items-center whitespace-nowrap rounded-md font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
@@ -96,9 +99,26 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           ],
           //#endregion  //*======== Variants ===========
           'disabled:cursor-not-allowed',
+          isLoading &&
+            'relative text-transparent transition-none hover:text-transparent disabled:cursor-wait',
           className,
         )}
+        {...rest}
       >
+        {isLoading && (
+          <div
+            className={cn(
+              'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
+              {
+                'text-white': ['primary', 'dark'].includes(variant),
+                'text-black': ['light'].includes(variant),
+                'text-primary-500': ['outline', 'ghost'].includes(variant),
+              },
+            )}
+          >
+            <ImSpinner2 className="animate-spin" />
+          </div>
+        )}
         {LeftIcon && (
           <div
             className={cn([
@@ -138,9 +158,9 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
             />
           </div>
         )}
-      </UnstyledLink>
+      </button>
     );
   },
 );
 
-export default ButtonLink;
+export default Button;

@@ -5,8 +5,6 @@ import Script from 'next/script';
 
 import '@/styles/globals.css';
 
-import { openGraph } from '@/lib/og';
-
 import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -14,7 +12,8 @@ import Header from '@/components/Header';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
-import { ClientCookiesProvider } from '@/provider/ClientCookiesProvider';
+import { ClientCookiesProvider } from '@/context/ClientCookies';
+import { openGraph } from '@/utils/og';
 
 const nunitoSans = Nunito_Sans({
   subsets: ['latin'],

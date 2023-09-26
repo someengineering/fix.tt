@@ -1,6 +1,6 @@
 import { LuCheck } from 'react-icons/lu';
 
-import ButtonLink from '@/components/links/ButtonLink';
+import ButtonLink from '@/components/common/links/ButtonLink';
 
 const tiers: {
   name: string;

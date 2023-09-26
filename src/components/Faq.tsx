@@ -3,7 +3,7 @@
 import { Disclosure } from '@headlessui/react';
 import { LuMinus, LuPlus } from 'react-icons/lu';
 
-import PrimaryLink from '@/components/links/PrimaryLink';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const faqs: {
   question: string | JSX.Element;

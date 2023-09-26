@@ -26,6 +26,10 @@ export async function GET(req: NextRequest) {
                 name
                 tagline
                 profilePicture
+                socialMediaLinks {
+                  website
+                  linkedin
+                }
               }
               readTimeInMinutes
             }

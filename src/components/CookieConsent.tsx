@@ -3,8 +3,8 @@
 import { useCookies } from 'next-client-cookies';
 import { useEffect, useState } from 'react';
 
-import Button from '@/components/buttons/Button';
-import PrimaryLink from '@/components/links/PrimaryLink';
+import Button from '@/components/common/buttons/Button';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 export default function CookieConsent() {
   const cookies = useCookies();
