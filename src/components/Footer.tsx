@@ -1,4 +1,4 @@
-import { FaGithub } from 'react-icons/fa6';
+import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 import '@/styles/globals.css';
 
@@ -9,11 +9,11 @@ const social: {
     props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
   ) => JSX.Element;
 }[] = [
-  // {
-  //   name: 'LinkedIn',
-  //   href: 'https://linkedin.com/company/fix',
-  //   icon: (props) => <FaLinkedin {...props} />,
-  // },
+  {
+    name: 'LinkedIn',
+    href: 'https://linkedin.com/company/fix',
+    icon: (props) => <FaLinkedin {...props} />,
+  },
   {
     name: 'GitHub',
     href: 'https://github.com/someengineering',
