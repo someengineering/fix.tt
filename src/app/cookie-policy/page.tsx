@@ -13,12 +13,12 @@ export default function CookiePolicy() {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Cookie policy
         </h1>
-        <p className="mt-6 text-xl leading-8">
+        <p className="mt-8 text-xl leading-8">
           As is common practice with professional websites, this site uses
           cookies&mdash;tiny files that are downloaded to your computer&mdash;to
           improve your experience.
         </p>
-        <p className="mt-6 text-xl leading-8">
+        <p className="mt-8 text-xl leading-8">
           This page describes what information they gather, how we use them, and
           why we sometimes need to store these cookies. We will also share how
           you can prevent these cookies from being stored; however, this may
@@ -115,14 +115,14 @@ export default function CookiePolicy() {
           <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
             More information
           </h2>
-          <p className="mt-6 text-xl leading-8">
+          <p className="mt-8">
             This cookie policy was created with the help of the{' '}
             <PrimaryLink href="https://cookiepolicygenerator.com/cookie-policy-generator">
               Cookie Policy Generator
             </PrimaryLink>
             .
           </p>
-          <p className="mt-6">
+          <p className="mt-8">
             If you have further questions regarding the use of cookies on this
             website, please contact us via email at{' '}
             <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>.
