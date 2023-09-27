@@ -74,7 +74,7 @@ export default function RootLayout({
 
   return (
     <ClientCookiesProvider value={cookieStore.getAll()}>
-      <html lang="en" className={nunitoSans.variable}>
+      <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
         <body className="bg-white">
           <Header />
           <main>{children}</main>
