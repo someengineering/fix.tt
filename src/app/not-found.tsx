@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'Not Found',
 };
 
-export default function NotFound() {
+export default function NotFoundPage() {
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-auto flex-col justify-center px-6 py-24 sm:py-64 lg:px-8">
       <p className="text-lg font-semibold leading-8 text-primary-900">404</p>
