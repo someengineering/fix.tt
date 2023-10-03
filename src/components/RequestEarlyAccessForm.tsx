@@ -2,7 +2,6 @@
 
 import { Disclosure } from '@headlessui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
@@ -76,15 +75,18 @@ export function RequestEarlyAccessForm() {
           <form
             onSubmit={handleSubmit(async (data) => {
               try {
-                const captcha = await captchaRef.current?.executeAsync();
+                const captcha =
+                  (await captchaRef.current?.executeAsync()) ?? '';
 
-                await axios.post(
-                  '/api/request-early-access',
-                  { ...data, captcha },
-                  {
-                    headers: { 'Content-type': 'multipart/form-data' },
-                  },
-                );
+                const response = await fetch('/api/request-early-access', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ ...data, captcha }),
+                });
+
+                if (!response.ok) {
+                  throw new Error(response.statusText);
+                }
               } catch (e) {
                 if (e instanceof Error) {
                   setError('root.serverError', {
