@@ -4,16 +4,19 @@ import { type NextRequest, NextResponse } from 'next/server';
 import { HASHNODE_ENDPOINT, HASHNODE_HOST } from '@/constants/hashnode';
 import { HashnodePostsResponse } from '@/interfaces/hashnode';
 
+export const revalidate = 600; // revalidate at most every 10 minutes
+
 export async function GET(req: NextRequest) {
   const variables = {
     host: HASHNODE_HOST,
+    first: parseInt(req.nextUrl.searchParams.get('first') ?? '5'),
     after: req.nextUrl.searchParams.get('after'),
   };
 
   const query = gql`
-    query Publication($host: String!, $after: String) {
+    query Publication($host: String!, $first: Int!, $after: String) {
       publication(host: $host) {
-        posts(first: 10, after: $after) {
+        posts(first: $first, after: $after) {
           edges {
             node {
               title

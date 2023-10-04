@@ -31,8 +31,9 @@ interface HashnodePageInfo {
   endCursor: string;
 }
 
-interface HashnodePost {
+export interface HashnodePost {
   title: string;
+  subtitle?: string;
   brief: string;
   slug: string;
   coverImage?: HashnodeCoverImage;

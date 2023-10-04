@@ -16,12 +16,6 @@ import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
 import { SWRProvider } from '@/providers/SWRProvider';
 import { openGraph } from '@/utils/og';
 
-const nunitoSans = Nunito_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-nunito-sans',
-});
-
 export const metadata: Metadata = {
   title: {
     default: `${siteConfig.title}: ${siteConfig.tagline}`,
@@ -65,6 +59,33 @@ export const metadata: Metadata = {
   },
 };
 
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-nunito-sans',
+});
+
+const gtmScript = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'analytics_storage': 'denied'
+});
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');
+`;
+
+const consentScript = `
+gtag('consent', 'update', {
+  'ad_storage': 'granted',
+  'analytics_storage': 'granted'
+});
+`;
+
 export default function RootLayout({
   children,
 }: {
@@ -84,35 +105,19 @@ export default function RootLayout({
             {GTM_CONTAINER_ID ? (
               <>
                 <Script
-                  id="google-tag-manager"
+                  id="gtm"
                   strategy="afterInteractive"
                   dangerouslySetInnerHTML={{
-                    __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('consent', 'default', {
-                    'ad_storage': 'denied',
-                    'analytics_storage': 'denied'
-                  });
-                  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
+                    __html: gtmScript,
                   }}
                 />
                 {consent ? (
                   <>
                     <Script
-                      id="consent-update"
+                      id="consent"
                       strategy="afterInteractive"
                       dangerouslySetInnerHTML={{
-                        __html: `
-                        gtag('consent', 'update', {
-                          'ad_storage': 'granted',
-                          'analytics_storage': 'granted'
-                        });
-                      `,
+                        __html: consentScript,
                       }}
                     />
                   </>
