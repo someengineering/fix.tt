@@ -1582,10 +1582,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.2.24":
-  version "18.2.24"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.24.tgz#3c7d68c02e0205a472f04abe4a0c1df35d995c05"
-  integrity sha512-Ee0Jt4sbJxMu1iDcetZEIKQr99J1Zfb6D4F3qfUWoR1JpInkY1Wdg4WwCyBjL257D0+jGqSl1twBjV8iCaC0Aw==
+"@types/react@*", "@types/react@18.2.25":
+  version "18.2.25"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.25.tgz#99fa44154132979e870ff409dc5b6e67f06f0199"
+  integrity sha512-24xqse6+VByVLIr+xWaQ9muX1B4bXJKXBbjszbld/UEDslGLY53+ZucF44HCmLbMPejTzGG9XgR+3m2/Wqu1kw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -3939,10 +3939,10 @@ natural-compare@^1.4.0:
   resolved "https://registry.yarnpkg.com/natural-compare/-/natural-compare-1.4.0.tgz#4abebfeed7541f2c27acfb29bdbbd15c8d5ba4f7"
   integrity sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==
 
-next-client-cookies@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/next-client-cookies/-/next-client-cookies-1.0.4.tgz#4de430f1bcfa3de188509a923d420f1bf8c94a80"
-  integrity sha512-WFSFMbAkAbE9I7PAMTJ2VOb9Y1DNUD0BYgqG90K6ZctK120xsAMnH6j+d02QgdaQAUTAr/U623vrXeuAezjDCQ==
+next-client-cookies@1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/next-client-cookies/-/next-client-cookies-1.0.5.tgz#6aa2198f0b8c30b4fdfa5d6e2bc71ae99193b146"
+  integrity sha512-PqmJyJCZotR/Vg8meaqHKT2RjHoNuDkaew6JBj0gA1tlY7+6aK0Zb00KLnZSQnbGYg9OEQquk5UyWp1QACvXjQ==
   dependencies:
     js-cookie "^3.0.5"
 
@@ -5364,12 +5364,12 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
-zod-form-data@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/zod-form-data/-/zod-form-data-2.0.1.tgz#b069b76ad8a47e2ee475f691db87db8afa9dd3f2"
-  integrity sha512-4jcsj3vFyFGINLLHEmehfOPKdcw+HqV65RwsV2IdyLHp9wpvGJRVXWg1yY8sq0ASEbQfTVBRtI7LcDGv3Qpj8g==
+zod-form-data@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/zod-form-data/-/zod-form-data-2.0.2.tgz#ce6586ffa3d501a66a00d7b4896b6b6ec1e10404"
+  integrity sha512-sKTi+k0fvkxdakD0V5rq+9WVJA3cuTQUfEmNqvHrTzPLvjfLmkkBLfR0ed3qOi9MScJXTHIDH/jUNnEJ3CBX4g==
 
-zod@3.22.3:
-  version "3.22.3"
-  resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.3.tgz#2fbc96118b174290d94e8896371c95629e87a060"
-  integrity sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==
+zod@3.22.4:
+  version "3.22.4"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
+  integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==

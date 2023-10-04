@@ -51,7 +51,10 @@ export default function CookiePolicyPage() {
           <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
             The cookies we set
           </h2>
-          <ul role="list" className="mt-8 max-w-xl space-y-8 text-gray-600">
+          <ul
+            role="list"
+            className="ml-8 mt-8 max-w-xl list-disc space-y-4 text-gray-600"
+          >
             <li>
               <strong className="font-semibold text-gray-900">
                 Account-related cookies.
@@ -99,7 +102,10 @@ export default function CookiePolicyPage() {
             parties. The following section details which third-party cookies you
             might encounter through this site.
           </p>
-          <ul role="list" className="mt-8 max-w-xl space-y-8 text-gray-600">
+          <ul
+            role="list"
+            className="ml-8 mt-8 max-w-xl list-disc space-y-4 text-gray-600"
+          >
             <li>
               <strong className="font-semibold text-gray-900">
                 Google Analytics.
