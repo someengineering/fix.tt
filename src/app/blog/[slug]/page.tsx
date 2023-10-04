@@ -25,11 +25,11 @@ export async function generateMetadata({
 
   return {
     title: blogPost.title,
-    description: blogPost.subtitle ?? blogPost.brief,
+    description: blogPost.brief,
     openGraph: {
       url: `${siteConfig.url}/blog/${params.slug}`,
       title: blogPost.title,
-      description: blogPost.subtitle ?? blogPost.brief,
+      description: blogPost.brief,
       images: [
         openGraph({
           title: blogPost.title,
@@ -40,7 +40,7 @@ export async function generateMetadata({
     },
     twitter: {
       title: `${blogPost.title} | ${siteConfig.title}`,
-      description: blogPost.subtitle ?? blogPost.brief,
+      description: blogPost.brief,
       images: [
         openGraph({
           title: blogPost.title,

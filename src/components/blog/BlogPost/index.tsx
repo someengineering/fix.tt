@@ -6,9 +6,11 @@ import useSWR from 'swr';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import NextImage from '@/components/common/NextImage';
 
+import { siteConfig } from '@/constants/config';
 import { HashnodePost } from '@/interfaces/hashnode';
 
 export default function BlogPostList({ slug }: { slug: string }) {
+  const url = `${siteConfig.url}/blog/${slug}`;
   const { data, error } = useSWR<HashnodePost>(`/api/blog/post?slug=${slug}`);
 
   if (!data && !error) {
@@ -20,11 +22,34 @@ export default function BlogPostList({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
-      <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-        {data.title}
-      </h1>
-      <div className="w-prose">
+    <article
+      className="mx-auto max-w-3xl text-lg leading-7 text-gray-700"
+      itemProp="blogPost"
+      itemScope
+      itemType="http://schema.org/BlogPosting"
+    >
+      <header>
+        <h1
+          className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+          itemProp="headline"
+        >
+          {data.title}
+        </h1>
+        <time dateTime={data.publishedAt} itemProp="datePublished">
+          {new Date(data.publishedAt).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </time>
+        <meta itemProp="description" content={data.brief} />
+        <meta itemProp="url" content={url} />
+        <meta itemProp="identifier" content={url} />
+        {data.coverImage ? (
+          <meta itemProp="image" content={data.coverImage.url} />
+        ) : null}
+      </header>
+      <div className="w-prose" itemProp="articleBody">
         <Markdown
           renderer={{
             paragraph: (text: string) => <p className="mt-8">{text}</p>,
@@ -65,6 +90,6 @@ export default function BlogPostList({ slug }: { slug: string }) {
           {data.content?.markdown}
         </Markdown>
       </div>
-    </div>
+    </article>
   );
 }
