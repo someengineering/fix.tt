@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Cookie policy',
 };
 
-export default function CookiePolicyPage() {
+export default function CookiePolicy() {
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">

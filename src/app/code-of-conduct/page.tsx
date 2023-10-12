@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Code of conduct',
 };
 
-export default function CodeOfConductPage() {
+export default function CodeOfConduct() {
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">

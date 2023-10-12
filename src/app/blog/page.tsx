@@ -5,8 +5,6 @@ import BlogPostList from '@/components/blog/BlogPostList';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
-export const revalidate = 600; // revalidate at most every 10 minutes
-
 export const metadata: Metadata = {
   title: 'Blog',
   openGraph: {
@@ -30,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogPage() {
+export default function Blog() {
   return (
     <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

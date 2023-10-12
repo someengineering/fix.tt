@@ -95,10 +95,10 @@ export default function RootLayout({
   const consent = cookieStore.get('cookie_consent')?.value === 'true';
 
   return (
-    <SWRProvider>
-      <ClientCookiesProvider value={cookieStore.getAll()}>
-        <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
-          <body className="bg-white">
+    <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
+      <body className="bg-white">
+        <SWRProvider>
+          <ClientCookiesProvider value={cookieStore.getAll()}>
             <Header />
             <main>{children}</main>
             <Footer />
@@ -126,9 +126,9 @@ export default function RootLayout({
                 )}
               </>
             ) : null}
-          </body>
-        </html>
-      </ClientCookiesProvider>
-    </SWRProvider>
+          </ClientCookiesProvider>
+        </SWRProvider>
+      </body>
+    </html>
   );
 }

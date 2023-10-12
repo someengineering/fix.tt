@@ -1,3 +1,5 @@
+'use client';
+
 import Markdown from 'marked-react';
 
 import Heading from '@/components/blog/MarkdownContent/Heading';

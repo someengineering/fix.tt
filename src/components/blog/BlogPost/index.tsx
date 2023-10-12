@@ -1,7 +1,3 @@
-'use client';
-
-import useSWR from 'swr';
-
 import MarkdownContent from '@/components/blog/MarkdownContent';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
@@ -10,19 +6,10 @@ import { siteConfig } from '@/constants/config';
 import { HashnodePost } from '@/interfaces/hashnode';
 import { getUserLink } from '@/utils/hashnode';
 
-export default function BlogPost({ slug }: { slug: string }) {
-  const url = `${siteConfig.url}/blog/${slug}`;
-  const { data, error } = useSWR<HashnodePost>(`/api/blog/post?slug=${slug}`);
+export default function BlogPost({ post }: { post: HashnodePost }) {
+  const url = `${siteConfig.url}/blog/${post.slug}`;
 
-  if (!data && !error) {
-    return null;
-  }
-
-  if (!data) {
-    return null;
-  }
-
-  const authorLink = data.author ? getUserLink(data.author) : undefined;
+  const authorLink = post.author ? getUserLink(post.author) : undefined;
 
   return (
     <article
@@ -33,17 +20,17 @@ export default function BlogPost({ slug }: { slug: string }) {
     >
       <header className="flex items-center gap-x-4 text-base">
         <time
-          dateTime={data.publishedAt}
+          dateTime={post.publishedAt}
           className="text-gray-500"
           itemProp="datePublished"
         >
-          {new Date(data.publishedAt).toLocaleDateString('en-US', {
+          {new Date(post.publishedAt).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}
         </time>
-        {/* {data.tags?.map((tag) => (
+        {/* {post.tags?.map((tag) => (
           <UnstyledLink
             href={`/blog/tags/${tag.slug}`}
             className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
@@ -52,10 +39,10 @@ export default function BlogPost({ slug }: { slug: string }) {
             {tag.name}
           </UnstyledLink>
         ))} */}
-        <meta itemProp="description" content={data.brief} />
+        <meta itemProp="description" content={post.brief} />
         <meta itemProp="url" content={url} />
-        {data.coverImage ? (
-          <meta itemProp="image" content={data.coverImage.url} />
+        {post.coverImage ? (
+          <meta itemProp="image" content={post.coverImage.url} />
         ) : null}
       </header>
       <div>
@@ -63,11 +50,11 @@ export default function BlogPost({ slug }: { slug: string }) {
           className="mt-3 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
           itemProp="headline"
         >
-          {data.title}
+          {post.title}
         </h1>
       </div>
       <div className="w-prose" itemProp="articleBody">
-        <MarkdownContent>{data.content?.markdown}</MarkdownContent>
+        <MarkdownContent>{post.content?.markdown}</MarkdownContent>
       </div>
       <footer className="mt-6 flex border-t border-gray-900/5 pt-6">
         <div
@@ -77,7 +64,7 @@ export default function BlogPost({ slug }: { slug: string }) {
           itemType="https://schema.org/Person"
         >
           <NextImage
-            src={data.author.profilePicture}
+            src={post.author.profilePicture}
             alt=""
             className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
             classNames={{ image: 'w-full h-full object-cover' }}
@@ -89,14 +76,14 @@ export default function BlogPost({ slug }: { slug: string }) {
               {authorLink ? (
                 <UnstyledLink href={authorLink} itemProp="url">
                   <span className="absolute inset-0" />
-                  {data.author.name}
+                  {post.author.name}
                 </UnstyledLink>
               ) : (
-                <>{data.author.name}</>
+                <>{post.author.name}</>
               )}
             </p>
             <p className="line-clamp-1 text-gray-600" itemProp="description">
-              {data.author.tagline}
+              {post.author.tagline}
             </p>
           </div>
         </div>

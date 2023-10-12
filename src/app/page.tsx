@@ -5,7 +5,7 @@ import Why from '@/components/Why';
 
 import { siteConfig } from '@/constants/config';
 
-export default function HomePage() {
+export default function Home() {
   return (
     <>
       <div className="relative isolate px-6 lg:px-8">
