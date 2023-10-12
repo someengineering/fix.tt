@@ -1,33 +1,46 @@
 'use client';
 
+import { useState } from 'react';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
 
 import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
 
 import { HashnodePostEdge } from '@/interfaces/hashnode';
 
-const getKey = (pageIndex: number, previousPageData: HashnodePostEdge[]) => {
-  const endpoint = '/api/blog/posts';
-
-  // reached the end
-  if (previousPageData && previousPageData.length === 0) {
-    return null;
-  }
-
-  // first page, we don't have `previousPageData`
-  if (pageIndex === 0) {
-    return endpoint;
-  }
-
-  // add the cursor to the API endpoint
-  return `${endpoint}?after=${
-    previousPageData[previousPageData.length - 1].cursor
-  }`;
-};
-
 export default function BlogPostList() {
-  const { data, error, size, setSize } =
+  const [hasNextPage, setHasNextPage] = useState(true);
+
+  const getKey = (pageIndex: number, previousPageData: HashnodePostEdge[]) => {
+    const endpoint = '/api/blog/posts';
+
+    // reached the end
+    if (previousPageData && previousPageData.length === 0) {
+      setHasNextPage(false);
+      return null;
+    }
+
+    // first page, we don't have `previousPageData`
+    if (pageIndex === 0) {
+      return endpoint;
+    }
+
+    // add the cursor to the API endpoint
+    return `${endpoint}?after=${
+      previousPageData[previousPageData.length - 1].cursor
+    }`;
+  };
+
+  const { data, error, size, setSize, isLoading, isValidating } =
     useSWRInfinite<HashnodePostEdge[]>(getKey);
+
+  const [sentryRef] = useInfiniteScroll({
+    loading: isLoading || isValidating,
+    hasNextPage,
+    onLoadMore: () => setSize(size + 1),
+    disabled: !!error,
+    rootMargin: '0px 0px 400px 0px',
+  });
 
   if (!data && !error) {
     return null;
@@ -42,7 +55,7 @@ export default function BlogPostList() {
             <BlogPostListItem post={post} key={`post-${post.slug}`} />
           )),
       )}
-      <button onClick={() => setSize(size + 1)}>Load More</button>
+      <div ref={sentryRef} />
     </div>
   );
 }
