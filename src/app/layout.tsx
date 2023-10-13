@@ -10,11 +10,13 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 import { siteConfig } from '@/constants/config';
-import { isProd } from '@/constants/env';
+import { isLocal, isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
 import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
 import { SWRProvider } from '@/providers/SWRProvider';
 import { openGraph } from '@/utils/og';
+
+export const revalidate = isLocal ? 0 : 300;
 
 export const metadata: Metadata = {
   title: {

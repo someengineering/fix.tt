@@ -20,7 +20,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           ordered ? (
             <ol
               role="list"
-              className="mb-8 ml-8 mt-4 max-w-xl list-outside list-decimal space-y-4 text-gray-600"
+              className="mb-8 ml-8 mt-4 list-outside list-decimal space-y-4 text-gray-600"
               start={start}
             >
               {body}
@@ -28,7 +28,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           ) : (
             <ul
               role="list"
-              className="mb-8 ml-8 mt-4 max-w-xl list-disc space-y-4 text-gray-600"
+              className="mb-8 ml-8 mt-4 list-disc space-y-4 text-gray-600"
             >
               {body}
             </ul>
@@ -42,7 +42,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
             alt={title}
             title={text}
             className="h-max w-full"
-            classNames={{ image: 'h-auto w-auto object-none mx-auto' }}
+            classNames={{ image: 'h-auto w-auto object-contain mx-auto' }}
             width={0}
             height={0}
             sizes="100vw"
