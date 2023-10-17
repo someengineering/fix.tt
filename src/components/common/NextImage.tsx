@@ -15,7 +15,7 @@ type NextImageProps = {
   title?: string;
 } & (
   | { width: string | number; height: string | number }
-  | { layout: 'fill'; width?: string | number; height?: string | number }
+  | { fill: true; width?: string | number; height?: string | number }
 ) &
   ImageProps;
 

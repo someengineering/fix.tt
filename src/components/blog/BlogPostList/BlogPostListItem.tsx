@@ -28,7 +28,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             alt=""
             className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl bg-gray-50"
             classNames={{ image: 'object-cover' }}
-            layout="fill"
+            fill
           />
         ) : (
           <div className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover" />
