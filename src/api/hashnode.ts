@@ -55,8 +55,13 @@ export async function getHashnodePosts({
           edges {
             node {
               title
+              subtitle
               brief
               slug
+              tags {
+                name
+                slug
+              }
               coverImage {
                 url
               }
@@ -102,6 +107,10 @@ export async function getHashnodePost({ slug }: { slug: string }) {
           subtitle
           brief
           slug
+          tags {
+            name
+            slug
+          }
           coverImage {
             url
           }

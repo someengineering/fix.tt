@@ -2,8 +2,13 @@ import { Metadata } from 'next';
 
 import BlogPostList from '@/components/blog/BlogPostList';
 
+import { getHashnodePosts } from '@/api/hashnode';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
+
+async function getPosts() {
+  return await getHashnodePosts({});
+}
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -28,7 +33,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Blog() {
+export default async function Blog() {
+  const posts = await getPosts();
+
   return (
     <div className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -37,11 +44,9 @@ export default function Blog() {
             Fix blog
           </h2>
           <p className="mt-2 text-lg leading-8 text-gray-600">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-            lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat
-            fugiat aliqua.
+            Guides, how-tos, and news about cloud security and the Fix platform.
           </p>
-          <BlogPostList />
+          <BlogPostList fallbackData={posts} />
         </div>
       </div>
     </div>

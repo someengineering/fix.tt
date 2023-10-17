@@ -6,7 +6,13 @@ import Heading from '@/components/blog/MarkdownContent/Heading';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import NextImage from '@/components/common/NextImage';
 
+import { sanitizeMarkdown } from '@/utils/hashnode';
+
 export default function MarkdownContent({ children }: { children?: string }) {
+  if (!children) {
+    return null;
+  }
+
   return (
     <Markdown
       renderer={{
@@ -42,7 +48,9 @@ export default function MarkdownContent({ children }: { children?: string }) {
             alt={title}
             title={text}
             className="h-max w-full"
-            classNames={{ image: 'h-auto w-auto object-contain mx-auto' }}
+            classNames={{
+              image: 'h-auto w-auto object-contain mx-auto rounded-xl',
+            }}
             width={0}
             height={0}
             sizes="100vw"
@@ -50,7 +58,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
         ),
       }}
     >
-      {children}
+      {sanitizeMarkdown(children)}
     </Markdown>
   );
 }

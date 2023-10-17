@@ -11,3 +11,7 @@ export const getUserLink = (user: HashnodeUser): string | undefined => {
     socialMediaLinks.github
   );
 };
+
+export const sanitizeMarkdown = (markdown: string): string => {
+  return markdown.replace(/\s+align="\w+"/g, '');
+};

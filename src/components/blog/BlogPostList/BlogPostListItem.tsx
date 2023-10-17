@@ -5,6 +5,7 @@ import NextImage from '@/components/common/NextImage';
 
 import { HashnodePost } from '@/interfaces/hashnode';
 import { getUserLink } from '@/utils/hashnode';
+import { openGraph } from '@/utils/og';
 
 export default function BlogPostListItem({ post }: { post: HashnodePost }) {
   if (!post) {
@@ -28,7 +29,6 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl bg-gray-50"
             classNames={{ image: 'object-cover' }}
             layout="fill"
-            itemProp="image"
           />
         ) : (
           <div className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover" />
@@ -36,10 +36,10 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex items-center gap-x-4 text-sm">
+        <header className="flex items-center gap-x-2 text-sm font-semibold leading-7 text-gray-500">
           <time
             dateTime={post.publishedAt}
-            className="text-gray-500"
+            className="text-primary-900"
             itemProp="datePublished"
           >
             {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -47,20 +47,19 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               month: 'long',
               day: 'numeric',
             })}
-          </time>
-          {/* {post.tags?.map((tag) => (
-            <UnstyledLink
-              href={`/blog/tags/${tag.slug}`}
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-              key={`tag-${tag.slug}`}
-            >
-              {tag.name}
-            </UnstyledLink>
-          ))} */}
+          </time>{' '}
+          &middot; <span>{post.readTimeInMinutes} min read</span>
+          <link
+            itemProp="image"
+            href={openGraph({
+              title: post.title,
+              metadata: post.subtitle,
+            })}
+          />
         </header>
-        <div className="group relative max-w-xl">
+        <div className="group relative max-w-xl space-y-4">
           <h3
-            className="mt-3 text-xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
+            className="mt-2 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
             itemProp="headline"
           >
             <UnstyledLink href={`/blog/${post.slug}`} itemProp="url">
@@ -69,23 +68,21 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </UnstyledLink>
           </h3>
           <p
-            className="mt-5 text-base leading-6 text-gray-600"
+            className="text-base leading-6 text-gray-600"
             itemProp="description"
           >
-            {post.brief}
+            {post.subtitle ?? post.brief}
           </p>
-        </div>
-        <footer className="mt-6 flex border-t border-gray-900/5 pt-6">
-          <div className="relative flex items-center gap-x-4">
+          <div className="relative flex items-center gap-x-3">
             <NextImage
               src={post.author.profilePicture}
               alt=""
-              className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
+              className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-gray-50"
               classNames={{ image: 'w-full h-full object-cover' }}
               width={40}
               height={40}
             />
-            <div className="text-base leading-6">
+            <div className="text-sm leading-6">
               <p className="font-semibold text-gray-900">
                 {authorLink ? (
                   <UnstyledLink href={authorLink}>
@@ -101,6 +98,16 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               </p>
             </div>
           </div>
+        </div>
+        <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-primary-800">
+          {post.tags?.map((tag) => (
+            <span
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5"
+              key={`tag-${tag.slug}`}
+            >
+              {tag.name}
+            </span>
+          ))}
         </footer>
       </div>
     </article>

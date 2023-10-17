@@ -8,7 +8,11 @@ import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
 
 import { HashnodePostEdge } from '@/interfaces/hashnode';
 
-export default function BlogPostList() {
+export default function BlogPostList({
+  fallbackData,
+}: {
+  fallbackData: HashnodePostEdge[];
+}) {
   const [hasNextPage, setHasNextPage] = useState(true);
 
   const getKey = (pageIndex: number, previousPageData: HashnodePostEdge[]) => {
@@ -32,7 +36,9 @@ export default function BlogPostList() {
   };
 
   const { data, error, size, setSize, isLoading, isValidating } =
-    useSWRInfinite<HashnodePostEdge[]>(getKey);
+    useSWRInfinite<HashnodePostEdge[]>(getKey, {
+      fallbackData: [fallbackData],
+    });
 
   const [sentryRef] = useInfiniteScroll({
     loading: isLoading || isValidating,
