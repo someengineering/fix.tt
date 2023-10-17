@@ -11,7 +11,7 @@ import { openGraph } from '@/utils/og';
 
 export default function BlogPost({ post }: { post: HashnodePost }) {
   const url = `${siteConfig.url}/blog/${post.slug}`;
-  const authorLink = post.author ? getUserLink(post.author) : undefined;
+  const authorLink = getUserLink(post.author);
 
   return (
     <div

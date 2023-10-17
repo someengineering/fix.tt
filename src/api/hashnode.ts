@@ -112,7 +112,6 @@ export async function getHashnodePosts({
                 name
                 profilePicture
                 socialMediaLinks {
-                  website
                   linkedin
                 }
               }
@@ -160,7 +159,6 @@ export async function getHashnodePost(slug: string) {
             name
             profilePicture
             socialMediaLinks {
-              website
               linkedin
             }
           }

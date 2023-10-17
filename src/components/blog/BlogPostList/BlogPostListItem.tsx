@@ -14,7 +14,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
     return null;
   }
 
-  const authorLink = post.author ? getUserLink(post.author) : undefined;
+  const authorLink = getUserLink(post.author);
 
   return (
     <article

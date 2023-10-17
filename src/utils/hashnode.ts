@@ -4,8 +4,8 @@ export const getUserLink = (user: HashnodeUser): string | undefined => {
   const socialMediaLinks = user.socialMediaLinks;
 
   return (
-    socialMediaLinks.website ||
     socialMediaLinks.linkedin ||
+    socialMediaLinks.website ||
     socialMediaLinks.twitter ||
     socialMediaLinks.youtube ||
     socialMediaLinks.github
