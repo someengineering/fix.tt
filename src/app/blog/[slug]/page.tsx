@@ -39,6 +39,8 @@ export async function generateMetadata({
         }),
       ],
       type: 'article',
+      tags: post.tags?.map((tag) => tag.name),
+      publishedTime: post.publishedAt,
     },
     twitter: {
       title: `${post.title} | ${siteConfig.title}`,

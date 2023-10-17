@@ -76,6 +76,7 @@ export async function getHashnodePosts({
               }
               readTimeInMinutes
               publishedAt
+              updatedAt
             }
             cursor
           }
@@ -128,6 +129,7 @@ export async function getHashnodePost({ slug }: { slug: string }) {
           }
           readTimeInMinutes
           publishedAt
+          updatedAt
         }
       }
     }
