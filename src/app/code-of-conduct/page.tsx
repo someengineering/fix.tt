@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title,
-        metadata: description,
+        description,
       }),
     ],
   },
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title,
-        metadata: description,
+        description,
       }),
     ],
   },

@@ -4,7 +4,7 @@ import { getHashnodePost } from '@/api/hashnode';
 
 export async function GET(req: NextRequest) {
   return NextResponse.json(
-    await getHashnodePost({ slug: req.nextUrl.searchParams.get('slug') ?? '' }),
+    await getHashnodePost(req.nextUrl.searchParams.get('slug') ?? ''),
     { status: 200 },
   );
 }

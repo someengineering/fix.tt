@@ -10,8 +10,10 @@ import { HashnodePostEdge } from '@/interfaces/hashnode';
 
 export default function BlogPostList({
   fallbackData,
+  tag,
 }: {
   fallbackData: HashnodePostEdge[];
+  tag?: string;
 }) {
   const [hasNextPage, setHasNextPage] = useState(true);
 
@@ -26,11 +28,11 @@ export default function BlogPostList({
 
     // first page, we don't have `previousPageData`
     if (pageIndex === 0) {
-      return endpoint;
+      return `${endpoint}${tag ? `?tag=${tag}` : ''}`;
     }
 
     // add the cursor to the API endpoint
-    return `${endpoint}?after=${
+    return `${endpoint}?${tag ? `tag=${tag}&` : ''}after=${
       previousPageData[previousPageData.length - 1].cursor
     }`;
   };

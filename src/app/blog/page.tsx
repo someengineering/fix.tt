@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title,
-        metadata: description,
+        description,
       }),
     ],
   },
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title,
-        metadata: description,
+        description,
       }),
     ],
   },
 };
 
-export default async function Blog() {
+export default async function BlogPage() {
   const posts = await getPosts();
 
   return (

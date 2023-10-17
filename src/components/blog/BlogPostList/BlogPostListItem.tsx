@@ -53,7 +53,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             itemProp="image"
             href={openGraph({
               title: post.title,
-              metadata: post.subtitle,
+              description: post.subtitle,
             })}
           />
         </header>
@@ -103,12 +103,13 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         </div>
         <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-primary-800">
           {post.tags?.map((tag) => (
-            <span
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5"
+            <UnstyledLink
+              href={`/blog/tag/${tag.slug}`}
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-gray-100"
               key={`tag-${tag.slug}`}
             >
               {tag.name}
-            </span>
+            </UnstyledLink>
           ))}
         </footer>
       </div>

@@ -1,10 +1,45 @@
 import { gql, request } from 'graphql-request';
+import { flatten, uniq } from 'lodash';
 
 import { HASHNODE_ENDPOINT, HASHNODE_HOST } from '@/constants/hashnode';
 import {
   HashnodePostResponse,
   HashnodePostsResponse,
+  HashnodeTagResponse,
 } from '@/interfaces/hashnode';
+
+export async function getHashnodeTagSlugs() {
+  const variables = {
+    host: HASHNODE_HOST,
+    first: 20,
+  };
+
+  const query = gql`
+    query Publication($host: String!, $first: Int!) {
+      publication(host: $host) {
+        posts(first: $first) {
+          edges {
+            node {
+              tags {
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await request<HashnodePostsResponse>(
+    HASHNODE_ENDPOINT,
+    query,
+    variables,
+  );
+
+  return uniq(
+    flatten(data.publication.posts.edges.map((edge) => edge.node.tags ?? [])),
+  ).map((tag) => tag.slug);
+}
 
 export async function getHashnodePostSlugs() {
   const variables = {
@@ -83,7 +118,6 @@ export async function getHashnodePosts({
               }
               readTimeInMinutes
               publishedAt
-              updatedAt
             }
             cursor
           }
@@ -101,7 +135,7 @@ export async function getHashnodePosts({
   return data.publication.posts.edges;
 }
 
-export async function getHashnodePost({ slug }: { slug: string }) {
+export async function getHashnodePost(slug: string) {
   const variables = {
     host: HASHNODE_HOST,
     slug,
@@ -135,7 +169,6 @@ export async function getHashnodePost({ slug }: { slug: string }) {
           }
           readTimeInMinutes
           publishedAt
-          updatedAt
         }
       }
     }
@@ -148,4 +181,27 @@ export async function getHashnodePost({ slug }: { slug: string }) {
   );
 
   return data.publication.post;
+}
+
+export async function getHashnodeTagName(slug: string) {
+  const variables = {
+    host: HASHNODE_HOST,
+    slug,
+  };
+
+  const query = `
+    query Tag($slug: String!) {
+      tag(slug: $slug) {
+        name
+      }
+    }
+  `;
+
+  const data = await request<HashnodeTagResponse>(
+    HASHNODE_ENDPOINT,
+    query,
+    variables,
+  );
+
+  return data.tag.name;
 }

@@ -15,7 +15,7 @@ export async function generateStaticParams() {
 }
 
 async function getPost(slug: string) {
-  return await getHashnodePost({ slug });
+  return await getHashnodePost(slug);
 }
 
 export async function generateMetadata({
@@ -38,7 +38,7 @@ export async function generateMetadata({
       images: [
         openGraph({
           title,
-          metadata: post.subtitle,
+          description: post.subtitle,
         }),
       ],
       type: 'article',
@@ -51,7 +51,7 @@ export async function generateMetadata({
       images: [
         openGraph({
           title,
-          metadata: post.subtitle,
+          description: post.subtitle,
         }),
       ],
     },

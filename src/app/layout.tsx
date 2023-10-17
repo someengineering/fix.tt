@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title: siteConfig.tagline,
-        metadata: siteConfig.url,
+        description: siteConfig.url,
       }),
     ],
     type: 'website',
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title: siteConfig.tagline,
-        metadata: siteConfig.url,
+        description: siteConfig.url,
       }),
     ],
   },

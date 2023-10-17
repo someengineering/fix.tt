@@ -10,6 +10,10 @@ export interface HashnodePostResponse {
   };
 }
 
+export interface HashnodeTagResponse {
+  tag: HashnodeTag;
+}
+
 interface HashnodeContent {
   markdown?: string;
   html?: string;
