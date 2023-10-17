@@ -1,6 +1,5 @@
 'use client';
 
-import GithubSlugger from 'github-slugger';
 import Markdown from 'marked-react';
 
 import Heading from '@/components/blog/MarkdownContent/Heading';
@@ -13,8 +12,6 @@ export default function MarkdownContent({ children }: { children?: string }) {
   if (!children) {
     return null;
   }
-
-  const slugger = new GithubSlugger();
 
   return (
     <Markdown
@@ -29,7 +26,6 @@ export default function MarkdownContent({ children }: { children?: string }) {
                 | 'h5'
                 | 'h6'
             }
-            id={slugger.slug(text)}
           >
             {text}
           </Heading>

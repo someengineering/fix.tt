@@ -20,7 +20,6 @@
     "@headlessui/react": "1.7.17",
     "@hookform/resolvers": "3.3.2",
     "clsx": "2.0.0",
-    "github-slugger": "2.0.0",
     "graphql": "16.8.1",
     "graphql-request": "6.1.0",
     "marked-react": "2.0.0",

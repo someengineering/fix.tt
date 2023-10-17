@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { cn } from '@/utils/css';
 
 const headingClasses = {
@@ -11,12 +13,10 @@ const headingClasses = {
 export default function Heading({
   as: As,
   children,
-  id,
   ...props
 }: {
   as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   children: string;
-  id?: string;
 }) {
   return (
     <As
@@ -25,7 +25,6 @@ export default function Heading({
         'font-bold tracking-tight text-gray-900',
         headingClasses[As],
       )}
-      id={id}
     >
       {children}
     </As>
