@@ -1,3 +1,5 @@
+'use client';
+
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 
@@ -10,9 +12,10 @@ type NextImageProps = {
     blur?: string;
   };
   alt: string;
+  title?: string;
 } & (
   | { width: string | number; height: string | number }
-  | { layout: 'fill'; width?: string | number; height?: string | number }
+  | { fill: true; width?: string | number; height?: string | number }
 ) &
   ImageProps;
 
@@ -27,6 +30,7 @@ export default function NextImage({
   width,
   height,
   alt,
+  title,
   className,
   classNames,
   ...rest
@@ -51,6 +55,9 @@ export default function NextImage({
         onLoadingComplete={() => setStatus('complete')}
         {...rest}
       />
+      {title ? (
+        <figcaption className="text-center italic">{title}</figcaption>
+      ) : null}
     </figure>
   );
 }

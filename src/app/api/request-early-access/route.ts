@@ -74,5 +74,5 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  return new Response();
+  return new Response(null, { status: 201 });
 }

@@ -1,12 +1,14 @@
 export const openGraph = ({
   title,
-  metadata,
+  description,
 }: {
   title?: string;
-  metadata?: string;
+  description?: string;
 }): string => {
   const ogTitle = title ? encodeURIComponent(title.trim()) : undefined;
-  const ogMetadata = metadata ? encodeURIComponent(metadata.trim()) : undefined;
+  const ogMetadata = description
+    ? encodeURIComponent(description.trim())
+    : undefined;
 
   return `https://og.some.engineering/api/image?theme=fix${
     ogTitle ? `&title=${ogTitle}` : ''

@@ -10,16 +10,13 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 import { siteConfig } from '@/constants/config';
-import { isProd } from '@/constants/env';
+import { isLocal, isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
-import { ClientCookiesProvider } from '@/context/ClientCookies';
+import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
+import { SWRProvider } from '@/providers/SWRProvider';
 import { openGraph } from '@/utils/og';
 
-const nunitoSans = Nunito_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-nunito-sans',
-});
+export const revalidate = isLocal ? 0 : 300;
 
 export const metadata: Metadata = {
   title: {
@@ -45,7 +42,7 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title: siteConfig.tagline,
-        metadata: siteConfig.url,
+        description: siteConfig.url,
       }),
     ],
     type: 'website',
@@ -58,11 +55,38 @@ export const metadata: Metadata = {
     images: [
       openGraph({
         title: siteConfig.tagline,
-        metadata: siteConfig.url,
+        description: siteConfig.url,
       }),
     ],
   },
 };
+
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-nunito-sans',
+});
+
+const gtmScript = `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  'ad_storage': 'denied',
+  'analytics_storage': 'denied'
+});
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');
+`;
+
+const consentScript = `
+gtag('consent', 'update', {
+  'ad_storage': 'granted',
+  'analytics_storage': 'granted'
+});
+`;
 
 export default function RootLayout({
   children,
@@ -73,54 +97,40 @@ export default function RootLayout({
   const consent = cookieStore.get('cookie_consent')?.value === 'true';
 
   return (
-    <ClientCookiesProvider value={cookieStore.getAll()}>
-      <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
-        <body className="bg-white">
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          {GTM_CONTAINER_ID ? (
-            <>
-              <Script
-                id="google-tag-manager"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                  __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('consent', 'default', {
-                    'ad_storage': 'denied',
-                    'analytics_storage': 'denied'
-                  });
-                  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                  })(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
-                }}
-              />
-              {consent ? (
-                <>
-                  <Script
-                    id="consent-update"
-                    strategy="afterInteractive"
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                        gtag('consent', 'update', {
-                          'ad_storage': 'granted',
-                          'analytics_storage': 'granted'
-                        });
-                      `,
-                    }}
-                  />
-                </>
-              ) : (
-                <CookieConsent />
-              )}
-            </>
-          ) : null}
-        </body>
-      </html>
-    </ClientCookiesProvider>
+    <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
+      <body className="bg-white">
+        <SWRProvider>
+          <ClientCookiesProvider value={cookieStore.getAll()}>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            {GTM_CONTAINER_ID ? (
+              <>
+                <Script
+                  id="gtm"
+                  strategy="afterInteractive"
+                  dangerouslySetInnerHTML={{
+                    __html: gtmScript,
+                  }}
+                />
+                {consent ? (
+                  <>
+                    <Script
+                      id="consent"
+                      strategy="afterInteractive"
+                      dangerouslySetInnerHTML={{
+                        __html: consentScript,
+                      }}
+                    />
+                  </>
+                ) : (
+                  <CookieConsent />
+                )}
+              </>
+            ) : null}
+          </ClientCookiesProvider>
+        </SWRProvider>
+      </body>
+    </html>
   );
 }

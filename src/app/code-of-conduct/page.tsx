@@ -2,15 +2,44 @@ import { Metadata } from 'next';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
+import { siteConfig } from '@/constants/config';
+import { openGraph } from '@/utils/og';
+
+const title = 'Code of conduct';
+const description =
+  'We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.';
+
 export const metadata: Metadata = {
-  title: 'Code of conduct',
+  title,
+  description,
+  openGraph: {
+    url: `${siteConfig.url}/code-of-conduct`,
+    title,
+    description,
+    images: [
+      openGraph({
+        title,
+        description,
+      }),
+    ],
+  },
+  twitter: {
+    title: `${title} | ${siteConfig.title}`,
+    description,
+    images: [
+      openGraph({
+        title,
+        description,
+      }),
+    ],
+  },
 };
 
-export default function CodeOfConductPage() {
+export default function CodeOfConduct() {
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Code of conduct
         </h1>
         <div className="max-w-2xl">

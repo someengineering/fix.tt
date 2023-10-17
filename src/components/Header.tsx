@@ -14,6 +14,7 @@ const navigation = [
   { name: 'Why Fix?', href: '/#why' },
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
+  { name: 'Blog', href: '/blog' },
 ];
 
 export default function Header() {
