@@ -1,3 +1,5 @@
+import { LuBookOpen } from 'react-icons/lu';
+
 import MarkdownContent from '@/components/blog/MarkdownContent';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
@@ -24,11 +26,11 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
         itemType="http://schema.org/BlogPosting"
       >
         <header className="space-y-4">
-          <div className="flex items-center gap-x-6 text-base text-gray-500">
-            <span className="flex gap-x-2 font-semibold leading-7">
+          <div className="flex items-center space-x-6 text-base text-gray-500">
+            <span className="flex space-x-6 font-semibold leading-7">
               <time
                 dateTime={post.publishedAt}
-                className="text-primary-900"
+                className="font-bold text-primary-900"
                 itemProp="datePublished"
               >
                 {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -36,8 +38,11 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
                   month: 'long',
                   day: 'numeric',
                 })}
-              </time>{' '}
-              &middot; <span>{post.readTimeInMinutes} min read</span>
+              </time>
+              <span className="flex items-center space-x-2">
+                <LuBookOpen className="h-5 w-5" aria-hidden="true" />
+                <span>{post.readTimeInMinutes} min read</span>
+              </span>
             </span>
             <link itemProp="url" href={url} />
             <link
@@ -49,7 +54,7 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
             />
           </div>
           <h1
-            className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             itemProp="headline"
           >
             {post.title}
@@ -101,11 +106,11 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
         >
           <MarkdownContent>{post.content?.markdown}</MarkdownContent>
         </div>
-        <footer className="flex gap-x-2 text-base font-medium text-primary-800">
+        <footer className="flex gap-x-2 text-base font-medium text-primary-900">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-gray-100"
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

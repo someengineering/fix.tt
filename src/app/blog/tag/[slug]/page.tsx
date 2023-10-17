@@ -92,10 +92,13 @@ export default async function BlogTagPage({
           itemScope
           itemType="http://schema.org/Blog"
         >
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mb-2 text-base font-semibold uppercase leading-7 text-primary-900">
+            From the blog
+          </p>
+          <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             {title}
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">{description}</p>
+          <p className="mt-2 text-xl leading-8 text-gray-600">{description}</p>
           <BlogPostList fallbackData={posts} />
         </div>
       </div>

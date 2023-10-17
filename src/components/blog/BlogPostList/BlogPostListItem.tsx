@@ -1,5 +1,7 @@
 'use client';
 
+import { LuBookOpen } from 'react-icons/lu';
+
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
@@ -36,10 +38,10 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex items-center gap-x-2 text-sm font-semibold leading-7 text-gray-500">
+        <header className="flex items-center space-x-5 text-sm font-semibold leading-7 text-gray-500">
           <time
             dateTime={post.publishedAt}
-            className="text-primary-900"
+            className="font-bold text-primary-900"
             itemProp="datePublished"
           >
             {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -47,8 +49,11 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               month: 'long',
               day: 'numeric',
             })}
-          </time>{' '}
-          &middot; <span>{post.readTimeInMinutes} min read</span>
+          </time>
+          <span className="flex items-center space-x-1.5">
+            <LuBookOpen className="h-4 w-4" aria-hidden="true" />
+            <span>{post.readTimeInMinutes} min read</span>
+          </span>
           <link
             itemProp="image"
             href={openGraph({
@@ -77,7 +82,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             <NextImage
               src={post.author.profilePicture}
               alt=""
-              className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-gray-50"
+              className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-50"
               classNames={{ image: 'w-full h-full object-cover' }}
               width={40}
               height={40}
@@ -101,11 +106,11 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </div>
           </div>
         </div>
-        <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-primary-800">
+        <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-primary-900">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-gray-100"
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

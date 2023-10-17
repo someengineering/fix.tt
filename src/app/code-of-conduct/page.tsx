@@ -39,7 +39,7 @@ export default function CodeOfConduct() {
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
-        <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Code of conduct
         </h1>
         <div className="max-w-2xl">
