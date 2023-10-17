@@ -1,5 +1,6 @@
 'use client';
 
+import GithubSlugger from 'github-slugger';
 import Markdown from 'marked-react';
 
 import Heading from '@/components/blog/MarkdownContent/Heading';
@@ -13,11 +14,23 @@ export default function MarkdownContent({ children }: { children?: string }) {
     return null;
   }
 
+  const slugger = new GithubSlugger();
+
   return (
     <Markdown
       renderer={{
         heading: (text: string, level: number) => (
-          <Heading as={`h${level}` as 'h2' | 'h3' | 'h4' | 'h5' | 'h6'}>
+          <Heading
+            as={
+              `h${level > 1 && level < 7 ? level : 2}` as
+                | 'h2'
+                | 'h3'
+                | 'h4'
+                | 'h5'
+                | 'h6'
+            }
+            id={slugger.slug(text)}
+          >
             {text}
           </Heading>
         ),
@@ -53,7 +66,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
             }}
             width={0}
             height={0}
-            sizes="100vw"
+            sizes="350vw"
           />
         ),
       }}

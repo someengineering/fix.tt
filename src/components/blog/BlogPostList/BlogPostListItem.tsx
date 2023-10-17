@@ -93,9 +93,11 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
                   <>{post.author.name}</>
                 )}
               </p>
-              <p className="line-clamp-1 text-gray-600">
-                {post.author.tagline}
-              </p>
+              {post.author.tagline ? (
+                <p className="line-clamp-1 text-gray-600">
+                  {post.author.tagline}
+                </p>
+              ) : null}
             </div>
           </div>
         </div>

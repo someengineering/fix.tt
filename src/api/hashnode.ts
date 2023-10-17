@@ -75,7 +75,6 @@ export async function getHashnodePosts({
               }
               author {
                 name
-                tagline
                 profilePicture
                 socialMediaLinks {
                   website
@@ -125,7 +124,6 @@ export async function getHashnodePost({ slug }: { slug: string }) {
           }
           author {
             name
-            tagline
             profilePicture
             socialMediaLinks {
               website

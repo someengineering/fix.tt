@@ -84,9 +84,14 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
                   <>{post.author.name}</>
                 )}
               </p>
-              <p className="line-clamp-1 text-gray-600" itemProp="description">
-                {post.author.tagline}
-              </p>
+              {post.author.tagline ? (
+                <p
+                  className="line-clamp-1 text-gray-600"
+                  itemProp="description"
+                >
+                  {post.author.tagline}
+                </p>
+              ) : null}
             </div>
           </div>
         </header>
