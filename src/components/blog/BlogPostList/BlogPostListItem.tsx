@@ -78,7 +78,12 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
           >
             {post.subtitle ?? post.brief}
           </p>
-          <div className="relative flex items-center gap-x-3">
+          <div
+            className="relative flex items-center gap-x-3"
+            itemProp="author"
+            itemScope
+            itemType="https://schema.org/Person"
+          >
             <NextImage
               src={post.author.profilePicture}
               alt=""
@@ -86,11 +91,12 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               classNames={{ image: 'w-full h-full object-cover' }}
               width={40}
               height={40}
+              itemProp="image"
             />
             <div className="text-sm leading-6">
-              <p className="font-semibold text-gray-900">
+              <p className="font-semibold text-gray-900" itemProp="name">
                 {authorLink ? (
-                  <UnstyledLink href={authorLink}>
+                  <UnstyledLink href={authorLink} itemProp="url">
                     <span className="absolute inset-0" />
                     {post.author.name}
                   </UnstyledLink>
@@ -99,7 +105,10 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
                 )}
               </p>
               {post.author.tagline ? (
-                <p className="line-clamp-1 text-gray-600">
+                <p
+                  className="line-clamp-1 text-gray-600"
+                  itemProp="description"
+                >
                   {post.author.tagline}
                 </p>
               ) : null}

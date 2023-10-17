@@ -89,6 +89,7 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
               classNames={{ image: 'w-full h-full object-cover' }}
               width={40}
               height={40}
+              itemProp="image"
             />
             <div className="text-base leading-6">
               <p className="font-semibold text-gray-900" itemProp="name">
