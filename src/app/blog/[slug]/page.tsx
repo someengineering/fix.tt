@@ -60,9 +60,5 @@ export default async function BlogPostPage({
 }) {
   const post = await getPost(params.slug);
 
-  return (
-    <div className="px-6 py-32 lg:px-8">
-      <BlogPost post={post} />
-    </div>
-  );
+  return <BlogPost post={post} />;
 }
