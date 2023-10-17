@@ -17,8 +17,9 @@ export const metadata: Metadata = {
     title: 'Blog',
     images: [
       openGraph({
-        title: 'Fix Blog',
-        metadata: `${siteConfig.url}/blog`,
+        title: 'Blog',
+        metadata:
+          'Guides, how-tos, and news about cloud security and the Fix platform.',
       }),
     ],
   },
@@ -26,8 +27,9 @@ export const metadata: Metadata = {
     title: `Blog | ${siteConfig.title}`,
     images: [
       openGraph({
-        title: 'Fix Blog',
-        metadata: `${siteConfig.url}/blog`,
+        title: 'Blog',
+        metadata:
+          'Guides, how-tos, and news about cloud security and the Fix platform.',
       }),
     ],
   },
