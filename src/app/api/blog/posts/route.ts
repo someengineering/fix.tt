@@ -7,6 +7,7 @@ export async function GET(req: NextRequest) {
     await getHashnodePosts({
       first: parseInt(req.nextUrl.searchParams.get('first') ?? '5'),
       after: req.nextUrl.searchParams.get('after') ?? undefined,
+      tag: req.nextUrl.searchParams.get('tag') ?? undefined,
     }),
     {
       status: 200,

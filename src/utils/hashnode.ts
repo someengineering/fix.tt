@@ -13,5 +13,8 @@ export const getUserLink = (user: HashnodeUser): string | undefined => {
 };
 
 export const sanitizeMarkdown = (markdown: string): string => {
-  return markdown.replace(/\s+align="\w+"/g, '');
+  return markdown
+    .replace(/\s+align="\w+"/g, '')
+    .replace(/]\(https?:\/\/(www\.)?fix\.tt\/?/g, '](/')
+    .replace(/]\(https?:\/\/blog\.fix\.tt\/?/g, '](/blog/');
 };

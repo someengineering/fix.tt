@@ -38,20 +38,28 @@ export async function getHashnodePostSlugs() {
 export async function getHashnodePosts({
   first,
   after,
+  tag,
 }: {
   first?: number;
   after?: string;
+  tag?: string;
 }) {
   const variables = {
     host: HASHNODE_HOST,
     first: first && first > 0 ? (first > 20 ? 20 : first) : 5,
     after,
+    filter: tag ? { tagSlugs: [tag] } : undefined,
   };
 
   const query = gql`
-    query Publication($host: String!, $first: Int!, $after: String) {
+    query Publication(
+      $host: String!
+      $first: Int!
+      $after: String
+      $filter: PublicationPostConnectionFilter
+    ) {
       publication(host: $host) {
-        posts(first: $first, after: $after) {
+        posts(first: $first, after: $after, filter: $filter) {
           edges {
             node {
               title
