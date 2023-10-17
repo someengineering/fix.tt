@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 import BlogPost from '@/components/blog/BlogPost';
 
@@ -24,6 +25,10 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const post = await getPost(params.slug);
+
+  if (!post) {
+    return {};
+  }
 
   const title = post.title;
   const description = post.subtitle ?? post.brief;
@@ -64,6 +69,10 @@ export default async function BlogPostPage({
   params: { slug: string };
 }) {
   const post = await getPost(params.slug);
+
+  if (!post) {
+    redirect('/blog');
+  }
 
   return <BlogPost post={post} />;
 }

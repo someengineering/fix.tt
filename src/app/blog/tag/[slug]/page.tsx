@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 import BlogPostList from '@/components/blog/BlogPostList';
 
@@ -32,6 +33,10 @@ export async function generateMetadata({
   params: { slug: string };
 }): Promise<Metadata> {
   const tag = await getTagName(params.slug);
+
+  if (!tag) {
+    return {};
+  }
 
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
   const description = `Blog posts about ${tag} and the Fix platform.`;
@@ -71,6 +76,10 @@ export default async function BlogTagPage({
 }) {
   const tag = await getTagName(params.slug);
   const posts = await getPosts(params.slug);
+
+  if (!tag || !posts.length) {
+    redirect('/blog');
+  }
 
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
   const description = `Blog posts about ${tag} and the Fix platform.`;

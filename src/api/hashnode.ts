@@ -203,5 +203,5 @@ export async function getHashnodeTagName(slug: string) {
     variables,
   );
 
-  return data.tag.name;
+  return data.tag?.name;
 }
