@@ -39,7 +39,7 @@ export async function generateMetadata({
   }
 
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
-  const description = `Blog posts about ${tag} and the Fix platform.`;
+  const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
 
   return {
     title,
@@ -82,7 +82,7 @@ export default async function BlogTagPage({
   }
 
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
-  const description = `Blog posts about ${tag} and the Fix platform.`;
+  const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
 
   return (
     <div className="py-24 sm:py-32">
