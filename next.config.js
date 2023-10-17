@@ -11,6 +11,18 @@ const nextConfig = {
     domains: ['cdn.hashnode.com'],
   },
 
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/:path*',
+          destination: '/blog/:path*',
+          has: [{ type: 'host', value: 'blog.fix.tt' }],
+        },
+      ],
+    };
+  },
+
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>
