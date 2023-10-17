@@ -1,4 +1,8 @@
+'use client';
+
+import { redirect } from 'next/navigation';
 import { LuBookOpen } from 'react-icons/lu';
+import useSWR from 'swr';
 
 import MarkdownContent from '@/components/blog/MarkdownContent';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
@@ -10,8 +14,16 @@ import { getUserLink } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
 export default function BlogPost({ post }: { post: HashnodePost }) {
-  const url = `${siteConfig.url}/blog/${post.slug}`;
-  const authorLink = getUserLink(post.author);
+  const { data } = useSWR<HashnodePost>(`/api/blog/post?slug=${post.slug}`, {
+    fallbackData: post,
+  });
+
+  if (!data) {
+    redirect('/blog');
+  }
+
+  const url = `${siteConfig.url}/blog/${data.slug}`;
+  const authorLink = getUserLink(data.author);
 
   return (
     <div
@@ -29,11 +41,11 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
           <div className="flex items-center space-x-6 text-base text-gray-500">
             <span className="flex space-x-6 font-semibold leading-7">
               <time
-                dateTime={post.publishedAt}
+                dateTime={data.publishedAt}
                 className="font-bold text-primary-900"
                 itemProp="datePublished"
               >
-                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                {new Date(data.publishedAt).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
@@ -41,15 +53,15 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
               </time>
               <span className="flex items-center space-x-2">
                 <LuBookOpen className="h-5 w-5" aria-hidden="true" />
-                <span>{post.readTimeInMinutes} min read</span>
+                <span>{data.readTimeInMinutes} min read</span>
               </span>
             </span>
             <link itemProp="url" href={url} />
             <link
               itemProp="image"
               href={openGraph({
-                title: post.title,
-                description: post.subtitle,
+                title: data.title,
+                description: data.subtitle,
               })}
             />
           </div>
@@ -57,12 +69,12 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
             className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             itemProp="headline"
           >
-            {post.title}
+            {data.title}
           </h1>
-          {post.subtitle ? (
-            <p className="text-xl leading-8">{post.subtitle}</p>
+          {data.subtitle ? (
+            <p className="text-xl leading-8">{data.subtitle}</p>
           ) : (
-            <meta itemProp="description" content={post.brief} />
+            <meta itemProp="description" content={data.brief} />
           )}
           <div
             className="relative flex items-center gap-x-4"
@@ -71,7 +83,7 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
             itemType="https://schema.org/Person"
           >
             <NextImage
-              src={post.author.profilePicture}
+              src={data.author.profilePicture}
               alt=""
               className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
               classNames={{ image: 'w-full h-full object-cover' }}
@@ -83,18 +95,18 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
                 {authorLink ? (
                   <UnstyledLink href={authorLink} itemProp="url">
                     <span className="absolute inset-0" />
-                    {post.author.name}
+                    {data.author.name}
                   </UnstyledLink>
                 ) : (
-                  <>{post.author.name}</>
+                  <>{data.author.name}</>
                 )}
               </p>
-              {post.author.tagline ? (
+              {data.author.tagline ? (
                 <p
                   className="line-clamp-1 text-gray-600"
                   itemProp="description"
                 >
-                  {post.author.tagline}
+                  {data.author.tagline}
                 </p>
               ) : null}
             </div>
@@ -104,10 +116,10 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
           className="w-prose my-8 border-y border-gray-900/5"
           itemProp="articleBody"
         >
-          <MarkdownContent>{post.content?.markdown}</MarkdownContent>
+          <MarkdownContent>{data.content?.markdown}</MarkdownContent>
         </div>
         <footer className="flex gap-x-2 text-base font-medium text-primary-900">
-          {post.tags?.map((tag) => (
+          {data.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
               className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"

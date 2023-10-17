@@ -1,5 +1,6 @@
 'use client';
 
+import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import useSWRInfinite from 'swr/infinite';
@@ -51,7 +52,7 @@ export default function BlogPostList({
   });
 
   if (!data && !error) {
-    return null;
+    redirect('/');
   }
 
   return (
