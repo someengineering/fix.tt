@@ -18,7 +18,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
 
   return (
     <article
-      className="relative isolate flex flex-col gap-8 lg:flex-row"
+      className="relative isolate flex flex-col items-center gap-8 lg:flex-row"
       itemProp="blogPost"
       itemScope
       itemType="http://schema.org/BlogPosting"
