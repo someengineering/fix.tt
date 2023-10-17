@@ -10,26 +10,29 @@ async function getPosts() {
   return await getHashnodePosts({});
 }
 
+const title = 'Blog';
+const description =
+  'Guides, how-tos, and news about cloud security and the Fix platform.';
+
 export const metadata: Metadata = {
-  title: 'Blog',
+  title,
+  description,
   openGraph: {
     url: `${siteConfig.url}/blog`,
-    title: 'Blog',
+    title,
     images: [
       openGraph({
-        title: 'Blog',
-        metadata:
-          'Guides, how-tos, and news about cloud security and the Fix platform.',
+        title,
+        metadata: description,
       }),
     ],
   },
   twitter: {
-    title: `Blog | ${siteConfig.title}`,
+    title: `${title} | ${siteConfig.title}`,
     images: [
       openGraph({
-        title: 'Blog',
-        metadata:
-          'Guides, how-tos, and news about cloud security and the Fix platform.',
+        title,
+        metadata: description,
       }),
     ],
   },
@@ -47,11 +50,9 @@ export default async function Blog() {
           itemType="http://schema.org/Blog"
         >
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Fix blog
+            {title}
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Guides, how-tos, and news about cloud security and the Fix platform.
-          </p>
+          <p className="mt-2 text-lg leading-8 text-gray-600">{description}</p>
           <BlogPostList fallbackData={posts} />
         </div>
       </div>

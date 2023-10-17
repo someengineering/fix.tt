@@ -25,16 +25,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = await getPost(params.slug);
 
+  const title = post.title;
+  const description = post.subtitle ?? post.brief;
+
   return {
-    title: post.title,
-    description: post.brief,
+    title,
+    description,
     openGraph: {
       url: `${siteConfig.url}/blog/${post.slug}`,
-      title: post.title,
-      description: post.brief,
+      title,
+      description,
       images: [
         openGraph({
-          title: post.title,
+          title,
           metadata: post.subtitle,
         }),
       ],
@@ -44,10 +47,10 @@ export async function generateMetadata({
     },
     twitter: {
       title: `${post.title} | ${siteConfig.title}`,
-      description: post.brief,
+      description,
       images: [
         openGraph({
-          title: post.title,
+          title,
           metadata: post.subtitle,
         }),
       ],

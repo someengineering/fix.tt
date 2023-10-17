@@ -2,8 +2,37 @@ import { Metadata } from 'next';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
+import { siteConfig } from '@/constants/config';
+import { openGraph } from '@/utils/og';
+
+const title = 'Cookie policy';
+const description =
+  'As is common practice with professional websites, this site uses cookies—tiny files that are downloaded to your computer—to improve your experience.';
+
 export const metadata: Metadata = {
-  title: 'Cookie policy',
+  title,
+  description,
+  openGraph: {
+    url: `${siteConfig.url}/cookie-policy`,
+    title,
+    description,
+    images: [
+      openGraph({
+        title,
+        metadata: description,
+      }),
+    ],
+  },
+  twitter: {
+    title: `${title} | ${siteConfig.title}`,
+    description,
+    images: [
+      openGraph({
+        title,
+        metadata: description,
+      }),
+    ],
+  },
 };
 
 export default function CookiePolicy() {
