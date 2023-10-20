@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { WebSite, WithContext } from 'schema-dts';
 
 import Faq from '@/components/Faq';
 import Pricing from '@/components/Pricing';
@@ -16,8 +17,19 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const jsonLd: WithContext<WebSite> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: `${siteConfig.title}: ${siteConfig.tagline}`,
+    url: siteConfig.url,
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div className="relative isolate px-6 lg:px-8">
         <div className="mx-auto max-w-3xl py-16 sm:py-24 lg:py-28">
           <div className="text-center">
