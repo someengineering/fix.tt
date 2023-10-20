@@ -1,12 +1,14 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
 
 import '@/styles/globals.css';
 
-// import ButtonLink from '@/components/common/links/ButtonLink';
+import ButtonLink from '@/components/common/links/ButtonLink';
+
 import Logo from '@/assets/logo.svg';
 import { siteConfig } from '@/constants/config';
 
@@ -18,6 +20,7 @@ const navigation = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -57,9 +60,11 @@ export default function Header() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {/* <ButtonLink href="/#request-early-access">
-            Request early access
-          </ButtonLink> */}
+          {pathname !== '/' ? (
+            <ButtonLink href="/#request-early-access" variant="tangerine">
+              Request early access
+            </ButtonLink>
+          ) : null}
         </div>
       </nav>
       <Dialog
@@ -98,7 +103,7 @@ export default function Header() {
                   </a>
                 ))}
               </div>
-              {/* <div className="py-6">
+              <div className="py-6">
                 <ButtonLink
                   href="/#request-early-access"
                   variant="tangerine"
@@ -106,7 +111,7 @@ export default function Header() {
                 >
                   Request early access
                 </ButtonLink>
-              </div> */}
+              </div>
             </div>
           </div>
         </Dialog.Panel>
