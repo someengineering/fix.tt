@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import BlogPostList from '@/components/blog/BlogPostList';
 
 import { getHashnodePosts } from '@/api/hashnode';
+import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
@@ -18,9 +19,11 @@ export const metadata: Metadata = {
   title,
   description,
   alternates: {
+    ...rootMetadata.alternates,
     canonical: url,
   },
   openGraph: {
+    ...rootMetadata.openGraph,
     url,
     title,
     images: [
@@ -31,6 +34,7 @@ export const metadata: Metadata = {
     ],
   },
   twitter: {
+    ...rootMetadata.twitter,
     title: `${title} | ${siteConfig.title}`,
     images: [
       openGraph({

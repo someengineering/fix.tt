@@ -34,6 +34,19 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/site.webmanifest',
+  alternates: {
+    types: {
+      'application/rss+xml': [
+        { url: '/blog/rss.xml', title: 'Fix blog RSS feed' },
+      ],
+      'application/atom+xml': [
+        { url: '/blog/atom.xml', title: 'Fix blog Atom feed' },
+      ],
+      'application/json': [
+        { url: '/blog/feed.json', title: 'Fix blog JSON feed' },
+      ],
+    },
+  },
   openGraph: {
     url: siteConfig.url,
     title: siteConfig.title,

@@ -5,10 +5,12 @@ import Pricing from '@/components/Pricing';
 import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
 import Why from '@/components/Why';
 
+import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 
 export const metadata: Metadata = {
   alternates: {
+    ...rootMetadata.alternates,
     canonical: siteConfig.url,
   },
 };

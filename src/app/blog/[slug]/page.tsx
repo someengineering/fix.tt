@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import BlogPost from '@/components/blog/BlogPost';
 
 import { getHashnodePost, getHashnodePostSlugs } from '@/api/hashnode';
+import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
@@ -38,9 +39,11 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
+      ...rootMetadata.alternates,
       canonical: url,
     },
     openGraph: {
+      ...rootMetadata.openGraph,
       url,
       title,
       description,
@@ -55,6 +58,7 @@ export async function generateMetadata({
       publishedTime: post.publishedAt,
     },
     twitter: {
+      ...rootMetadata.twitter,
       title: `${post.title} | ${siteConfig.title}`,
       description,
       images: [

@@ -8,6 +8,7 @@ import {
   getHashnodeTagName,
   getHashnodeTagSlugs,
 } from '@/api/hashnode';
+import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
@@ -46,9 +47,11 @@ export async function generateMetadata({
     title,
     description,
     alternates: {
+      ...rootMetadata.alternates,
       canonical: url,
     },
     openGraph: {
+      ...rootMetadata.openGraph,
       url,
       title,
       description,
@@ -58,9 +61,9 @@ export async function generateMetadata({
           description,
         }),
       ],
-      tags: [tag],
     },
     twitter: {
+      ...rootMetadata.twitter,
       title: `${title} | ${siteConfig.title}`,
       description,
       images: [
