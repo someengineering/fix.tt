@@ -17,16 +17,7 @@ const nextConfig = {
         source: '/:path*',
         has: [{ type: 'host', value: 'blog.fix.tt' }],
         permanent: true,
-        destination: '/blog/:path*',
-      },
-    ];
-  },
-
-  async rewrites() {
-    return [
-      {
-        source: '/(blog/)?rss.xml',
-        destination: 'https://fix-blog.hashnode.dev/rss.xml',
+        destination: 'https://fix.tt/blog/:path*',
       },
     ];
   },
