@@ -8,7 +8,7 @@ import {
   HashnodeTagResponse,
 } from '@/interfaces/hashnode';
 
-export async function getHashnodeTagSlugs() {
+export const getHashnodeTagSlugs = async () => {
   const variables = {
     host: HASHNODE_HOST,
     first: 20,
@@ -39,9 +39,9 @@ export async function getHashnodeTagSlugs() {
   return uniq(
     flatten(data.publication.posts.edges.map((edge) => edge.node.tags ?? [])),
   ).map((tag) => tag.slug);
-}
+};
 
-export async function getHashnodePostSlugs() {
+export const getHashnodePostSlugs = async () => {
   const variables = {
     host: HASHNODE_HOST,
     first: 20,
@@ -68,17 +68,19 @@ export async function getHashnodePostSlugs() {
   );
 
   return data.publication.posts.edges.map((edge) => edge.node.slug);
-}
+};
 
-export async function getHashnodePosts({
+export const getHashnodePosts = async ({
   first,
   after,
   tag,
+  withHtmlContent,
 }: {
   first?: number;
   after?: string;
   tag?: string;
-}) {
+  withHtmlContent?: boolean;
+}) => {
   const variables = {
     host: HASHNODE_HOST,
     first: first && first > 0 ? (first > 20 ? 20 : first) : 5,
@@ -114,6 +116,13 @@ export async function getHashnodePosts({
                 socialMediaLinks {
                   linkedin
                 }
+              }${
+                withHtmlContent
+                  ? `
+              content {
+                html
+              }`
+                  : ''
               }
               readTimeInMinutes
               publishedAt
@@ -132,9 +141,9 @@ export async function getHashnodePosts({
   );
 
   return data.publication.posts.edges;
-}
+};
 
-export async function getHashnodePost(slug: string) {
+export const getHashnodePost = async (slug: string) => {
   const variables = {
     host: HASHNODE_HOST,
     slug,
@@ -179,9 +188,9 @@ export async function getHashnodePost(slug: string) {
   );
 
   return data.publication.post;
-}
+};
 
-export async function getHashnodeTagName(slug: string) {
+export const getHashnodeTagName = async (slug: string) => {
   const variables = {
     host: HASHNODE_HOST,
     slug,
@@ -202,4 +211,4 @@ export async function getHashnodeTagName(slug: string) {
   );
 
   return data.tag?.name;
-}
+};

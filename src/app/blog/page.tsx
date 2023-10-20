@@ -12,8 +12,7 @@ async function getPosts() {
 
 const url = `${siteConfig.url}/blog`;
 const title = 'Blog';
-const description =
-  'Guides, how-tos, and news about cloud security and the Fix platform.';
+const description = siteConfig.blogDescription;
 
 export const metadata: Metadata = {
   title,
