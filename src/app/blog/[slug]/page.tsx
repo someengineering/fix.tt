@@ -30,14 +30,18 @@ export async function generateMetadata({
     return {};
   }
 
+  const url = `${siteConfig.url}/blog/${post.slug}`;
   const title = post.title;
   const description = post.subtitle ?? post.brief;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
-      url: `${siteConfig.url}/blog/${post.slug}`,
+      url,
       title,
       description,
       images: [

@@ -1,9 +1,17 @@
+import { Metadata } from 'next';
+
 import Faq from '@/components/Faq';
 import Pricing from '@/components/Pricing';
 import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
 import Why from '@/components/Why';
 
 import { siteConfig } from '@/constants/config';
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: siteConfig.url,
+  },
+};
 
 export default function Home() {
   return (

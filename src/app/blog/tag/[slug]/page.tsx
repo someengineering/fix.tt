@@ -38,14 +38,18 @@ export async function generateMetadata({
     return {};
   }
 
+  const url = `${siteConfig.url}/blog/tag/${params.slug}`;
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
   const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
 
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
-      url: `${siteConfig.url}/blog/tag/${params.slug}`,
+      url,
       title,
       description,
       images: [

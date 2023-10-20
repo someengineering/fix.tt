@@ -10,6 +10,7 @@ async function getPosts() {
   return await getHashnodePosts({});
 }
 
+const url = `${siteConfig.url}/blog`;
 const title = 'Blog';
 const description =
   'Guides, how-tos, and news about cloud security and the Fix platform.';
@@ -17,8 +18,11 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: url,
+  },
   openGraph: {
-    url: `${siteConfig.url}/blog`,
+    url,
     title,
     images: [
       openGraph({

@@ -5,6 +5,7 @@ import PrimaryLink from '@/components/common/links/PrimaryLink';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
+const url = `${siteConfig.url}/cookie-policy`;
 const title = 'Cookie policy';
 const description =
   'As is common practice with professional websites, this site uses cookies—tiny files that are downloaded to your computer—to improve your experience.';
@@ -12,8 +13,11 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: url,
+  },
   openGraph: {
-    url: `${siteConfig.url}/cookie-policy`,
+    url,
     title,
     description,
     images: [

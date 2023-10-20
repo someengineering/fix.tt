@@ -5,6 +5,7 @@ import PrimaryLink from '@/components/common/links/PrimaryLink';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
+const url = `${siteConfig.url}/code-of-conduct`;
 const title = 'Code of conduct';
 const description =
   'We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.';
@@ -12,8 +13,11 @@ const description =
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: url,
+  },
   openGraph: {
-    url: `${siteConfig.url}/code-of-conduct`,
+    url,
     title,
     description,
     images: [
