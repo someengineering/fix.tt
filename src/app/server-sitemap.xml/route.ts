@@ -1,4 +1,4 @@
-import { getServerSideSitemapIndex } from 'next-sitemap';
+import { getServerSideSitemap } from 'next-sitemap';
 
 import { getHashnodePostSlugs, getHashnodeTagSlugs } from '@/api/hashnode';
 import { siteConfig } from '@/constants/config';
@@ -11,5 +11,12 @@ export async function GET() {
     (slug) => `${siteConfig.url}/blog/tag/${slug}`,
   );
 
-  return getServerSideSitemapIndex([...blogPostUrls, ...blogTagUrls]);
+  return getServerSideSitemap(
+    [...blogPostUrls, ...blogTagUrls].map((loc) => ({
+      loc,
+      lastmod: new Date().toISOString(),
+      changefreq: 'daily',
+      priority: 0.7,
+    })),
+  );
 }

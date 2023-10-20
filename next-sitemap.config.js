@@ -1,11 +1,8 @@
-/**
- * @type {import('next-sitemap').IConfig}
- * @see https://github.com/iamvishnusankar/next-sitemap#readme
- */
+/** @type {import('next-sitemap').IConfig} */
 module.exports = {
   siteUrl: 'https://fix.tt',
   generateRobotsTxt: true,
-  exclude: ['/server-sitemap-index.xml'],
+  exclude: ['/server-sitemap.xml'],
   additionalPaths: async (config) =>
     await Promise.all(
       ['/', '/blog', '/code-of-conduct', '/cookie-policy'].map(
@@ -13,7 +10,7 @@ module.exports = {
       ),
     ),
   robotsTxtOptions: {
-    additionalSitemaps: ['https://fix.tt/server-sitemap-index.xml'],
+    additionalSitemaps: ['https://fix.tt/server-sitemap.xml'],
     policies: [
       process.env.VERCEL_ENV === 'production'
         ? { userAgent: '*', allow: '/' }
