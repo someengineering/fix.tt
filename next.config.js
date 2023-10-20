@@ -11,16 +11,24 @@ const nextConfig = {
     domains: ['cdn.hashnode.com'],
   },
 
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'blog.fix.tt' }],
+        permanent: true,
+        destination: '/blog/:path*',
+      },
+    ];
+  },
+
   async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/:path*',
-          destination: '/blog/:path*',
-          has: [{ type: 'host', value: 'blog.fix.tt' }],
-        },
-      ],
-    };
+    return [
+      {
+        source: '/(blog/)?rss.xml',
+        destination: 'https://fix-blog.hashnode.dev/rss.xml',
+      },
+    ];
   },
 
   webpack(config) {
