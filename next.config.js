@@ -13,6 +13,11 @@ module.exports = {
 
   async redirects() {
     return [
+      ...['/rss.xml', '/atom.xml', '/feed.json'].map((path) => ({
+        source: path,
+        permanent: false,
+        destination: `https://fix.tt/blog${path}`,
+      })),
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'blog.fix.tt' }],

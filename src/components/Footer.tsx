@@ -2,6 +2,8 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 import '@/styles/globals.css';
 
+import { siteConfig } from '@/constants/config';
+
 const social: {
   name: string;
   href: string;
@@ -38,8 +40,7 @@ export default function Footer() {
       </div>
       <div className="mt-8 md:order-1 md:mt-0">
         <p className="text-center text-sm leading-5 text-gray-500">
-          &copy; {new Date().getFullYear()} Some Engineering Inc. All rights
-          reserved.
+          {siteConfig.copyright}
         </p>
       </div>
     </footer>
