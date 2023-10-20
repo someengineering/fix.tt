@@ -1,22 +1,31 @@
-import { getServerSideSitemap } from 'next-sitemap';
+import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
 
-import { getHashnodePostSlugs, getHashnodeTagSlugs } from '@/api/hashnode';
+import { getHashnodePosts, getHashnodeTagSlugs } from '@/api/hashnode';
 import { siteConfig } from '@/constants/config';
 
 export async function GET() {
-  const blogPostUrls = (await getHashnodePostSlugs()).map(
-    (slug) => `${siteConfig.url}/blog/${slug}`,
-  );
-  const blogTagUrls = (await getHashnodeTagSlugs()).map(
-    (slug) => `${siteConfig.url}/blog/tag/${slug}`,
-  );
+  const blogPosts = (await getHashnodePosts({}))
+    .map((edge) => edge.node)
+    .map(
+      (post): ISitemapField => ({
+        loc: `${siteConfig.url}/blog/${post.slug}`,
+        lastmod: new Date(
+          post.updatedAt ? post.updatedAt : post.publishedAt,
+        ).toISOString(),
+        changefreq: 'monthly',
+        priority: 0.7,
+      }),
+    );
+  const blogTags = (await getHashnodeTagSlugs())
+    .map((slug) => `${siteConfig.url}/blog/tag/${slug}`)
+    .map(
+      (loc): ISitemapField => ({
+        loc,
+        lastmod: new Date().toISOString(),
+        changefreq: 'monthly',
+        priority: 0.4,
+      }),
+    );
 
-  return getServerSideSitemap(
-    [...blogPostUrls, ...blogTagUrls].map((loc) => ({
-      loc,
-      lastmod: new Date().toISOString(),
-      changefreq: 'daily',
-      priority: 0.7,
-    })),
-  );
+  return getServerSideSitemap([...blogPosts, ...blogTags]);
 }

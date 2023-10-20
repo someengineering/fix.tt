@@ -64,6 +64,9 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
                 description: data.subtitle,
               })}
             />
+            {data.updatedAt ? (
+              <meta itemProp="dateModified" content={data.updatedAt} />
+            ) : null}
           </div>
           <h1
             className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl"

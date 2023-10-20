@@ -51,7 +51,7 @@ export const getFeed = async (): Promise<Feed> => {
         title: post.title,
         id: `${siteConfig.url}/blog/${post.slug}`,
         link: `${siteConfig.url}/blog/${post.slug}`,
-        date: new Date(post.publishedAt),
+        date: new Date(post.updatedAt ? post.updatedAt : post.publishedAt),
         description: post.subtitle ?? post.brief,
         content: post.content?.html,
         image: encodeXML(

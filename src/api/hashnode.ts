@@ -126,6 +126,7 @@ export const getHashnodePosts = async ({
               }
               readTimeInMinutes
               publishedAt
+              updatedAt
             }
             cursor
           }
@@ -176,6 +177,7 @@ export const getHashnodePost = async (slug: string) => {
           }
           readTimeInMinutes
           publishedAt
+          updatedAt
         }
       }
     }

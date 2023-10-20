@@ -61,6 +61,9 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               description: post.subtitle,
             })}
           />
+          {post.updatedAt ? (
+            <meta itemProp="dateModified" content={post.updatedAt} />
+          ) : null}
         </header>
         <div className="group relative max-w-xl space-y-4">
           <h3

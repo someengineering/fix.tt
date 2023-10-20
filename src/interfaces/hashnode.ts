@@ -46,7 +46,7 @@ export interface HashnodePost {
   content?: HashnodeContent;
   readTimeInMinutes: number;
   publishedAt: string;
-  updatedAt: string;
+  updatedAt?: string;
 }
 
 export interface HashnodePostEdge {

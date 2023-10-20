@@ -56,6 +56,7 @@ export async function generateMetadata({
       type: 'article',
       tags: post.tags?.map((tag) => tag.name),
       publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
     },
     twitter: {
       ...rootMetadata.twitter,
