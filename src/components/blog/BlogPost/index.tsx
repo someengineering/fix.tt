@@ -5,6 +5,7 @@ import { LuBookOpen } from 'react-icons/lu';
 import useSWR from 'swr';
 
 import MarkdownContent from '@/components/blog/MarkdownContent';
+import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
@@ -38,8 +39,8 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
         itemType="http://schema.org/BlogPosting"
       >
         <header className="space-y-4">
-          <div className="flex items-center space-x-6 text-base text-gray-500">
-            <span className="flex space-x-6 font-semibold leading-7">
+          <div className="flex flex-row items-center justify-between gap-x-8">
+            <span className="flex items-center space-x-6 text-base font-semibold leading-7 text-gray-500">
               <time
                 dateTime={data.publishedAt}
                 className="font-bold text-primary-900"
@@ -67,6 +68,18 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
             {data.updatedAt ? (
               <meta itemProp="dateModified" content={data.updatedAt} />
             ) : null}
+            <div className="flex shrink-0">
+              <SocialShareButtons
+                url={url}
+                title={data.title}
+                hashtags={[
+                  'fix',
+                  ...(data.tags ?? []).map((tag) =>
+                    tag.slug.replaceAll('-', ''),
+                  ),
+                ]}
+              />
+            </div>
           </div>
           <h1
             className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl"
@@ -122,16 +135,28 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
         >
           <MarkdownContent>{data.content?.markdown}</MarkdownContent>
         </div>
-        <footer className="flex gap-x-2 text-base font-medium text-primary-900">
-          {data.tags?.map((tag) => (
-            <UnstyledLink
-              href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"
-              key={`tag-${tag.slug}`}
-            >
-              {tag.name}
-            </UnstyledLink>
-          ))}
+        <footer className="flex flex-col gap-y-8 md:flex-row md:justify-between md:gap-x-8 md:gap-y-0">
+          <div className="flex flex-wrap justify-center gap-2 text-base font-medium text-primary-900 md:justify-start">
+            {data.tags?.map((tag) => (
+              <UnstyledLink
+                href={`/blog/tag/${tag.slug}`}
+                className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"
+                key={`tag-${tag.slug}`}
+              >
+                {tag.name}
+              </UnstyledLink>
+            ))}
+          </div>
+          <div className="flex shrink-0 justify-center md:items-start">
+            <SocialShareButtons
+              url={url}
+              title={data.title}
+              hashtags={[
+                'fix',
+                ...(data.tags ?? []).map((tag) => tag.slug.replaceAll('-', '')),
+              ]}
+            />
+          </div>
         </footer>
       </article>
     </div>
