@@ -100,7 +100,6 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               <p className="font-semibold text-gray-900" itemProp="name">
                 {authorLink ? (
                   <UnstyledLink href={authorLink} itemProp="url">
-                    <span className="absolute inset-0" />
                     {post.author.name}
                   </UnstyledLink>
                 ) : (

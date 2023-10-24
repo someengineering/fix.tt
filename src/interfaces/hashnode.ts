@@ -1,3 +1,9 @@
+export interface HashnodePublicationResponse {
+  publication: {
+    id: string;
+  };
+}
+
 export interface HashnodePostsResponse {
   publication: {
     posts: HashnodePublicationPostConnection;
@@ -36,6 +42,7 @@ interface HashnodePageInfo {
 }
 
 export interface HashnodePost {
+  id: string;
   title: string;
   subtitle?: string;
   brief: string;

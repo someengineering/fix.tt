@@ -27,6 +27,15 @@ module.exports = {
     ];
   },
 
+  async rewrites() {
+    return [
+      {
+        source: '/api/blog/view',
+        destination: 'https://hn-ping2.hashnode.com/api/view',
+      },
+    ];
+  },
+
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) =>

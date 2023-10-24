@@ -5,8 +5,31 @@ import { HASHNODE_ENDPOINT, HASHNODE_HOST } from '@/constants/hashnode';
 import {
   HashnodePostResponse,
   HashnodePostsResponse,
+  HashnodePublicationResponse,
   HashnodeTagResponse,
 } from '@/interfaces/hashnode';
+
+export const getHashnodePublicationId = async () => {
+  const variables = {
+    host: HASHNODE_HOST,
+  };
+
+  const query = gql`
+    query Publication($host: String!) {
+      publication(host: $host) {
+        id
+      }
+    }
+  `;
+
+  const data = await request<HashnodePublicationResponse>(
+    HASHNODE_ENDPOINT,
+    query,
+    variables,
+  );
+
+  return data.publication.id;
+};
 
 export const getHashnodeTagSlugs = async () => {
   const variables = {
@@ -154,6 +177,7 @@ export const getHashnodePost = async (slug: string) => {
     query Publication($host: String!, $slug: String!) {
       publication(host: $host) {
         post(slug: $slug) {
+          id
           title
           subtitle
           brief
@@ -161,9 +185,6 @@ export const getHashnodePost = async (slug: string) => {
           tags {
             name
             slug
-          }
-          coverImage {
-            url
           }
           author {
             name

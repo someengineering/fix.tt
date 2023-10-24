@@ -1,6 +1,7 @@
 'use client';
 
 import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
 import { LuBookOpen } from 'react-icons/lu';
 import useSWR from 'swr';
 
@@ -10,11 +11,46 @@ import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
 import { siteConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
 import { HashnodePost } from '@/interfaces/hashnode';
 import { getUserLink } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
-export default function BlogPost({ post }: { post: HashnodePost }) {
+export default function BlogPost({
+  post,
+  publicationId,
+}: {
+  post: HashnodePost;
+  publicationId: string;
+}) {
+  const url = `${siteConfig.url}/blog/${post.slug}`;
+
+  useEffect(() => {
+    if (!isProd) {
+      return;
+    }
+
+    try {
+      fetch(`/api/blog/view`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data: {
+            publicationId,
+            postId: post.id,
+            url,
+            timestamp: Date.now(),
+            timezoneOffset: new Date().getTimezoneOffset(),
+          },
+        }),
+      });
+    } catch (e) {
+      /* do not throw */
+    }
+  }, [post.id, publicationId, url]);
+
   const { data } = useSWR<HashnodePost>(`/api/blog/post?slug=${post.slug}`, {
     fallbackData: post,
   });
@@ -23,7 +59,6 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
     redirect('/blog');
   }
 
-  const url = `${siteConfig.url}/blog/${data.slug}`;
   const authorLink = getUserLink(data.author);
 
   return (
@@ -111,7 +146,6 @@ export default function BlogPost({ post }: { post: HashnodePost }) {
               <p className="font-semibold text-gray-900" itemProp="name">
                 {authorLink ? (
                   <UnstyledLink href={authorLink} itemProp="url">
-                    <span className="absolute inset-0" />
                     {data.author.name}
                   </UnstyledLink>
                 ) : (

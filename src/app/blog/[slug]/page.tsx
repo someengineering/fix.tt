@@ -3,7 +3,11 @@ import { redirect } from 'next/navigation';
 
 import BlogPost from '@/components/blog/BlogPost';
 
-import { getHashnodePost, getHashnodePostSlugs } from '@/api/hashnode';
+import {
+  getHashnodePost,
+  getHashnodePostSlugs,
+  getHashnodePublicationId,
+} from '@/api/hashnode';
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
@@ -18,6 +22,10 @@ export async function generateStaticParams() {
 
 async function getPost(slug: string) {
   return await getHashnodePost(slug);
+}
+
+async function getPublicationId() {
+  return await getHashnodePublicationId();
 }
 
 export async function generateMetadata({
@@ -78,10 +86,11 @@ export default async function BlogPostPage({
   params: { slug: string };
 }) {
   const post = await getPost(params.slug);
+  const publicationId = await getPublicationId();
 
   if (!post) {
     redirect('/blog');
   }
 
-  return <BlogPost post={post} />;
+  return <BlogPost post={post} publicationId={publicationId} />;
 }
