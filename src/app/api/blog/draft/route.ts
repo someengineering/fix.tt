@@ -2,6 +2,8 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { getHashnodeDraft } from '@/api/hashnode';
 
+export const revalidate = 0;
+
 export async function GET(req: NextRequest) {
   try {
     return NextResponse.json(
