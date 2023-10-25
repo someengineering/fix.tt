@@ -2,7 +2,7 @@
 module.exports = {
   siteUrl: 'https://fix.tt',
   generateRobotsTxt: true,
-  exclude: ['/server-sitemap.xml'],
+  exclude: ['/server-sitemap.xml', '/blog/preview*'],
   changefreq: 'weekly',
   autoLastmod: false,
 
@@ -42,6 +42,7 @@ module.exports = {
     ),
 
   robotsTxtOptions: {
+    additionalSitemaps: ['https://fix.tt/server-sitemap.xml'],
     policies: [
       process.env.VERCEL_ENV === 'production'
         ? { userAgent: '*', allow: '/' }
