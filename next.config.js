@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+// @ts-check
+
+const { flatten } = require('lodash');
+
 /** @type {import('next').NextConfig} */
 module.exports = {
   eslint: {
@@ -13,11 +18,25 @@ module.exports = {
 
   async redirects() {
     return [
-      ...['/rss.xml', '/atom.xml', '/feed.json'].map((path) => ({
-        source: path,
-        permanent: false,
-        destination: `https://fix.tt/blog${path}`,
-      })),
+      ...flatten(
+        ['/rss.xml', '/atom.xml', '/feed.json'].map((path) => [
+          {
+            source: path,
+            permanent: false,
+            destination: `/blog${path}`,
+          },
+          {
+            source: path.replace(/\.(xml|json)$/, ''),
+            permanent: false,
+            destination: `/blog${path}`,
+          },
+          {
+            source: `/blog${path.replace(/\.(xml|json)$/, '')}`,
+            permanent: false,
+            destination: `/blog${path}`,
+          },
+        ]),
+      ),
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'blog.fix.tt' }],

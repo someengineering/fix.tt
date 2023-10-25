@@ -4,6 +4,7 @@ module.exports = {
   generateRobotsTxt: true,
   exclude: ['/server-sitemap.xml'],
   changefreq: 'weekly',
+  autoLastmod: false,
 
   transform: async (config, path) => {
     /** @type {import('next-sitemap').ISitemapField} */
@@ -41,7 +42,6 @@ module.exports = {
     ),
 
   robotsTxtOptions: {
-    additionalSitemaps: ['https://fix.tt/server-sitemap.xml'],
     policies: [
       process.env.VERCEL_ENV === 'production'
         ? { userAgent: '*', allow: '/' }

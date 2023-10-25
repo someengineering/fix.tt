@@ -21,8 +21,7 @@ export async function GET() {
     .map(
       (loc): ISitemapField => ({
         loc,
-        lastmod: new Date().toISOString(),
-        changefreq: 'monthly',
+        changefreq: 'weekly',
         priority: 0.4,
       }),
     );
