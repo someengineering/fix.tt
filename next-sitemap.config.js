@@ -54,6 +54,7 @@ module.exports = {
           '/*_middlewareManifest.js$',
           '/*_ssgManifest.js$',
           '/*.js$',
+          '/blog/preview/*',
         ],
       },
     ],

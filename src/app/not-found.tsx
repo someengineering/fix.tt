@@ -1,7 +1,13 @@
 import { Metadata } from 'next';
 
+import PrimaryLink from '@/components/common/links/PrimaryLink';
+
 export const metadata: Metadata = {
   title: 'Not Found',
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function NotFound() {
@@ -15,12 +21,9 @@ export default function NotFound() {
         Sorry, we couldn&rsquo;t find the page you&rsquo;re looking for.
       </p>
       <div className="mt-10">
-        <a
-          href="/"
-          className="text-base font-semibold leading-7 text-primary-900"
-        >
+        <PrimaryLink href="/">
           <span aria-hidden="true">&larr;</span> Back to home
-        </a>
+        </PrimaryLink>
       </div>
     </div>
   );

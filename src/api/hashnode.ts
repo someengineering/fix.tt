@@ -3,6 +3,7 @@ import { flatten, uniq } from 'lodash';
 
 import { HASHNODE_ENDPOINT, HASHNODE_HOST } from '@/constants/hashnode';
 import {
+  HashnodeDraftResponse,
   HashnodePostResponse,
   HashnodePostsResponse,
   HashnodePublicationResponse,
@@ -234,4 +235,43 @@ export const getHashnodeTagName = async (slug: string) => {
   );
 
   return data.tag?.name;
+};
+
+export const getHashnodeDraft = async (id: string) => {
+  const variables = {
+    host: HASHNODE_HOST,
+    id,
+  };
+
+  const query = `
+    query Draft($id: ObjectId!) {
+      draft(id: $id) {
+        id
+        title
+        tags {
+          name
+          slug
+        }
+        author {
+          name
+          profilePicture
+          socialMediaLinks {
+            linkedin
+          }
+        }
+        content {
+          markdown
+        }
+        dateUpdated
+      }
+    }
+  `;
+
+  const data = await request<HashnodeDraftResponse>(
+    HASHNODE_ENDPOINT,
+    query,
+    variables,
+  );
+
+  return data.draft;
 };

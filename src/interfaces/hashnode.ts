@@ -1,7 +1,5 @@
-export interface HashnodePublicationResponse {
-  publication: {
-    id: string;
-  };
+export interface HashnodeDraftResponse {
+  draft: HashnodeDraft;
 }
 
 export interface HashnodePostsResponse {
@@ -13,6 +11,12 @@ export interface HashnodePostsResponse {
 export interface HashnodePostResponse {
   publication: {
     post: HashnodePost;
+  };
+}
+
+export interface HashnodePublicationResponse {
+  publication: {
+    id: string;
   };
 }
 
@@ -29,6 +33,17 @@ interface HashnodeContent {
 interface HashnodeCoverImage {
   url: string;
   isPortrait?: boolean;
+}
+
+export interface HashnodeDraft {
+  id: string;
+  title: string;
+  // subtitle?: string;
+  coverImage?: HashnodeCoverImage;
+  author: HashnodeUser;
+  tags?: HashnodeTag[];
+  content?: HashnodeContent;
+  dateUpdated: string;
 }
 
 interface HashnodeFeedPostConnection {
@@ -75,7 +90,7 @@ interface HashnodeSocialMediaLinks {
   youtube?: string;
 }
 
-interface HashnodeTag {
+export interface HashnodeTag {
   id: string;
   name: string;
   slug: string;
