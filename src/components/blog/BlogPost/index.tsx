@@ -66,12 +66,16 @@ export default function BlogPost({
       className="px-6 py-32 lg:px-8"
       itemScope
       itemType="http://schema.org/Blog"
+      itemID={`${siteConfig.url}/blog`}
     >
+      <meta itemProp="name" content={siteConfig.blogTitle} />
+      <meta itemProp="description" content={siteConfig.blogDescription} />
       <article
         className="mx-auto max-w-3xl text-lg leading-7 text-gray-700"
         itemProp="blogPost"
         itemScope
         itemType="http://schema.org/BlogPosting"
+        itemID={url}
       >
         <header className="space-y-4">
           <div className="flex flex-row items-center justify-between gap-x-8">

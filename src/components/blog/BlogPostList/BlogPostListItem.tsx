@@ -5,6 +5,7 @@ import { LuBookOpen } from 'react-icons/lu';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
+import { siteConfig } from '@/constants/config';
 import { HashnodePost } from '@/interfaces/hashnode';
 import { getUserLink } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
@@ -22,6 +23,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
       itemProp="blogPost"
       itemScope
       itemType="http://schema.org/BlogPosting"
+      itemID={`${siteConfig.url}/blog/${post.slug}`}
     >
       <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
         {post.coverImage ? (

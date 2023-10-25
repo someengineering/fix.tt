@@ -98,7 +98,10 @@ export default async function BlogTagPage({
           className="mx-auto max-w-2xl lg:max-w-4xl"
           itemScope
           itemType="http://schema.org/Blog"
+          itemID={`${siteConfig.url}/blog`}
         >
+          <meta itemProp="name" content={siteConfig.blogTitle} />
+          <meta itemProp="description" content={siteConfig.blogDescription} />
           <p className="mb-2 text-base font-semibold uppercase leading-7 text-primary-900">
             From the blog
           </p>
