@@ -248,6 +248,7 @@ export const getHashnodeDraft = async (id: string) => {
       draft(id: $id) {
         id
         title
+        subtitle
         tags {
           name
           slug

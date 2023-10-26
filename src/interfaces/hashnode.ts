@@ -38,7 +38,7 @@ interface HashnodeCoverImage {
 export interface HashnodeDraft {
   id: string;
   title: string;
-  // subtitle?: string;
+  subtitle?: string;
   coverImage?: HashnodeCoverImage;
   author: HashnodeUser;
   tags?: HashnodeTag[];
