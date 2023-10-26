@@ -1,4 +1,4 @@
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Script from 'next/script';
@@ -27,7 +27,6 @@ export const metadata: Metadata = {
   robots: isProd
     ? { index: true, follow: true }
     : { index: false, follow: false },
-  themeColor: '#1946b4',
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
@@ -72,6 +71,11 @@ export const metadata: Metadata = {
       }),
     ],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: '#1946b4',
+  colorScheme: 'only light',
 };
 
 const nunitoSans = Nunito_Sans({

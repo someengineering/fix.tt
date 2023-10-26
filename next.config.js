@@ -13,7 +13,12 @@ module.exports = {
   swcMinify: true,
 
   images: {
-    domains: ['cdn.hashnode.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.hashnode.com',
+      },
+    ],
   },
 
   async redirects() {
@@ -85,5 +90,9 @@ module.exports = {
     fileLoaderRule.exclude = /\.svg$/i;
 
     return config;
+  },
+
+  experimental: {
+    webpackBuildWorker: true,
   },
 };
