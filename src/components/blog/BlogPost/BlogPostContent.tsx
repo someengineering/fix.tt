@@ -1,4 +1,4 @@
-import MarkdownContent from '@/components/blog/MarkdownContent';
+import MarkdownContent from '@/components/common/MarkdownContent';
 
 export default function BlogPostContent({ markdown }: { markdown?: string }) {
   return (
