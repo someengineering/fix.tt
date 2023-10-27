@@ -1,4 +1,5 @@
 import Markdown from 'react-markdown';
+import remarkSmartypants from 'remark-smartypants';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import NextImage from '@/components/common/NextImage';
@@ -12,6 +13,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
 
   return (
     <Markdown
+      remarkPlugins={[remarkSmartypants]}
       components={{
         a: (props) => (
           <PrimaryLink href={props.href ?? ''}>{props.children}</PrimaryLink>
