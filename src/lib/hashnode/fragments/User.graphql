@@ -1,0 +1,7 @@
+fragment User on User {
+  name
+  profilePicture
+  socialMediaLinks {
+    linkedin
+  }
+}

@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { getHashnodePost } from '@/api/hashnode';
+import { getHashnodePost } from '@/lib/hashnode';
+
 import { isLocal } from '@/constants/env';
 
 export const revalidate = isLocal ? 0 : 300;

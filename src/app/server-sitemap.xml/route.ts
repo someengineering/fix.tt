@@ -1,6 +1,7 @@
 import { getServerSideSitemap, ISitemapField } from 'next-sitemap';
 
-import { getHashnodePosts, getHashnodeTagSlugs } from '@/api/hashnode';
+import { getHashnodePosts, getHashnodeTagSlugs } from '@/lib/hashnode';
+
 import { siteConfig } from '@/constants/config';
 import { isLocal } from '@/constants/env';
 

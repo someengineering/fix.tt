@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import BlogPost from '@/components/blog/BlogPost';
-
 import {
   getHashnodePost,
   getHashnodePostSlugs,
   getHashnodePublicationId,
-} from '@/api/hashnode';
+} from '@/lib/hashnode';
+
+import BlogPost from '@/components/blog/BlogPost';
+
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
@@ -42,6 +43,10 @@ export async function generateMetadata({
   const url = `${siteConfig.url}/blog/${post.slug}`;
   const title = post.title;
   const description = post.subtitle ?? post.brief;
+  const ogImage = openGraph({
+    title,
+    description: post.subtitle ?? undefined,
+  });
 
   return {
     title,
@@ -55,27 +60,17 @@ export async function generateMetadata({
       url,
       title,
       description,
-      images: [
-        openGraph({
-          title,
-          description: post.subtitle,
-        }),
-      ],
+      images: [ogImage],
       type: 'article',
       tags: post.tags?.map((tag) => tag.name),
       publishedTime: post.publishedAt,
-      modifiedTime: post.updatedAt,
+      modifiedTime: post.updatedAt ?? undefined,
     },
     twitter: {
       ...rootMetadata.twitter,
       title: `${post.title} | ${siteConfig.title}`,
       description,
-      images: [
-        openGraph({
-          title,
-          description: post.subtitle,
-        }),
-      ],
+      images: [ogImage],
     },
   };
 }
@@ -88,7 +83,7 @@ export default async function BlogPostPage({
   const post = await getPost(params.slug);
   const publicationId = await getPublicationId();
 
-  if (!post) {
+  if (!publicationId || !post) {
     redirect('/blog');
   }
 

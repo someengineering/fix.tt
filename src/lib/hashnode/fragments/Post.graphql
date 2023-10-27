@@ -1,0 +1,26 @@
+fragment Post on Post {
+  id
+  title
+  subtitle
+  brief
+  slug
+  coverImage {
+    url
+  }
+  tags {
+    ...Tag
+  }
+  author {
+    ...User
+  }
+  readTimeInMinutes
+  publishedAt
+  updatedAt
+}
+
+fragment PostWithMarkdownContent on Post {
+  ...Post
+  content {
+    markdown
+  }
+}

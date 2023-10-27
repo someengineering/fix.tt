@@ -6,7 +6,7 @@ import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
 import { siteConfig } from '@/constants/config';
-import { HashnodePost } from '@/interfaces/hashnode';
+import { PostFragment as HashnodePost } from '@/generated/hashnode/graphql';
 import { getUserLink } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
@@ -60,7 +60,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             itemProp="image"
             href={openGraph({
               title: post.title,
-              description: post.subtitle,
+              description: post.subtitle ?? undefined,
             })}
           />
           {post.updatedAt ? (
@@ -89,15 +89,19 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             itemScope
             itemType="https://schema.org/Person"
           >
-            <NextImage
-              src={post.author.profilePicture}
-              alt=""
-              className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-50"
-              classNames={{ image: 'w-full h-full object-cover' }}
-              width={40}
-              height={40}
-              itemProp="image"
-            />
+            {post.author.profilePicture ? (
+              <NextImage
+                src={post.author.profilePicture}
+                alt=""
+                className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-50"
+                classNames={{ image: 'w-full h-full object-cover' }}
+                width={40}
+                height={40}
+                itemProp="image"
+              />
+            ) : (
+              <div className="h-8 w-8 shrink-0 rounded-full bg-gray-50" />
+            )}
             <div className="text-sm leading-6">
               <p className="font-semibold text-gray-900" itemProp="name">
                 {authorLink ? (
@@ -108,14 +112,14 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
                   <>{post.author.name}</>
                 )}
               </p>
-              {post.author.tagline ? (
+              {/* {post.author.tagline ? (
                 <p
                   className="line-clamp-1 text-gray-600"
                   itemProp="description"
                 >
                   {post.author.tagline}
                 </p>
-              ) : null}
+              ) : null} */}
             </div>
           </div>
         </div>

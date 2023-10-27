@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { getHashnodeDraft } from '@/api/hashnode';
+import { getHashnodeDraft } from '@/lib/hashnode';
 
 export const revalidate = 0;
 

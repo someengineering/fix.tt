@@ -1,8 +1,9 @@
 import { Metadata } from 'next';
 
+import { getHashnodePosts } from '@/lib/hashnode';
+
 import BlogPostList from '@/components/blog/BlogPostList';
 
-import { getHashnodePosts } from '@/api/hashnode';
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
@@ -14,6 +15,10 @@ async function getPosts() {
 const url = `${siteConfig.url}/blog`;
 const title = 'Blog';
 const description = siteConfig.blogDescription;
+const ogImage = openGraph({
+  title,
+  description,
+});
 
 export const metadata: Metadata = {
   title,
@@ -26,22 +31,12 @@ export const metadata: Metadata = {
     ...rootMetadata.openGraph,
     url,
     title,
-    images: [
-      openGraph({
-        title,
-        description,
-      }),
-    ],
+    images: [ogImage],
   },
   twitter: {
     ...rootMetadata.twitter,
     title: `${title} | ${siteConfig.title}`,
-    images: [
-      openGraph({
-        title,
-        description,
-      }),
-    ],
+    images: [ogImage],
   },
 };
 

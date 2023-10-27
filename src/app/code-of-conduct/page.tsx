@@ -10,6 +10,10 @@ const url = `${siteConfig.url}/code-of-conduct`;
 const title = 'Code of conduct';
 const description =
   'We pledge to act and interact in ways that contribute to an open, welcoming, diverse, inclusive, and healthy community.';
+const ogImage = openGraph({
+  title,
+  description,
+});
 
 export const metadata: Metadata = {
   title,
@@ -23,23 +27,13 @@ export const metadata: Metadata = {
     url,
     title,
     description,
-    images: [
-      openGraph({
-        title,
-        description,
-      }),
-    ],
+    images: [ogImage],
   },
   twitter: {
     ...rootMetadata.twitter,
     title: `${title} | ${siteConfig.title}`,
     description,
-    images: [
-      openGraph({
-        title,
-        description,
-      }),
-    ],
+    images: [ogImage],
   },
 };
 

@@ -1,7 +1,7 @@
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 
-import { HashnodeTag } from '@/interfaces/hashnode';
+import { TagFragment as HashnodeTag } from '@/generated/hashnode/graphql';
 
 export default function BlogPost({
   url,

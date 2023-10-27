@@ -1,0 +1,2 @@
+schema: './generated/hashnode/schema.graphql'
+documents: './{app,components}/**/*.{graphql,js,ts,jsx,tsx}'

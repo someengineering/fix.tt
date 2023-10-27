@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import BlogPostList from '@/components/blog/BlogPostList';
-
 import {
-  getHashnodePosts,
+  getHashnodePostsByTag,
   getHashnodeTagName,
   getHashnodeTagSlugs,
-} from '@/api/hashnode';
+} from '@/lib/hashnode';
+
+import BlogPostList from '@/components/blog/BlogPostList';
+
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
@@ -25,7 +26,7 @@ async function getTagName(slug: string) {
 }
 
 async function getPosts(tag: string) {
-  return await getHashnodePosts({ tag });
+  return await getHashnodePostsByTag({ tagSlug: tag });
 }
 
 export async function generateMetadata({
@@ -42,6 +43,10 @@ export async function generateMetadata({
   const url = `${siteConfig.url}/blog/tag/${params.slug}`;
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
   const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
+  const ogImage = openGraph({
+    title,
+    description,
+  });
 
   return {
     title,
@@ -55,23 +60,13 @@ export async function generateMetadata({
       url,
       title,
       description,
-      images: [
-        openGraph({
-          title,
-          description,
-        }),
-      ],
+      images: [ogImage],
     },
     twitter: {
       ...rootMetadata.twitter,
       title: `${title} | ${siteConfig.title}`,
       description,
-      images: [
-        openGraph({
-          title,
-          description,
-        }),
-      ],
+      images: [ogImage],
     },
   };
 }

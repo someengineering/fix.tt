@@ -1,0 +1,15 @@
+fragment Draft on Draft {
+  id
+  title
+  subtitle
+  tags {
+    ...Tag
+  }
+  author {
+    ...User
+  }
+  content {
+    markdown
+  }
+  dateUpdated
+}

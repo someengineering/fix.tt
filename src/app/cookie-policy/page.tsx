@@ -10,6 +10,10 @@ const url = `${siteConfig.url}/cookie-policy`;
 const title = 'Cookie policy';
 const description =
   'As is common practice with professional websites, this site uses cookies—tiny files that are downloaded to your computer—to improve your experience.';
+const ogImage = openGraph({
+  title,
+  description,
+});
 
 export const metadata: Metadata = {
   title,
@@ -23,23 +27,13 @@ export const metadata: Metadata = {
     url,
     title,
     description,
-    images: [
-      openGraph({
-        title,
-        description,
-      }),
-    ],
+    images: [ogImage],
   },
   twitter: {
     ...rootMetadata.twitter,
     title: `${title} | ${siteConfig.title}`,
     description,
-    images: [
-      openGraph({
-        title,
-        description,
-      }),
-    ],
+    images: [ogImage],
   },
 };
 

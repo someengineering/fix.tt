@@ -7,14 +7,14 @@ import BlogPostFooter from '@/components/blog/BlogPost/BlogPostFooter';
 import BlogPostHeader from '@/components/blog/BlogPost/BlogPostHeader';
 
 import { siteConfig } from '@/constants/config';
-import { HashnodeDraft } from '@/interfaces/hashnode';
+import { DraftFragment as HashnodeDraft } from '@/generated/hashnode/graphql';
 
 export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
   const { data } = useSWR<HashnodeDraft>(`/api/blog/draft?id=${draft.id}`, {
     fallbackData: draft,
   });
 
-  if (!data) {
+  if (!data || !data.title || !data.author) {
     return null;
   }
 
@@ -35,7 +35,7 @@ export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
       >
         <BlogPostHeader
           title={data.title}
-          subtitle={data.subtitle}
+          subtitle={data.subtitle ?? undefined}
           author={data.author}
           tags={data.tags}
           publishedAt={data.dateUpdated}

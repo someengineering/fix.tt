@@ -18,12 +18,20 @@ import { openGraph } from '@/utils/og';
 
 export const revalidate = isLocal ? 0 : 300;
 
+const url = siteConfig.url;
+const title = siteConfig.title;
+const description = siteConfig.description;
+const ogImage = openGraph({
+  title: siteConfig.tagline,
+  description: url,
+});
+
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.title}: ${siteConfig.tagline}`,
-    template: `%s | ${siteConfig.title}`,
+    default: `${title}: ${siteConfig.tagline}`,
+    template: `%s | ${title}`,
   },
-  description: siteConfig.description,
+  description,
   robots: isProd
     ? { index: true, follow: true }
     : { index: false, follow: false },
@@ -47,29 +55,19 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    url: siteConfig.url,
-    title: siteConfig.title,
-    description: siteConfig.description,
-    siteName: siteConfig.title,
-    images: [
-      openGraph({
-        title: siteConfig.tagline,
-        description: siteConfig.url,
-      }),
-    ],
+    url,
+    title,
+    description,
+    siteName: title,
+    images: [ogImage],
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.title,
-    description: siteConfig.description,
-    images: [
-      openGraph({
-        title: siteConfig.tagline,
-        description: siteConfig.url,
-      }),
-    ],
+    title,
+    description,
+    images: [ogImage],
   },
 };
 

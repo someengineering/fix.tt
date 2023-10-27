@@ -4,7 +4,10 @@ import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
-import { HashnodeTag, HashnodeUser } from '@/interfaces/hashnode';
+import {
+  TagFragment as HashnodeTag,
+  UserFragment as HashnodeUser,
+} from '@/generated/hashnode/graphql';
 import { getUserLink } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
@@ -96,15 +99,19 @@ export default function BlogPostHeader({
         itemScope
         itemType="https://schema.org/Person"
       >
-        <NextImage
-          src={author.profilePicture}
-          alt=""
-          className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
-          classNames={{ image: 'w-full h-full object-cover' }}
-          width={40}
-          height={40}
-          itemProp="image"
-        />
+        {author.profilePicture ? (
+          <NextImage
+            src={author.profilePicture}
+            alt=""
+            className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
+            classNames={{ image: 'w-full h-full object-cover' }}
+            width={40}
+            height={40}
+            itemProp="image"
+          />
+        ) : (
+          <div className="h-10 w-10 shrink-0 rounded-full bg-gray-50" />
+        )}
         <div className="text-base leading-6">
           <p className="font-semibold text-gray-900" itemProp="name">
             {authorLink ? (
@@ -115,11 +122,11 @@ export default function BlogPostHeader({
               <>{author.name}</>
             )}
           </p>
-          {author.tagline ? (
+          {/* {author.tagline ? (
             <p className="line-clamp-1 text-gray-600" itemProp="description">
               {author.tagline}
             </p>
-          ) : null}
+          ) : null} */}
         </div>
       </div>
     </header>

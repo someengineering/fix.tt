@@ -1,0 +1,15 @@
+query PostsByTag(
+  $host: String!
+  $tagSlug: String!
+  $first: Int!
+  $after: String
+) {
+  publication(host: $host) {
+    posts(filter: { tagSlugs: [$tagSlug] }, first: $first, after: $after) {
+      totalDocuments
+      edges {
+        ...PostEdge
+      }
+    }
+  }
+}

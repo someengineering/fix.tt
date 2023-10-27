@@ -7,7 +7,7 @@ import useSWRInfinite from 'swr/infinite';
 
 import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
 
-import { HashnodePostEdge } from '@/interfaces/hashnode';
+import { PostEdgeFragment as HashnodePostEdge } from '@/generated/hashnode/graphql';
 
 export default function BlogPostList({
   fallbackData,

@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 
+import { getHashnodeDraft } from '@/lib/hashnode';
+
 import BlogDraft from '@/components/blog/BlogDraft';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
-import { getHashnodeDraft } from '@/api/hashnode';
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
@@ -34,8 +35,12 @@ export async function generateMetadata({
     };
   }
 
-  const title = draft.title;
-  const description = draft.subtitle;
+  const title = draft.title ?? undefined;
+  const description = draft.subtitle ?? undefined;
+  const ogImage = openGraph({
+    title,
+    description,
+  });
 
   return {
     title,
@@ -48,12 +53,7 @@ export async function generateMetadata({
       ...rootMetadata.openGraph,
       title,
       description,
-      images: [
-        openGraph({
-          title,
-          description,
-        }),
-      ],
+      images: [ogImage],
       type: 'article',
       tags: draft.tags?.map((tag) => tag.name),
       publishedTime: draft.dateUpdated,
@@ -62,12 +62,7 @@ export async function generateMetadata({
       ...rootMetadata.twitter,
       title: `${draft.title} | ${siteConfig.title}`,
       description,
-      images: [
-        openGraph({
-          title,
-          description,
-        }),
-      ],
+      images: [ogImage],
     },
   };
 }

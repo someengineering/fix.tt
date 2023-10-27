@@ -1,0 +1,14 @@
+query PostTagSlugs($host: String!, $first: Int!, $after: String) {
+  publication(host: $host) {
+    posts(first: $first, after: $after) {
+      totalDocuments
+      edges {
+        node {
+          tags {
+            slug
+          }
+        }
+      }
+    }
+  }
+}

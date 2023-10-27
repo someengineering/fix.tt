@@ -1,21 +1,16 @@
 import { encodeXML } from 'entities';
 import { Feed } from 'feed';
 
-import { getHashnodePosts } from '@/api/hashnode';
+import { getHashnodeFeedPosts } from '@/lib/hashnode';
+
 import { siteConfig } from '@/constants/config';
-import { HashnodeUser } from '@/interfaces/hashnode';
+import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 import { openGraph } from '@/utils/og';
 
 export const getUserLink = (user: HashnodeUser): string | undefined => {
   const socialMediaLinks = user.socialMediaLinks;
 
-  return (
-    socialMediaLinks.linkedin ||
-    socialMediaLinks.website ||
-    socialMediaLinks.twitter ||
-    socialMediaLinks.youtube ||
-    socialMediaLinks.github
-  );
+  return socialMediaLinks?.linkedin ?? undefined;
 };
 
 export const sanitizeMarkdown = (markdown: string): string => {
@@ -42,7 +37,7 @@ export const getFeed = async (): Promise<Feed> => {
     },
   });
 
-  const posts = await getHashnodePosts({ withHtmlContent: true });
+  const posts = await getHashnodeFeedPosts({});
 
   posts
     .map((edge) => edge.node)
@@ -57,7 +52,7 @@ export const getFeed = async (): Promise<Feed> => {
         image: encodeXML(
           openGraph({
             title: post.title,
-            description: post.subtitle,
+            description: post.subtitle ?? undefined,
           }),
         ),
         author: post.author

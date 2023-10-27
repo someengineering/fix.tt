@@ -10,7 +10,7 @@ import BlogPostHeader from '@/components/blog/BlogPost/BlogPostHeader';
 
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
-import { HashnodePost } from '@/interfaces/hashnode';
+import { PostWithMarkdownContentFragment as HashnodePost } from '@/generated/hashnode/graphql';
 
 export default function BlogPost({
   post,
@@ -74,16 +74,20 @@ export default function BlogPost({
         <BlogPostHeader
           url={url}
           title={data.title}
-          subtitle={data.subtitle}
+          subtitle={data.subtitle ?? undefined}
           brief={data.brief}
           author={data.author}
-          tags={data.tags}
+          tags={data.tags ?? undefined}
           publishedAt={data.publishedAt}
-          updatedAt={data.updatedAt}
+          updatedAt={data.updatedAt ?? undefined}
           readTimeInMinutes={data.readTimeInMinutes}
         />
         <BlogPostContent markdown={data.content?.markdown} />
-        <BlogPostFooter url={url} title={data.title} tags={data.tags} />
+        <BlogPostFooter
+          url={url}
+          title={data.title}
+          tags={data.tags ?? undefined}
+        />
       </article>
     </div>
   );
