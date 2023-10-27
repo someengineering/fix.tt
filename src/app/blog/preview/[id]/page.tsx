@@ -4,6 +4,9 @@ import BlogDraft from '@/components/blog/BlogDraft';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 import { getHashnodeDraft } from '@/api/hashnode';
+import { metadata as rootMetadata } from '@/app/layout';
+import { siteConfig } from '@/constants/config';
+import { openGraph } from '@/utils/og';
 
 export const revalidate = 0;
 
@@ -32,14 +35,39 @@ export async function generateMetadata({
   }
 
   const title = draft.title;
-  // const description = draft.subtitle;
+  const description = draft.subtitle;
 
   return {
     title,
-    // description,
+    description,
     robots: {
       index: false,
       follow: false,
+    },
+    openGraph: {
+      ...rootMetadata.openGraph,
+      title,
+      description,
+      images: [
+        openGraph({
+          title,
+          description,
+        }),
+      ],
+      type: 'article',
+      tags: draft.tags?.map((tag) => tag.name),
+      publishedTime: draft.dateUpdated,
+    },
+    twitter: {
+      ...rootMetadata.twitter,
+      title: `${draft.title} | ${siteConfig.title}`,
+      description,
+      images: [
+        openGraph({
+          title,
+          description,
+        }),
+      ],
     },
   };
 }
