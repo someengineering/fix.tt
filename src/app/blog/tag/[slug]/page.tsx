@@ -104,7 +104,7 @@ export default async function BlogTagPage({
             {title}
           </h2>
           <p className="mt-2 text-xl leading-8 text-gray-600">{description}</p>
-          <BlogPostList fallbackData={posts} />
+          <BlogPostList fallbackData={posts} tag={params.slug} />
         </div>
       </div>
     </div>

@@ -1,5 +1,3 @@
-'use server';
-
 import { GraphQLClient } from 'graphql-request';
 import { flatten, uniq } from 'lodash';
 
@@ -147,6 +145,10 @@ export const getHashnodePost = async (slug: string) => {
   return data.publication?.post;
 };
 
+const tagNameMapping: Record<string, string> = {
+  cspm: 'CSPM',
+};
+
 export const getHashnodeTagName = async (slug: string) => {
   const data = await gqlClient.request<TagQuery, TagQueryVariables>(
     TagDocument,
@@ -154,6 +156,10 @@ export const getHashnodeTagName = async (slug: string) => {
       slug,
     },
   );
+
+  if (data.tag?.name && data.tag.name in tagNameMapping) {
+    return tagNameMapping[data.tag.name];
+  }
 
   return data.tag?.name;
 };
