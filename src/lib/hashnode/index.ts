@@ -1,6 +1,7 @@
 import { GraphQLClient } from 'graphql-request';
 import { flatten, uniq } from 'lodash';
 
+import { isLocal } from '@/constants/env';
 import { HASHNODE_ENDPOINT, HASHNODE_HOST } from '@/constants/hashnode';
 import {
   DraftDocument,
@@ -10,6 +11,7 @@ import {
   FeedPostsQuery,
   FeedPostsQueryVariables,
   PostDocument,
+  PostFragment,
   PostQuery,
   PostQueryVariables,
   PostsByTagDocument,
@@ -33,10 +35,10 @@ import {
 } from '@/generated/hashnode/graphql';
 
 const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
-  next: { tags: ['hashnode'] },
+  next: { revalidate: isLocal ? 0 : 3600, tags: ['hashnode'] },
 });
 
-export const getHashnodePublicationId = async () => {
+export const getPublicationId = async () => {
   const data = await gqlClient.request<
     PublicationQuery,
     PublicationQueryVariables
@@ -47,7 +49,7 @@ export const getHashnodePublicationId = async () => {
   return data.publication?.id;
 };
 
-export const getHashnodeTagSlugs = async () => {
+export const getAllTagSlugs = async () => {
   const data = await gqlClient.request<
     PostTagSlugsQuery,
     PostTagSlugsQueryVariables
@@ -56,12 +58,54 @@ export const getHashnodeTagSlugs = async () => {
     first: 20,
   });
 
-  return uniq(
-    flatten(data.publication?.posts.edges.map((edge) => edge.node.tags ?? [])),
-  ).map((tag) => tag.slug);
+  let slugs: string[] = [];
+
+  if (data.publication) {
+    slugs = flatten(
+      data.publication.posts.edges.map((edge) => edge.node.tags ?? []),
+    ).map((tag) => tag.slug);
+
+    const fetchMore = async (after?: string) => {
+      const data = await gqlClient.request<
+        PostTagSlugsQuery,
+        PostTagSlugsQueryVariables
+      >(PostTagSlugsDocument, {
+        host: HASHNODE_HOST,
+        first: 20,
+        after,
+      });
+
+      if (!data.publication) {
+        return;
+      }
+
+      slugs = [
+        ...slugs,
+        ...flatten(
+          data.publication.posts.edges.map((edge) => edge.node.tags ?? []),
+        ).map((tag) => tag.slug),
+      ];
+
+      if (
+        data.publication.posts.pageInfo.hasNextPage &&
+        data.publication.posts.pageInfo.endCursor
+      ) {
+        await fetchMore(data.publication.posts.pageInfo.endCursor);
+      }
+    };
+
+    if (
+      data.publication.posts.pageInfo.hasNextPage &&
+      data.publication.posts.pageInfo.endCursor
+    ) {
+      await fetchMore(data.publication.posts.pageInfo.endCursor);
+    }
+  }
+
+  return uniq(slugs);
 };
 
-export const getHashnodePostSlugs = async () => {
+export const getAllPostSlugs = async () => {
   const data = await gqlClient.request<PostSlugsQuery, PostSlugsQueryVariables>(
     PostSlugsDocument,
     {
@@ -70,10 +114,50 @@ export const getHashnodePostSlugs = async () => {
     },
   );
 
-  return data.publication?.posts.edges.map((edge) => edge.node.slug) ?? [];
+  let slugs: string[] = [];
+
+  if (data.publication) {
+    slugs = data.publication.posts.edges.map((edge) => edge.node.slug);
+
+    const fetchMore = async (after?: string) => {
+      const data = await gqlClient.request<
+        PostSlugsQuery,
+        PostSlugsQueryVariables
+      >(PostSlugsDocument, {
+        host: HASHNODE_HOST,
+        first: 20,
+        after,
+      });
+
+      if (!data.publication) {
+        return;
+      }
+
+      slugs = [
+        ...slugs,
+        ...data.publication.posts.edges.map((edge) => edge.node.slug),
+      ];
+
+      if (
+        data.publication.posts.pageInfo.hasNextPage &&
+        data.publication.posts.pageInfo.endCursor
+      ) {
+        await fetchMore(data.publication.posts.pageInfo.endCursor);
+      }
+    };
+
+    if (
+      data.publication.posts.pageInfo.hasNextPage &&
+      data.publication.posts.pageInfo.endCursor
+    ) {
+      await fetchMore(data.publication.posts.pageInfo.endCursor);
+    }
+  }
+
+  return slugs;
 };
 
-export const getHashnodePosts = async ({
+export const getPosts = async ({
   first,
   after,
 }: {
@@ -89,10 +173,62 @@ export const getHashnodePosts = async ({
     },
   );
 
-  return data.publication?.posts.edges ?? [];
+  return data.publication?.posts;
 };
 
-export const getHashnodePostsByTag = async ({
+export const getAllPosts = async () => {
+  const data = await gqlClient.request<PostsQuery, PostsQueryVariables>(
+    PostsDocument,
+    {
+      host: HASHNODE_HOST,
+      first: 20,
+    },
+  );
+
+  let posts: PostFragment[] = [];
+
+  if (data.publication) {
+    posts = data.publication.posts.edges.map((edge) => edge.node);
+
+    const fetchMore = async (after?: string) => {
+      const data = await gqlClient.request<PostsQuery, PostsQueryVariables>(
+        PostsDocument,
+        {
+          host: HASHNODE_HOST,
+          first: 20,
+          after,
+        },
+      );
+
+      if (!data.publication) {
+        return;
+      }
+
+      posts = [
+        ...posts,
+        ...data.publication.posts.edges.map((edge) => edge.node),
+      ];
+
+      if (
+        data.publication.posts.pageInfo.hasNextPage &&
+        data.publication.posts.pageInfo.endCursor
+      ) {
+        await fetchMore(data.publication.posts.pageInfo.endCursor);
+      }
+    };
+
+    if (
+      data.publication.posts.pageInfo.hasNextPage &&
+      data.publication.posts.pageInfo.endCursor
+    ) {
+      await fetchMore(data.publication.posts.pageInfo.endCursor);
+    }
+  }
+
+  return posts;
+};
+
+export const getPostsByTag = async ({
   tagSlug,
   first,
   after,
@@ -111,29 +247,21 @@ export const getHashnodePostsByTag = async ({
     after,
   });
 
-  return data.publication?.posts.edges ?? [];
+  return data.publication?.posts;
 };
 
-export const getHashnodeFeedPosts = async ({
-  first,
-  after,
-}: {
-  first?: number;
-  after?: string;
-}) => {
+export const getFeedPosts = async () => {
   const data = await gqlClient.request<FeedPostsQuery, FeedPostsQueryVariables>(
     FeedPostsDocument,
     {
       host: HASHNODE_HOST,
-      first: first && first > 0 ? (first > 20 ? 20 : first) : 5,
-      after,
     },
   );
 
   return data.publication?.posts.edges ?? [];
 };
 
-export const getHashnodePost = async (slug: string) => {
+export const getPost = async (slug: string) => {
   const data = await gqlClient.request<PostQuery, PostQueryVariables>(
     PostDocument,
     {
@@ -149,7 +277,7 @@ const tagNameMapping: Record<string, string> = {
   cspm: 'CSPM',
 };
 
-export const getHashnodeTagName = async (slug: string) => {
+export const getTagName = async (slug: string) => {
   const data = await gqlClient.request<TagQuery, TagQueryVariables>(
     TagDocument,
     {
@@ -164,7 +292,11 @@ export const getHashnodeTagName = async (slug: string) => {
   return data.tag?.name;
 };
 
-export const getHashnodeDraft = async (id: string) => {
+export const getDraft = async (id: string) => {
+  const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
+    next: { revalidate: 0 },
+  });
+
   const data = await gqlClient.request<DraftQuery, DraftQueryVariables>(
     DraftDocument,
     {

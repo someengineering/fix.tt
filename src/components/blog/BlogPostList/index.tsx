@@ -1,69 +1,65 @@
 'use client';
 
-import { redirect } from 'next/navigation';
 import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
-import useSWRInfinite from 'swr/infinite';
+
+import { getPosts, getPostsByTag } from '@/lib/hashnode';
 
 import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
 
-import { PostEdgeFragment as HashnodePostEdge } from '@/generated/hashnode/graphql';
+import {
+  PageInfo as HashnodePageInfo,
+  PostFragment as HashnodePost,
+} from '@/generated/hashnode/graphql';
 
 export default function BlogPostList({
-  fallbackData,
-  tag,
+  initialPosts,
+  initialPageInfo,
+  tagSlug,
 }: {
-  fallbackData: HashnodePostEdge[];
-  tag?: string;
+  initialPosts: HashnodePost[];
+  initialPageInfo: HashnodePageInfo;
+  tagSlug?: string;
 }) {
-  const [hasNextPage, setHasNextPage] = useState(true);
-
-  const getKey = (pageIndex: number, previousPageData: HashnodePostEdge[]) => {
-    const endpoint = '/api/blog/posts';
-
-    // reached the end
-    if (previousPageData && previousPageData.length === 0) {
-      setHasNextPage(false);
-      return null;
-    }
-
-    // first page, we don't have `previousPageData`
-    if (pageIndex === 0) {
-      return `${endpoint}${tag ? `?tag=${tag}` : ''}`;
-    }
-
-    // add the cursor to the API endpoint
-    return `${endpoint}?${tag ? `tag=${tag}&` : ''}after=${
-      previousPageData[previousPageData.length - 1].cursor
-    }`;
-  };
-
-  const { data, error, size, setSize, isLoading, isValidating } =
-    useSWRInfinite<HashnodePostEdge[]>(getKey, {
-      fallbackData: [fallbackData],
-    });
+  const [posts, setPosts] = useState<HashnodePost[]>(initialPosts);
+  const [pageInfo, setPageInfo] = useState<HashnodePageInfo>(initialPageInfo);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const [sentryRef] = useInfiniteScroll({
-    loading: isLoading || isValidating,
-    hasNextPage,
-    onLoadMore: () => setSize(size + 1),
+    loading: isLoading,
+    hasNextPage: !!pageInfo.hasNextPage,
+    onLoadMore: async () => {
+      setIsLoading(true);
+
+      const data = tagSlug
+        ? await getPostsByTag({
+            tagSlug,
+            after: pageInfo.endCursor ?? undefined,
+          })
+        : await getPosts({
+            after: pageInfo.endCursor ?? undefined,
+          });
+
+      if (!data) {
+        setError(true);
+        return;
+      }
+
+      setPosts([...posts, ...data.edges.map((edge) => edge.node)]);
+      setPageInfo(data.pageInfo);
+
+      setIsLoading(false);
+    },
     disabled: !!error,
     rootMargin: '0px 0px 400px 0px',
   });
 
-  if (!data && !error) {
-    redirect('/');
-  }
-
   return (
     <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
-      {data?.map((page) =>
-        page
-          .map((edge) => edge.node)
-          .map((post) => (
-            <BlogPostListItem post={post} key={`post-${post.slug}`} />
-          )),
-      )}
+      {posts.map((post) => (
+        <BlogPostListItem post={post} key={`post-${post.slug}`} />
+      ))}
       <div ref={sentryRef} />
     </div>
   );

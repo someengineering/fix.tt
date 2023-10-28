@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { getHashnodeDraft } from '@/lib/hashnode';
+import { getDraft } from '@/lib/hashnode';
 
 import BlogDraft from '@/components/blog/BlogDraft';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
@@ -10,14 +10,6 @@ import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
 export const revalidate = 0;
-
-async function getDraft(id: string) {
-  try {
-    return await getHashnodeDraft(id);
-  } catch (e) {
-    return null;
-  }
-}
 
 export async function generateMetadata({
   params,
@@ -67,7 +59,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
+export default async function BlogPreviewPage({
   params,
 }: {
   params: { id: string };

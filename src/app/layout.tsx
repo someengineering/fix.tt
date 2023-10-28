@@ -13,7 +13,6 @@ import { siteConfig } from '@/constants/config';
 import { isLocal, isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
 import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
-import { SWRProvider } from '@/providers/SWRProvider';
 import { openGraph } from '@/utils/og';
 
 export const revalidate = isLocal ? 0 : 300;
@@ -114,37 +113,35 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
       <body className="bg-white">
-        <SWRProvider>
-          <ClientCookiesProvider value={cookieStore.getAll()}>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            {GTM_CONTAINER_ID ? (
-              <>
-                <Script
-                  id="gtm"
-                  strategy="afterInteractive"
-                  dangerouslySetInnerHTML={{
-                    __html: gtmScript,
-                  }}
-                />
-                {consent ? (
-                  <>
-                    <Script
-                      id="consent"
-                      strategy="afterInteractive"
-                      dangerouslySetInnerHTML={{
-                        __html: consentScript,
-                      }}
-                    />
-                  </>
-                ) : (
-                  <CookieConsent />
-                )}
-              </>
-            ) : null}
-          </ClientCookiesProvider>
-        </SWRProvider>
+        <ClientCookiesProvider value={cookieStore.getAll()}>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          {GTM_CONTAINER_ID ? (
+            <>
+              <Script
+                id="gtm"
+                strategy="afterInteractive"
+                dangerouslySetInnerHTML={{
+                  __html: gtmScript,
+                }}
+              />
+              {consent ? (
+                <>
+                  <Script
+                    id="consent"
+                    strategy="afterInteractive"
+                    dangerouslySetInnerHTML={{
+                      __html: consentScript,
+                    }}
+                  />
+                </>
+              ) : (
+                <CookieConsent />
+              )}
+            </>
+          ) : null}
+        </ClientCookiesProvider>
       </body>
     </html>
   );

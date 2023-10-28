@@ -1,7 +1,3 @@
-'use client';
-
-import useSWR from 'swr';
-
 import BlogPostContent from '@/components/blog/BlogPost/BlogPostContent';
 import BlogPostFooter from '@/components/blog/BlogPost/BlogPostFooter';
 import BlogPostHeader from '@/components/blog/BlogPost/BlogPostHeader';
@@ -10,11 +6,7 @@ import { siteConfig } from '@/constants/config';
 import { DraftFragment as HashnodeDraft } from '@/generated/hashnode/graphql';
 
 export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
-  const { data } = useSWR<HashnodeDraft>(`/api/blog/draft?id=${draft.id}`, {
-    fallbackData: draft,
-  });
-
-  if (!data || !data.title || !data.author) {
+  if (!draft.title || !draft.author) {
     return null;
   }
 
@@ -34,14 +26,14 @@ export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
         itemType="http://schema.org/BlogPosting"
       >
         <BlogPostHeader
-          title={data.title}
-          subtitle={data.subtitle ?? undefined}
-          author={data.author}
-          tags={data.tags}
-          publishedAt={data.dateUpdated}
+          title={draft.title}
+          subtitle={draft.subtitle ?? undefined}
+          author={draft.author}
+          tags={draft.tags}
+          publishedAt={draft.dateUpdated}
         />
-        <BlogPostContent markdown={data.content?.markdown} />
-        <BlogPostFooter title={data.title} tags={data.tags} />
+        <BlogPostContent markdown={draft.content?.markdown} />
+        <BlogPostFooter title={draft.title} tags={draft.tags} />
       </article>
     </div>
   );

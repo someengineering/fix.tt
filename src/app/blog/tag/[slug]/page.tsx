@@ -1,11 +1,7 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import {
-  getHashnodePostsByTag,
-  getHashnodeTagName,
-  getHashnodeTagSlugs,
-} from '@/lib/hashnode';
+import { getAllTagSlugs, getPostsByTag, getTagName } from '@/lib/hashnode';
 
 import BlogPostList from '@/components/blog/BlogPostList';
 
@@ -14,19 +10,11 @@ import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
 export async function generateStaticParams() {
-  const slugs = await getHashnodeTagSlugs();
+  const slugs = await getAllTagSlugs();
 
   return slugs.map((slug) => ({
     slug,
   }));
-}
-
-async function getTagName(slug: string) {
-  return await getHashnodeTagName(slug);
-}
-
-async function getPosts(tag: string) {
-  return await getHashnodePostsByTag({ tagSlug: tag });
 }
 
 export async function generateMetadata({
@@ -76,15 +64,15 @@ export default async function BlogTagPage({
 }: {
   params: { slug: string };
 }) {
-  const tag = await getTagName(params.slug);
-  const posts = await getPosts(params.slug);
+  const tagName = await getTagName(params.slug);
+  const data = await getPostsByTag({ tagSlug: params.slug });
 
-  if (!tag || !posts.length) {
+  if (!tagName || !data) {
     redirect('/blog');
   }
 
-  const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
-  const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
+  const title = `${tagName.charAt(0).toUpperCase()}${tagName.slice(1)}`;
+  const description = `Guides, how-tos, and news about ${tagName} from the Fix team.`;
 
   return (
     <div className="py-24 sm:py-32">
@@ -104,7 +92,11 @@ export default async function BlogTagPage({
             {title}
           </h2>
           <p className="mt-2 text-xl leading-8 text-gray-600">{description}</p>
-          <BlogPostList fallbackData={posts} tag={params.slug} />
+          <BlogPostList
+            initialPosts={data.edges.map((edge) => edge.node)}
+            initialPageInfo={data.pageInfo}
+            tagSlug={params.slug}
+          />
         </div>
       </div>
     </div>

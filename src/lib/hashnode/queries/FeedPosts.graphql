@@ -1,6 +1,6 @@
-query FeedPosts($host: String!, $first: Int!, $after: String) {
+query FeedPosts($host: String!) {
   publication(host: $host) {
-    posts(first: $first, after: $after) {
+    posts(first: 15) {
       edges {
         node {
           ...Post

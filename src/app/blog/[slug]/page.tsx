@@ -1,11 +1,7 @@
 import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import {
-  getHashnodePost,
-  getHashnodePostSlugs,
-  getHashnodePublicationId,
-} from '@/lib/hashnode';
+import { getAllPostSlugs, getPost, getPublicationId } from '@/lib/hashnode';
 
 import BlogPost from '@/components/blog/BlogPost';
 
@@ -14,19 +10,11 @@ import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
 export async function generateStaticParams() {
-  const slugs = await getHashnodePostSlugs();
+  const slugs = await getAllPostSlugs();
 
   return slugs.map((slug) => ({
     slug,
   }));
-}
-
-async function getPost(slug: string) {
-  return await getHashnodePost(slug);
-}
-
-async function getPublicationId() {
-  return await getHashnodePublicationId();
 }
 
 export async function generateMetadata({
@@ -80,8 +68,13 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  const post = await getPost(params.slug);
-  const publicationId = await getPublicationId();
+  const postData = getPost(params.slug);
+  const publicationIdData = getPublicationId();
+
+  const [post, publicationId] = await Promise.all([
+    postData,
+    publicationIdData,
+  ]);
 
   if (!publicationId || !post) {
     redirect('/blog');

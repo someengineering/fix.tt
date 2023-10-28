@@ -1,7 +1,7 @@
 import { encodeXML } from 'entities';
 import { Feed } from 'feed';
 
-import { getHashnodeFeedPosts } from '@/lib/hashnode';
+import { getFeedPosts } from '@/lib/hashnode';
 
 import { siteConfig } from '@/constants/config';
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
@@ -37,7 +37,7 @@ export const getFeed = async (): Promise<Feed> => {
     },
   });
 
-  const posts = await getHashnodeFeedPosts({});
+  const posts = await getFeedPosts();
 
   posts
     .map((edge) => edge.node)

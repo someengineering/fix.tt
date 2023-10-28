@@ -2204,6 +2204,12 @@ export type DraftFragment = {
   content?: { __typename?: 'Content'; markdown: string } | null;
 };
 
+export type PageInfoFragment = {
+  __typename?: 'PageInfo';
+  endCursor?: string | null;
+  hasNextPage?: boolean | null;
+};
+
 export type PostFragment = {
   __typename?: 'Post';
   id: string;
@@ -2330,8 +2336,6 @@ export type DraftQuery = {
 
 export type FeedPostsQueryVariables = Exact<{
   host: Scalars['String']['input'];
-  first: Scalars['Int']['input'];
-  after?: InputMaybe<Scalars['String']['input']>;
 }>;
 
 export type FeedPostsQuery = {
@@ -2421,11 +2425,15 @@ export type PostSlugsQuery = {
     __typename?: 'Publication';
     posts: {
       __typename?: 'PublicationPostConnection';
-      totalDocuments: number;
       edges: Array<{
         __typename?: 'PostEdge';
         node: { __typename?: 'Post'; slug: string };
       }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
     };
   } | null;
 };
@@ -2442,7 +2450,6 @@ export type PostTagSlugsQuery = {
     __typename?: 'Publication';
     posts: {
       __typename?: 'PublicationPostConnection';
-      totalDocuments: number;
       edges: Array<{
         __typename?: 'PostEdge';
         node: {
@@ -2450,6 +2457,11 @@ export type PostTagSlugsQuery = {
           tags?: Array<{ __typename?: 'Tag'; slug: string }> | null;
         };
       }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
     };
   } | null;
 };
@@ -2469,7 +2481,6 @@ export type PostsQuery = {
       totalDocuments: number;
       edges: Array<{
         __typename?: 'PostEdge';
-        cursor: string;
         node: {
           __typename?: 'Post';
           id: string;
@@ -2497,6 +2508,11 @@ export type PostsQuery = {
           };
         };
       }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
     };
   } | null;
 };
@@ -2517,7 +2533,6 @@ export type PostsByTagQuery = {
       totalDocuments: number;
       edges: Array<{
         __typename?: 'PostEdge';
-        cursor: string;
         node: {
           __typename?: 'Post';
           id: string;
@@ -2545,6 +2560,11 @@ export type PostsByTagQuery = {
           };
         };
       }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
     };
   } | null;
 };
@@ -2715,6 +2735,26 @@ export const DraftFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<DraftFragment, unknown>;
+export const PageInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PageInfoFragment, unknown>;
 export const PostFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -3289,25 +3329,6 @@ export const FeedPostsDocument = {
             },
           },
         },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'first' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'after' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
       ],
       selectionSet: {
         kind: 'SelectionSet',
@@ -3335,18 +3356,7 @@ export const FeedPostsDocument = {
                     {
                       kind: 'Argument',
                       name: { kind: 'Name', value: 'first' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'first' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'after' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'after' },
-                      },
+                      value: { kind: 'IntValue', value: '15' },
                     },
                   ],
                   selectionSet: {
@@ -3784,10 +3794,6 @@ export const PostSlugsDocument = {
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'totalDocuments' },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'edges' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -3808,12 +3814,40 @@ export const PostSlugsDocument = {
                           ],
                         },
                       },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'PageInfo' },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
         ],
       },
     },
@@ -3903,10 +3937,6 @@ export const PostTagSlugsDocument = {
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'totalDocuments' },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'edges' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -3936,12 +3966,40 @@ export const PostTagSlugsDocument = {
                           ],
                         },
                       },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'PageInfo' },
+                            },
+                          ],
+                        },
+                      },
                     ],
                   },
                 },
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
         ],
       },
     },
@@ -4040,8 +4098,30 @@ export const PostsDocument = {
                           kind: 'SelectionSet',
                           selections: [
                             {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Post' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
                               kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PostEdge' },
+                              name: { kind: 'Name', value: 'PageInfo' },
                             },
                           ],
                         },
@@ -4154,28 +4234,16 @@ export const PostsDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PostEdge' },
+      name: { kind: 'Name', value: 'PageInfo' },
       typeCondition: {
         kind: 'NamedType',
-        name: { kind: 'Name', value: 'PostEdge' },
+        name: { kind: 'Name', value: 'PageInfo' },
       },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'node' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Post' },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'cursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
         ],
       },
     },
@@ -4310,8 +4378,30 @@ export const PostsByTagDocument = {
                           kind: 'SelectionSet',
                           selections: [
                             {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Post' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
                               kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PostEdge' },
+                              name: { kind: 'Name', value: 'PageInfo' },
                             },
                           ],
                         },
@@ -4424,28 +4514,16 @@ export const PostsByTagDocument = {
     },
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PostEdge' },
+      name: { kind: 'Name', value: 'PageInfo' },
       typeCondition: {
         kind: 'NamedType',
-        name: { kind: 'Name', value: 'PostEdge' },
+        name: { kind: 'Name', value: 'PageInfo' },
       },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'node' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Post' },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'cursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
         ],
       },
     },

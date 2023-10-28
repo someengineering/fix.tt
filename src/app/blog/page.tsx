@@ -1,16 +1,13 @@
 import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
-import { getHashnodePosts } from '@/lib/hashnode';
+import { getPosts } from '@/lib/hashnode';
 
 import BlogPostList from '@/components/blog/BlogPostList';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
-
-async function getPosts() {
-  return await getHashnodePosts({});
-}
 
 const url = `${siteConfig.url}/blog`;
 const title = 'Blog';
@@ -41,7 +38,11 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const data = await getPosts({});
+
+  if (!data) {
+    redirect('/');
+  }
 
   return (
     <div className="py-24 sm:py-32">
@@ -62,7 +63,10 @@ export default async function BlogPage() {
           >
             {description}
           </p>
-          <BlogPostList fallbackData={posts} />
+          <BlogPostList
+            initialPosts={data.edges.map((edge) => edge.node)}
+            initialPageInfo={data.pageInfo}
+          />
         </div>
       </div>
     </div>

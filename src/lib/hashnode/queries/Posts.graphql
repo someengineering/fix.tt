@@ -3,7 +3,12 @@ query Posts($host: String!, $first: Int!, $after: String) {
     posts(first: $first, after: $after) {
       totalDocuments
       edges {
-        ...PostEdge
+        node {
+          ...Post
+        }
+      }
+      pageInfo {
+        ...PageInfo
       }
     }
   }
