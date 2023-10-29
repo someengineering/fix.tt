@@ -4,6 +4,7 @@ import BlogPostFooter from '@/components/blog/BlogPost/BlogPostFooter';
 import BlogPostHeader from '@/components/blog/BlogPost/BlogPostHeader';
 
 import { siteConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
 import { PostWithMarkdownContentFragment as HashnodePost } from '@/generated/hashnode/graphql';
 
 export default function BlogPost({
@@ -17,11 +18,6 @@ export default function BlogPost({
 
   return (
     <>
-      <BlogPostAnalytics
-        publicationId={publicationId}
-        postId={post.id}
-        url={url}
-      />
       <div
         className="px-6 py-32 lg:px-8"
         itemScope
@@ -56,6 +52,13 @@ export default function BlogPost({
           />
         </article>
       </div>
+      {isProd ? (
+        <BlogPostAnalytics
+          publicationId={publicationId}
+          postId={post.id}
+          url={url}
+        />
+      ) : null}
     </>
   );
 }
