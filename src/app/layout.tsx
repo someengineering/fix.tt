@@ -10,12 +10,10 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 import { siteConfig } from '@/constants/config';
-import { isLocal, isProd } from '@/constants/env';
+import { isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
 import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
 import { openGraph } from '@/utils/og';
-
-export const revalidate = isLocal ? 0 : 300;
 
 const url = siteConfig.url;
 const title = siteConfig.title;

@@ -5,7 +5,7 @@ import { getAllPosts, getAllTagSlugs } from '@/lib/hashnode';
 import { siteConfig } from '@/constants/config';
 import { isLocal } from '@/constants/env';
 
-export const revalidate = isLocal ? 0 : 300;
+export const revalidate = isLocal ? 0 : false;
 
 export async function GET() {
   const postsData = await getAllPosts();
