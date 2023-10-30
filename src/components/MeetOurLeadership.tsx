@@ -116,7 +116,7 @@ const people = [
 export default function MeetOurLeadership() {
   return (
     <div className="bg-primary-50 py-24 md:py-32">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-12 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
         <div className="max-w-2xl xl:col-span-2">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Meet our leadership
