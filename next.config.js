@@ -47,7 +47,14 @@ module.exports = {
         permanent: false,
         destination: `/sitemap.xml`,
       },
-
+      {
+        source: '/:path*',
+        has: [
+          { type: 'host', value: 'fix-git-main-some-engineering.vercel.app' },
+        ],
+        permanent: true,
+        destination: 'https://fix.tt/:path*',
+      },
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'blog.fix.tt' }],
