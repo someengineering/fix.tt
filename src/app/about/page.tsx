@@ -61,7 +61,7 @@ export default async function AboutPage() {
             {staticPage.title}
           </h1>
           <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            We don't have a silver bullet for cloud security.
+            We don&rsquo;t have a silver bullet for cloud security.
           </p>
           <MarkdownContent className="static-page">
             {staticPage.content.markdown}
