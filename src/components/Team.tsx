@@ -52,7 +52,7 @@ const people = [
         <p>
           I started with economics and statistics, but then found networks and
           computers much more interesting. At my last two companies, we built
-          observability products for microservices, Kubernetes, data piplines,
+          observability products for microservices, Kubernetes, data pipelines,
           and cloud warehouses.
         </p>
         <p>
