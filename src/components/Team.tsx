@@ -14,13 +14,13 @@ const people = [
     photo: lukasPhoto,
     bio: (
       <>
-        <p className="my-4">
+        <p>
           My background is in building secure distributed systems&mdash;from
           bare metal racked up in a data center running Linux, Windows, and
           FreeBSD to cloud platforms that securely connect vehicles, ships, and
           airplanes owned by the United States Government.
         </p>
-        <p className="my-4">
+        <p>
           At Fix, I spend my time on Zoom calls with our users and turn their
           needs and feedback into new product capabilities. I built our original
           open source asset inventory and security graph that&rsquo;s now the
@@ -29,7 +29,7 @@ const people = [
           <abbr title="chief information security officer">CISO</abbr>, keeping
           our own infrastructure and systems secure.
         </p>
-        <p className="my-4">
+        <p>
           I&rsquo;m a gamer by heart, and attend Gamescom in Cologne every year.
           My Tuesday nights are blocked for playing D&amp;D, and I also maintain
           a pretty popular{' '}
@@ -49,14 +49,14 @@ const people = [
     photo: larsPhoto,
     bio: (
       <>
-        <p className="my-4">
+        <p>
           I started with economics and statistics, but then found networks and
           computers much more interesting. My first encounter with cloud
           infrastructure was when I had to create a financial model for a global
           network of data centers. Today, that global network is better known as
           Microsoft Azure.
         </p>
-        <p className="my-4">
+        <p>
           At Fix, I&rsquo;m usually the first line of support for customers. I
           ask a lot of questions about your existing security stack and the
           compliance frameworks you need to track. Since I come from the cloud
@@ -64,7 +64,7 @@ const people = [
           just another data source that needs to be centralized and visualized
           in a dashboard.
         </p>
-        <p className="my-4">
+        <p>
           I love writing about startups with my{' '}
           <PrimaryLink href="https://buildingdistribution.substack.com">
             &ldquo;Building Distribution&rdquo; Substack
@@ -86,14 +86,14 @@ const people = [
     photo: matthiasPhoto,
     bio: (
       <>
-        <p className="my-4">
+        <p>
           Before Fix, I was an Apache committer and the technical lead for
           Marathon, a highly available cluster scheduler for container
           orchestration for Apache Mesos. I also built the trip execution and
           vehicle dispatching system for MOIA, Volkswagen&rsquo;s ride pooling
           service.
         </p>
-        <p className="my-4">
+        <p>
           At Fix, I lead a team of engineers in creating the building blocks of
           our service. This includes creating a search syntax that enables
           intuitive searching and traversing of our security graph without the
@@ -102,7 +102,7 @@ const people = [
           <abbr title="Amazon Web Services">AWS</abbr>, Google Cloud, Azure, and
           other platforms Fix supports.
         </p>
-        <p className="my-4">
+        <p>
           My current passion is reducing the noise in a security
           engineers&rsquo; life.
         </p>
@@ -113,13 +113,13 @@ const people = [
   },
 ];
 
-export default function MeetOurLeadership() {
+export default function Team() {
   return (
     <div className="bg-primary-50 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
         <div className="max-w-2xl xl:col-span-2">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Meet our leadership
+            Meet the team
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             We&rsquo;ve built products for security, infrastructure,
@@ -152,7 +152,7 @@ export default function MeetOurLeadership() {
                 <p className="text-base leading-7 text-gray-600">
                   {person.role}
                 </p>
-                <div className="mt-6 text-base leading-7 text-gray-600">
+                <div className="mt-6 space-y-4 text-base leading-7 text-gray-600">
                   {person.bio}
                 </div>
                 <ul role="list" className="mt-6 flex gap-x-4">
