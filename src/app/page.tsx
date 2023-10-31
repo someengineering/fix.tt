@@ -4,7 +4,7 @@ import { WebSite, WithContext } from 'schema-dts';
 import Faq from '@/components/Faq';
 import Pricing from '@/components/Pricing';
 import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
-import Why from '@/components/Why';
+import WhyFix from '@/components/WhyFix';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default function HomePage() {
   const jsonLd: WithContext<WebSite> = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -43,7 +43,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Why />
+      <WhyFix />
       <Pricing />
       <Faq />
     </>

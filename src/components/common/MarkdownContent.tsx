@@ -24,7 +24,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           return (
             <h2
               {...rest}
-              className="mb-8 mt-16 text-2xl font-bold tracking-tight text-gray-900"
+              className="mb-6 mt-12 text-2xl font-bold tracking-tight text-gray-900"
             />
           );
         },
@@ -33,7 +33,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           return (
             <h3
               {...rest}
-              className="mb-8 mt-12 text-xl font-bold tracking-tight text-gray-900"
+              className="mb-6 mt-12 text-xl font-bold tracking-tight text-gray-900"
             />
           );
         },
@@ -42,7 +42,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           return (
             <h4
               {...rest}
-              className="my-8 text-lg font-bold tracking-tight text-gray-900"
+              className="mb-6 mt-8 text-lg font-bold tracking-tight text-gray-900"
             />
           );
         },
@@ -51,7 +51,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           return (
             <h5
               {...rest}
-              className="my-8 text-base font-bold tracking-tight text-gray-900"
+              className="mb-6 mt-8 text-base font-bold tracking-tight text-gray-900"
             />
           );
         },
@@ -60,7 +60,7 @@ export default function MarkdownContent({ children }: { children?: string }) {
           return (
             <h6
               {...rest}
-              className="my-8 text-base font-bold italic tracking-tight text-gray-900"
+              className="my-6 text-base font-bold italic tracking-tight text-gray-900"
             />
           );
         },
@@ -83,20 +83,20 @@ export default function MarkdownContent({ children }: { children?: string }) {
           return (
             <ol
               {...rest}
-              className="mb-8 ml-8 mt-4 list-outside list-decimal space-y-4 text-gray-600"
+              className="my-6 ml-8 list-outside list-decimal space-y-2 text-gray-600"
             />
           );
         },
         p: (props) => {
           const { node: _node, ...rest } = props;
-          return <p {...rest} className="my-8" />;
+          return <p {...rest} className="my-6" />;
         },
         ul: (props) => {
           const { node: _node, ...rest } = props;
           return (
             <ul
               {...rest}
-              className="mb-8 ml-8 mt-4 list-outside list-decimal space-y-4 text-gray-600"
+              className="my-6 ml-8 list-outside list-decimal space-y-2 text-gray-600"
             />
           );
         },

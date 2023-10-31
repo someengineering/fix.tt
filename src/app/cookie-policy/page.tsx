@@ -37,10 +37,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CookiePolicy() {
+export default function CookiePolicyPage() {
   return (
     <div className="px-6 py-32 lg:px-8">
-      <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+      <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Cookie policy
         </h1>
@@ -57,10 +57,10 @@ export default function CookiePolicy() {
           functionality.
         </p>
         <div className="max-w-2xl">
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             How we use cookies
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             We use cookies for a variety of reasons, detailed below.
             Unfortunately, in most cases there are no industry-standard options
             for disabling cookies without completely disabling the functionality
@@ -68,10 +68,10 @@ export default function CookiePolicy() {
             on all cookies if you are not sure whether you need them or not, in
             case they are used to provide a service that you use.
           </p>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Disabling cookies
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             You can prevent the setting of cookies by adjusting the settings on
             your browser. Be aware that disabling cookies will affect the
             functionality of this and many other websites that you visit.
@@ -79,12 +79,12 @@ export default function CookiePolicy() {
             functionality and features of the this site. Therefore, it is
             recommended that you do not disable cookies.
           </p>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             The cookies we set
           </h2>
           <ul
             role="list"
-            className="ml-8 mt-8 max-w-xl list-disc space-y-4 text-gray-600"
+            className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-gray-600"
           >
             <li>
               <strong className="font-semibold text-gray-900">
@@ -125,17 +125,17 @@ export default function CookiePolicy() {
               whenever you interact with a page is affected by your preferences.
             </li>
           </ul>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Third-party cookies
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             In some special cases, we also use cookies provided by trusted third
             parties. The following section details which third-party cookies you
             might encounter through this site.
           </p>
           <ul
             role="list"
-            className="ml-8 mt-8 max-w-xl list-disc space-y-4 text-gray-600"
+            className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-gray-600"
           >
             <li>
               <strong className="font-semibold text-gray-900">
@@ -149,17 +149,17 @@ export default function CookiePolicy() {
               to produce engaging content.
             </li>
           </ul>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             More information
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             This cookie policy was created with the help of the{' '}
             <PrimaryLink href="https://cookiepolicygenerator.com/cookie-policy-generator">
               Cookie Policy Generator
             </PrimaryLink>
             .
           </p>
-          <p className="mt-8">
+          <p className="mt-4">
             If you have further questions regarding the use of cookies on this
             website, please contact us via email at{' '}
             <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>.

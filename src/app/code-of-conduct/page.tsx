@@ -37,40 +37,36 @@ export const metadata: Metadata = {
   },
 };
 
-export default function CodeOfConduct() {
+export default function CodeOfConductPage() {
   return (
     <div className="px-6 py-32 lg:px-8">
-      <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+      <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
           Code of conduct
         </h1>
+        <p className="mt-8 text-xl leading-8">
+          We as members, contributors, and leaders pledge to make participation
+          in our community a harassment-free experience for everyone, regardless
+          of age, body size, visible or invisible disability, ethnicity, sex
+          characteristics, gender identity and expression, level of experience,
+          education, socio-economic status, nationality, personal appearance,
+          race, caste, color, religion, or sexual identity and orientation.
+        </p>
+        <p className="mt-8 text-xl leading-8">
+          We pledge to act and interact in ways that contribute to an open,
+          welcoming, diverse, inclusive, and healthy community.
+        </p>
         <div className="max-w-2xl">
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
-            Our pledge
-          </h2>
-          <p className="mt-8">
-            We as members, contributors, and leaders pledge to make
-            participation in our community a harassment-free experience for
-            everyone, regardless of age, body size, visible or invisible
-            disability, ethnicity, sex characteristics, gender identity and
-            expression, level of experience, education, socio-economic status,
-            nationality, personal appearance, race, caste, color, religion, or
-            sexual identity and orientation.
-          </p>
-          <p className="mt-8">
-            We pledge to act and interact in ways that contribute to an open,
-            welcoming, diverse, inclusive, and healthy community.
-          </p>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Our standards
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             Examples of behavior that contributes to a positive environment for
             our community include:
           </p>
           <ul
             role="list"
-            className="ml-8 mt-4 max-w-xl list-disc space-y-4 text-gray-600"
+            className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-gray-600"
           >
             <li>Demonstrating empathy and kindness toward other people</li>
             <li>
@@ -87,10 +83,10 @@ export default function CodeOfConduct() {
               the overall community
             </li>
           </ul>
-          <p className="mt-8">Examples of unacceptable behavior include:</p>
+          <p className="mt-4">Examples of unacceptable behavior include:</p>
           <ul
             role="list"
-            className="ml-8 mt-4 max-w-xl list-disc space-y-4 text-gray-600"
+            className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-gray-600"
           >
             <li>
               The use of sexualized language or imagery, and sexual attention or
@@ -110,25 +106,25 @@ export default function CodeOfConduct() {
               in a professional setting
             </li>
           </ul>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Enforcement responsibilities
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             Community leaders are responsible for clarifying and enforcing our
             standards of acceptable behavior and will take appropriate and fair
             corrective action in response to any behavior that they deem
             inappropriate, threatening, offensive, or harmful.
           </p>
-          <p className="mt-8">
+          <p className="mt-4">
             Community leaders have the right and responsibility to remove, edit,
             or reject comments, commits, code, wiki edits, issues, and other
             contributions that are not aligned to this Code of Conduct, and will
             communicate reasons for moderation decisions when appropriate.
           </p>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Scope
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             This Code of Conduct applies within all community spaces, and also
             applies when an individual is officially representing the community
             in public spaces. Examples of representing our community include
@@ -136,38 +132,38 @@ export default function CodeOfConduct() {
             media account, or acting as an appointed representative at an online
             or offline event.
           </p>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Enforcement
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             Instances of abusive, harassing, or otherwise unacceptable behavior
             may be reported to the community leaders responsible for enforcement
             at <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>. All
             complaints will be reviewed and investigated promptly and fairly.
           </p>
-          <p className="mt-8">
+          <p className="mt-4">
             All community leaders are obligated to respect the privacy and
             security of the reporter of any incident.
           </p>
-          <h2 className="mt-16 text-2xl font-bold tracking-tight text-gray-900">
+          <h2 className="mt-12 text-2xl font-bold tracking-tight text-gray-900">
             Enforcement guidelines
           </h2>
-          <p className="mt-8">
+          <p className="mt-4">
             Community leaders will follow these Community Impact Guidelines in
             determining the consequences for any action they deem in violation
             of this Code of Conduct:
           </p>
           <ol
             role="list"
-            className="ml-6 mt-8 max-w-xl list-outside list-decimal space-y-8 text-gray-600"
+            className="ml-6 mt-4 max-w-xl list-outside list-decimal space-y-8 text-gray-600"
           >
-            <li className="mt-12 text-xl font-bold">
+            <li className="mt-8 text-xl font-bold">
               <h3 className="text-xl tracking-tight text-gray-900">
                 Correction
               </h3>
               <ul
                 role="list"
-                className="ml-8 mt-4 max-w-xl list-disc space-y-4 text-base font-normal"
+                className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-lg font-normal"
               >
                 <li>
                   <strong className="font-semibold text-gray-900">
@@ -187,11 +183,11 @@ export default function CodeOfConduct() {
                 </li>
               </ul>
             </li>
-            <li className="mt-12 text-xl font-bold">
+            <li className="mt-8 text-xl font-bold">
               <h3 className="text-xl tracking-tight text-gray-900">Warning</h3>
               <ul
                 role="list"
-                className="ml-8 mt-4 max-w-xl list-disc space-y-4 text-base font-normal"
+                className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-lg font-normal"
               >
                 <li>
                   <strong className="font-semibold text-gray-900">
@@ -213,13 +209,13 @@ export default function CodeOfConduct() {
                 </li>
               </ul>
             </li>
-            <li className="mt-12 text-xl font-bold">
+            <li className="mt-8 text-xl font-bold">
               <h3 className="text-xl tracking-tight text-gray-900">
                 Temporary ban
               </h3>
               <ul
                 role="list"
-                className="ml-8 mt-4 max-w-xl list-disc space-y-4 text-base font-normal"
+                className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-lg font-normal"
               >
                 <li>
                   <strong className="font-semibold text-gray-900">
@@ -241,13 +237,13 @@ export default function CodeOfConduct() {
                 </li>
               </ul>
             </li>
-            <li className="mt-12 text-xl font-bold">
+            <li className="mt-8 text-xl font-bold">
               <h3 className="text-xl tracking-tight text-gray-900">
                 Permanent ban
               </h3>
               <ul
                 role="list"
-                className="ml-8 mt-4 max-w-xl list-disc space-y-4 text-base font-normal"
+                className="ml-8 mt-4 max-w-xl list-disc space-y-2 text-lg font-normal"
               >
                 <li>
                   <strong className="font-semibold text-gray-900">
