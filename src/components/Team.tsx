@@ -51,10 +51,9 @@ const people = [
       <>
         <p>
           I started with economics and statistics, but then found networks and
-          computers much more interesting. My first encounter with cloud
-          infrastructure was when I had to create a financial model for a global
-          network of data centers. Today, that global network is better known as
-          Microsoft Azure.
+          computers much more interesting. At my last two companies, we built
+          observability products for microservices, Kubernetes, data piplines,
+          and cloud warehouses.
         </p>
         <p>
           At Fix, I&rsquo;m usually the first line of support for customers. I
