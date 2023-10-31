@@ -6,8 +6,8 @@ import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
-const url = `${siteConfig.url}/cookie-policy`;
-const title = 'About';
+const url = `${siteConfig.url}/about`;
+const title = 'About Fix';
 const description =
   'We designed Fix to simplify the process of fixing misconfigurations and make it easier for engineering teams to align security and speed.';
 const ogImage = openGraph({
