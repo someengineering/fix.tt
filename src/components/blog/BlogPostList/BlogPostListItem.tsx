@@ -7,7 +7,7 @@ import NextImage from '@/components/common/NextImage';
 
 import { siteConfig } from '@/constants/config';
 import { PostFragment as HashnodePost } from '@/generated/hashnode/graphql';
-import { getUserLink } from '@/utils/hashnode';
+import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
 export default function BlogPostListItem({ post }: { post: HashnodePost }) {
@@ -16,6 +16,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
   }
 
   const authorLink = getUserLink(post.author);
+  const authorDescription = getUserTitle(post.author);
 
   return (
     <article
@@ -93,16 +94,16 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               <NextImage
                 src={post.author.profilePicture}
                 alt=""
-                className="h-8 w-8 shrink-0 overflow-hidden rounded-full bg-gray-50"
+                className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
                 classNames={{ image: 'w-full h-full object-cover' }}
                 width={40}
                 height={40}
                 itemProp="image"
               />
             ) : (
-              <div className="h-8 w-8 shrink-0 rounded-full bg-gray-50" />
+              <div className="h-10 w-10 shrink-0 rounded-full bg-gray-50" />
             )}
-            <div className="text-sm leading-6">
+            <div className="text-sm">
               <p className="font-semibold text-gray-900" itemProp="name">
                 {authorLink ? (
                   <UnstyledLink href={authorLink} itemProp="url">
@@ -112,14 +113,14 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
                   <>{post.author.name}</>
                 )}
               </p>
-              {/* {post.author.tagline ? (
+              {authorDescription ? (
                 <p
                   className="line-clamp-1 text-gray-600"
                   itemProp="description"
                 >
-                  {post.author.tagline}
+                  {authorDescription}
                 </p>
-              ) : null} */}
+              ) : null}
             </div>
           </div>
         </div>

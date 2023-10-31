@@ -2194,6 +2194,7 @@ export type DraftFragment = {
   tags: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
   author?: {
     __typename?: 'User';
+    username: string;
     name: string;
     profilePicture?: string | null;
     socialMediaLinks?: {
@@ -2224,6 +2225,7 @@ export type PostFragment = {
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
   author: {
     __typename?: 'User';
+    username: string;
     name: string;
     profilePicture?: string | null;
     socialMediaLinks?: {
@@ -2248,6 +2250,7 @@ export type PostWithMarkdownContentFragment = {
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
   author: {
     __typename?: 'User';
+    username: string;
     name: string;
     profilePicture?: string | null;
     socialMediaLinks?: {
@@ -2271,6 +2274,7 @@ export type TagFragment = { __typename?: 'Tag'; name: string; slug: string };
 
 export type UserFragment = {
   __typename?: 'User';
+  username: string;
   name: string;
   profilePicture?: string | null;
   socialMediaLinks?: {
@@ -2306,6 +2310,7 @@ export type DraftQuery = {
     tags: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
     author?: {
       __typename?: 'User';
+      username: string;
       name: string;
       profilePicture?: string | null;
       socialMediaLinks?: {
@@ -2348,6 +2353,7 @@ export type FeedPostsQuery = {
           }> | null;
           author: {
             __typename?: 'User';
+            username: string;
             name: string;
             profilePicture?: string | null;
             socialMediaLinks?: {
@@ -2385,6 +2391,7 @@ export type PostQuery = {
       tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
       author: {
         __typename?: 'User';
+        username: string;
         name: string;
         profilePicture?: string | null;
         socialMediaLinks?: {
@@ -2482,6 +2489,7 @@ export type PostsQuery = {
           }> | null;
           author: {
             __typename?: 'User';
+            username: string;
             name: string;
             profilePicture?: string | null;
             socialMediaLinks?: {
@@ -2534,6 +2542,7 @@ export type PostsByTagQuery = {
           }> | null;
           author: {
             __typename?: 'User';
+            username: string;
             name: string;
             profilePicture?: string | null;
             socialMediaLinks?: {
@@ -2649,6 +2658,7 @@ export const UserFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -2747,6 +2757,7 @@ export const DraftFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -2869,6 +2880,7 @@ export const PostFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -2938,6 +2950,7 @@ export const PostWithMarkdownContentFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -3182,6 +3195,7 @@ export const DraftDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -3373,6 +3387,7 @@ export const FeedPostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -3554,6 +3569,7 @@ export const PostDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -4102,6 +4118,7 @@ export const PostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {
@@ -4382,6 +4399,7 @@ export const PostsByTagDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
           {

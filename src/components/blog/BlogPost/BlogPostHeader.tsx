@@ -8,7 +8,7 @@ import {
   TagFragment as HashnodeTag,
   UserFragment as HashnodeUser,
 } from '@/generated/hashnode/graphql';
-import { getUserLink } from '@/utils/hashnode';
+import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
 export default function BlogPostHeader({
@@ -33,6 +33,7 @@ export default function BlogPostHeader({
   readTimeInMinutes?: number;
 }) {
   const authorLink = getUserLink(author);
+  const authorDescription = getUserTitle(author);
 
   return (
     <header className="space-y-4">
@@ -103,7 +104,7 @@ export default function BlogPostHeader({
           <NextImage
             src={author.profilePicture}
             alt=""
-            className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
+            className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
             classNames={{ image: 'w-full h-full object-cover' }}
             width={40}
             height={40}
@@ -112,7 +113,7 @@ export default function BlogPostHeader({
         ) : (
           <div className="h-10 w-10 shrink-0 rounded-full bg-gray-50" />
         )}
-        <div className="text-base leading-6">
+        <div className="text-base">
           <p className="font-semibold text-gray-900" itemProp="name">
             {authorLink ? (
               <UnstyledLink href={authorLink} itemProp="url">
@@ -122,11 +123,11 @@ export default function BlogPostHeader({
               <>{author.name}</>
             )}
           </p>
-          {/* {author.tagline ? (
+          {authorDescription ? (
             <p className="line-clamp-1 text-gray-600" itemProp="description">
-              {author.tagline}
+              {authorDescription}
             </p>
-          ) : null} */}
+          ) : null}
         </div>
       </div>
     </header>

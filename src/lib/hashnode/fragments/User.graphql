@@ -1,4 +1,5 @@
 fragment User on User {
+  username
   name
   profilePicture
   socialMediaLinks {
