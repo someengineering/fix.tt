@@ -29,7 +29,7 @@ export async function generateMetadata({
   }
 
   const url = `${siteConfig.url}/blog/tag/${params.slug}`;
-  const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)}`;
+  const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)} | Blog`;
   const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
   const ogImage = openGraph({
     title,
@@ -85,12 +85,12 @@ export default async function BlogTagPage({
         >
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-2 text-base font-semibold uppercase leading-7 text-primary-900">
+          <p className="mb-2 text-xl font-semibold uppercase leading-8 text-primary-900">
             From the blog
           </p>
-          <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             {title}
-          </h2>
+          </h1>
           <p className="mt-2 text-xl leading-8 text-gray-600">{description}</p>
           <BlogPostList
             initialPosts={data.edges.map((edge) => edge.node)}

@@ -71,7 +71,7 @@ export default async function StaticPage({
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           {staticPage.title}
         </h1>
         <MarkdownContent className="static-page">

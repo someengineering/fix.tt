@@ -53,9 +53,9 @@ export default async function BlogPage() {
           itemType="http://schema.org/Blog"
           itemID={url}
         >
-          <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             {title}
-          </h2>
+          </h1>
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <p
             className="mt-2 text-xl leading-8 text-gray-600"
