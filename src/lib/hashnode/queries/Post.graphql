@@ -1,4 +1,4 @@
-query Post($slug: String!, $host: String!) {
+query Post($host: String!, $slug: String!) {
   publication(host: $host) {
     post(slug: $slug) {
       ...PostWithMarkdownContent

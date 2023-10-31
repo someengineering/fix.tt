@@ -1,0 +1,12 @@
+fragment StaticPage on StaticPage {
+  id
+  title
+  slug
+  content {
+    markdown
+  }
+  hidden
+  seo {
+    description
+  }
+}

@@ -2257,31 +2257,14 @@ export type PostWithMarkdownContentFragment = {
   };
 };
 
-export type PostEdgeFragment = {
-  __typename?: 'PostEdge';
-  cursor: string;
-  node: {
-    __typename?: 'Post';
-    id: string;
-    title: string;
-    subtitle?: string | null;
-    brief: string;
-    slug: string;
-    readTimeInMinutes: number;
-    publishedAt: string;
-    updatedAt?: string | null;
-    coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
-    tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
-    author: {
-      __typename?: 'User';
-      name: string;
-      profilePicture?: string | null;
-      socialMediaLinks?: {
-        __typename?: 'SocialMediaLinks';
-        linkedin?: string | null;
-      } | null;
-    };
-  };
+export type StaticPageFragment = {
+  __typename?: 'StaticPage';
+  id: string;
+  title: string;
+  slug: string;
+  hidden: boolean;
+  content: { __typename?: 'Content'; markdown: string };
+  seo?: { __typename?: 'SEO'; description?: string | null } | null;
 };
 
 export type TagFragment = { __typename?: 'Tag'; name: string; slug: string };
@@ -2379,8 +2362,8 @@ export type FeedPostsQuery = {
 };
 
 export type PostQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
   host: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
 }>;
 
 export type PostQuery = {
@@ -2576,6 +2559,52 @@ export type PublicationQueryVariables = Exact<{
 export type PublicationQuery = {
   __typename?: 'Query';
   publication?: { __typename?: 'Publication'; id: string } | null;
+};
+
+export type StaticPageQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+}>;
+
+export type StaticPageQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    staticPage?: {
+      __typename?: 'StaticPage';
+      id: string;
+      title: string;
+      slug: string;
+      hidden: boolean;
+      content: { __typename?: 'Content'; markdown: string };
+      seo?: { __typename?: 'SEO'; description?: string | null } | null;
+    } | null;
+  } | null;
+};
+
+export type StaticPageSlugsQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  first: Scalars['Int']['input'];
+  after?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type StaticPageSlugsQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    staticPages: {
+      __typename?: 'StaticPageConnection';
+      edges: Array<{
+        __typename?: 'StaticPageEdge';
+        node: { __typename?: 'StaticPage'; slug: string };
+      }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
+    };
+  } | null;
 };
 
 export type TagQueryVariables = Exact<{
@@ -2983,135 +3012,48 @@ export const PostWithMarkdownContentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<PostWithMarkdownContentFragment, unknown>;
-export const PostEdgeFragmentDoc = {
+export const StaticPageFragmentDoc = {
   kind: 'Document',
   definitions: [
     {
       kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PostEdge' },
+      name: { kind: 'Name', value: 'StaticPage' },
       typeCondition: {
         kind: 'NamedType',
-        name: { kind: 'Name', value: 'PostEdge' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'node' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Post' },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'cursor' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'Tag' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Tag' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'User' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'User' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'socialMediaLinks' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'linkedin' } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'Post' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'Post' },
+        name: { kind: 'Name', value: 'StaticPage' },
       },
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'brief' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'coverImage' },
+            name: { kind: 'Name', value: 'content' },
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'markdown' } },
               ],
             },
           },
+          { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
           {
             kind: 'Field',
-            name: { kind: 'Name', value: 'tags' },
+            name: { kind: 'Name', value: 'seo' },
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'Tag' },
-                },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
               ],
             },
           },
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'author' },
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'FragmentSpread',
-                  name: { kind: 'Name', value: 'User' },
-                },
-              ],
-            },
-          },
-          { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
         ],
       },
     },
   ],
-} as unknown as DocumentNode<PostEdgeFragment, unknown>;
+} as unknown as DocumentNode<StaticPageFragment, unknown>;
 export const SubscribeToNewsletterDocument = {
   kind: 'Document',
   definitions: [
@@ -3515,7 +3457,7 @@ export const PostDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
           type: {
             kind: 'NonNullType',
             type: {
@@ -3526,7 +3468,7 @@ export const PostDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
           type: {
             kind: 'NonNullType',
             type: {
@@ -4577,6 +4519,270 @@ export const PublicationDocument = {
     },
   ],
 } as unknown as DocumentNode<PublicationQuery, PublicationQueryVariables>;
+export const StaticPageDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'StaticPage' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'staticPage' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'slug' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'slug' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'StaticPage' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StaticPage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StaticPage' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'content' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'markdown' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'hidden' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'seo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<StaticPageQuery, StaticPageQueryVariables>;
+export const StaticPageSlugsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'StaticPageSlugs' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'staticPages' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'slug' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'PageInfo' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  StaticPageSlugsQuery,
+  StaticPageSlugsQueryVariables
+>;
 export const TagDocument = {
   kind: 'Document',
   definitions: [

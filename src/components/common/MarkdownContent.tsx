@@ -4,9 +4,16 @@ import remarkSmartypants from 'remark-smartypants';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import NextImage from '@/components/common/NextImage';
 
+import { cn } from '@/utils/css';
 import { sanitizeMarkdown } from '@/utils/hashnode';
 
-export default function MarkdownContent({ children }: { children?: string }) {
+export default function MarkdownContent({
+  children,
+  className,
+}: {
+  children?: string;
+  className?: string;
+}) {
   if (!children) {
     return null;
   }
@@ -19,51 +26,6 @@ export default function MarkdownContent({ children }: { children?: string }) {
           <PrimaryLink href={props.href ?? ''}>{props.children}</PrimaryLink>
         ),
         h1: 'h2',
-        h2: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <h2
-              {...rest}
-              className="mb-6 mt-12 text-2xl font-bold tracking-tight text-gray-900"
-            />
-          );
-        },
-        h3: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <h3
-              {...rest}
-              className="mb-6 mt-12 text-xl font-bold tracking-tight text-gray-900"
-            />
-          );
-        },
-        h4: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <h4
-              {...rest}
-              className="mb-6 mt-8 text-lg font-bold tracking-tight text-gray-900"
-            />
-          );
-        },
-        h5: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <h5
-              {...rest}
-              className="mb-6 mt-8 text-base font-bold tracking-tight text-gray-900"
-            />
-          );
-        },
-        h6: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <h6
-              {...rest}
-              className="my-6 text-base font-bold italic tracking-tight text-gray-900"
-            />
-          );
-        },
         img: (props) => (
           <NextImage
             src={props.src ?? ''}
@@ -78,29 +40,8 @@ export default function MarkdownContent({ children }: { children?: string }) {
             sizes="350vw"
           />
         ),
-        ol: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <ol
-              {...rest}
-              className="my-6 ml-8 list-outside list-decimal space-y-2 text-gray-600"
-            />
-          );
-        },
-        p: (props) => {
-          const { node: _node, ...rest } = props;
-          return <p {...rest} className="my-6" />;
-        },
-        ul: (props) => {
-          const { node: _node, ...rest } = props;
-          return (
-            <ul
-              {...rest}
-              className="my-6 ml-8 list-outside list-decimal space-y-2 text-gray-600"
-            />
-          );
-        },
       }}
+      className={cn('markdown', className)}
     >
       {sanitizeMarkdown(children)}
     </Markdown>

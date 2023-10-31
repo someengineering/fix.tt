@@ -1,0 +1,7 @@
+query StaticPage($host: String!, $slug: String!) {
+  publication(host: $host) {
+    staticPage(slug: $slug) {
+      ...StaticPage
+    }
+  }
+}

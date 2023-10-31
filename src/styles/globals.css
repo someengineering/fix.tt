@@ -3,27 +3,68 @@
 @tailwind utilities;
 
 @layer base {
-  /* #region  /**=========== Typography =========== */
-  h1 {
-    @apply text-2xl font-bold md:text-4xl;
+  /* @apply text-lg leading-7; */
+
+  .markdown {
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mb-6 mt-12 font-bold tracking-tight text-gray-900;
+    }
+
+    h2 {
+      @apply text-2xl;
+    }
+
+    h3 {
+      @apply text-xl;
+    }
+
+    h4 {
+      @apply text-xl italic;
+    }
+
+    h5 {
+      @apply text-lg;
+    }
+
+    h6 {
+      @apply text-lg italic;
+    }
+
+    p {
+      @apply my-6 text-lg leading-7;
+    }
+
+    ol,
+    ul {
+      @apply my-6 ml-8 list-outside space-y-2 text-gray-600;
+    }
+
+    ol {
+      @apply list-decimal;
+    }
+
+    ul {
+      @apply list-disc;
+    }
+
+    li > p:only-child {
+      @apply my-0;
+    }
   }
 
-  h2 {
-    @apply text-xl font-bold md:text-3xl;
-  }
+  .static-page {
+    p {
+      @apply my-8 text-xl leading-8;
+    }
 
-  h3 {
-    @apply text-lg font-bold md:text-2xl;
+    h2 ~ p {
+      @apply my-6 text-lg leading-7;
+    }
   }
-
-  h4 {
-    @apply text-base font-bold md:text-lg;
-  }
-
-  body {
-    @apply text-sm md:text-base;
-  }
-  /* #endregion  /**======== Typography =========== */
 }
 
 @layer utilities {

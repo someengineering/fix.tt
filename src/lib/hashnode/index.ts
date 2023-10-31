@@ -29,6 +29,12 @@ import {
   PublicationDocument,
   PublicationQuery,
   PublicationQueryVariables,
+  StaticPageDocument,
+  StaticPageQuery,
+  StaticPageQueryVariables,
+  StaticPageSlugsDocument,
+  StaticPageSlugsQuery,
+  StaticPageSlugsQueryVariables,
   TagDocument,
   TagQuery,
   TagQueryVariables,
@@ -305,4 +311,68 @@ export const getDraft = async (id: string) => {
   );
 
   return data.draft;
+};
+
+export const getAllStaticPageSlugs = async () => {
+  const data = await gqlClient.request<
+    StaticPageSlugsQuery,
+    StaticPageSlugsQueryVariables
+  >(StaticPageSlugsDocument, {
+    host: HASHNODE_HOST,
+    first: 20,
+  });
+
+  let slugs: string[] = [];
+
+  if (data.publication) {
+    slugs = data.publication.staticPages.edges.map((edge) => edge.node.slug);
+
+    const fetchMore = async (after?: string) => {
+      const data = await gqlClient.request<
+        StaticPageSlugsQuery,
+        StaticPageSlugsQueryVariables
+      >(StaticPageSlugsDocument, {
+        host: HASHNODE_HOST,
+        first: 20,
+        after,
+      });
+
+      if (!data.publication) {
+        return;
+      }
+
+      slugs = [
+        ...slugs,
+        ...data.publication.staticPages.edges.map((edge) => edge.node.slug),
+      ];
+
+      if (
+        data.publication.staticPages.pageInfo.hasNextPage &&
+        data.publication.staticPages.pageInfo.endCursor
+      ) {
+        await fetchMore(data.publication.staticPages.pageInfo.endCursor);
+      }
+    };
+
+    if (
+      data.publication.staticPages.pageInfo.hasNextPage &&
+      data.publication.staticPages.pageInfo.endCursor
+    ) {
+      await fetchMore(data.publication.staticPages.pageInfo.endCursor);
+    }
+  }
+
+  return slugs;
+};
+
+export const getStaticPage = async (slug: string) => {
+  const data = await gqlClient.request<
+    StaticPageQuery,
+    StaticPageQueryVariables
+  >(StaticPageDocument, {
+    host: HASHNODE_HOST,
+    slug,
+  });
+
+  return data.publication?.staticPage;
 };

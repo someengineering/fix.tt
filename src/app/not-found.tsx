@@ -3,10 +3,11 @@ import { Metadata } from 'next';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 export const metadata: Metadata = {
-  title: 'Not Found',
+  title: 'Page not found',
   robots: {
     index: false,
     follow: false,
+    nocache: true,
   },
 };
 

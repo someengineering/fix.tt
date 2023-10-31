@@ -1,6 +1,0 @@
-fragment PostEdge on PostEdge {
-  node {
-    ...Post
-  }
-  cursor
-}
