@@ -16,6 +16,7 @@ const navigation = [
   { name: 'Why Fix?', href: '/#why' },
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
+  { name: 'About Fix', href: '/about' },
   { name: 'Blog', href: '/blog' },
 ];
 
