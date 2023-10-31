@@ -93,17 +93,11 @@ const people = [
           service.
         </p>
         <p>
-          At Fix, I lead a team of engineers in creating the building blocks of
-          our service. This includes creating a search syntax that enables
-          intuitive searching and traversing of our security graph without the
-          hassle of a learning a complex graph query language. I also ensure
-          that our unified data model works across all resources for{' '}
-          <abbr title="Amazon Web Services">AWS</abbr>, Google Cloud, Azure, and
-          other platforms Fix supports.
-        </p>
-        <p>
-          My current passion is reducing the noise in a security
-          engineers&rsquo; life.
+          I lead a team of engineers in creating the building blocks of Fix.
+          This includes developing a search syntax that enables intuitive
+          searching and traversing of our security graph without the hassle of a
+          learning a complex graph query language. I also ensure that our
+          unified data model works across all cloud resources Fix supports.
         </p>
       </>
     ),
