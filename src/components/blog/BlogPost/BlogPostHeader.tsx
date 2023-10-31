@@ -84,7 +84,7 @@ export default function BlogPostHeader({
         ) : null}
       </div>
       <h1
-        className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+        className="text-4xl font-bold tracking-tight text-gray-900"
         itemProp="headline"
       >
         {title}

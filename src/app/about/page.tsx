@@ -1,28 +1,17 @@
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 
-import { getAllStaticPageSlugs, getStaticPage } from '@/lib/hashnode';
+import { getStaticPage } from '@/lib/hashnode';
 
 import MarkdownContent from '@/components/common/MarkdownContent';
+import Team from '@/components/Team';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import NotFoundPage, { metadata as notFoundMetadata } from '@/app/not-found';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
-export async function generateStaticParams() {
-  const slugs = await getAllStaticPageSlugs();
-
-  return slugs.map((slug) => ({
-    slug,
-  }));
-}
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const staticPage = await getStaticPage(params.slug);
+export async function generateMetadata(): Promise<Metadata> {
+  const staticPage = await getStaticPage('about');
 
   if (!staticPage) {
     return notFoundMetadata;
@@ -57,27 +46,29 @@ export async function generateMetadata({
   };
 }
 
-export default async function StaticPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const staticPage = await getStaticPage(params.slug);
+export default async function AboutPage() {
+  const staticPage = await getStaticPage('about');
 
   if (!staticPage) {
     return <NotFoundPage />;
   }
 
   return (
-    <div className="px-6 py-32 lg:px-8">
-      <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-          {staticPage.title}
-        </h1>
-        <MarkdownContent className="static-page">
-          {staticPage.content.markdown}
-        </MarkdownContent>
+    <>
+      <div className="px-6 py-32 lg:px-8">
+        <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
+          <h1 className="mb-2 text-xl font-semibold uppercase leading-8 text-primary-900">
+            {staticPage.title}
+          </h1>
+          <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            We don't have a silver bullet for cloud security.
+          </p>
+          <MarkdownContent className="static-page">
+            {staticPage.content.markdown}
+          </MarkdownContent>
+        </div>
       </div>
-    </div>
+      <Team />
+    </>
   );
 }
