@@ -1,7 +1,9 @@
+import GithubSlugger from 'github-slugger';
 import Markdown from 'react-markdown';
 import remarkSmartypants from 'remark-smartypants';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
+import Heading from '@/components/common/MarkdownContent/Heading';
 import NextImage from '@/components/common/NextImage';
 
 import { cn } from '@/utils/css';
@@ -18,6 +20,8 @@ export default function MarkdownContent({
     return null;
   }
 
+  const slugger = new GithubSlugger();
+
   return (
     <Markdown
       remarkPlugins={[remarkSmartypants]}
@@ -26,6 +30,46 @@ export default function MarkdownContent({
           <PrimaryLink href={props.href ?? ''}>{props.children}</PrimaryLink>
         ),
         h1: 'h2',
+        h2: (props) => (
+          <Heading
+            as="h2"
+            slug={slugger.slug(props.children?.toString() ?? '')}
+          >
+            {props.children}
+          </Heading>
+        ),
+        h3: (props) => (
+          <Heading
+            as="h3"
+            slug={slugger.slug(props.children?.toString() ?? '')}
+          >
+            {props.children}
+          </Heading>
+        ),
+        h4: (props) => (
+          <Heading
+            as="h4"
+            slug={slugger.slug(props.children?.toString() ?? '')}
+          >
+            {props.children}
+          </Heading>
+        ),
+        h5: (props) => (
+          <Heading
+            as="h5"
+            slug={slugger.slug(props.children?.toString() ?? '')}
+          >
+            {props.children}
+          </Heading>
+        ),
+        h6: (props) => (
+          <Heading
+            as="h6"
+            slug={slugger.slug(props.children?.toString() ?? '')}
+          >
+            {props.children}
+          </Heading>
+        ),
         img: (props) => (
           <NextImage
             src={props.src ?? ''}

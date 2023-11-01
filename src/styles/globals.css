@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  /* @apply text-lg leading-7; */
-
   .markdown {
     h2,
     h3,
@@ -12,6 +10,10 @@
     h5,
     h6 {
       @apply mb-6 mt-12 font-bold tracking-tight text-gray-900;
+
+      .hash-link {
+        @apply select-none pl-1.5 opacity-0 transition-opacity before:content-['#'] hover:opacity-100;
+      }
     }
 
     h2 {
