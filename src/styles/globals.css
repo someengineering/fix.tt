@@ -17,27 +17,27 @@
     }
 
     h2 {
-      @apply text-2xl;
+      @apply text-xl sm:text-2xl;
     }
 
     h3 {
-      @apply text-xl;
+      @apply text-lg sm:text-xl;
     }
 
     h4 {
-      @apply text-xl italic;
+      @apply text-lg italic sm:text-xl;
     }
 
     h5 {
-      @apply text-lg;
+      @apply text-base sm:text-lg;
     }
 
     h6 {
-      @apply text-lg italic;
+      @apply text-base italic sm:text-lg;
     }
 
     p {
-      @apply my-6 text-lg leading-7;
+      @apply my-6 text-base leading-7 sm:text-lg sm:leading-8;
     }
 
     ol,
@@ -60,11 +60,11 @@
 
   .static-page {
     p {
-      @apply my-8 text-xl leading-8;
+      @apply my-8 text-xl leading-8 sm:text-2xl sm:leading-9;
     }
 
     h2 ~ p {
-      @apply my-6 text-lg leading-7;
+      @apply my-6 text-base leading-7 sm:text-lg sm:leading-8;
     }
   }
 }

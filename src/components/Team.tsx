@@ -110,15 +110,15 @@ export default function Team() {
   return (
     <div className="bg-primary-50 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
-        <div className="max-w-2xl xl:col-span-2">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <div className="max-w-2xl space-y-6 text-lg leading-8 text-gray-600 sm:text-xl xl:col-span-2">
+          <h2 className="text-4xl font-bold leading-none tracking-tight text-gray-900 sm:text-5xl">
             Meet the team
           </h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p>
             We&rsquo;ve built products for security, infrastructure,
             observability, and analytics.
           </p>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
+          <p>
             We think modern cloud security combines the best of data collection,
             anomaly detection, and presentation of insights in a way that is
             actionable and understandable by a human.
@@ -139,7 +139,7 @@ export default function Team() {
                 alt=""
               />
               <div className="max-w-xl flex-auto">
-                <h3 className="text-lg font-semibold leading-8 tracking-tight text-gray-900">
+                <h3 className="text-xl font-semibold leading-8 tracking-tight text-gray-900">
                   {person.name}
                 </h3>
                 <p className="text-base leading-7 text-gray-600">

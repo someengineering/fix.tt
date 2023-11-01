@@ -85,13 +85,15 @@ export default async function BlogTagPage({
         >
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-2 text-xl font-semibold uppercase leading-8 text-primary-900">
+          <p className="mb-2 text-lg font-semibold uppercase leading-8 text-primary-900 sm:text-xl">
             From the blog
           </p>
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             {title}
           </h1>
-          <p className="mt-2 text-xl leading-8 text-gray-600">{description}</p>
+          <p className="mt-2 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9">
+            {description}
+          </p>
           <BlogPostList
             initialPosts={data.edges.map((edge) => edge.node)}
             initialPageInfo={data.pageInfo}

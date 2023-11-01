@@ -63,7 +63,7 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
           <h2
-            className="mb-3 text-xl font-semibold uppercase leading-7 text-primary-900"
+            className="mb-3 text-lg font-semibold uppercase leading-7 text-primary-900 sm:text-xl"
             id="pricing"
           >
             Pricing

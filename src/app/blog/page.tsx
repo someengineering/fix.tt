@@ -58,7 +58,7 @@ export default async function BlogPage() {
           </h1>
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <p
-            className="mt-2 text-xl leading-8 text-gray-600"
+            className="mt-2 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9"
             itemProp="description"
           >
             {description}
