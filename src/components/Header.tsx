@@ -1,6 +1,7 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
+import { track } from '@vercel/analytics';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
@@ -62,7 +63,16 @@ export default function Header() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           {pathname !== '/' ? (
-            <ButtonLink href="/#request-early-access" variant="tangerine">
+            <ButtonLink
+              href="/#request-early-access"
+              variant="tangerine"
+              onClick={() =>
+                track('Button click', {
+                  buttonText: 'Request early access',
+                  location: 'header',
+                })
+              }
+            >
               Request early access
             </ButtonLink>
           ) : null}
@@ -108,7 +118,13 @@ export default function Header() {
                 <ButtonLink
                   href="/#request-early-access"
                   variant="tangerine"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    track('Button click', {
+                      buttonText: 'Request early access',
+                      location: 'header',
+                    });
+                    setMobileMenuOpen(false);
+                  }}
                 >
                   Request early access
                 </ButtonLink>

@@ -1,3 +1,6 @@
+'use client';
+
+import { track } from '@vercel/analytics';
 import { LuCheck } from 'react-icons/lu';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
@@ -112,6 +115,12 @@ export default function Pricing() {
                   href={tier.href}
                   variant="tangerine"
                   className="mt-10 block text-center"
+                  onClick={() =>
+                    track('Button click', {
+                      buttonText: tier.cta,
+                      location: 'pricing',
+                    })
+                  }
                 >
                   {tier.cta}
                 </ButtonLink>

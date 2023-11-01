@@ -1,3 +1,4 @@
+import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
 import { Metadata, Viewport } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import { cookies } from 'next/headers';
@@ -115,6 +116,7 @@ export default function RootLayout({
           <Header />
           <main>{children}</main>
           <Footer />
+          <VercelAnalytics />
           {GTM_CONTAINER_ID ? (
             <>
               <Script
