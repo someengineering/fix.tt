@@ -2,8 +2,13 @@ import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 
-import { ATTIO_API_KEY } from '@/constants/attio';
-import { RECAPTCHA_SECRET } from '@/constants/google';
+import { assertPersonRecord, createListEntry } from '@/lib/attio';
+import { validateCaptcha } from '@/lib/google/recaptcha';
+
+import {
+  ATTIO_EARLY_ACCESS_LIST,
+  ATTIO_EARLY_ACCESS_STATUS,
+} from '@/constants/attio';
 
 export async function POST(req: NextRequest) {
   const schema = zfd.formData({
@@ -13,66 +18,30 @@ export async function POST(req: NextRequest) {
 
   const { email, captcha } = schema.parse(await req.json());
 
-  const captchaResponse = await fetch(
-    'https://www.google.com/recaptcha/api/siteverify',
-    {
-      method: 'POST',
-      body: new URLSearchParams({
-        secret: RECAPTCHA_SECRET!,
-        response: captcha,
-      }),
-    },
-  );
+  const captchaResult = await validateCaptcha(captcha);
 
-  if (!captchaResponse.ok) {
-    return new Response('Invalid captcha', { status: 500 });
+  if (!captchaResult.isValid) {
+    return new Response('Invalid captcha', { status: 400 });
   }
 
-  const personResponse = await fetch(
-    'https://api.attio.com/v2/objects/people/records?matching_attribute=email_addresses',
-    {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${ATTIO_API_KEY}`,
-        'Content-Type': 'application/json',
+  try {
+    const personResult = await assertPersonRecord(email);
+
+    await createListEntry({
+      list_id: ATTIO_EARLY_ACCESS_LIST!,
+      entry_values: {
+        status: [{ status: ATTIO_EARLY_ACCESS_STATUS! }],
       },
-      body: JSON.stringify({
-        data: { values: { email_addresses: [{ email_address: email }] } },
-      }),
-    },
-  );
-
-  if (!personResponse.ok) {
-    return new Response('Failed to assert Attio person record', {
-      status: 500,
+      parent_object: 'people',
+      parent_record_id: personResult.record_id,
     });
+
+    return new Response(null, { status: 201 });
+  } catch (e) {
+    if (e instanceof Error) {
+      return new Response(e.message, { status: 500 });
+    }
+
+    return new Response(null, { status: 500 });
   }
-
-  const listResponse = await fetch(
-    'https://api.attio.com/v2/lists/fix_early_access/entries',
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${ATTIO_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        data: {
-          entry_values: {
-            status: [{ status: '60179743-3e4f-417e-8aa9-73623cd93715' }],
-          },
-          parent_object: 'people',
-          parent_record_id: (await personResponse.json()).data.id.record_id,
-        },
-      }),
-    },
-  );
-
-  if (!listResponse.ok) {
-    return new Response('Failed to create Attio list entry', {
-      status: 500,
-    });
-  }
-
-  return new Response(null, { status: 201 });
 }

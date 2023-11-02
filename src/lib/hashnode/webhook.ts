@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+import 'server-only';
 
 const MILLISECONDS_PER_SECOND = 1_000;
 const SIGNATURE_VERSION = '1';
@@ -26,7 +27,7 @@ function parseSignatureHeader(header: string) {
   };
 }
 
-export type CreateSignatureOptions = {
+type CreateSignatureOptions = {
   /**
    * The timestamp of the signature.
    */
@@ -41,7 +42,7 @@ export type CreateSignatureOptions = {
   secret: string;
 };
 
-export function createSignature(options: CreateSignatureOptions) {
+function createSignature(options: CreateSignatureOptions) {
   const { timestamp, payload, secret } = options;
   const signedPayloadString = `${timestamp}.${
     payload ? JSON.stringify(payload) : ''
@@ -52,7 +53,7 @@ export function createSignature(options: CreateSignatureOptions) {
     .digest('hex');
 }
 
-export type ValidateSignatureOptions = {
+type ValidateSignatureOptions = {
   /**
    * The content of the signature header.
    */
@@ -71,7 +72,7 @@ export type ValidateSignatureOptions = {
   validForSeconds?: number;
 };
 
-export type ValidateSignatureResult =
+type ValidateSignatureResult =
   | { isValid: true }
   | { isValid: false; reason: string };
 
