@@ -23,6 +23,11 @@ module.exports = {
 
   async redirects() {
     return [
+      {
+        source: '/blog/series/:path*',
+        permanent: false,
+        destination: `/blog/category/:path*`,
+      },
       ...flatten(
         ['/rss.xml', '/atom.xml', '/feed.json'].map((path) => [
           {

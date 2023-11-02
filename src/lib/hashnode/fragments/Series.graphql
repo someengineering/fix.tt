@@ -1,0 +1,4 @@
+fragment Series on Series {
+  name
+  slug
+}

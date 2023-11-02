@@ -14,6 +14,9 @@ import {
   PostFragment,
   PostQuery,
   PostQueryVariables,
+  PostsBySeriesDocument,
+  PostsBySeriesQuery,
+  PostsBySeriesQueryVariables,
   PostsByTagDocument,
   PostsByTagQuery,
   PostsByTagQueryVariables,
@@ -23,12 +26,15 @@ import {
   PostSlugsQueryVariables,
   PostsQuery,
   PostsQueryVariables,
-  PostTagSlugsDocument,
-  PostTagSlugsQuery,
-  PostTagSlugsQueryVariables,
   PublicationDocument,
   PublicationQuery,
   PublicationQueryVariables,
+  SeriesDocument,
+  SeriesQuery,
+  SeriesQueryVariables,
+  SeriesSlugsDocument,
+  SeriesSlugsQuery,
+  SeriesSlugsQueryVariables,
   StaticPageDocument,
   StaticPageQuery,
   StaticPageQueryVariables,
@@ -38,6 +44,9 @@ import {
   TagDocument,
   TagQuery,
   TagQueryVariables,
+  TagSlugsDocument,
+  TagSlugsQuery,
+  TagSlugsQueryVariables,
 } from '@/generated/hashnode/graphql';
 
 const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
@@ -56,13 +65,13 @@ export const getPublicationId = async () => {
 };
 
 export const getAllTagSlugs = async () => {
-  const data = await gqlClient.request<
-    PostTagSlugsQuery,
-    PostTagSlugsQueryVariables
-  >(PostTagSlugsDocument, {
-    host: HASHNODE_HOST,
-    first: 20,
-  });
+  const data = await gqlClient.request<TagSlugsQuery, TagSlugsQueryVariables>(
+    TagSlugsDocument,
+    {
+      host: HASHNODE_HOST,
+      first: 20,
+    },
+  );
 
   let slugs: string[] = [];
 
@@ -73,9 +82,9 @@ export const getAllTagSlugs = async () => {
 
     const fetchMore = async (after?: string) => {
       const data = await gqlClient.request<
-        PostTagSlugsQuery,
-        PostTagSlugsQueryVariables
-      >(PostTagSlugsDocument, {
+        TagSlugsQuery,
+        TagSlugsQueryVariables
+      >(TagSlugsDocument, {
         host: HASHNODE_HOST,
         first: 20,
         after,
@@ -109,6 +118,60 @@ export const getAllTagSlugs = async () => {
   }
 
   return uniq(slugs);
+};
+
+export const getAllSeriesSlugs = async () => {
+  const data = await gqlClient.request<
+    SeriesSlugsQuery,
+    SeriesSlugsQueryVariables
+  >(SeriesSlugsDocument, {
+    host: HASHNODE_HOST,
+    first: 20,
+  });
+
+  let slugs: string[] = [];
+
+  if (data.publication?.seriesList) {
+    slugs = data.publication.seriesList.edges
+      .filter((edge) => edge.node.posts.totalDocuments)
+      .map((edge) => edge.node.slug);
+
+    const fetchMore = async (after?: string) => {
+      const data = await gqlClient.request<
+        SeriesSlugsQuery,
+        SeriesSlugsQueryVariables
+      >(SeriesSlugsDocument, {
+        host: HASHNODE_HOST,
+        first: 20,
+        after,
+      });
+
+      if (!data.publication) {
+        return;
+      }
+
+      slugs = [
+        ...slugs,
+        ...data.publication.seriesList.edges.map((edge) => edge.node.slug),
+      ];
+
+      if (
+        data.publication.seriesList.pageInfo.hasNextPage &&
+        data.publication.seriesList.pageInfo.endCursor
+      ) {
+        await fetchMore(data.publication.seriesList.pageInfo.endCursor);
+      }
+    };
+
+    if (
+      data.publication.seriesList.pageInfo.hasNextPage &&
+      data.publication.seriesList.pageInfo.endCursor
+    ) {
+      await fetchMore(data.publication.seriesList.pageInfo.endCursor);
+    }
+  }
+
+  return slugs;
 };
 
 export const getAllPostSlugs = async () => {
@@ -256,6 +319,28 @@ export const getPostsByTag = async ({
   return data.publication?.posts;
 };
 
+export const getPostsBySeries = async ({
+  seriesSlug,
+  first,
+  after,
+}: {
+  seriesSlug: string;
+  first?: number;
+  after?: string;
+}) => {
+  const data = await gqlClient.request<
+    PostsBySeriesQuery,
+    PostsBySeriesQueryVariables
+  >(PostsBySeriesDocument, {
+    host: HASHNODE_HOST,
+    seriesSlug,
+    first: first && first > 0 ? (first > 20 ? 20 : first) : 5,
+    after,
+  });
+
+  return data.publication?.series?.posts;
+};
+
 export const getFeedPosts = async () => {
   const data = await gqlClient.request<FeedPostsQuery, FeedPostsQueryVariables>(
     FeedPostsDocument,
@@ -267,12 +352,12 @@ export const getFeedPosts = async () => {
   return data.publication?.posts.edges ?? [];
 };
 
-export const getPost = async (slug: string) => {
+export const getPost = async (postSlug: string) => {
   const data = await gqlClient.request<PostQuery, PostQueryVariables>(
     PostDocument,
     {
       host: HASHNODE_HOST,
-      slug,
+      postSlug,
     },
   );
 
@@ -283,11 +368,11 @@ const tagNameMapping: Record<string, string> = {
   cspm: 'CSPM',
 };
 
-export const getTagName = async (slug: string) => {
+export const getTagName = async (tagSlug: string) => {
   const data = await gqlClient.request<TagQuery, TagQueryVariables>(
     TagDocument,
     {
-      slug,
+      tagSlug,
     },
   );
 
@@ -296,6 +381,18 @@ export const getTagName = async (slug: string) => {
   }
 
   return data.tag?.name;
+};
+
+export const getSeries = async (seriesSlug: string) => {
+  const data = await gqlClient.request<SeriesQuery, SeriesQueryVariables>(
+    SeriesDocument,
+    {
+      host: HASHNODE_HOST,
+      seriesSlug,
+    },
+  );
+
+  return data.publication?.series;
 };
 
 export const getDraft = async (id: string) => {
@@ -365,13 +462,13 @@ export const getAllStaticPageSlugs = async () => {
   return slugs;
 };
 
-export const getStaticPage = async (slug: string) => {
+export const getStaticPage = async (pageSlug: string) => {
   const data = await gqlClient.request<
     StaticPageQuery,
     StaticPageQueryVariables
   >(StaticPageDocument, {
     host: HASHNODE_HOST,
-    slug,
+    pageSlug,
   });
 
   return data.publication?.staticPage;

@@ -10,6 +10,9 @@ fragment Post on Post {
   tags {
     ...Tag
   }
+  series {
+    ...Series
+  }
   author {
     ...User
   }

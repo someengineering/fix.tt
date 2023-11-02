@@ -1,6 +1,6 @@
-query StaticPage($host: String!, $slug: String!) {
+query StaticPage($host: String!, $pageSlug: String!) {
   publication(host: $host) {
-    staticPage(slug: $slug) {
+    staticPage(slug: $pageSlug) {
       ...StaticPage
     }
   }

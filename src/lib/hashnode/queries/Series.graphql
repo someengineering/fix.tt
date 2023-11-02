@@ -1,0 +1,13 @@
+query Series($host: String!, $seriesSlug: String!) {
+  publication(host: $host) {
+    series(slug: $seriesSlug) {
+      name
+      description {
+        text
+      }
+      posts(first: 1) {
+        totalDocuments
+      }
+    }
+  }
+}

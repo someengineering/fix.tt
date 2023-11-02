@@ -294,15 +294,19 @@ export type DomainStatus = {
 export type Draft = Node & {
   __typename?: 'Draft';
   /** The author of the draft. */
-  author?: Maybe<User>;
+  author: User;
+  canonicalUrl?: Maybe<Scalars['String']['output']>;
   /** Content of the draft in HTML and markdown */
   content?: Maybe<Content>;
   /** The cover image preference of the draft. Contains cover image URL and other details. */
   coverImage?: Maybe<DraftCoverImage>;
-  /** Unique identifier for the draft. */
-  cuid?: Maybe<Scalars['String']['output']>;
-  /** The date the draft was updated. */
+  /**
+   * The date the draft was updated.
+   * @deprecated Use updatedAt instead. Will be removed on 26/12/2023.
+   */
   dateUpdated: Scalars['DateTime']['output'];
+  /** Draft feature-related fields. */
+  features: DraftFeatures;
   /** The ID of the draft. */
   id: Scalars['ID']['output'];
   /** Information about the last backup of the draft. */
@@ -311,12 +315,22 @@ export type Draft = Node & {
   lastFailedBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** The date the draft was last successfully backed up. */
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
+  /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
+  ogMetaData?: Maybe<OpenGraphMetaData>;
+  readTimeInMinutes: Scalars['Int']['output'];
+  /** SEO information of the draft. Contains title and description used in meta tags. */
+  seo?: Maybe<Seo>;
+  /** Information of the series the draft belongs to. */
+  series?: Maybe<Series>;
+  settings: DraftSettings;
+  slug: Scalars['String']['output'];
   /** The subtitle of the draft. It would become the subtitle of the post when published. */
   subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the draft. Contains tag id, name, slug, etc. */
   tags: Array<Tag>;
   /** The title of the draft. It would become the title of the post when published. */
   title?: Maybe<Scalars['String']['output']>;
+  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type DraftBackup = {
@@ -344,6 +358,12 @@ export type DraftConnection = Connection & {
 /** Contains information about the cover image of the draft. */
 export type DraftCoverImage = {
   __typename?: 'DraftCoverImage';
+  /** Provides attribution information for the cover image, if available. */
+  attribution?: Maybe<Scalars['String']['output']>;
+  /** True if the image attribution should be hidden. */
+  isAttributionHidden: Scalars['Boolean']['output'];
+  /** The name of the photographer who captured the cover image. */
+  photographer?: Maybe<Scalars['String']['output']>;
   /** The URL of the cover image. */
   url: Scalars['String']['output'];
 };
@@ -355,6 +375,21 @@ export type DraftEdge = Edge & {
   cursor: Scalars['String']['output'];
   /** A node in the connection containing a draft. */
   node: Draft;
+};
+
+export type DraftFeatures = {
+  __typename?: 'DraftFeatures';
+  tableOfContents: TableOfContentsFeature;
+};
+
+export type DraftSettings = {
+  __typename?: 'DraftSettings';
+  /** A flag to indicate if the comments are disabled for the post. */
+  disableComments: Scalars['Boolean']['output'];
+  /** Wether or not the post is hidden from the Hashnode community. */
+  isDelisted: Scalars['Boolean']['output'];
+  /** A flag to indicate if the cover image is shown below title of the post. Default position of cover is top of title. */
+  stickCoverToBottom: Scalars['Boolean']['output'];
 };
 
 /**
@@ -818,7 +853,7 @@ export type Post = Node & {
   isFollowed?: Maybe<Scalars['Boolean']['output']>;
   /** A list of users who liked the post. */
   likedBy: PostLikerConnection;
-  /** Og Meta data of the post. Contains image url used in open graph meta tags. */
+  /** OG meta-data of the post. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** Preference settings for the post. Contains information about if the post is pinned to blog, comments are disabled, etc. */
   preferences: PostPreferences;
@@ -973,12 +1008,13 @@ export enum PostCommenterSortBy {
 /** Contains information about the cover image of the post. */
 export type PostCoverImage = {
   __typename?: 'PostCoverImage';
+  /** Provides attribution information for the cover image, if available. */
   attribution?: Maybe<Scalars['String']['output']>;
   /** True if the image attribution should be hidden. */
   isAttributionHidden: Scalars['Boolean']['output'];
-  /** The URL of the cover image thumbnail. */
+  /** Indicates whether the cover image is in portrait orientation. */
   isPortrait: Scalars['Boolean']['output'];
-  /** The photographer of the cover image. */
+  /** The name of the photographer who captured the cover image. */
   photographer?: Maybe<Scalars['String']['output']>;
   /** The URL of the cover image. */
   url: Scalars['String']['output'];
@@ -1661,6 +1697,7 @@ export enum Scope {
   CreatePro = 'create_pro',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
+  PublishDraft = 'publish_draft',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
   UpdatePost = 'update_post',
@@ -2192,7 +2229,8 @@ export type DraftFragment = {
   subtitle?: string | null;
   dateUpdated: string;
   tags: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
-  author?: {
+  series?: { __typename?: 'Series'; name: string; slug: string } | null;
+  author: {
     __typename?: 'User';
     username: string;
     name: string;
@@ -2201,7 +2239,7 @@ export type DraftFragment = {
       __typename?: 'SocialMediaLinks';
       linkedin?: string | null;
     } | null;
-  } | null;
+  };
   content?: { __typename?: 'Content'; markdown: string } | null;
 };
 
@@ -2223,6 +2261,7 @@ export type PostFragment = {
   updatedAt?: string | null;
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+  series?: { __typename?: 'Series'; name: string; slug: string } | null;
   author: {
     __typename?: 'User';
     username: string;
@@ -2248,6 +2287,7 @@ export type PostWithMarkdownContentFragment = {
   content: { __typename?: 'Content'; markdown: string };
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+  series?: { __typename?: 'Series'; name: string; slug: string } | null;
   author: {
     __typename?: 'User';
     username: string;
@@ -2258,6 +2298,12 @@ export type PostWithMarkdownContentFragment = {
       linkedin?: string | null;
     } | null;
   };
+};
+
+export type SeriesFragment = {
+  __typename?: 'Series';
+  name: string;
+  slug: string;
 };
 
 export type StaticPageFragment = {
@@ -2308,7 +2354,8 @@ export type DraftQuery = {
     subtitle?: string | null;
     dateUpdated: string;
     tags: Array<{ __typename?: 'Tag'; name: string; slug: string }>;
-    author?: {
+    series?: { __typename?: 'Series'; name: string; slug: string } | null;
+    author: {
       __typename?: 'User';
       username: string;
       name: string;
@@ -2317,7 +2364,7 @@ export type DraftQuery = {
         __typename?: 'SocialMediaLinks';
         linkedin?: string | null;
       } | null;
-    } | null;
+    };
     content?: { __typename?: 'Content'; markdown: string } | null;
   } | null;
 };
@@ -2351,6 +2398,7 @@ export type FeedPostsQuery = {
             name: string;
             slug: string;
           }> | null;
+          series?: { __typename?: 'Series'; name: string; slug: string } | null;
           author: {
             __typename?: 'User';
             username: string;
@@ -2369,7 +2417,7 @@ export type FeedPostsQuery = {
 
 export type PostQueryVariables = Exact<{
   host: Scalars['String']['input'];
-  slug: Scalars['String']['input'];
+  postSlug: Scalars['String']['input'];
 }>;
 
 export type PostQuery = {
@@ -2389,6 +2437,7 @@ export type PostQuery = {
       content: { __typename?: 'Content'; markdown: string };
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
       tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+      series?: { __typename?: 'Series'; name: string; slug: string } | null;
       author: {
         __typename?: 'User';
         username: string;
@@ -2428,34 +2477,6 @@ export type PostSlugsQuery = {
   } | null;
 };
 
-export type PostTagSlugsQueryVariables = Exact<{
-  host: Scalars['String']['input'];
-  first: Scalars['Int']['input'];
-  after?: InputMaybe<Scalars['String']['input']>;
-}>;
-
-export type PostTagSlugsQuery = {
-  __typename?: 'Query';
-  publication?: {
-    __typename?: 'Publication';
-    posts: {
-      __typename?: 'PublicationPostConnection';
-      edges: Array<{
-        __typename?: 'PostEdge';
-        node: {
-          __typename?: 'Post';
-          tags?: Array<{ __typename?: 'Tag'; slug: string }> | null;
-        };
-      }>;
-      pageInfo: {
-        __typename?: 'PageInfo';
-        endCursor?: string | null;
-        hasNextPage?: boolean | null;
-      };
-    };
-  } | null;
-};
-
 export type PostsQueryVariables = Exact<{
   host: Scalars['String']['input'];
   first: Scalars['Int']['input'];
@@ -2468,7 +2489,6 @@ export type PostsQuery = {
     __typename?: 'Publication';
     posts: {
       __typename?: 'PublicationPostConnection';
-      totalDocuments: number;
       edges: Array<{
         __typename?: 'PostEdge';
         node: {
@@ -2487,6 +2507,7 @@ export type PostsQuery = {
             name: string;
             slug: string;
           }> | null;
+          series?: { __typename?: 'Series'; name: string; slug: string } | null;
           author: {
             __typename?: 'User';
             username: string;
@@ -2508,6 +2529,66 @@ export type PostsQuery = {
   } | null;
 };
 
+export type PostsBySeriesQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  seriesSlug: Scalars['String']['input'];
+  first: Scalars['Int']['input'];
+  after?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type PostsBySeriesQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    series?: {
+      __typename?: 'Series';
+      posts: {
+        __typename?: 'SeriesPostConnection';
+        edges: Array<{
+          __typename?: 'PostEdge';
+          node: {
+            __typename?: 'Post';
+            id: string;
+            title: string;
+            subtitle?: string | null;
+            brief: string;
+            slug: string;
+            readTimeInMinutes: number;
+            publishedAt: string;
+            updatedAt?: string | null;
+            coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
+            tags?: Array<{
+              __typename?: 'Tag';
+              name: string;
+              slug: string;
+            }> | null;
+            series?: {
+              __typename?: 'Series';
+              name: string;
+              slug: string;
+            } | null;
+            author: {
+              __typename?: 'User';
+              username: string;
+              name: string;
+              profilePicture?: string | null;
+              socialMediaLinks?: {
+                __typename?: 'SocialMediaLinks';
+                linkedin?: string | null;
+              } | null;
+            };
+          };
+        }>;
+        pageInfo: {
+          __typename?: 'PageInfo';
+          endCursor?: string | null;
+          hasNextPage?: boolean | null;
+        };
+      };
+    } | null;
+  } | null;
+};
+
 export type PostsByTagQueryVariables = Exact<{
   host: Scalars['String']['input'];
   tagSlug: Scalars['String']['input'];
@@ -2521,7 +2602,6 @@ export type PostsByTagQuery = {
     __typename?: 'Publication';
     posts: {
       __typename?: 'PublicationPostConnection';
-      totalDocuments: number;
       edges: Array<{
         __typename?: 'PostEdge';
         node: {
@@ -2540,6 +2620,7 @@ export type PostsByTagQuery = {
             name: string;
             slug: string;
           }> | null;
+          series?: { __typename?: 'Series'; name: string; slug: string } | null;
           author: {
             __typename?: 'User';
             username: string;
@@ -2570,9 +2651,59 @@ export type PublicationQuery = {
   publication?: { __typename?: 'Publication'; id: string } | null;
 };
 
+export type SeriesQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  seriesSlug: Scalars['String']['input'];
+}>;
+
+export type SeriesQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    series?: {
+      __typename?: 'Series';
+      name: string;
+      description?: { __typename?: 'Content'; text: string } | null;
+      posts: { __typename?: 'SeriesPostConnection'; totalDocuments: number };
+    } | null;
+  } | null;
+};
+
+export type SeriesSlugsQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  first: Scalars['Int']['input'];
+  after?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type SeriesSlugsQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    seriesList: {
+      __typename?: 'SeriesConnection';
+      edges: Array<{
+        __typename?: 'SeriesEdge';
+        node: {
+          __typename?: 'Series';
+          slug: string;
+          posts: {
+            __typename?: 'SeriesPostConnection';
+            totalDocuments: number;
+          };
+        };
+      }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
+    };
+  } | null;
+};
+
 export type StaticPageQueryVariables = Exact<{
   host: Scalars['String']['input'];
-  slug: Scalars['String']['input'];
+  pageSlug: Scalars['String']['input'];
 }>;
 
 export type StaticPageQuery = {
@@ -2617,12 +2748,40 @@ export type StaticPageSlugsQuery = {
 };
 
 export type TagQueryVariables = Exact<{
-  slug: Scalars['String']['input'];
+  tagSlug: Scalars['String']['input'];
 }>;
 
 export type TagQuery = {
   __typename?: 'Query';
   tag?: { __typename?: 'Tag'; name: string } | null;
+};
+
+export type TagSlugsQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  first: Scalars['Int']['input'];
+  after?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+export type TagSlugsQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    posts: {
+      __typename?: 'PublicationPostConnection';
+      edges: Array<{
+        __typename?: 'PostEdge';
+        node: {
+          __typename?: 'Post';
+          tags?: Array<{ __typename?: 'Tag'; slug: string }> | null;
+        };
+      }>;
+      pageInfo: {
+        __typename?: 'PageInfo';
+        endCursor?: string | null;
+        hasNextPage?: boolean | null;
+      };
+    };
+  } | null;
 };
 
 export const TagFragmentDoc = {
@@ -2645,6 +2804,26 @@ export const TagFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<TagFragment, unknown>;
+export const SeriesFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SeriesFragment, unknown>;
 export const UserFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -2707,6 +2886,19 @@ export const DraftFragmentDoc = {
           },
           {
             kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
             name: { kind: 'Name', value: 'author' },
             selectionSet: {
               kind: 'SelectionSet',
@@ -2738,6 +2930,21 @@ export const DraftFragmentDoc = {
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
       },
       selectionSet: {
         kind: 'SelectionSet',
@@ -2838,6 +3045,19 @@ export const PostFragmentDoc = {
           },
           {
             kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
             name: { kind: 'Name', value: 'author' },
             selectionSet: {
               kind: 'SelectionSet',
@@ -2861,6 +3081,21 @@ export const PostFragmentDoc = {
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
       },
       selectionSet: {
         kind: 'SelectionSet',
@@ -2942,6 +3177,21 @@ export const PostWithMarkdownContentFragmentDoc = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
       typeCondition: {
         kind: 'NamedType',
@@ -3000,6 +3250,19 @@ export const PostWithMarkdownContentFragmentDoc = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
                 },
               ],
             },
@@ -3187,6 +3450,21 @@ export const DraftDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
       typeCondition: {
         kind: 'NamedType',
@@ -3233,6 +3511,19 @@ export const DraftDocument = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
                 },
               ],
             },
@@ -3379,6 +3670,21 @@ export const FeedPostsDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'User' },
       typeCondition: {
         kind: 'NamedType',
@@ -3437,6 +3743,19 @@ export const FeedPostsDocument = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
                 },
               ],
             },
@@ -3483,7 +3802,10 @@ export const PostDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'postSlug' },
+          },
           type: {
             kind: 'NonNullType',
             type: {
@@ -3521,7 +3843,7 @@ export const PostDocument = {
                       name: { kind: 'Name', value: 'slug' },
                       value: {
                         kind: 'Variable',
-                        name: { kind: 'Name', value: 'slug' },
+                        name: { kind: 'Name', value: 'postSlug' },
                       },
                     },
                   ],
@@ -3550,6 +3872,21 @@ export const PostDocument = {
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
       },
       selectionSet: {
         kind: 'SelectionSet',
@@ -3619,6 +3956,19 @@ export const PostDocument = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
                 },
               ],
             },
@@ -3811,158 +4161,6 @@ export const PostSlugsDocument = {
     },
   ],
 } as unknown as DocumentNode<PostSlugsQuery, PostSlugsQueryVariables>;
-export const PostTagSlugsDocument = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'OperationDefinition',
-      operation: 'query',
-      name: { kind: 'Name', value: 'PostTagSlugs' },
-      variableDefinitions: [
-        {
-          kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
-          type: {
-            kind: 'NonNullType',
-            type: {
-              kind: 'NamedType',
-              name: { kind: 'Name', value: 'String' },
-            },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'first' },
-          },
-          type: {
-            kind: 'NonNullType',
-            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
-          },
-        },
-        {
-          kind: 'VariableDefinition',
-          variable: {
-            kind: 'Variable',
-            name: { kind: 'Name', value: 'after' },
-          },
-          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
-        },
-      ],
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          {
-            kind: 'Field',
-            name: { kind: 'Name', value: 'publication' },
-            arguments: [
-              {
-                kind: 'Argument',
-                name: { kind: 'Name', value: 'host' },
-                value: {
-                  kind: 'Variable',
-                  name: { kind: 'Name', value: 'host' },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: 'SelectionSet',
-              selections: [
-                {
-                  kind: 'Field',
-                  name: { kind: 'Name', value: 'posts' },
-                  arguments: [
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'first' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'first' },
-                      },
-                    },
-                    {
-                      kind: 'Argument',
-                      name: { kind: 'Name', value: 'after' },
-                      value: {
-                        kind: 'Variable',
-                        name: { kind: 'Name', value: 'after' },
-                      },
-                    },
-                  ],
-                  selectionSet: {
-                    kind: 'SelectionSet',
-                    selections: [
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'edges' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'node' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'tags' },
-                                    selectionSet: {
-                                      kind: 'SelectionSet',
-                                      selections: [
-                                        {
-                                          kind: 'Field',
-                                          name: { kind: 'Name', value: 'slug' },
-                                        },
-                                      ],
-                                    },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'pageInfo' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PageInfo' },
-                            },
-                          ],
-                        },
-                      },
-                    ],
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      },
-    },
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PageInfo' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'PageInfo' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<PostTagSlugsQuery, PostTagSlugsQueryVariables>;
 export const PostsDocument = {
   kind: 'Document',
   definitions: [
@@ -4047,10 +4245,6 @@ export const PostsDocument = {
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'totalDocuments' },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'edges' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -4099,6 +4293,21 @@ export const PostsDocument = {
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
       },
       selectionSet: {
         kind: 'SelectionSet',
@@ -4174,6 +4383,19 @@ export const PostsDocument = {
           },
           {
             kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
             name: { kind: 'Name', value: 'author' },
             selectionSet: {
               kind: 'SelectionSet',
@@ -4208,6 +4430,308 @@ export const PostsDocument = {
     },
   ],
 } as unknown as DocumentNode<PostsQuery, PostsQueryVariables>;
+export const PostsBySeriesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'PostsBySeries' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'seriesSlug' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'series' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'slug' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'seriesSlug' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'posts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'after' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'after' },
+                            },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'edges' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'node' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: { kind: 'Name', value: 'Post' },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pageInfo' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'PageInfo' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Tag' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'User' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'User' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'socialMediaLinks' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'linkedin' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Post' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Post' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'brief' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'tags' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'author' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'User' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PostsBySeriesQuery, PostsBySeriesQueryVariables>;
 export const PostsByTagDocument = {
   kind: 'Document',
   definitions: [
@@ -4328,10 +4852,6 @@ export const PostsByTagDocument = {
                     selections: [
                       {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'totalDocuments' },
-                      },
-                      {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'edges' },
                         selectionSet: {
                           kind: 'SelectionSet',
@@ -4380,6 +4900,21 @@ export const PostsByTagDocument = {
       typeCondition: {
         kind: 'NamedType',
         name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
       },
       selectionSet: {
         kind: 'SelectionSet',
@@ -4449,6 +4984,19 @@ export const PostsByTagDocument = {
                 {
                   kind: 'FragmentSpread',
                   name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
                 },
               ],
             },
@@ -4537,6 +5085,286 @@ export const PublicationDocument = {
     },
   ],
 } as unknown as DocumentNode<PublicationQuery, PublicationQueryVariables>;
+export const SeriesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Series' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'seriesSlug' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'series' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'slug' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'seriesSlug' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'description' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'text' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'posts' },
+                        arguments: [
+                          {
+                            kind: 'Argument',
+                            name: { kind: 'Name', value: 'first' },
+                            value: { kind: 'IntValue', value: '1' },
+                          },
+                        ],
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'totalDocuments' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SeriesQuery, SeriesQueryVariables>;
+export const SeriesSlugsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'SeriesSlugs' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'seriesList' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'slug' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'posts' },
+                                    arguments: [
+                                      {
+                                        kind: 'Argument',
+                                        name: { kind: 'Name', value: 'first' },
+                                        value: { kind: 'IntValue', value: '1' },
+                                      },
+                                    ],
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'totalDocuments',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'PageInfo' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SeriesSlugsQuery, SeriesSlugsQueryVariables>;
 export const StaticPageDocument = {
   kind: 'Document',
   definitions: [
@@ -4558,7 +5386,10 @@ export const StaticPageDocument = {
         },
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'pageSlug' },
+          },
           type: {
             kind: 'NonNullType',
             type: {
@@ -4596,7 +5427,7 @@ export const StaticPageDocument = {
                       name: { kind: 'Name', value: 'slug' },
                       value: {
                         kind: 'Variable',
-                        name: { kind: 'Name', value: 'slug' },
+                        name: { kind: 'Name', value: 'pageSlug' },
                       },
                     },
                   ],
@@ -4811,7 +5642,10 @@ export const TagDocument = {
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
-          variable: { kind: 'Variable', name: { kind: 'Name', value: 'slug' } },
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'tagSlug' },
+          },
           type: {
             kind: 'NonNullType',
             type: {
@@ -4833,7 +5667,7 @@ export const TagDocument = {
                 name: { kind: 'Name', value: 'slug' },
                 value: {
                   kind: 'Variable',
-                  name: { kind: 'Name', value: 'slug' },
+                  name: { kind: 'Name', value: 'tagSlug' },
                 },
               },
             ],
@@ -4849,3 +5683,155 @@ export const TagDocument = {
     },
   ],
 } as unknown as DocumentNode<TagQuery, TagQueryVariables>;
+export const TagSlugsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'TagSlugs' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'after' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'posts' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'first' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'first' },
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'after' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'after' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'edges' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'node' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'tags' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'slug' },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'pageInfo' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'PageInfo' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TagSlugsQuery, TagSlugsQueryVariables>;

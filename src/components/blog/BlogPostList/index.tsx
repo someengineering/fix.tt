@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import { getPosts, getPostsByTag } from '@/lib/hashnode';
+import { getPosts, getPostsBySeries, getPostsByTag } from '@/lib/hashnode';
 
 import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
 
@@ -16,10 +16,12 @@ export default function BlogPostList({
   initialPosts,
   initialPageInfo,
   tagSlug,
+  seriesSlug,
 }: {
   initialPosts: HashnodePost[];
   initialPageInfo: HashnodePageInfo;
   tagSlug?: string;
+  seriesSlug?: string;
 }) {
   const [posts, setPosts] = useState<HashnodePost[]>(initialPosts);
   const [pageInfo, setPageInfo] = useState<HashnodePageInfo>(initialPageInfo);
@@ -32,7 +34,12 @@ export default function BlogPostList({
     onLoadMore: async () => {
       setIsLoading(true);
 
-      const data = tagSlug
+      const data = seriesSlug
+        ? await getPostsBySeries({
+            seriesSlug,
+            after: pageInfo.endCursor ?? undefined,
+          })
+        : tagSlug
         ? await getPostsByTag({
             tagSlug,
             after: pageInfo.endCursor ?? undefined,

@@ -6,7 +6,6 @@ query PostsByTag(
 ) {
   publication(host: $host) {
     posts(filter: { tagSlugs: [$tagSlug] }, first: $first, after: $after) {
-      totalDocuments
       edges {
         node {
           ...Post

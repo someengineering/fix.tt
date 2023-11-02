@@ -5,6 +5,9 @@ fragment Draft on Draft {
   tags {
     ...Tag
   }
+  series {
+    ...Series
+  }
   author {
     ...User
   }

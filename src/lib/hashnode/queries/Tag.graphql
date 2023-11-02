@@ -1,5 +1,5 @@
-query Tag($slug: String!) {
-  tag(slug: $slug) {
+query Tag($tagSlug: String!) {
+  tag(slug: $tagSlug) {
     name
   }
 }

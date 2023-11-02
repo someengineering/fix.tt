@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
-import { getAllTagSlugs, getPostsByTag, getTagName } from '@/lib/hashnode';
+import { getAllSeriesSlugs, getPostsBySeries, getSeries } from '@/lib/hashnode';
 
 import BlogPostList from '@/components/blog/BlogPostList';
 
@@ -10,7 +10,7 @@ import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
 export async function generateStaticParams() {
-  const slugs = await getAllTagSlugs();
+  const slugs = await getAllSeriesSlugs();
 
   return slugs.map((slug) => ({
     slug,
@@ -22,15 +22,15 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const tag = await getTagName(params.slug);
+  const series = await getSeries(params.slug);
 
-  if (!tag) {
+  if (!series || !series.posts.totalDocuments) {
     return {};
   }
 
-  const url = `${siteConfig.url}/blog/tag/${params.slug}`;
-  const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)} | Blog`;
-  const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
+  const url = `${siteConfig.url}/blog/category/${params.slug}`;
+  const title = `${series.name} | Blog`;
+  const description = series.description?.text;
   const ogImage = openGraph({
     title,
     description,
@@ -59,17 +59,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogTagPage({
+export default async function BlogSeriesPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  const tagNameData = getTagName(params.slug);
-  const postsData = getPostsByTag({ tagSlug: params.slug });
+  const seriesInfoData = getSeries(params.slug);
+  const postsData = getPostsBySeries({ seriesSlug: params.slug });
 
-  const [tagName, posts] = await Promise.all([tagNameData, postsData]);
+  const [seriesInfo, posts] = await Promise.all([seriesInfoData, postsData]);
 
-  if (!tagName || !posts) {
+  if (!seriesInfo || !seriesInfo.posts.totalDocuments || !posts) {
     redirect('/blog');
   }
 
@@ -88,16 +88,17 @@ export default async function BlogTagPage({
             From the blog
           </p>
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            {tagName.charAt(0).toUpperCase()}
-            {tagName.slice(1)}
+            {seriesInfo.name}
           </h1>
-          <p className="mt-2 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9">
-            Guides, how-tos, and news about {tagName} from the Fix team.
-          </p>
+          {seriesInfo.description ? (
+            <p className="mt-2 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9">
+              {seriesInfo.description.text}
+            </p>
+          ) : null}
           <BlogPostList
             initialPosts={posts.edges.map((edge) => edge.node)}
             initialPageInfo={posts.pageInfo}
-            tagSlug={params.slug}
+            seriesSlug={params.slug}
           />
         </div>
       </div>
