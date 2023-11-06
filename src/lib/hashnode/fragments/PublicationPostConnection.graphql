@@ -1,0 +1,10 @@
+fragment PublicationPostConnection on PublicationPostConnection {
+  edges {
+    node {
+      ...Post
+    }
+  }
+  pageInfo {
+    ...PageInfo
+  }
+}

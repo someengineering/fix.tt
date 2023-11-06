@@ -3,25 +3,27 @@
 import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import { getPosts, getPostsBySeries, getPostsByTag } from '@/lib/hashnode';
-
 import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
 
 import {
   PageInfo as HashnodePageInfo,
   PostFragment as HashnodePost,
+  PublicationPostConnectionFragment,
+  SeriesPostConnectionFragment,
 } from '@/generated/hashnode/graphql';
 
 export default function BlogPostList({
   initialPosts,
   initialPageInfo,
-  tagSlug,
-  seriesSlug,
+  getPosts,
 }: {
   initialPosts: HashnodePost[];
   initialPageInfo: HashnodePageInfo;
-  tagSlug?: string;
-  seriesSlug?: string;
+  getPosts: (
+    after: string,
+  ) => Promise<
+    PublicationPostConnectionFragment | SeriesPostConnectionFragment | undefined
+  >;
 }) {
   const [posts, setPosts] = useState<HashnodePost[]>(initialPosts);
   const [pageInfo, setPageInfo] = useState<HashnodePageInfo>(initialPageInfo);
@@ -34,27 +36,17 @@ export default function BlogPostList({
     onLoadMore: async () => {
       setIsLoading(true);
 
-      const data = seriesSlug
-        ? await getPostsBySeries({
-            seriesSlug,
-            after: pageInfo.endCursor ?? undefined,
-          })
-        : tagSlug
-        ? await getPostsByTag({
-            tagSlug,
-            after: pageInfo.endCursor ?? undefined,
-          })
-        : await getPosts({
-            after: pageInfo.endCursor ?? undefined,
-          });
+      if (pageInfo.endCursor) {
+        const data = await getPosts(pageInfo.endCursor);
 
-      if (!data) {
-        setError(true);
-        return;
+        if (!data) {
+          setError(true);
+          return;
+        }
+
+        setPosts([...posts, ...data.edges.map((edge) => edge.node)]);
+        setPageInfo(data.pageInfo);
       }
-
-      setPosts([...posts, ...data.edges.map((edge) => edge.node)]);
-      setPageInfo(data.pageInfo);
 
       setIsLoading(false);
     },

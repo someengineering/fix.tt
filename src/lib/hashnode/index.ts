@@ -41,6 +41,9 @@ import {
   StaticPageSlugsDocument,
   StaticPageSlugsQuery,
   StaticPageSlugsQueryVariables,
+  SubscribeToNewsletterDocument,
+  SubscribeToNewsletterMutation,
+  SubscribeToNewsletterMutationVariables,
   TagDocument,
   TagQuery,
   TagQueryVariables,
@@ -472,4 +475,19 @@ export const getStaticPage = async (pageSlug: string) => {
   });
 
   return data.publication?.staticPage;
+};
+
+export const subscribeToNewsletter = async (email: string) => {
+  const publicationId = await getPublicationId();
+
+  if (!publicationId) {
+    throw new Error('Failed to retrieve publication ID');
+  }
+
+  await gqlClient.request<
+    SubscribeToNewsletterMutation,
+    SubscribeToNewsletterMutationVariables
+  >(SubscribeToNewsletterDocument, {
+    input: { publicationId, email },
+  });
 };

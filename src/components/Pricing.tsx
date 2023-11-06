@@ -59,7 +59,7 @@ const tiers: {
 
 export default function Pricing() {
   return (
-    <div className="isolate py-24 sm:py-32">
+    <div className="isolate py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
           <h2

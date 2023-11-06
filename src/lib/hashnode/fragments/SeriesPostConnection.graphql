@@ -1,0 +1,10 @@
+fragment SeriesPostConnection on SeriesPostConnection {
+  edges {
+    node {
+      ...Post
+    }
+  }
+  pageInfo {
+    ...PageInfo
+  }
+}

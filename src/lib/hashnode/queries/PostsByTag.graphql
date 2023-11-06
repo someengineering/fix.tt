@@ -6,14 +6,7 @@ query PostsByTag(
 ) {
   publication(host: $host) {
     posts(filter: { tagSlugs: [$tagSlug] }, first: $first, after: $after) {
-      edges {
-        node {
-          ...Post
-        }
-      }
-      pageInfo {
-        ...PageInfo
-      }
+      ...PublicationPostConnection
     }
   }
 }

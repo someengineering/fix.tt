@@ -74,7 +74,7 @@ export default async function BlogTagPage({
   }
 
   return (
-    <div className="py-24 sm:py-32">
+    <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
           className="mx-auto max-w-2xl lg:max-w-4xl"
@@ -97,7 +97,14 @@ export default async function BlogTagPage({
           <BlogPostList
             initialPosts={posts.edges.map((edge) => edge.node)}
             initialPageInfo={posts.pageInfo}
-            tagSlug={params.slug}
+            getPosts={async (after: string) => {
+              'use server';
+
+              return await getPostsByTag({
+                tagSlug: params.slug,
+                after,
+              });
+            }}
           />
         </div>
       </div>

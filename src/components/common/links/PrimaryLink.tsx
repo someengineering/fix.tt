@@ -6,7 +6,7 @@ import UnstyledLink, {
 
 import { cn } from '@/utils/css';
 
-const PrimaryLinkVariant = ['primary', 'basic'] as const;
+const PrimaryLinkVariant = ['primary', 'basic', 'light'] as const;
 type PrimaryLinkProps = {
   variant?: (typeof PrimaryLinkVariant)[number];
 } & UnstyledLinkProps;
@@ -20,7 +20,7 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
         className={cn(
           'inline-flex items-center',
           'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-primary-500 focus-visible:ring-offset-2',
-          'font-medium',
+          'font-semibold',
           //#region  //*=========== Variant ===========
           variant === 'primary' && [
             'text-primary-500 hover:text-primary-600 active:text-primary-700',
@@ -29,6 +29,10 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
           variant === 'basic' && [
             'text-black hover:text-gray-600 active:text-gray-800',
             'disabled:text-gray-300',
+          ],
+          variant === 'light' && [
+            'text-white hover:text-gray-100 active:text-white/80',
+            'disabled:text-gray-200',
           ],
           //#endregion  //*======== Variant ===========
           className,

@@ -594,7 +594,7 @@ export type Mutation = {
   /** Adds a post to a series. */
   addPostToSeries: AddPostToSeriesPayload;
   /** Creates a new post. */
-  publishPost?: Maybe<PublishPostPayload>;
+  publishPost: PublishPostPayload;
   /** Reschedule a post. */
   reschedulePost?: Maybe<ScheduledPostPayload>;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
@@ -606,6 +606,7 @@ export type Mutation = {
    */
   toggleFollowUser: ToggleFollowUserPayload;
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
+  updatePost: UpdatePostPayload;
 };
 
 export type MutationAddPostToSeriesArgs = {
@@ -631,6 +632,10 @@ export type MutationToggleFollowUserArgs = {
 
 export type MutationUnsubscribeFromNewsletterArgs = {
   input: UnsubscribeFromNewsletterInput;
+};
+
+export type MutationUpdatePostArgs = {
+  input: UpdatePostInput;
 };
 
 /**
@@ -2002,6 +2007,59 @@ export type UnsubscribeFromNewsletterPayload = {
   status?: Maybe<NewsletterUnsubscribeStatus>;
 };
 
+export type UpdatePostInput = {
+  /** The publication the post is published to. */
+  contentMarkdown?: InputMaybe<Scalars['String']['input']>;
+  /** Options for the cover image of the post. */
+  coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
+  /** The id of the post to update. */
+  id: Scalars['ID']['input'];
+  /** Information about the meta tags added to the post, used for SEO purpose. */
+  metaTags?: InputMaybe<MetaTagsInput>;
+  /** Canonical URL of the original article. */
+  originalArticleURL?: InputMaybe<Scalars['String']['input']>;
+  /** If the publication should be changed this is the new Publication ID */
+  publicationId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /**
+   * Set a different author for the post than the requesting user.
+   * Must be a member of the publication.
+   */
+  publishAs?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Backdated publish date. */
+  publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
+  /**
+   * Providing a seriesId will add the post to that series.
+   * Must be a series of the publication.
+   */
+  seriesId?: InputMaybe<Scalars['ObjectId']['input']>;
+  /** Whether or not to enable the table of content. */
+  settings?: InputMaybe<UpdatePostSettingsInput>;
+  /** Slug of the post. Only if you want to override the slug that will be generated based on the title. */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The subtitle of the post */
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  /** Tags to add to the post. New tags will be created if they don't exist. It overrides the existing tags. */
+  tags?: InputMaybe<Array<PublishPostTagInput>>;
+  /** The new title of the post */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdatePostPayload = {
+  __typename?: 'UpdatePostPayload';
+  post?: Maybe<Post>;
+};
+
+export type UpdatePostSettingsInput = {
+  /** A flag to indicate if the post is delisted, used to hide the post from public feed. */
+  delisted?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Whether or not comments should be disabled. */
+  disableComments?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A flag to indicate if the post contains table of content */
+  isTableOfContentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Pin the post to the blog homepage. */
+  pinToBlog?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export enum UrlPattern {
   /** Post URLs contain the slug (for example `my slug`) and a random id (like `1234`) , e.g. "/my-slug-1234". */
   Default = 'DEFAULT',
@@ -2300,10 +2358,82 @@ export type PostWithMarkdownContentFragment = {
   };
 };
 
+export type PublicationPostConnectionFragment = {
+  __typename?: 'PublicationPostConnection';
+  edges: Array<{
+    __typename?: 'PostEdge';
+    node: {
+      __typename?: 'Post';
+      id: string;
+      title: string;
+      subtitle?: string | null;
+      brief: string;
+      slug: string;
+      readTimeInMinutes: number;
+      publishedAt: string;
+      updatedAt?: string | null;
+      coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
+      tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+      series?: { __typename?: 'Series'; name: string; slug: string } | null;
+      author: {
+        __typename?: 'User';
+        username: string;
+        name: string;
+        profilePicture?: string | null;
+        socialMediaLinks?: {
+          __typename?: 'SocialMediaLinks';
+          linkedin?: string | null;
+        } | null;
+      };
+    };
+  }>;
+  pageInfo: {
+    __typename?: 'PageInfo';
+    endCursor?: string | null;
+    hasNextPage?: boolean | null;
+  };
+};
+
 export type SeriesFragment = {
   __typename?: 'Series';
   name: string;
   slug: string;
+};
+
+export type SeriesPostConnectionFragment = {
+  __typename?: 'SeriesPostConnection';
+  edges: Array<{
+    __typename?: 'PostEdge';
+    node: {
+      __typename?: 'Post';
+      id: string;
+      title: string;
+      subtitle?: string | null;
+      brief: string;
+      slug: string;
+      readTimeInMinutes: number;
+      publishedAt: string;
+      updatedAt?: string | null;
+      coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
+      tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+      series?: { __typename?: 'Series'; name: string; slug: string } | null;
+      author: {
+        __typename?: 'User';
+        username: string;
+        name: string;
+        profilePicture?: string | null;
+        socialMediaLinks?: {
+          __typename?: 'SocialMediaLinks';
+          linkedin?: string | null;
+        } | null;
+      };
+    };
+  }>;
+  pageInfo: {
+    __typename?: 'PageInfo';
+    endCursor?: string | null;
+    hasNextPage?: boolean | null;
+  };
 };
 
 export type StaticPageFragment = {
@@ -2982,26 +3112,6 @@ export const DraftFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<DraftFragment, unknown>;
-export const PageInfoFragmentDoc = {
-  kind: 'Document',
-  definitions: [
-    {
-      kind: 'FragmentDefinition',
-      name: { kind: 'Name', value: 'PageInfo' },
-      typeCondition: {
-        kind: 'NamedType',
-        name: { kind: 'Name', value: 'PageInfo' },
-      },
-      selectionSet: {
-        kind: 'SelectionSet',
-        selections: [
-          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
-          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<PageInfoFragment, unknown>;
 export const PostFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -3288,6 +3398,414 @@ export const PostWithMarkdownContentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<PostWithMarkdownContentFragment, unknown>;
+export const PageInfoFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PageInfoFragment, unknown>;
+export const PublicationPostConnectionFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PublicationPostConnection' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PublicationPostConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Post' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pageInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'PageInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Tag' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'User' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'User' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'socialMediaLinks' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'linkedin' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Post' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Post' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'brief' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'tags' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'author' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'User' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PublicationPostConnectionFragment, unknown>;
+export const SeriesPostConnectionFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SeriesPostConnection' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'SeriesPostConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Post' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pageInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'PageInfo' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Tag' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Tag' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'User' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'User' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'socialMediaLinks' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'linkedin' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Post' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Post' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'brief' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'tags' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Tag' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'series' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Series' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'author' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'User' },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PageInfo' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PageInfo' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SeriesPostConnectionFragment, unknown>;
 export const StaticPageFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -4244,38 +4762,10 @@ export const PostsDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'edges' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'node' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'Post' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'pageInfo' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PageInfo' },
-                            },
-                          ],
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'PublicationPostConnection',
                         },
                       },
                     ],
@@ -4425,6 +4915,54 @@ export const PostsDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
           { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PublicationPostConnection' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PublicationPostConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Post' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pageInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'PageInfo' },
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -4851,38 +5389,10 @@ export const PostsByTagDocument = {
                     kind: 'SelectionSet',
                     selections: [
                       {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'edges' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'node' },
-                              selectionSet: {
-                                kind: 'SelectionSet',
-                                selections: [
-                                  {
-                                    kind: 'FragmentSpread',
-                                    name: { kind: 'Name', value: 'Post' },
-                                  },
-                                ],
-                              },
-                            },
-                          ],
-                        },
-                      },
-                      {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'pageInfo' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'FragmentSpread',
-                              name: { kind: 'Name', value: 'PageInfo' },
-                            },
-                          ],
+                        kind: 'FragmentSpread',
+                        name: {
+                          kind: 'Name',
+                          value: 'PublicationPostConnection',
                         },
                       },
                     ],
@@ -5032,6 +5542,54 @@ export const PostsByTagDocument = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'endCursor' } },
           { kind: 'Field', name: { kind: 'Name', value: 'hasNextPage' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PublicationPostConnection' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'PublicationPostConnection' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'edges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'node' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Post' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pageInfo' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'PageInfo' },
+                },
+              ],
+            },
+          },
         ],
       },
     },

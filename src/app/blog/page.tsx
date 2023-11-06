@@ -38,14 +38,14 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
-  const data = await getPosts({});
+  const posts = await getPosts({});
 
-  if (!data) {
+  if (!posts) {
     redirect('/');
   }
 
   return (
-    <div className="py-24 sm:py-32">
+    <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
           className="mx-auto max-w-2xl lg:max-w-4xl"
@@ -64,8 +64,15 @@ export default async function BlogPage() {
             {description}
           </p>
           <BlogPostList
-            initialPosts={data.edges.map((edge) => edge.node)}
-            initialPageInfo={data.pageInfo}
+            initialPosts={posts.edges.map((edge) => edge.node)}
+            initialPageInfo={posts.pageInfo}
+            getPosts={async (after: string) => {
+              'use server';
+
+              return await getPosts({
+                after,
+              });
+            }}
           />
         </div>
       </div>
