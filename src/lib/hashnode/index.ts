@@ -1,6 +1,10 @@
+import { encodeXML } from 'entities';
+import { Feed } from 'feed';
 import { GraphQLClient } from 'graphql-request';
 import { flatten, uniq } from 'lodash';
+import 'server-only';
 
+import { siteConfig } from '@/constants/config';
 import { isLocal } from '@/constants/env';
 import { HASHNODE_ENDPOINT, HASHNODE_HOST } from '@/constants/hashnode';
 import {
@@ -51,6 +55,8 @@ import {
   TagSlugsQuery,
   TagSlugsQueryVariables,
 } from '@/generated/hashnode/graphql';
+import { getUserLink } from '@/utils/hashnode';
+import { openGraph } from '@/utils/og';
 
 const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
   next: { revalidate: isLocal ? 0 : 3600, tags: ['hashnode'] },
@@ -344,7 +350,23 @@ export const getPostsBySeries = async ({
   return data.publication?.series?.posts;
 };
 
-export const getFeedPosts = async () => {
+export const getFeed = async (): Promise<Feed> => {
+  const feed = new Feed({
+    title: siteConfig.blogTitle,
+    description: siteConfig.blogDescription,
+    id: `${siteConfig.url}/blog`,
+    link: `${siteConfig.url}/blog`,
+    language: 'en',
+    image: `${siteConfig.url}/android-chrome-192x192.png`,
+    favicon: `${siteConfig.url}/favicon.ico`,
+    copyright: siteConfig.copyright,
+    feedLinks: {
+      rss2: `${siteConfig.url}/blog/rss.xml`,
+      atom: `${siteConfig.url}/blog/atom.xml`,
+      json: `${siteConfig.url}/blog/feed.json`,
+    },
+  });
+
   const data = await gqlClient.request<FeedPostsQuery, FeedPostsQueryVariables>(
     FeedPostsDocument,
     {
@@ -352,7 +374,34 @@ export const getFeedPosts = async () => {
     },
   );
 
-  return data.publication?.posts.edges ?? [];
+  data.publication?.posts.edges
+    .map((edge) => edge.node)
+    .forEach((post) => {
+      feed.addItem({
+        title: post.title,
+        id: `${siteConfig.url}/blog/${post.slug}`,
+        link: `${siteConfig.url}/blog/${post.slug}`,
+        date: new Date(post.updatedAt ? post.updatedAt : post.publishedAt),
+        description: post.subtitle ?? post.brief,
+        content: post.content?.html,
+        image: encodeXML(
+          openGraph({
+            title: post.title,
+            description: post.subtitle ?? undefined,
+          }),
+        ),
+        author: post.author
+          ? [
+              {
+                name: post.author.name,
+                link: getUserLink(post.author),
+              },
+            ]
+          : undefined,
+      });
+    });
+
+  return feed;
 };
 
 export const getPost = async (postSlug: string) => {

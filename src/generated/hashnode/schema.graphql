@@ -2154,6 +2154,10 @@ Contains information about the post to be published.
 """
 input PublishPostInput {
   """
+  Ids of the co-authors of the post.
+  """
+  coAuthors: [ObjectId!]
+  """
   Content of the post in markdown format.
   """
   contentMarkdown: String!
@@ -2986,6 +2990,11 @@ type UnsubscribeFromNewsletterPayload {
 }
 
 input UpdatePostInput {
+  """
+  Update co-authors of the post.
+  Must be a member of the publication.
+  """
+  coAuthors: [ObjectId!]
   """
   The publication the post is published to.
   """

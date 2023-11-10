@@ -1445,6 +1445,8 @@ export type PublicationSponsorship = {
 
 /** Contains information about the post to be published. */
 export type PublishPostInput = {
+  /** Ids of the co-authors of the post. */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
   /** Content of the post in markdown format. */
   contentMarkdown: Scalars['String']['input'];
   /** Options for the cover image of the post. */
@@ -2008,6 +2010,11 @@ export type UnsubscribeFromNewsletterPayload = {
 };
 
 export type UpdatePostInput = {
+  /**
+   * Update co-authors of the post.
+   * Must be a member of the publication.
+   */
+  coAuthors?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
   /** The publication the post is published to. */
   contentMarkdown?: InputMaybe<Scalars['String']['input']>;
   /** Options for the cover image of the post. */

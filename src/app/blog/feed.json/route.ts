@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 
+import { getFeed } from '@/lib/hashnode';
+
 import { isLocal } from '@/constants/env';
-import { getFeed } from '@/utils/hashnode';
 
 export const revalidate = isLocal ? 0 : false;
 
