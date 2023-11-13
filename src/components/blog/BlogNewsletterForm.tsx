@@ -57,8 +57,8 @@ export default function BlogNewsletterForm() {
             {isSubmitSuccessful
               ? 'Thanks for signing up! Please check your inbox to confirm your subscription.'
               : errors.root?.serverError
-              ? errors.root.serverError.message
-              : 'Something went wrong. Please try again later.'}
+                ? errors.root.serverError.message
+                : 'Something went wrong. Please try again later.'}
           </p>
         ) : (
           <>
