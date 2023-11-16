@@ -1744,6 +1744,13 @@ type Publication implements Node {
   Summary of the contact information and information related to copyrights, usually used in German-speaking countries.
   """
   imprint: String
+    @deprecated(
+      reason: "Use `imprintV2` instead. Will be removed after 16/12/2023."
+    )
+  """
+  Summary of the contact information and information related to copyrights, usually used in German-speaking countries.
+  """
+  imprintV2: Content
   """
   The integrations connected to the publication.
   """
@@ -2182,10 +2189,6 @@ input PublishPostInput {
   """
   disableComments: Boolean
   """
-  The ID of the draft to be published.
-  """
-  draftId: ObjectId!
-  """
   Information about the meta tags added to the post, used for SEO purpose.
   """
   metaTags: MetaTagsInput
@@ -2547,6 +2550,7 @@ enum Scope {
   import_subscribers_to_publication
   publication_admin
   publish_draft
+  publish_post
   recommend_publications
   signup
   update_post

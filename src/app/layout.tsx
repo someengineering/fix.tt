@@ -2,6 +2,7 @@ import { Metadata, Viewport } from 'next';
 import { Nunito_Sans } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Script from 'next/script';
+import { CookiesProvider } from 'next-client-cookies/server';
 
 import '@/styles/globals.css';
 
@@ -12,7 +13,6 @@ import Header from '@/components/Header';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
-import { ClientCookiesProvider } from '@/providers/ClientCookiesProvider';
 import { openGraph } from '@/utils/og';
 
 const url = siteConfig.url;
@@ -111,7 +111,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
       <body className="bg-white">
-        <ClientCookiesProvider value={cookieStore.getAll()}>
+        <CookiesProvider>
           <Header />
           <main>{children}</main>
           <Footer />
@@ -139,7 +139,7 @@ export default function RootLayout({
               )}
             </>
           ) : null}
-        </ClientCookiesProvider>
+        </CookiesProvider>
       </body>
     </html>
   );

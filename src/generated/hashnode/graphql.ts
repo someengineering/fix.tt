@@ -1150,8 +1150,13 @@ export type Publication = Node & {
   headerColor?: Maybe<Scalars['String']['output']>;
   /** The ID of the publication. */
   id: Scalars['ID']['output'];
-  /** Summary of the contact information and information related to copyrights, usually used in German-speaking countries. */
+  /**
+   * Summary of the contact information and information related to copyrights, usually used in German-speaking countries.
+   * @deprecated Use `imprintV2` instead. Will be removed after 16/12/2023.
+   */
   imprint?: Maybe<Scalars['String']['output']>;
+  /** Summary of the contact information and information related to copyrights, usually used in German-speaking countries. */
+  imprintV2?: Maybe<Content>;
   /** The integrations connected to the publication. */
   integrations?: Maybe<PublicationIntegrations>;
   /** Returns true if GitHub backup is configured and active and false otherwise. */
@@ -1465,8 +1470,6 @@ export type PublishPostInput = {
   coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
   /** A flag to indicate if the comments are disabled for the post. */
   disableComments?: InputMaybe<Scalars['Boolean']['input']>;
-  /** The ID of the draft to be published. */
-  draftId: Scalars['ObjectId']['input'];
   /** Information about the meta tags added to the post, used for SEO purpose. */
   metaTags?: InputMaybe<MetaTagsInput>;
   /** The URL of the original article if the post is imported from an external source. */
@@ -1717,6 +1720,7 @@ export enum Scope {
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   PublicationAdmin = 'publication_admin',
   PublishDraft = 'publish_draft',
+  PublishPost = 'publish_post',
   RecommendPublications = 'recommend_publications',
   Signup = 'signup',
   UpdatePost = 'update_post',
