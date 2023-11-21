@@ -1,63 +1,71 @@
+import GithubSlugger from 'github-slugger';
 import { LuCheck } from 'react-icons/lu';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const tiers: {
   name: string;
-  id: string;
   href: string;
   cta: string;
   price: string | { monthly: string; annually?: string };
   description: string;
+  targetCustomer: string;
+  scanFrequency: string;
   features: string[];
 }[] = [
   {
-    name: 'Starter',
-    id: 'tier-starter',
+    name: 'Free',
     href: '#request-early-access',
     cta: 'Request early access',
-    price: 'Free',
-    description:
-      'For solo engineers who want to perform security checks on a single cloud account.',
+    price: '$0',
+    description: 'Single-account security overview on a monthly basis.',
+    targetCustomer:
+      'Perfect for individual use or small-scale proof-of-concept trials.',
+    scanFrequency: 'Monthly',
     features: [
-      'Monthly scans of up to 200K resources',
-      'Compliance checks',
-      'Issue tracking',
-      'Email reports',
+      'Basic asset inventory',
+      'Compliance scans',
+      'Account risk score',
+      'Fix recommendations',
+      'Monthly email report',
     ],
   },
   {
-    name: 'Cloud',
-    id: 'tier-cloud',
+    name: 'Foundational',
     href: '#request-early-access',
     cta: 'Request early access',
     price: { monthly: '$5' },
-    description:
-      'For security teams who want to harden multiple cloud accounts.',
+    description: 'Daily scans for secure, compliant operations.',
+    targetCustomer:
+      'Ideal for growing businesses that need a robust secuity baseline.',
+    scanFrequency: 'Daily',
     features: [
-      'Daily scans of up to 200K resources per account',
-      'Additional scans priced at $0.10 per account per scan',
-      'Everything in Starter',
+      'Alerting integrations (Slack, PagerDuty, Discord)',
+      'Graph visualization',
+      'Inventory search',
+      'CSV data export',
     ],
   },
   {
-    name: 'Enterprise',
-    id: 'tier-enterprise',
+    name: 'High Security',
     href: '#request-early-access',
     cta: 'Request early access',
-    price: 'Custom',
-    description:
-      'For security teams in regulated industries who require on-prem deployment.',
+    price: { monthly: '$50' },
+    description: 'Hourly scans for critical, fast-paced environments.',
+    targetCustomer:
+      'Advanced integration for top-tier security needs and IaC support.',
+    scanFrequency: 'Hourly',
     features: [
-      'Custom scan frequency',
-      'Deploy Fix to your VPC',
-      'Workflow integrations (ticketing, chat, etc.)',
-      'Dedicated onboarding support',
+      'Alerting integrations with custom HTTP webhooks',
+      'Automatic inventory exports (AWS S3)',
     ],
   },
 ];
 
 export default function Pricing() {
+  const slugger = new GithubSlugger();
+
   return (
     <div className="isolate py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
@@ -68,59 +76,74 @@ export default function Pricing() {
           >
             Pricing
           </h2>
-          <p className="mx-auto mt-2 max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Build securely in the cloud without overspending.
+          <p className="mx-auto mt-2 max-w-prose text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+            Start for free, upgrade as you grow.
           </p>
         </div>
-        <div className="relative mx-auto max-w-2xl text-lg leading-8 text-gray-600">
+        <div className="relative mx-auto max-w-prose text-lg leading-8 text-gray-600">
           <p className="mt-6">
-            Fix&rsquo;s pricing is based on the number of scanned cloud
-            accounts.
+            Fix pricing is based on the number of cloud accounts you scan. There
+            is no minimum commitment, and you can even start scanning a single
+            cloud account for free.
           </p>
-          <p className="mt-6">
-            There is no minimum commitment, and you can even start scanning a
-            single cloud account for free.
+          {/* <p className="mt-6">
+            Use your existing budget to pay for Fix, with convenient billing
+            through AWS Marketplace:
           </p>
+          <p className="mt-3">&lt;AWS Marketplace logo here&gt;</p> */}
         </div>
-        <div className="mt-20 flow-root">
-          <div className="isolate mx-auto -mt-16 grid max-w-sm grid-cols-1 gap-y-16 divide-y divide-gray-100 text-left lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:divide-x lg:divide-y-0 xl:-mx-4">
-            {tiers.map((tier) => (
-              <div key={tier.id} className="pt-16 lg:px-8 lg:pt-0 xl:px-14">
+        <div className="my-20 flow-root">
+          <div className="isolate mx-auto -mt-16 grid max-w-sm grid-cols-1 items-stretch gap-y-16 divide-y divide-gray-100 text-left lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:divide-x lg:divide-y-0 xl:-mx-4">
+            {tiers.map((tier, index) => (
+              <div
+                key={`tier-${slugger.slug(tier.name)}`}
+                className="flex flex-col pt-16 lg:px-8 lg:pt-0 xl:px-14 "
+              >
                 <h3
-                  id={tier.id}
-                  className="text-xl font-semibold leading-7 text-primary-900"
+                  id={`tier-${slugger.slug(tier.name)}`}
+                  className="text-2xl font-semibold leading-7 text-primary-900"
                 >
                   {tier.name}
                 </h3>
-                <p className="mt-6 flex items-baseline gap-x-1">
+                <p className="mt-6 text-base leading-6 text-gray-900">
+                  <span className="font-bold">{tier.description}</span>{' '}
+                  {tier.targetCustomer}
+                </p>
+                <p className="my-9 flex items-baseline gap-x-1 border-b border-gray-900/10 pb-9">
                   {typeof tier.price === 'string' ? (
-                    <span className="text-5xl font-bold tracking-tight text-gray-900">
-                      {tier.price}
-                    </span>
+                    <>
+                      <span className="text-5xl font-bold tracking-tight text-gray-900">
+                        {tier.price}
+                      </span>
+                      <span className="ml-1.5 text-sm font-semibold leading-6 text-gray-600">
+                        one cloud account included*
+                      </span>
+                    </>
                   ) : (
                     <>
                       <span className="text-5xl font-bold tracking-tight text-gray-900">
                         {tier.price.monthly}
                       </span>
                       <span className="text-sm font-semibold leading-6 text-gray-600">
-                        / cloud account per month
+                        / cloud account per month*
                       </span>
                     </>
                   )}
                 </p>
-                <ButtonLink
-                  href={tier.href}
-                  variant="tangerine"
-                  className="mt-10 block text-center"
-                >
-                  {tier.cta}
-                </ButtonLink>
-                <p className="mt-10 text-base font-semibold leading-6 text-gray-900">
-                  {tier.description}
+                <p className="text-base font-semibold leading-6 text-gray-900">
+                  Scan frequency
+                </p>
+                <p className="mt-1.5 text-base leading-6 text-gray-600">
+                  {tier.scanFrequency}
+                </p>
+                <p className="mt-6 text-base font-semibold leading-6 text-gray-900">
+                  {index === 0
+                    ? `${tier.name} features:`
+                    : `All ${tiers[index - 1].name} features, plus:`}
                 </p>
                 <ul
                   role="list"
-                  className="mt-6 space-y-3 text-sm leading-6 text-gray-600"
+                  className="mt-1.5 grow space-y-1.5 text-sm leading-6 text-gray-600"
                 >
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex gap-x-3">
@@ -132,9 +155,56 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
+                <ButtonLink
+                  href={tier.href}
+                  variant="tangerine"
+                  className="mt-10 block text-center"
+                >
+                  {tier.cta}
+                </ButtonLink>
               </div>
             ))}
           </div>
+        </div>
+        <p className="mx-auto my-20 max-w-prose space-y-2 text-base leading-7 text-gray-600">
+          * Our fair-use policy allows for up to 200,000 resources per account.
+          If your needs surpass this amount, please{' '}
+          <PrimaryLink href="mailto:hi@fix.tt">reach out</PrimaryLink> to
+          discuss your specific requirements.
+        </p>
+        <div className="flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
+          <div className="text-left lg:min-w-0 lg:flex-1">
+            <h3 className="text-2xl font-semibold leading-8 tracking-tight text-primary-900">
+              Enterprise (Custom)
+            </h3>
+            <p className="mt-6 max-w-prose text-base leading-7 text-gray-600">
+              <span className="font-semibold">
+                Custom deployments in your own infrastructure (on-premises or in
+                the cloud).
+              </span>{' '}
+              Best for government agencies and companies in regulated
+              industries.
+            </p>
+            <p className="mt-6 max-w-prose text-base leading-7 text-gray-600">
+              With the Enterprise tier, you can tailor Fix exactly to your
+              requirements. You will work with a dedicated solution architect
+              and security engineer to integrate Fix into your toolchain,
+              workflows, and security protocols.
+            </p>
+          </div>
+          <ButtonLink
+            href="mailto:hi@fix.tt"
+            variant="outline"
+            className="inline"
+          >
+            Talk to an expert <span aria-hidden="true">&rarr;</span>
+          </ButtonLink>
+          {/* <UnstyledLink
+            href="#"
+            className="text-primary-600 ring-primary-200 hover:ring-primary-300 focus-visible:outline-primary-600 rounded-md px-3.5 py-2 text-sm font-semibold leading-6 ring-1 ring-inset focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            Buy discounted license <span aria-hidden="true">&rarr;</span>
+          </UnstyledLink> */}
         </div>
       </div>
     </div>
