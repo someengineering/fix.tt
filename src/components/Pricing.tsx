@@ -109,7 +109,7 @@ export default function Pricing() {
                   <span className="font-bold">{tier.description}</span>{' '}
                   {tier.targetCustomer}
                 </p>
-                <p className="my-9 flex items-baseline gap-x-1 border-b border-gray-100 pb-9">
+                <p className="my-9 flex items-baseline gap-x-1 border-b border-gray-900/10 pb-9">
                   {typeof tier.price === 'string' ? (
                     <>
                       <span className="text-5xl font-bold tracking-tight text-gray-900">
