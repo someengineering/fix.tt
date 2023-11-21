@@ -47,13 +47,13 @@ export default function BlogNewsletterForm() {
 
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="relative isolate overflow-hidden bg-primary-950 px-6 py-24 shadow-2xl sm:rounded-3xl sm:px-24 xl:py-32">
-        <h2 className="mx-auto mb-10 max-w-2xl text-center text-3xl font-bold tracking-tight text-white sm:text-4xl">
+      <div className="py-18 relative isolate overflow-hidden border border-marian-blue-100 bg-marian-blue-50 px-6 sm:rounded-3xl sm:px-24 xl:py-24">
+        <h2 className="mx-auto mb-10 max-w-2xl text-center text-3xl font-bold tracking-tight text-marian-blue-900 sm:text-4xl">
           Subscribe to our newsletter to get notified of new articles and
           updates.
         </h2>
         {isSubmitted ? (
-          <p className="text-center text-base font-semibold text-gray-300">
+          <p className="text-center text-base font-semibold text-gray-600">
             {isSubmitSuccessful
               ? 'Thanks for signing up! Please check your inbox to confirm your subscription.'
               : errors.root?.serverError
@@ -98,14 +98,14 @@ export default function BlogNewsletterForm() {
                 placeholder="Email address"
                 required
                 {...register('email', { required: true })}
-                className={`min-w-0 flex-auto rounded-md border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
+                className={`min-w-0 flex-auto rounded-full border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                   !touchedFields.email || !errors.email
-                    ? 'ring-gray-400 focus:ring-primary-600'
+                    ? 'ring-gray-400 focus:ring-marian-blue-600'
                     : 'ring-amaranth-600 focus:ring-amaranth-600'
                 }`}
               />
               <Button
-                variant="tangerine"
+                variant="cornflower-blue"
                 type="submit"
                 disabled={!isValid || isSubmitting}
               >
@@ -119,12 +119,9 @@ export default function BlogNewsletterForm() {
                 />
               ) : null}
             </form>
-            <p className="mt-4 text-center text-sm leading-6 text-gray-300">
+            <p className="mt-4 text-center text-sm leading-6 text-gray-600">
               We care about your data. Read our{' '}
-              <PrimaryLink variant="light" href="#">
-                privacy&nbsp;policy
-              </PrimaryLink>
-              .
+              <PrimaryLink href="#">privacy&nbsp;policy</PrimaryLink>.
             </p>
           </>
         )}

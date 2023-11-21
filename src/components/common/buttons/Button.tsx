@@ -5,8 +5,8 @@ import { ImSpinner2 } from 'react-icons/im';
 import { cn } from '@/utils/css';
 
 const ButtonVariant = [
-  'primary',
-  'tangerine',
+  'marian-blue',
+  'cornflower-blue',
   'outline',
   'ghost',
   'light',
@@ -33,7 +33,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled: buttonDisabled,
       isLoading,
-      variant = 'primary',
+      variant = 'marian-blue',
       size = 'base',
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
@@ -50,9 +50,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type="button"
         disabled={disabled}
         className={cn(
-          'inline-flex items-center whitespace-nowrap rounded-md font-bold',
-          'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
-          'shadow-sm',
+          'inline-flex items-center whitespace-nowrap rounded-full font-bold',
+          'focus:outline-none focus-visible:ring focus-visible:ring-marian-blue-500',
+          'border',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
@@ -63,27 +63,27 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           //#endregion  //*======== Size ===========
           //#region  //*=========== Variants ===========
           [
-            variant === 'primary' && [
-              'bg-primary-800 text-white',
-              'hover:bg-primary-900 hover:text-white',
-              'active:bg-primary-950',
-              'disabled:bg-primary-800',
+            variant === 'marian-blue' && [
+              'border-marian-blue-900 bg-marian-blue-800 text-white',
+              'hover:border-marian-blue-950 hover:bg-marian-blue-900 hover:text-white',
+              'active:border-black active:bg-marian-blue-950',
+              'disabled:border-marian-blue-900 disabled:bg-marian-blue-800',
             ],
-            variant === 'tangerine' && [
-              'bg-tangerine-600 text-white',
-              'hover:bg-tangerine-700 hover:text-white',
-              'active:bg-tangerine-800',
-              'disabled:bg-tangerine-600',
+            variant === 'cornflower-blue' && [
+              'border-cornflower-blue-700 bg-cornflower-blue-600 text-white',
+              'hover:border-cornflower-blue-800 hover:bg-cornflower-blue-700 hover:text-white',
+              'active:border-cornflower-blue-900 active:bg-cornflower-blue-800',
+              'disabled:border-cornflower-blue-700 disabled:bg-cornflower-blue-600',
             ],
             variant === 'outline' && [
-              'text-tangerine-600',
-              'border border-tangerine-600',
-              'hover:bg-tangerine-50 active:bg-tangerine-100 disabled:bg-tangerine-100',
+              'text-cornflower-blue-600',
+              'border border-cornflower-blue-600',
+              'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
             ],
             variant === 'ghost' && [
-              'text-primary-900',
+              'text-marian-blue-900',
               'shadow-none',
-              'hover:bg-primary-50 active:bg-primary-100 active:text-primary-950 disabled:bg-primary-100',
+              'hover:bg-marian-blue-50 active:bg-marian-blue-100 active:text-marian-blue-950 disabled:bg-marian-blue-100',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
@@ -110,9 +110,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             className={cn(
               'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
               {
-                'text-white': ['primary', 'dark'].includes(variant),
+                'text-white': ['marian-blue', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
-                'text-primary-500': ['outline', 'ghost'].includes(variant),
+                'text-marian-blue-500': ['outline', 'ghost'].includes(variant),
               },
             )}
           >

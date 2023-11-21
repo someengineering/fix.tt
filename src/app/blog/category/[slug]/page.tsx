@@ -84,7 +84,7 @@ export default async function BlogSeriesPage({
         >
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-2 text-lg font-semibold uppercase leading-8 text-primary-900 sm:text-xl">
+          <p className="mb-2 text-lg font-semibold uppercase leading-8 text-marian-blue-800 sm:text-xl">
             From the blog
           </p>
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">

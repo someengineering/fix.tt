@@ -108,7 +108,7 @@ const people = [
 
 export default function Team() {
   return (
-    <div className="bg-primary-50 py-24 md:py-32">
+    <div className="bg-marian-blue-50 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
         <div className="max-w-2xl space-y-6 text-lg leading-8 text-gray-600 sm:text-xl xl:col-span-2">
           <h2 className="text-4xl font-bold leading-none tracking-tight text-gray-900 sm:text-5xl">
@@ -134,7 +134,7 @@ export default function Team() {
               className="flex flex-col items-start gap-x-6 gap-y-10 pt-12 sm:flex-row"
             >
               <Image
-                className="aspect-[4/5] w-52 flex-none rounded-2xl object-cover sm:aspect-[2/3]"
+                className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
                 src={person.photo}
                 alt=""
               />

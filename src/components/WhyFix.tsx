@@ -45,11 +45,11 @@ const features: {
 
 export default function WhyFix() {
   return (
-    <div className="bg-primary-50 py-16 sm:py-24">
+    <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
-            className="mb-3 text-lg font-semibold uppercase leading-7 text-primary-900 sm:text-xl"
+            className="mb-3 text-lg font-semibold uppercase leading-7 text-marian-blue-800 sm:text-xl"
             id="why"
           >
             Why Fix?
@@ -81,7 +81,7 @@ export default function WhyFix() {
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
                 <dt className="text-lg font-semibold leading-7 text-gray-900">
-                  <div className="mb-6 flex h-10 w-10 items-center justify-center rounded-md bg-jade-600">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cornflower-blue-500">
                     <feature.icon
                       className="h-6 w-6 text-white"
                       aria-hidden="true"

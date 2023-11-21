@@ -44,7 +44,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         <header className="flex items-center space-x-5 text-sm font-semibold leading-7 text-gray-500">
           <time
             dateTime={post.publishedAt}
-            className="font-bold text-primary-900"
+            className="font-bold text-marian-blue-800"
             itemProp="datePublished"
           >
             {new Date(post.publishedAt).toLocaleDateString('en-US', {
@@ -124,11 +124,11 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </div>
           </div>
         </div>
-        <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-primary-900">
+        <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-marian-blue-900">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"
+              className="relative z-10 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 hover:border-marian-blue-100 hover:bg-marian-blue-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

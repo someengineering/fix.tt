@@ -49,11 +49,14 @@ export function RequestEarlyAccessForm() {
   return (
     <div className="mt-10" id="request-early-access">
       {isSubmitted ? (
-        <div className="mx-auto max-w-md rounded-md bg-white px-4 pb-4 pt-5 text-center shadow-xl ring-1 ring-black ring-opacity-5 transition-all sm:w-full sm:max-w-sm sm:p-6">
+        <div className="mx-auto max-w-md rounded-full bg-white px-4 pb-4 pt-5 text-center shadow-xl ring-1 ring-black ring-opacity-5 transition-all sm:w-full sm:max-w-sm sm:p-6">
           {isSubmitSuccessful ? (
             <>
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-jade-50">
-                <LuCheck className="h-6 w-6 text-jade-600" aria-hidden="true" />
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-cornflower-blue-50">
+                <LuCheck
+                  className="h-6 w-6 text-cornflower-blue-500"
+                  aria-hidden="true"
+                />
               </div>
               <p className="mt-3 text-base font-semibold leading-6 text-gray-900 sm:mt-5">
                 Thanks for signing up! We&rsquo;ll be in touch soon.
@@ -108,14 +111,14 @@ export function RequestEarlyAccessForm() {
               placeholder="Company email"
               required
               {...register('email', { required: true })}
-              className={`min-w-0 flex-auto rounded-md border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
+              className={`min-w-0 flex-auto rounded-full border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                 !touchedFields.email || !errors.email
-                  ? 'ring-gray-400 focus:ring-primary-600'
+                  ? 'ring-gray-400 focus:ring-marian-blue-600'
                   : 'ring-amaranth-600 focus:ring-amaranth-600'
               }`}
             />
             <Button
-              variant="tangerine"
+              variant="cornflower-blue"
               type="submit"
               disabled={!isValid || isSubmitting}
             >

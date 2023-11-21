@@ -258,7 +258,7 @@ export default function Faq() {
                 <>
                   <Disclosure.Button
                     as="dt"
-                    className="flex w-full cursor-pointer items-start justify-between text-left text-gray-900"
+                    className="flex w-full cursor-pointer items-start justify-between text-left text-gray-900 hover:text-cornflower-blue-500"
                   >
                     <span className="text-lg font-semibold leading-7">
                       {faq.question}

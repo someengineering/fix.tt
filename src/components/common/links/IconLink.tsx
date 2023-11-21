@@ -8,7 +8,7 @@ import UnstyledLink, {
 import { cn } from '@/utils/css';
 
 const IconLinkVariant = [
-  'primary',
+  'marian-blue',
   'outline',
   'ghost',
   'light',
@@ -42,30 +42,30 @@ const IconLink = forwardRef<HTMLAnchorElement, IconLinkProps>(
         type="button"
         className={cn(
           'inline-flex items-center justify-center rounded font-medium',
-          'focus:outline-none focus-visible:ring focus-visible:ring-primary-500',
+          'focus:outline-none focus-visible:ring focus-visible:ring-marian-blue-500',
           'shadow-sm',
           'transition-colors duration-75',
           'min-h-[28px] min-w-[28px] p-1 md:min-h-[34px] md:min-w-[34px] md:p-2',
           //#region  //*=========== Variants ===========
           [
-            variant === 'primary' && [
-              'bg-primary-500 text-white',
-              'border border-primary-600',
-              'hover:bg-primary-600 hover:text-white',
-              'active:bg-primary-700',
-              'disabled:bg-primary-700',
+            variant === 'marian-blue' && [
+              'bg-marian-blue-500 text-white',
+              'border border-marian-blue-600',
+              'hover:bg-marian-blue-600 hover:text-white',
+              'active:bg-marian-blue-700',
+              'disabled:bg-marian-blue-700',
             ],
             variant === 'outline' && [
-              'text-primary-500',
-              'border border-primary-500',
-              'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
+              'text-marian-blue-500',
+              'border border-marian-blue-500',
+              'hover:bg-marian-blue-50 active:bg-marian-blue-100 disabled:bg-marian-blue-100',
               isDarkBg &&
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
             variant === 'ghost' && [
-              'text-primary-500',
+              'text-marian-blue-500',
               'shadow-none',
-              'hover:bg-primary-50 active:bg-primary-100 disabled:bg-primary-100',
+              'hover:bg-marian-blue-50 active:bg-marian-blue-100 disabled:bg-marian-blue-100',
               isDarkBg &&
                 'hover:bg-gray-900 active:bg-gray-800 disabled:bg-gray-800',
             ],
