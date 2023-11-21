@@ -86,11 +86,11 @@ export default function Pricing() {
             is no minimum commitment, and you can even start scanning a single
             cloud account for free.
           </p>
-          <p className="mt-6">
+          {/* <p className="mt-6">
             Use your existing budget to pay for Fix, with convenient billing
             through AWS Marketplace:
           </p>
-          <p className="mt-3">&lt;AWS Marketplace logo here&gt;</p>
+          <p className="mt-3">&lt;AWS Marketplace logo here&gt;</p> */}
         </div>
         <div className="my-20 flow-root">
           <div className="isolate mx-auto -mt-16 grid max-w-sm grid-cols-1 items-stretch gap-y-16 divide-y divide-gray-100 text-left lg:-mx-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:divide-x lg:divide-y-0 xl:-mx-4">
@@ -109,7 +109,7 @@ export default function Pricing() {
                   <span className="font-bold">{tier.description}</span>{' '}
                   {tier.targetCustomer}
                 </p>
-                <p className="my-10 flex items-baseline gap-x-1">
+                <p className="my-9 flex items-baseline gap-x-1 border-b border-gray-100 pb-9">
                   {typeof tier.price === 'string' ? (
                     <>
                       <span className="text-5xl font-bold tracking-tight text-gray-900">
