@@ -63,7 +63,8 @@
       @apply my-8 text-xl leading-8 sm:text-2xl sm:leading-9;
     }
 
-    h2 ~ p {
+    h2 ~ p,
+    li p {
       @apply my-6 text-base leading-7 sm:text-lg sm:leading-8;
     }
   }
