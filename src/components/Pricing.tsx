@@ -71,7 +71,7 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
           <h2
-            className="mb-3 text-lg font-semibold uppercase leading-7 text-primary-900 sm:text-xl"
+            className="mb-3 text-lg font-semibold uppercase leading-7 text-marian-blue-800 sm:text-xl"
             id="pricing"
           >
             Pricing
@@ -101,7 +101,7 @@ export default function Pricing() {
               >
                 <h3
                   id={`tier-${slugger.slug(tier.name)}`}
-                  className="text-2xl font-semibold leading-7 text-primary-900"
+                  className="text-2xl font-semibold leading-7 text-marian-blue-900"
                 >
                   {tier.name}
                 </h3>
@@ -148,7 +148,7 @@ export default function Pricing() {
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex gap-x-3">
                       <LuCheck
-                        className="h-6 w-6 flex-none text-jade-600"
+                        className="h-6 w-6 flex-none text-cornflower-blue-500"
                         aria-hidden="true"
                       />
                       {feature}
@@ -157,8 +157,8 @@ export default function Pricing() {
                 </ul>
                 <ButtonLink
                   href={tier.href}
-                  variant="tangerine"
-                  className="mt-10 block text-center"
+                  variant="cornflower-blue"
+                  className="mt-9 block text-center"
                 >
                   {tier.cta}
                 </ButtonLink>
@@ -174,7 +174,7 @@ export default function Pricing() {
         </p>
         <div className="flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
           <div className="text-left lg:min-w-0 lg:flex-1">
-            <h3 className="text-2xl font-semibold leading-8 tracking-tight text-primary-900">
+            <h3 className="text-2xl font-semibold leading-8 tracking-tight text-marian-blue-900">
               Enterprise (Custom)
             </h3>
             <p className="mt-6 max-w-prose text-base leading-7 text-gray-600">
@@ -199,12 +199,6 @@ export default function Pricing() {
           >
             Talk to an expert <span aria-hidden="true">&rarr;</span>
           </ButtonLink>
-          {/* <UnstyledLink
-            href="#"
-            className="text-primary-600 ring-primary-200 hover:ring-primary-300 focus-visible:outline-primary-600 rounded-md px-3.5 py-2 text-sm font-semibold leading-6 ring-1 ring-inset focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-          >
-            Buy discounted license <span aria-hidden="true">&rarr;</span>
-          </UnstyledLink> */}
         </div>
       </div>
     </div>

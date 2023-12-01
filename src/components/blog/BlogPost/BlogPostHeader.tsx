@@ -41,7 +41,7 @@ export default function BlogPostHeader({
         <span className="flex items-center space-x-6 text-base font-semibold leading-7 text-gray-500">
           <time
             dateTime={publishedAt}
-            className="font-bold text-primary-900"
+            className="font-bold text-marian-blue-800"
             itemProp="datePublished"
           >
             {new Date(publishedAt).toLocaleDateString('en-US', {

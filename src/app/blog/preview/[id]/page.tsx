@@ -69,7 +69,7 @@ export default async function BlogPreviewPage({
   if (!draft) {
     return (
       <div className="mx-auto flex w-full max-w-7xl flex-auto flex-col justify-center px-6 py-24 sm:py-64 lg:px-8">
-        <p className="mb-2 text-xl font-semibold leading-8 text-primary-900">
+        <p className="mb-2 text-xl font-semibold leading-8 text-marian-blue-900">
           404
         </p>
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">

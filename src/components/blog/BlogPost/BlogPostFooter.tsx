@@ -14,11 +14,11 @@ export default function BlogPost({
 }) {
   return (
     <footer className="flex flex-col gap-y-8 md:flex-row md:justify-between md:gap-x-8 md:gap-y-0">
-      <div className="flex flex-wrap justify-center gap-2 text-base font-medium text-primary-900 md:justify-start">
+      <div className="flex flex-wrap justify-center gap-2 text-base font-medium text-marian-blue-900 md:justify-start">
         {tags?.map((tag) => (
           <UnstyledLink
             href={`/blog/tag/${tag.slug}`}
-            className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 hover:bg-primary-50"
+            className="relative z-10 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 hover:border-marian-blue-100 hover:bg-marian-blue-50"
             key={`tag-${tag.slug}`}
           >
             {tag.name}

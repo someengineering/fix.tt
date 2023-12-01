@@ -25,7 +25,7 @@ export default function CookieConsent() {
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 px-6 pb-6">
-      <div className="pointer-events-auto ml-auto max-w-xl rounded-md bg-white p-6 shadow-lg ring-1 ring-gray-900/10">
+      <div className="pointer-events-auto ml-auto max-w-xl rounded-full bg-white p-6 shadow-lg ring-1 ring-gray-900/10">
         <p className="text-base leading-6 text-gray-900">
           We use cookies and other tracking technologies to analyze site usage
           and assist in marketing efforts. For details, see our{' '}
@@ -33,7 +33,7 @@ export default function CookieConsent() {
         </p>
         <div className="mt-4 flex items-center gap-x-5">
           <Button
-            variant="primary"
+            variant="cornflower-blue"
             onClick={(e) => {
               e.preventDefault();
               cookies.set('cookie_consent', 'true', {
