@@ -5,7 +5,6 @@ import Customers from '@/components/Customers';
 import Faq from '@/components/Faq';
 // import HowFixWorks from '@/components/HowFixWorks';
 import Pricing from '@/components/Pricing';
-import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
 import Testimonials from '@/components/Testimonials';
 import WhyFix from '@/components/WhyFix';
 
@@ -43,7 +42,6 @@ export default function HomePage() {
             <p className="mt-6 text-balance text-lg leading-8 text-gray-600">
               {siteConfig.description}
             </p>
-            <RequestEarlyAccessForm />
           </div>
         </div>
       </div>

@@ -5,8 +5,8 @@ import { ImSpinner2 } from 'react-icons/im';
 import { cn } from '@/utils/css';
 
 const ButtonVariant = [
-  'marian-blue',
-  'cornflower-blue',
+  'default',
+  'tangerine',
   'outline',
   'ghost',
   'light',
@@ -63,13 +63,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           //#endregion  //*======== Size ===========
           //#region  //*=========== Variants ===========
           [
-            variant === 'marian-blue' && [
-              'border-marian-blue-900 bg-marian-blue-800 text-white',
-              'hover:border-marian-blue-950 hover:bg-marian-blue-900 hover:text-white',
-              'active:border-black active:bg-marian-blue-950',
-              'disabled:border-marian-blue-900 disabled:bg-marian-blue-800',
-            ],
-            variant === 'cornflower-blue' && [
+            variant === 'default' && [
               'border-cornflower-blue-700 bg-cornflower-blue-600 text-white',
               'hover:border-cornflower-blue-800 hover:bg-cornflower-blue-700 hover:text-white',
               'active:border-cornflower-blue-900 active:bg-cornflower-blue-800',
@@ -81,9 +75,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
             ],
             variant === 'ghost' && [
-              'text-marian-blue-900',
-              'shadow-none',
-              'hover:bg-marian-blue-50 active:bg-marian-blue-100 active:text-marian-blue-950 disabled:bg-marian-blue-100',
+              'text-cornflower-blue-600',
+              'hover:border hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',

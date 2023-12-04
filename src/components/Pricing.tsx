@@ -16,8 +16,8 @@ const tiers: {
 }[] = [
   {
     name: 'Free',
-    href: '#request-early-access',
-    cta: 'Request early access',
+    href: '#',
+    cta: 'Get started',
     price: '$0',
     description: 'Single-account security overview on a monthly basis.',
     targetCustomer:
@@ -33,8 +33,8 @@ const tiers: {
   },
   {
     name: 'Foundational',
-    href: '#request-early-access',
-    cta: 'Request early access',
+    href: '#',
+    cta: 'Get started',
     price: { monthly: '$5' },
     description: 'Daily scans for secure, compliant operations.',
     targetCustomer:
@@ -49,8 +49,8 @@ const tiers: {
   },
   {
     name: 'High Security',
-    href: '#request-early-access',
-    cta: 'Request early access',
+    href: '#',
+    cta: 'Get started',
     price: { monthly: '$50' },
     description: 'Hourly scans for critical, fast-paced environments.',
     targetCustomer:
@@ -155,11 +155,7 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <ButtonLink
-                  href={tier.href}
-                  variant="cornflower-blue"
-                  className="mt-9 block text-center"
-                >
+                <ButtonLink href={tier.href} className="mt-9 block text-center">
                   {tier.cta}
                 </ButtonLink>
               </div>
