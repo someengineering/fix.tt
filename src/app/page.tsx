@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { WebSite, WithContext } from 'schema-dts';
 
+import ButtonLink from '@/components/common/links/ButtonLink';
 import Customers from '@/components/Customers';
 import Faq from '@/components/Faq';
 // import HowFixWorks from '@/components/HowFixWorks';
@@ -39,9 +40,24 @@ export default function HomePage() {
               <span className="text-cornflower-blue-500">Mission control</span>{' '}
               for your AWS security.
             </h1>
-            <p className="mt-6 text-balance text-lg leading-8 text-gray-600">
+            <p className="text-balance mt-6 text-lg leading-8 text-gray-600">
               {siteConfig.description}
             </p>
+            <div className="mt-10 space-x-5">
+              <ButtonLink
+                href="https://app.global.fixcloud.io/auth/login"
+                variant="light"
+                size="lg"
+              >
+                Log in
+              </ButtonLink>
+              <ButtonLink
+                href="https://app.global.fixcloud.io/auth/register"
+                size="lg"
+              >
+                Get started
+              </ButtonLink>
+            </div>
           </div>
         </div>
       </div>

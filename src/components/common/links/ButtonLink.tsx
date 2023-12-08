@@ -15,7 +15,7 @@ const ButtonLinkVariant = [
   'light',
   'dark',
 ] as const;
-const ButtonLinkSize = ['sm', 'base'] as const;
+const ButtonLinkSize = ['sm', 'base', 'lg'] as const;
 
 type ButtonLinkProps = {
   variant?: (typeof ButtonLinkVariant)[number];
@@ -53,6 +53,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
+            size === 'lg' && ['px-5 py-2.5', 'text-lg'],
             size === 'base' && ['px-4 py-2', 'text-base'],
             size === 'sm' && ['px-3 py-1.5', 'text-sm'],
           ],
@@ -72,13 +73,14 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
             ],
             variant === 'ghost' && [
               'text-cornflower-blue-600',
-              'border border-transparent hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
+              'border border-transparent',
+              'hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
-              'border border-gray-300',
-              'hover:text-dark hover:bg-gray-100',
-              'active:bg-white/80 disabled:bg-gray-200',
+              'border border-white',
+              'hover:border-white/75 hover:bg-white/75 hover:text-gray-800',
+              'active:border-white/50 active:bg-white/50 disabled:border-gray-200 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
               'bg-gray-900 text-white',
