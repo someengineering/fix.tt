@@ -1180,7 +1180,7 @@ export type Publication = Node & {
   author: User;
   /** The canonical URL of the publication. */
   canonicalURL: Scalars['String']['output'];
-  /** The description of the publication, used in og:description meta tag. */
+  /** The description of the publication, used in og:description meta tag. Fall backs to Publication.about.text if no SEO description is provided. */
   descriptionSEO?: Maybe<Scalars['String']['output']>;
   /** The title of the publication. Shown in blog home page. */
   displayTitle?: Maybe<Scalars['String']['output']>;

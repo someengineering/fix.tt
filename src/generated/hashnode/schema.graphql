@@ -1768,7 +1768,7 @@ type Publication implements Node {
   """
   canonicalURL: String!
   """
-  The description of the publication, used in og:description meta tag.
+  The description of the publication, used in og:description meta tag. Fall backs to Publication.about.text if no SEO description is provided.
   """
   descriptionSEO: String
   """
