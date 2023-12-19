@@ -38,7 +38,7 @@ const tiers: {
     price: { monthly: '$5' },
     description: 'Daily scans for secure, compliant operations.',
     targetCustomer:
-      'Ideal for growing businesses that need a robust secuity baseline.',
+      'Ideal for growing businesses that need a robust security baseline.',
     scanFrequency: 'Daily',
     features: [
       'Alerting integrations (Slack, PagerDuty, Discord)',
