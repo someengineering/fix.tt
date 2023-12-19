@@ -243,7 +243,7 @@ const faqs: {
 
 export default function Faq() {
   return (
-    <div className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
+    <section className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
         <h2
           className="text-4xl font-bold leading-10 tracking-tight text-gray-900 sm:text-5xl"
@@ -284,6 +284,6 @@ export default function Faq() {
           ))}
         </dl>
       </div>
-    </div>
+    </section>
   );
 }

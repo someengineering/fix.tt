@@ -3,9 +3,9 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
-import larsPhoto from '@/assets/photos/lars.jpg';
-import lukasPhoto from '@/assets/photos/lukas.jpg';
-import matthiasPhoto from '@/assets/photos/matthias.jpg';
+import larsPhoto from '@/assets/team/lars.jpg';
+import lukasPhoto from '@/assets/team/lukas.jpg';
+import matthiasPhoto from '@/assets/team/matthias.jpg';
 
 const people = [
   {
@@ -108,7 +108,7 @@ const people = [
 
 export default function Team() {
   return (
-    <div className="bg-marian-blue-50 py-24 md:py-32">
+    <section className="bg-marian-blue-50 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
         <div className="max-w-2xl space-y-6 text-lg leading-8 text-gray-600 sm:text-xl xl:col-span-2">
           <h2 className="text-4xl font-bold leading-none tracking-tight text-gray-900 sm:text-5xl">
@@ -173,6 +173,6 @@ export default function Team() {
           ))}
         </ul>
       </div>
-    </div>
+    </section>
   );
 }

@@ -67,7 +67,7 @@ export default function Pricing() {
   const slugger = new GithubSlugger();
 
   return (
-    <div className="isolate py-16 sm:py-24">
+    <section className="isolate py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
           <h2
@@ -201,6 +201,6 @@ export default function Pricing() {
           </ButtonLink>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
