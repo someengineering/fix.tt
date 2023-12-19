@@ -123,7 +123,7 @@ const faqs: {
     answer: (
       <p>
         Fix currently only supports <abbr title="Amazon Web Services">AWS</abbr>
-        , but we&rsquo;re working on rolling out support for Kubernetes, Googe
+        , but we&rsquo;re working on rolling out support for Kubernetes, Google
         Cloud, Azure, and DigitalOcean.
       </p>
     ),
