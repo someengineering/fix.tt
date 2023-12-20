@@ -54,10 +54,10 @@ export default function WhyFix() {
           >
             Why Fix?
           </h2>
-          <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <p className="max-w-prose text-pretty text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Detect, prioritize, and remediate critical cloud risks.
           </p>
-          <div className="text-lg leading-8 text-gray-600">
+          <div className="max-w-prose text-lg leading-8 text-gray-600">
             <p className="mt-6">
               <strong>
                 Fix connects to cloud APIs to take full snapshots of your cloud

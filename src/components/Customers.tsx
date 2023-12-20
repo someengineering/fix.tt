@@ -1,7 +1,6 @@
 import ArangoDBLogo from '@/assets/customers/arangodb.svg';
 import BloomreachLogo from '@/assets/customers/bloomreach.svg';
 import BricomanLogo from '@/assets/customers/bricoman.svg';
-import CosantaLogo from '@/assets/customers/cosanta.svg';
 import DevoteamLogo from '@/assets/customers/devoteam.svg';
 import HadrianLogo from '@/assets/customers/hadrian.svg';
 import WingbackLogo from '@/assets/customers/wingback.svg';
@@ -29,10 +28,6 @@ const customers: {
     logo: (props) => <HadrianLogo {...props} />,
   },
   {
-    name: 'Cosanta',
-    logo: (props) => <CosantaLogo {...props} />,
-  },
-  {
     name: 'Bloomreach',
     logo: (props) => <BloomreachLogo {...props} />,
   },
@@ -52,16 +47,15 @@ export default function Customers() {
         >
           Built on our popular open-source product Resoto and trusted by:
         </h2>
-        <div className="mt-10 flex flex-wrap items-center justify-center space-x-12 text-gray-900 lg:space-x-14">
+        <div className="mt-2 flex flex-wrap items-center justify-center gap-x-8 text-gray-500 lg:mt-4 lg:justify-between lg:gap-x-0">
           {customers.map((customer, index) => (
-            <>
+            <div key={`customer-${index}`}>
               <span className="sr-only">{customer.name}</span>
               <customer.logo
-                key={`customer-${index}`}
-                className="h-16 max-w-[10rem] lg:h-20 lg:max-w-[12rem]"
+                className="h-14 max-w-[8rem] lg:h-16 lg:max-w-[9rem]"
                 aria-hidden="true"
               />
-            </>
+            </div>
           ))}
         </div>
       </div>

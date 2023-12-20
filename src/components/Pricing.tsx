@@ -76,11 +76,11 @@ export default function Pricing() {
           >
             Pricing
           </h2>
-          <p className="mx-auto mt-2 max-w-prose text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <p className="mx-auto mt-2 max-w-prose text-balance text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Start for free, upgrade as you grow.
           </p>
         </div>
-        <div className="relative mx-auto max-w-prose text-lg leading-8 text-gray-600">
+        <div className="relative mx-auto max-w-prose text-balance text-lg leading-8 text-gray-600">
           <p className="mt-6">
             Fix pricing is based on the number of cloud accounts you scan. There
             is no minimum commitment, and you can even start scanning a single

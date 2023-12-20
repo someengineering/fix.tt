@@ -58,24 +58,24 @@ export default function Testimonials() {
         >
           {testimonials.map((testimonial, index) => (
             <div
-              className="flex flex-col pt-10 sm:pt-16 lg:pl-8 lg:pt-0"
+              className="flex flex-col space-y-8 pt-10 sm:pt-16 lg:pl-8 lg:pt-0"
               key={`testimonial-${index}`}
             >
               <span className="sr-only">{testimonial.companyName}</span>
               {typeof testimonial.companyLogo === 'object' ? (
                 <Image
                   src={testimonial.companyLogo}
-                  className="h-10 w-auto self-start"
+                  className="h-8 w-auto self-start"
                   alt=""
                 />
               ) : (
-                <testimonial.companyLogo className="h-10 self-start" />
+                <testimonial.companyLogo className="h-8 max-w-[6rem] self-start" />
               )}
-              <figure className="mt-10 flex flex-auto flex-col justify-between">
+              <figure className="flex flex-auto flex-col justify-between space-y-8">
                 <blockquote className="text-lg leading-8 text-gray-900">
-                  <p>“{testimonial.quote}”</p>
+                  <p>&ldquo;{testimonial.quote}&rdquo;</p>
                 </blockquote>
-                <figcaption className="mt-10 flex items-center gap-x-6">
+                <figcaption className="flex items-center gap-x-6">
                   <Image
                     className="h-14 w-14 rounded-full bg-gray-50"
                     src={testimonial.authorPhoto}
