@@ -81,15 +81,6 @@ export default {
       fontFamily: {
         sans: ['var(--font-nunito-sans)'],
       },
-      animation: {
-        'scroll-x': 'scroll-x 60s linear infinite',
-      },
-      keyframes: {
-        'scroll-x': {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-100%)' },
-        },
-      },
     },
   },
   plugins: [require('@tailwindcss/forms')],

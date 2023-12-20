@@ -1,9 +1,9 @@
 import Image, { StaticImageData } from 'next/image';
 
-import cloudzoneLogo from '@/assets/customers/cloudzone.png';
-import KavakLogo from '@/assets/customers/kavak.svg';
-import lineajeLogo from '@/assets/customers/lineaje.png';
+import cloudzoneLogo from '@/assets/testimonials/cloudzone.png';
 import fernandoCarlettiPhoto from '@/assets/testimonials/fernandocarletti.jpg';
+import KavakLogo from '@/assets/testimonials/kavak.svg';
+import lineajeLogo from '@/assets/testimonials/lineaje.png';
 import nickMistryPhoto from '@/assets/testimonials/nickmistry.jpg';
 import rotemLeviPhoto from '@/assets/testimonials/rotemlevi.jpg';
 
