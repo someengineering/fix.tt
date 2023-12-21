@@ -44,7 +44,7 @@ const testimonials: {
     companyName: 'CloudZone',
     companyLogo: cloudzoneLogo,
     quote:
-      'I’ve never found use in tools that just give me an asset list. With Fix, I get filters and scenarios, like public instances with admin rights or IAM users without MFA. And then, in one click, I get the recomendation.',
+      'I’ve never found use in tools that just give me an asset list. With Fix, I get filters and scenarios, like public instances with admin rights or IAM users without MFA. And then, in one click, I get the recommendation.',
   },
 ];
 
