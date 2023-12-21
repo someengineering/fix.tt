@@ -45,7 +45,7 @@ const features: {
 
 export default function WhyFix() {
   return (
-    <div className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
@@ -54,10 +54,10 @@ export default function WhyFix() {
           >
             Why Fix?
           </h2>
-          <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <p className="max-w-prose text-pretty text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             Detect, prioritize, and remediate critical cloud risks.
           </p>
-          <div className="text-lg leading-8 text-gray-600">
+          <div className="max-w-prose text-lg leading-8 text-gray-600">
             <p className="mt-6">
               <strong>
                 Fix connects to cloud APIs to take full snapshots of your cloud
@@ -76,7 +76,7 @@ export default function WhyFix() {
             </p>
           </div>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
+        <div className="mx-auto mt-8 max-w-2xl sm:mt-12 lg:max-w-none">
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
@@ -97,6 +97,6 @@ export default function WhyFix() {
           </dl>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

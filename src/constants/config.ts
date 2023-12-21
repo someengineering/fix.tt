@@ -1,8 +1,8 @@
 export const siteConfig = {
   title: 'Fix',
-  tagline: 'Simple and affordable visibility into your cloud security posture.',
+  tagline: 'Mission control for your AWS security.',
   description:
-    'Fix is an open-source Wiz alternative for cloud infrastructure security. Take control of cloud risks with an asset inventory, compliance scans, and remediation workflows.',
+    'Fix is all-in-one dashboard for security engineers. Prioritize top risks by combining user, resource, and configuration data. Plus, get actionable remediation recommendations for your DevOps team.',
   url: 'https://fix.tt',
   copyright: `© ${new Date().getFullYear()} Some Engineering Inc. All rights reserved.`,
   blogTitle: 'Fix blog',

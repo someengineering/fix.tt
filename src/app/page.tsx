@@ -1,9 +1,12 @@
 import { Metadata } from 'next';
 import { WebSite, WithContext } from 'schema-dts';
 
+import Customers from '@/components/Customers';
 import Faq from '@/components/Faq';
+// import HowFixWorks from '@/components/HowFixWorks';
 import Pricing from '@/components/Pricing';
 import { RequestEarlyAccessForm } from '@/components/RequestEarlyAccessForm';
+import Testimonials from '@/components/Testimonials';
 import WhyFix from '@/components/WhyFix';
 
 import { metadata as rootMetadata } from '@/app/layout';
@@ -31,22 +34,22 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="relative isolate bg-marian-blue-50 px-6 lg:px-8">
-        <div className="mx-auto max-w-3xl py-16 sm:py-24 lg:py-28">
+        <div className="mx-auto max-w-3xl py-16 sm:py-24">
           <div className="text-center">
-            <h1 className="balanced text-4xl font-bold tracking-tight text-marian-blue-900 sm:text-6xl">
-              Simple and affordable visibility into your{' '}
-              <span className="text-cornflower-blue-500">
-                cloud security posture
-              </span>
-              .
+            <h1 className="text-balance text-4xl font-bold tracking-tight text-marian-blue-900 sm:text-6xl">
+              <span className="text-cornflower-blue-500">Mission control</span>{' '}
+              for your AWS security.
             </h1>
-            <p className="balanced mt-6 text-lg leading-8 text-gray-600">
+            <p className="mt-6 text-balance text-lg leading-8 text-gray-600">
               {siteConfig.description}
             </p>
             <RequestEarlyAccessForm />
           </div>
         </div>
       </div>
+      <Customers />
+      <Testimonials />
+      {/* <HowFixWorks /> */}
       <WhyFix />
       <Pricing />
       <Faq />

@@ -60,7 +60,7 @@ export default async function AboutPage() {
           <h1 className="mb-2 text-lg font-semibold uppercase leading-8 text-marian-blue-800 sm:text-xl">
             {staticPage.title}
           </h1>
-          <p className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <p className="text-pretty text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
             We don&rsquo;t have a silver bullet for cloud security.
           </p>
           <MarkdownContent className="static-page">

@@ -71,11 +71,6 @@
 }
 
 @layer utilities {
-  .balanced {
-    white-space: unset;
-    text-wrap: balance;
-  }
-
   .animated-underline {
     background-image: linear-gradient(#33333300, #33333300),
       linear-gradient(
