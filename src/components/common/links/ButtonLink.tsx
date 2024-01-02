@@ -9,7 +9,6 @@ import { cn } from '@/utils/css';
 
 const ButtonLinkVariant = [
   'default',
-  'tangerine',
   'outline',
   'ghost',
   'light',

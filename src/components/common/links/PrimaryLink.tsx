@@ -6,13 +6,13 @@ import UnstyledLink, {
 
 import { cn } from '@/utils/css';
 
-const PrimaryLinkVariant = ['marian-blue', 'basic', 'light'] as const;
+const PrimaryLinkVariant = ['default', 'basic', 'light'] as const;
 type PrimaryLinkProps = {
   variant?: (typeof PrimaryLinkVariant)[number];
 } & UnstyledLinkProps;
 
 const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
-  ({ className, children, variant = 'marian-blue', ...rest }, ref) => {
+  ({ className, children, variant = 'default', ...rest }, ref) => {
     return (
       <UnstyledLink
         ref={ref}
@@ -22,7 +22,7 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
           'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-marian-blue-500 focus-visible:ring-offset-2',
           'font-semibold',
           //#region  //*=========== Variant ===========
-          variant === 'marian-blue' && [
+          variant === 'default' && [
             'text-marian-blue-500 hover:text-marian-blue-600 active:text-marian-blue-700',
             'disabled:text-marian-blue-200',
           ],

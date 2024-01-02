@@ -4,14 +4,7 @@ import { ImSpinner2 } from 'react-icons/im';
 
 import { cn } from '@/utils/css';
 
-const ButtonVariant = [
-  'default',
-  'tangerine',
-  'outline',
-  'ghost',
-  'light',
-  'dark',
-] as const;
+const ButtonVariant = ['default', 'outline', 'ghost', 'light', 'dark'] as const;
 const ButtonSize = ['sm', 'base', 'lg'] as const;
 
 type ButtonProps = {
@@ -33,7 +26,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled: buttonDisabled,
       isLoading,
-      variant = 'marian-blue',
+      variant = 'default',
       size = 'base',
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
@@ -105,7 +98,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             className={cn(
               'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
               {
-                'text-white': ['marian-blue', 'dark'].includes(variant),
+                'text-white': ['default', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
                 'text-marian-blue-500': ['outline', 'ghost'].includes(variant),
               },

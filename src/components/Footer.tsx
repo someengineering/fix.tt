@@ -2,6 +2,8 @@ import { FaGithub, FaLinkedin, FaSquareRss } from 'react-icons/fa6';
 
 import '@/styles/globals.css';
 
+import UnstyledLink from '@/components/common/links/UnstyledLink';
+
 import { siteConfig } from '@/constants/config';
 
 const social: {
@@ -33,14 +35,14 @@ export default function Footer() {
     <footer className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
       <div className="flex justify-center space-x-6 md:order-2">
         {social.map((item) => (
-          <a
+          <UnstyledLink
             key={item.name}
             href={item.href}
             className="text-gray-400 hover:text-gray-500"
           >
             <span className="sr-only">{item.name}</span>
             <item.icon className="h-6 w-6" aria-hidden="true" />
-          </a>
+          </UnstyledLink>
         ))}
       </div>
       <div className="mt-8 md:order-1 md:mt-0">
