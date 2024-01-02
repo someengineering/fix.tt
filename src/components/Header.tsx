@@ -64,12 +64,20 @@ export default function Header() {
             </a>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          {pathname !== '/' ? (
-            <ButtonLink href="/#request-early-access" variant="cornflower-blue">
-              Request early access
-            </ButtonLink>
-          ) : null}
+        <div className="hidden space-x-2 lg:flex lg:flex-1 lg:justify-end">
+          <ButtonLink
+            href="https://app.global.fixcloud.io/auth/login"
+            variant="ghost"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Log in
+          </ButtonLink>
+          <ButtonLink
+            href="https://app.global.fixcloud.io/auth/register"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Sign up
+          </ButtonLink>
         </div>
       </nav>
       <Dialog
@@ -108,13 +116,19 @@ export default function Header() {
                   </a>
                 ))}
               </div>
-              <div className="py-6">
+              <div className="space-x-2 py-6">
                 <ButtonLink
-                  href="/#request-early-access"
-                  variant="cornflower-blue"
+                  href="https://app.global.fixcloud.io/auth/login"
+                  variant="outline"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Request early access
+                  Log in
+                </ButtonLink>
+                <ButtonLink
+                  href="https://app.global.fixcloud.io/auth/register"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Sign up
                 </ButtonLink>
               </div>
             </div>

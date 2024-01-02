@@ -104,11 +104,7 @@ export default function BlogNewsletterForm() {
                     : 'ring-amaranth-600 focus:ring-amaranth-600'
                 }`}
               />
-              <Button
-                variant="cornflower-blue"
-                type="submit"
-                disabled={!isValid || isSubmitting}
-              >
+              <Button type="submit" disabled={!isValid || isSubmitting}>
                 Subscribe
               </Button>
               {captchaEnabled ? (

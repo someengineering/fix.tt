@@ -33,7 +33,6 @@ export default function CookieConsent() {
         </p>
         <div className="mt-4 flex items-center gap-x-5">
           <Button
-            variant="cornflower-blue"
             onClick={(e) => {
               e.preventDefault();
               cookies.set('cookie_consent', 'true', {

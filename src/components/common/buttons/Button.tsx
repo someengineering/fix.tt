@@ -4,15 +4,8 @@ import { ImSpinner2 } from 'react-icons/im';
 
 import { cn } from '@/utils/css';
 
-const ButtonVariant = [
-  'marian-blue',
-  'cornflower-blue',
-  'outline',
-  'ghost',
-  'light',
-  'dark',
-] as const;
-const ButtonSize = ['sm', 'base'] as const;
+const ButtonVariant = ['default', 'outline', 'ghost', 'light', 'dark'] as const;
+const ButtonSize = ['sm', 'base', 'lg'] as const;
 
 type ButtonProps = {
   isLoading?: boolean;
@@ -33,7 +26,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       className,
       disabled: buttonDisabled,
       isLoading,
-      variant = 'marian-blue',
+      variant = 'default',
       size = 'base',
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
@@ -57,19 +50,14 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
+            size === 'lg' && ['px-5 py-2.5', 'text-lg'],
             size === 'base' && ['px-4 py-2', 'text-base'],
             size === 'sm' && ['px-3 py-1.5', 'text-sm'],
           ],
           //#endregion  //*======== Size ===========
           //#region  //*=========== Variants ===========
           [
-            variant === 'marian-blue' && [
-              'border-marian-blue-900 bg-marian-blue-800 text-white',
-              'hover:border-marian-blue-950 hover:bg-marian-blue-900 hover:text-white',
-              'active:border-black active:bg-marian-blue-950',
-              'disabled:border-marian-blue-900 disabled:bg-marian-blue-800',
-            ],
-            variant === 'cornflower-blue' && [
+            variant === 'default' && [
               'border-cornflower-blue-700 bg-cornflower-blue-600 text-white',
               'hover:border-cornflower-blue-800 hover:bg-cornflower-blue-700 hover:text-white',
               'active:border-cornflower-blue-900 active:bg-cornflower-blue-800',
@@ -81,15 +69,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
             ],
             variant === 'ghost' && [
-              'text-marian-blue-900',
-              'shadow-none',
-              'hover:bg-marian-blue-50 active:bg-marian-blue-100 active:text-marian-blue-950 disabled:bg-marian-blue-100',
+              'text-cornflower-blue-600',
+              'border border-transparent',
+              'hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
-              'border border-gray-300',
-              'hover:text-dark hover:bg-gray-100',
-              'active:bg-white/80 disabled:bg-gray-200',
+              'border border-white',
+              'hover:border-white/75 hover:bg-white/75 hover:text-gray-800',
+              'active:border-white/50 active:bg-white/50 disabled:border-gray-200 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
               'bg-gray-900 text-white',
@@ -110,7 +98,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             className={cn(
               'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
               {
-                'text-white': ['marian-blue', 'dark'].includes(variant),
+                'text-white': ['default', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
                 'text-marian-blue-500': ['outline', 'ghost'].includes(variant),
               },

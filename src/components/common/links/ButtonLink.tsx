@@ -8,15 +8,13 @@ import UnstyledLink, {
 import { cn } from '@/utils/css';
 
 const ButtonLinkVariant = [
-  'marian-blue',
-  'cornflower-blue',
-  'tangerine',
+  'default',
   'outline',
   'ghost',
   'light',
   'dark',
 ] as const;
-const ButtonLinkSize = ['sm', 'base'] as const;
+const ButtonLinkSize = ['sm', 'base', 'lg'] as const;
 
 type ButtonLinkProps = {
   variant?: (typeof ButtonLinkVariant)[number];
@@ -34,7 +32,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     {
       children,
       className,
-      variant = 'marian-blue',
+      variant = 'default',
       size = 'base',
       leftIcon: LeftIcon,
       rightIcon: RightIcon,
@@ -50,24 +48,18 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         className={cn(
           'inline-flex items-center whitespace-nowrap rounded-full font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-marian-blue-500',
-          'shadow-sm',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
+            size === 'lg' && ['px-5 py-2.5', 'text-lg'],
             size === 'base' && ['px-4 py-2', 'text-base'],
             size === 'sm' && ['px-3 py-1.5', 'text-sm'],
           ],
           //#endregion  //*======== Size ===========
           //#region  //*=========== Variants ===========
           [
-            variant === 'marian-blue' && [
-              'border-marian-blue-900 bg-marian-blue-800 text-white',
-              'hover:border-marian-blue-950 hover:bg-marian-blue-900 hover:text-white',
-              'active:border-black active:bg-marian-blue-950',
-              'disabled:border-marian-blue-900 disabled:bg-marian-blue-800',
-            ],
-            variant === 'cornflower-blue' && [
+            variant === 'default' && [
               'border-cornflower-blue-700 bg-cornflower-blue-600 text-white',
               'hover:border-cornflower-blue-800 hover:bg-cornflower-blue-700 hover:text-white',
               'active:border-cornflower-blue-900 active:bg-cornflower-blue-800',
@@ -79,15 +71,15 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
               'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
             ],
             variant === 'ghost' && [
-              'text-marian-blue-900',
-              'shadow-none',
-              'hover:bg-marian-blue-50 active:bg-marian-blue-100 active:text-marian-blue-950 disabled:bg-marian-blue-100',
+              'text-cornflower-blue-600',
+              'border border-transparent',
+              'hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
-              'border border-gray-300',
-              'hover:text-dark hover:bg-gray-100',
-              'active:bg-white/80 disabled:bg-gray-200',
+              'border border-white',
+              'hover:border-white/75 hover:bg-white/75 hover:text-gray-800',
+              'active:border-white/50 active:bg-white/50 disabled:border-gray-200 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
               'bg-gray-900 text-white',
