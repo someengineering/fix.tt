@@ -53,7 +53,7 @@ export default function Testimonials() {
     <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div
-          className="mx-auto -mt-10 grid max-w-2xl grid-cols-1 gap-y-10 divide-y divide-gray-900/10 sm:-mt-16 sm:gap-y-16 lg:mx-0 lg:-ml-8 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:divide-x lg:divide-y-0"
+          className="mx-auto -mt-10 grid max-w-2xl grid-cols-1 gap-y-10 divide-y divide-gray-900/10 sm:-mt-16 sm:gap-y-16 lg:mx-0 lg:-ml-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:divide-x lg:divide-y-0"
           id="testimonials"
         >
           {testimonials.map((testimonial, index) => (

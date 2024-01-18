@@ -47,7 +47,7 @@ export default function BlogNewsletterForm() {
 
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="py-18 relative isolate overflow-hidden border border-marian-blue-100 bg-marian-blue-50 px-6 sm:rounded-3xl sm:px-24 xl:py-24">
+      <div className="relative isolate overflow-hidden border border-marian-blue-100 bg-marian-blue-50 px-6 py-16 sm:rounded-3xl sm:px-24 xl:py-24">
         <h2 className="mx-auto mb-10 max-w-2xl text-center text-3xl font-bold tracking-tight text-marian-blue-900 sm:text-4xl">
           Subscribe to our newsletter to get notified of new articles and
           updates.

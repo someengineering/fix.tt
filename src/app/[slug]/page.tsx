@@ -49,7 +49,7 @@ export async function generateMetadata({
     },
     twitter: {
       ...rootMetadata.twitter,
-      title: `${staticPage.title} | ${siteConfig.title}`,
+      title: `${title} | ${siteConfig.title}`,
       description,
       images: [ogImage],
     },
