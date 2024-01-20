@@ -1,3 +1,5 @@
+import UnstyledLink from '@/components/common/links/UnstyledLink';
+
 import ArangoDBLogo from '@/assets/customers/arangodb.svg';
 import BloomreachLogo from '@/assets/customers/bloomreach.svg';
 import BricomanLogo from '@/assets/customers/bricoman.svg';
@@ -45,7 +47,9 @@ export default function Customers() {
           className="text-center text-xl font-semibold leading-8 text-gray-900"
           id="customers"
         >
-          Built on our popular open-source product and trusted by:
+          Built on our popular open-source product{' '}
+          <UnstyledLink href="https://resoto.com">Resoto</UnstyledLink> and
+          trusted by:
         </h2>
         <div className="mt-2 flex flex-wrap items-center justify-center gap-x-8 text-gray-500 lg:mt-4 lg:justify-between lg:gap-x-0">
           {customers.map((customer, index) => (

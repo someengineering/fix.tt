@@ -1045,6 +1045,15 @@ type Mutation {
   """
   likePost(input: LikePostInput!): LikePostPayload!
   """
+  Publishes an existing draft as a post.
+  """
+  publishDraft(
+    """
+    Information about the draft to be published.
+    """
+    input: PublishDraftInput!
+  ): PublishDraftPayload!
+  """
   Creates a new post.
   """
   publishPost(
@@ -1075,13 +1084,6 @@ type Mutation {
   Reschedule a draft.
   """
   rescheduleDraft(input: RescheduleDraftInput!): RescheduleDraftPayload!
-  """
-  Reschedule a post.
-  """
-  reschedulePost(input: ReschedulePostInput!): ScheduledPostPayload
-    @deprecated(
-      reason: "Use rescheduleDraft instead. Will be taken down on 2024-02-1"
-    )
   resendWebhookRequest(
     input: ResendWebhookRequestInput!
   ): ResendWebhookRequestPayload!
@@ -2480,6 +2482,20 @@ type PublicationUserRecommendingPublicationConnection implements PageConnection 
   totalDocuments: Int!
 }
 
+input PublishDraftInput {
+  """
+  The id of the draft that should be published
+  """
+  draftId: ObjectId!
+}
+
+type PublishDraftPayload {
+  """
+  The newly created post based on the draft
+  """
+  post: Post
+}
+
 """
 Contains information about the post to be published.
 """
@@ -2854,17 +2870,6 @@ type RescheduleDraftPayload {
   scheduledPost: ScheduledPost!
 }
 
-input ReschedulePostInput {
-  """
-  The Draft ID of the scheduled post.
-  """
-  draftId: ObjectId!
-  """
-  New scheduled date for the post to be rescheduled.
-  """
-  scheduledDate: DateTime!
-}
-
 input ResendWebhookRequestInput {
   webhookId: ID!
   webhookMessageId: ID!
@@ -2939,13 +2944,6 @@ type ScheduledPost implements Node {
   The scheduled date for the post to be published. This is the date the post will be published.
   """
   scheduledDate: DateTime!
-}
-
-type ScheduledPostPayload {
-  """
-  Payload returned in response of reschedulePost mutation.
-  """
-  payload: ScheduledPost!
 }
 
 """
@@ -4039,4 +4037,40 @@ type WebhookMessageResponse {
   The time it took from the moment the request has been send until the first byte of the response has been received.
   """
   timeToFirstByteMilliseconds: Int
+}
+
+type Widget implements Node {
+  """
+  Content of the widget, can be a simple string or HTML
+  """
+  content: String!
+  """
+  The date and time the widget was created.
+  """
+  createdAt: DateTime!
+  """
+  The unique identifier of the widget
+  """
+  id: ID!
+  pinSettings: WidgetPinSettings
+  """
+  WidgetId, can be embedded as %%[widgetId] in the article
+  """
+  widgetId: String!
+}
+
+enum WidgetPinLocation {
+  BOTTOM
+  TOP
+}
+
+type WidgetPinSettings {
+  """
+  Signifies if pinning of widget on all the articles of publication is enabled or not
+  """
+  isPinned: Boolean!
+  """
+  Describes the location of the widget on the article, can be TOP or BOTTOM
+  """
+  location: WidgetPinLocation!
 }

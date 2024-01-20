@@ -699,6 +699,8 @@ export type Mutation = {
   likeComment: LikeCommentPayload;
   /** Likes a post. */
   likePost: LikePostPayload;
+  /** Publishes an existing draft as a post. */
+  publishDraft: PublishDraftPayload;
   /** Creates a new post. */
   publishPost: PublishPostPayload;
   recommendPublications: RecommendPublicationsPayload;
@@ -711,11 +713,6 @@ export type Mutation = {
   removeReply: RemoveReplyPayload;
   /** Reschedule a draft. */
   rescheduleDraft: RescheduleDraftPayload;
-  /**
-   * Reschedule a post.
-   * @deprecated Use rescheduleDraft instead. Will be taken down on 2024-02-1
-   */
-  reschedulePost?: Maybe<ScheduledPostPayload>;
   resendWebhookRequest: ResendWebhookRequestPayload;
   scheduleDraft: ScheduleDraftPayload;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
@@ -768,6 +765,10 @@ export type MutationLikePostArgs = {
   input: LikePostInput;
 };
 
+export type MutationPublishDraftArgs = {
+  input: PublishDraftInput;
+};
+
 export type MutationPublishPostArgs = {
   input: PublishPostInput;
 };
@@ -794,10 +795,6 @@ export type MutationRemoveReplyArgs = {
 
 export type MutationRescheduleDraftArgs = {
   input: RescheduleDraftInput;
-};
-
-export type MutationReschedulePostArgs = {
-  input: ReschedulePostInput;
 };
 
 export type MutationResendWebhookRequestArgs = {
@@ -1756,6 +1753,17 @@ export type PublicationUserRecommendingPublicationConnection =
     totalDocuments: Scalars['Int']['output'];
   };
 
+export type PublishDraftInput = {
+  /** The id of the draft that should be published */
+  draftId: Scalars['ObjectId']['input'];
+};
+
+export type PublishDraftPayload = {
+  __typename?: 'PublishDraftPayload';
+  /** The newly created post based on the draft */
+  post?: Maybe<Post>;
+};
+
 /** Contains information about the post to be published. */
 export type PublishPostInput = {
   /** Ids of the co-authors of the post. */
@@ -2027,13 +2035,6 @@ export type RescheduleDraftPayload = {
   scheduledPost: ScheduledPost;
 };
 
-export type ReschedulePostInput = {
-  /** The Draft ID of the scheduled post. */
-  draftId: Scalars['ObjectId']['input'];
-  /** New scheduled date for the post to be rescheduled. */
-  scheduledDate: Scalars['DateTime']['input'];
-};
-
 export type ResendWebhookRequestInput = {
   webhookId: Scalars['ID']['input'];
   webhookMessageId: Scalars['ID']['input'];
@@ -2086,12 +2087,6 @@ export type ScheduledPost = Node & {
   scheduledBy?: Maybe<User>;
   /** The scheduled date for the post to be published. This is the date the post will be published. */
   scheduledDate: Scalars['DateTime']['output'];
-};
-
-export type ScheduledPostPayload = {
-  __typename?: 'ScheduledPostPayload';
-  /** Payload returned in response of reschedulePost mutation. */
-  payload: ScheduledPost;
 };
 
 /** Enum of all the scopes that can be used with the @requireAuth directive. */
@@ -2857,6 +2852,32 @@ export type WebhookMessageResponse = {
   httpStatus: Scalars['Int']['output'];
   /** The time it took from the moment the request has been send until the first byte of the response has been received. */
   timeToFirstByteMilliseconds?: Maybe<Scalars['Int']['output']>;
+};
+
+export type Widget = Node & {
+  __typename?: 'Widget';
+  /** Content of the widget, can be a simple string or HTML */
+  content: Scalars['String']['output'];
+  /** The date and time the widget was created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The unique identifier of the widget */
+  id: Scalars['ID']['output'];
+  pinSettings?: Maybe<WidgetPinSettings>;
+  /** WidgetId, can be embedded as %%[widgetId] in the article */
+  widgetId: Scalars['String']['output'];
+};
+
+export enum WidgetPinLocation {
+  Bottom = 'BOTTOM',
+  Top = 'TOP',
+}
+
+export type WidgetPinSettings = {
+  __typename?: 'WidgetPinSettings';
+  /** Signifies if pinning of widget on all the articles of publication is enabled or not */
+  isPinned: Scalars['Boolean']['output'];
+  /** Describes the location of the widget on the article, can be TOP or BOTTOM */
+  location: WidgetPinLocation;
 };
 
 export type DraftFragment = {
