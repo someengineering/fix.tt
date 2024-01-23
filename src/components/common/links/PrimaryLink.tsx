@@ -18,7 +18,6 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
         ref={ref}
         {...rest}
         className={cn(
-          'inline-flex items-center',
           'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-marian-blue-500 focus-visible:ring-offset-2',
           'font-semibold',
           //#region  //*=========== Variant ===========

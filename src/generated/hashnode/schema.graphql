@@ -2646,6 +2646,15 @@ type Query {
   """
   me: MyUser!
   """
+  Returns post by ID. Can be used to render post page on blog.
+  """
+  post(
+    """
+    The ID of the post to be returned.
+    """
+    id: ID!
+  ): Post
+  """
   Returns the publication with the given ID or host.
   User can pass anyone of them.
   """

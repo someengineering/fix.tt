@@ -6,6 +6,15 @@ import UnstyledLink from '@/components/common/links/UnstyledLink';
 
 import { siteConfig } from '@/constants/config';
 
+const navigation = [
+  { name: 'Pricing', href: '/#pricing' },
+  { name: 'FAQ', href: '/#faq' },
+  { name: 'About', href: '/about' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'Privacy', href: '/privacy-policy' },
+  { name: 'Terms', href: '/terms-and-conditions' },
+];
+
 const social: {
   name: string;
   href: string;
@@ -32,8 +41,23 @@ const social: {
 
 export default function Footer() {
   return (
-    <footer className="mx-auto max-w-7xl px-6 py-12 md:flex md:items-center md:justify-between lg:px-8">
-      <div className="flex justify-center space-x-6 md:order-2">
+    <footer className="mx-auto max-w-7xl px-6 py-12 lg:px-8">
+      <nav
+        className="-mb-6 flex flex-wrap justify-center space-x-8 sm:space-x-12"
+        aria-label="Footer"
+      >
+        {navigation.map((item) => (
+          <div key={item.name} className="pb-6">
+            <UnstyledLink
+              href={item.href}
+              className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+            >
+              {item.name}
+            </UnstyledLink>
+          </div>
+        ))}
+      </nav>
+      <div className="mt-10 flex justify-center space-x-10">
         {social.map((item) => (
           <UnstyledLink
             key={item.name}
@@ -45,11 +69,9 @@ export default function Footer() {
           </UnstyledLink>
         ))}
       </div>
-      <div className="mt-8 md:order-1 md:mt-0">
-        <p className="text-center text-sm leading-5 text-gray-500">
-          {siteConfig.copyright}
-        </p>
-      </div>
+      <p className="mt-10 text-center text-xs leading-5 text-gray-500">
+        {siteConfig.copyright}
+      </p>
     </footer>
   );
 }

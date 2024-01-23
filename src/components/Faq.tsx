@@ -35,10 +35,10 @@ const faqs: {
     answer: (
       <>
         <p>
-          <abbr title="Cloud Security Posture Management">CSPM</abbr> helps
-          maintain the security, compliance, and operational efficiency of your
-          cloud infrastructure. Security and compliance are a shared
-          responsibility between cloud providers and their customers:
+          Cloud Security Posture Management (CSPM) helps maintain the security,
+          compliance, and operational efficiency of your cloud infrastructure.
+          Security and compliance are a shared responsibility between cloud
+          providers and their customers:
         </p>
         <ul className="list-inside list-disc">
           <li>
@@ -139,8 +139,9 @@ const faqs: {
         <p>
           Manually maintaining these permissions is a tedious task, so we
           provide a CloudFormation template that automatically creates a role
-          with the required permissions and a trust that allows a specified AWS
-          account to assume this role.
+          with the required permissions and a trust that allows a specified{' '}
+          <abbr title="Amazon Web Services">AWS</abbr> account to assume this
+          role.
         </p>
       </>
     ),
@@ -167,8 +168,15 @@ const faqs: {
       <>
         <p>
           Fix currently supports the{' '}
-          <abbr title="Center for Internet Security">CIS</abbr>{' '}
-          <abbr title="Amazon Web Services">AWS</abbr> Benchmark v1.5
+          <PrimaryLink href="https://www.cisecurity.org/benchmark/amazon_web_services">
+            <abbr title="Center for Internet Security">CIS</abbr>{' '}
+            <abbr title="Amazon Web Services">AWS</abbr> Benchmark
+          </PrimaryLink>{' '}
+          (v1.5 &amp; v2.0) and{' '}
+          <PrimaryLink href="https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html">
+            <abbr title="Amazon Web Services">AWS</abbr> Well-Architected
+            Framework Security Pillar
+          </PrimaryLink>{' '}
           out-of-the-box. This benchmark provides a standardized set of controls
           to evaluate the security posture of{' '}
           <abbr title="Amazon Web Services">AWS</abbr> resources.
@@ -194,8 +202,8 @@ const faqs: {
       <p>
         Fix currently supports over 150{' '}
         <abbr title="Amazon Web Services">AWS</abbr> resources, including the
-        most popular AWS compute, storage, database, and network products: EC2,
-        S3, RDS, and API Gateway.
+        most popular <abbr title="Amazon Web Services">AWS</abbr> compute,
+        storage, database, and network products: EC2, S3, RDS, and API Gateway.
       </p>
     ),
   },
