@@ -147,6 +147,44 @@ const faqs: {
     ),
   },
   {
+    question: 'How does Fix protect my data?',
+    answer: (
+      <>
+        <p>
+          <strong>
+            Fix does not access the actual data stored on your storage volumes
+            or buckets.
+          </strong>{' '}
+          Fix operates without an agent, only reading the configuration data of
+          your cloud resources via cloud provider APIs. This approach allows Fix
+          to scan for and identify security vulnerabilities and
+          misconfigurations.
+        </p>
+        <p>
+          <strong>
+            Fix also utilizes an isolation concept known as workspaces to
+            organize and secure your data.
+          </strong>{' '}
+          When you create a Fix account, a workspace is created specifically for
+          you. You have the option to invite others to join your workspace, but
+          by default only the owner of a Fix workspace can view its data.
+        </p>
+        <p>
+          <strong>
+            Additionally, Fix allocates a dedicated database for every
+            workspace.
+          </strong>{' '}
+          Data pertaining to your workspace is stored in a database exclusively
+          for your use, rather than being commingled in a shared database with
+          other Fix customer data. This architecture not only segregates
+          customer data (thus enhancing privacy), but also mitigates a range of
+          security vulnerabilities associated with shared databases, such as SQL
+          injection attacks.
+        </p>
+      </>
+    ),
+  },
+  {
     question: (
       <>
         Can Fix run in my <abbr title="virtual private cloud">VPC</abbr> or
