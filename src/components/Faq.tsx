@@ -14,10 +14,10 @@ const faqs: {
     answer: (
       <>
         <p>
-          Fix is a <abbr title="Cloud Security Posture Management">CSPM</abbr>{' '}
-          tool.
-        </p>
-        <p>
+          <strong>
+            Fix is a <abbr title="Cloud Security Posture Management">CSPM</abbr>{' '}
+            tool.
+          </strong>{' '}
           Fix performs routine compliance checks against snapshots of your
           infrastructure, identifies misconfigurations, and provides
           recommendations and workflows to correct detected issues.
@@ -28,7 +28,7 @@ const faqs: {
   {
     question: (
       <>
-        What is <abbr title="Cloud Security Posture Management">CSPM</abbr> and
+        What is <abbr title="Cloud Security Posture Management">CSPM</abbr>, and
         why is it necessary?
       </>
     ),
@@ -71,11 +71,14 @@ const faqs: {
     answer: (
       <>
         <p>
-          Fix creates snapshots of your infrastructure&rsquo;s resource
-          inventory at regular intervals. The data collection process is
-          comparable to an <abbr title="Extract, Load, Transform">ELT</abbr>{' '}
-          pipeline, a widely recognized approach in cloud security referred to
-          as &ldquo;agentless scanning.&rdquo;
+          <strong>
+            Fix creates snapshots of your infrastructure&rsquo;s resource
+            inventory at regular intervals.
+          </strong>{' '}
+          The data collection process is comparable to an{' '}
+          <abbr title="Extract, Load, Transform">ELT</abbr> pipeline, a widely
+          recognized approach in cloud security referred to as &ldquo;agentless
+          scanning.&rdquo;
         </p>
         <ul className="list-inside list-disc">
           <li>
@@ -103,11 +106,14 @@ const faqs: {
     answer: (
       <>
         <p>
-          A cloud snapshot is a complete representation of your cloud
-          infrastructure that includes all components and
-          configurations&mdash;compute instances, storage buckets, serverless
-          functions, etc. Snapshots not only list resources, but also capture
-          the relationships and connections between resources.
+          <strong>
+            A cloud snapshot is a complete representation of your cloud
+            infrastructure that includes all components and
+            configurations&mdash;compute instances, storage buckets, serverless
+            functions, etc.
+          </strong>{' '}
+          Snapshots not only list resources, but also capture the relationships
+          and connections between resources.
         </p>
         <p>
           The significance of snapshots lies in their non-invasive nature when
@@ -133,8 +139,10 @@ const faqs: {
     answer: (
       <>
         <p>
-          Fix requires read-only access to the cloud accounts you wish to
-          monitor and secure.
+          <strong>
+            Fix requires read-only API access to the cloud accounts you wish to
+            monitor and secure.
+          </strong>
         </p>
         <p>
           Manually maintaining these permissions is a tedious task, so we
@@ -149,8 +157,8 @@ const faqs: {
   {
     question: 'How does Fix protect my data?',
     answer: (
-      <>
-        <p>
+      <ul className="list-inside list-disc">
+        <li>
           <strong>
             Fix does not access the actual data stored on your storage volumes
             or buckets.
@@ -159,8 +167,8 @@ const faqs: {
           your cloud resources via cloud provider APIs. This approach allows Fix
           to scan for and identify security vulnerabilities and
           misconfigurations.
-        </p>
-        <p>
+        </li>
+        <li>
           <strong>
             Fix also utilizes an isolation concept known as workspaces to
             organize and secure your data.
@@ -168,8 +176,8 @@ const faqs: {
           When you create a Fix account, a workspace is created specifically for
           you. You have the option to invite others to join your workspace, but
           by default only the owner of a Fix workspace can view its data.
-        </p>
-        <p>
+        </li>
+        <li>
           <strong>
             Additionally, Fix allocates a dedicated database for every
             workspace.
@@ -177,11 +185,11 @@ const faqs: {
           Data pertaining to your workspace is stored in a database exclusively
           for your use, rather than being commingled in a shared database with
           other Fix customer data. This architecture not only segregates
-          customer data (thus enhancing privacy), but also mitigates a range of
+          customer data (enhancing privacy), but also mitigates a range of
           security vulnerabilities associated with shared databases, such as SQL
           injection attacks.
-        </p>
-      </>
+        </li>
+      </ul>
     ),
   },
   {
@@ -261,12 +269,15 @@ const faqs: {
     answer: (
       <>
         <p>
-          Fix is licensed under the{' '}
-          <abbr title="GNU Affero General Public License version 3">
-            GNU AGPL v3
-          </abbr>
-          . This open-source license ensures that the source code of Fix is
-          freely available to the community.
+          <strong>
+            Fix is licensed under the{' '}
+            <abbr title="GNU Affero General Public License version 3">
+              GNU AGPL v3
+            </abbr>
+            .
+          </strong>{' '}
+          This open-source license ensures that the source code of Fix is freely
+          available to the community.
         </p>
         <p>
           The ability to access and inspect the source code is of particular
