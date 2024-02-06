@@ -47,8 +47,8 @@ export async function generateMetadata({
       description,
       images: [ogImage],
       type: 'article',
-      tags: draft.tags?.map((tag) => tag.name),
-      publishedTime: draft.dateUpdated,
+      tags: draft.tagsV2?.map((tag) => tag.name),
+      publishedTime: draft.updatedAt,
     },
     twitter: {
       ...rootMetadata.twitter,

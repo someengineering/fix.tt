@@ -29,11 +29,11 @@ export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
           title={draft.title}
           subtitle={draft.subtitle ?? undefined}
           author={draft.author}
-          tags={draft.tags}
-          publishedAt={draft.dateUpdated}
+          tags={draft.tagsV2}
+          publishedAt={draft.updatedAt}
         />
         <BlogPostContent markdown={draft.content?.markdown} />
-        <BlogPostFooter title={draft.title} tags={draft.tags} />
+        <BlogPostFooter title={draft.title} tags={draft.tagsV2} />
       </article>
     </div>
   );

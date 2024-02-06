@@ -5,6 +5,7 @@ import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NextImage from '@/components/common/NextImage';
 
 import {
+  DraftTagFragment as HashnodeDraftTag,
   TagFragment as HashnodeTag,
   UserFragment as HashnodeUser,
 } from '@/generated/hashnode/graphql';
@@ -27,7 +28,7 @@ export default function BlogPostHeader({
   subtitle?: string;
   brief?: string;
   author: HashnodeUser;
-  tags?: HashnodeTag[];
+  tags?: (HashnodeTag | HashnodeDraftTag)[];
   publishedAt: string;
   updatedAt?: string;
   readTimeInMinutes?: number;

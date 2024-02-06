@@ -2,8 +2,8 @@ fragment Draft on Draft {
   id
   title
   subtitle
-  tags {
-    ...Tag
+  tagsV2 {
+    ...DraftTag
   }
   series {
     ...Series
@@ -14,5 +14,5 @@ fragment Draft on Draft {
   content {
     markdown
   }
-  dateUpdated
+  updatedAt
 }

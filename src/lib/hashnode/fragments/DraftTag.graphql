@@ -1,0 +1,9 @@
+fragment DraftTag on DraftTag {
+  ... on Tag {
+    ...Tag
+  }
+  ... on DraftBaseTag {
+    name
+    slug
+  }
+}

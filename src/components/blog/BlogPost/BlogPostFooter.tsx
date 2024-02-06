@@ -1,7 +1,10 @@
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 
-import { TagFragment as HashnodeTag } from '@/generated/hashnode/graphql';
+import {
+  DraftTagFragment as HashnodeDraftTag,
+  TagFragment as HashnodeTag,
+} from '@/generated/hashnode/graphql';
 
 export default function BlogPost({
   url,
@@ -10,7 +13,7 @@ export default function BlogPost({
 }: {
   url?: string;
   title: string;
-  tags?: HashnodeTag[];
+  tags?: (HashnodeTag | HashnodeDraftTag)[];
 }) {
   return (
     <footer className="flex flex-col gap-y-8 md:flex-row md:justify-between md:gap-x-8 md:gap-y-0">
