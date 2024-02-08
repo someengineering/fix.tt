@@ -203,8 +203,8 @@ const faqs: {
       <p>
         Yes! This is supported in our <a href="#pricing">Enterprise plan</a>.
         Please contact us via email at{' '}
-        <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink> for
-        details.
+        <PrimaryLink href="mailto:hi@fix.security">hi@fix.security</PrimaryLink>{' '}
+        for details.
       </p>
     ),
   },
@@ -237,7 +237,10 @@ const faqs: {
           frameworks and benchmarks. If there is a particular framework or
           benchmark you&rsquo;d like us to prioritize on our roadmap, please
           don&rsquo;t hesitate to reach out to us via email at{' '}
-          <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>.
+          <PrimaryLink href="mailto:hi@fix.security">
+            hi@fix.security
+          </PrimaryLink>
+          .
         </p>
       </>
     ),
@@ -260,7 +263,8 @@ const faqs: {
         Yes! We designed Fix with support for data export to various
         destinations, including S3, Postgres, and Snowflake. For details, get in
         touch with us via email at{' '}
-        <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>.
+        <PrimaryLink href="mailto:hi@fix.security">hi@fix.security</PrimaryLink>
+        .
       </p>
     ),
   },
@@ -291,7 +295,8 @@ const faqs: {
     question: <>My question isn&rsquo;t listed above.</>,
     answer: (
       <p>
-        Email us at <PrimaryLink href="mailto:hi@fix.tt">hi@fix.tt</PrimaryLink>
+        Email us at{' '}
+        <PrimaryLink href="mailto:hi@fix.security">hi@fix.security</PrimaryLink>
         ! We'll be more than happy to assist you.
       </p>
     ),

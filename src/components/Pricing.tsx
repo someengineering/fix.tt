@@ -164,7 +164,7 @@ export default function Pricing() {
         <p className="mx-auto my-20 max-w-prose space-y-2 text-base leading-7 text-gray-600">
           * Our fair-use policy allows for up to 200,000 resources per account.
           If your needs surpass this amount, please{' '}
-          <PrimaryLink href="mailto:hi@fix.tt">reach out</PrimaryLink> to
+          <PrimaryLink href="mailto:hi@fix.security">reach out</PrimaryLink> to
           discuss your specific requirements.
         </p>
         <div className="flex flex-col items-start gap-x-8 gap-y-6 rounded-3xl p-8 ring-1 ring-gray-900/10 sm:gap-y-10 sm:p-10 lg:col-span-2 lg:flex-row lg:items-center">
@@ -188,7 +188,7 @@ export default function Pricing() {
             </p>
           </div>
           <ButtonLink
-            href="mailto:hi@fix.tt"
+            href="mailto:hi@fix.security"
             variant="outline"
             className="inline"
           >

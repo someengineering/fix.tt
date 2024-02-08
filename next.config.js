@@ -58,13 +58,18 @@ module.exports = {
           { type: 'host', value: 'fix-git-main-some-engineering.vercel.app' },
         ],
         permanent: true,
-        destination: 'https://fix.tt/:path*',
+        destination: 'https://fix.security/:path*',
       },
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'blog.fix.tt' }],
+        has: [{ type: 'host', value: 'blog.fix.security' }],
         permanent: true,
-        destination: 'https://fix.tt/blog/:path*',
+        destination: 'https://fix.security/blog/:path*',
+      },
+      {
+        source: '/docs/:path*',
+        permanent: true,
+        destination: 'https://docs.fix.security/:path*',
       },
     ];
   },
