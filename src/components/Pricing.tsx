@@ -23,7 +23,7 @@ const tiers: {
   cta: string;
   price: string | { monthly: string; annually?: string };
   description: string;
-  maxCloudAccounts: number;
+  cloudAccounts: { maximum?: number; minimum?: number };
   scanFrequency: string;
   seats: { included?: number; maximum?: number };
   features: string[];
@@ -37,7 +37,7 @@ const tiers: {
     price: '$0',
     description:
       'For solo software engineers who want to secure a single cloud account.',
-    maxCloudAccounts: 1,
+    cloudAccounts: { maximum: 1 },
     scanFrequency: 'Monthly',
     seats: { maximum: 1 },
     features: [
@@ -59,7 +59,7 @@ const tiers: {
     price: { monthly: '$30' },
     description:
       'For growing teams looking to stay secure as they build out infrastructure.',
-    maxCloudAccounts: 3,
+    cloudAccounts: { minimum: 3 },
     scanFrequency: 'Daily',
     seats: { included: 2, maximum: 20 },
     features: [
@@ -77,7 +77,7 @@ const tiers: {
     price: { monthly: '$40' },
     description:
       'For engineering teams looking to automate their cloud infrastructure security.',
-    maxCloudAccounts: 10,
+    cloudAccounts: { minimum: 10 },
     scanFrequency: 'Hourly',
     seats: { included: 5, maximum: 50 },
     features: [
@@ -96,7 +96,7 @@ const tiers: {
     price: { monthly: '$50' },
     description:
       'For dedicated security teams looking to built an integrated security toolchain.',
-    maxCloudAccounts: 25,
+    cloudAccounts: { minimum: 25 },
     scanFrequency: 'Hourly',
     seats: { included: 20 },
     features: [
@@ -154,7 +154,7 @@ export default function Pricing() {
                   <tier.icon />
                   {tier.name}
                   {tier.mostPopular ? (
-                    <span className="inline-flex items-center rounded-full bg-marian-blue-100 px-2 py-1 text-xs font-medium text-marian-blue-600 xl:hidden">
+                    <span className="inline-flex items-center rounded-full bg-marian-blue-100 px-2 py-1 text-xs font-medium text-marian-blue-600 lg:hidden">
                       Most popular
                     </span>
                   ) : null}
@@ -162,26 +162,39 @@ export default function Pricing() {
                 <p className="mt-6 text-base leading-6 text-gray-900">
                   {tier.description}
                 </p>
-                <p className="my-8 flex items-baseline gap-x-1 border-b border-gray-900/10 pb-8 xl:flex-col">
-                  {typeof tier.price === 'string' ? (
-                    <>
-                      <span className="text-4xl font-bold tracking-tight text-gray-900 xl:mb-6">
-                        {tier.price}
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-4xl font-bold tracking-tight text-gray-900">
-                        {tier.price.monthly}
-                      </span>
-                      <span className="ml-1 text-sm font-semibold leading-6 text-gray-600 xl:ml-0">
-                        per cloud account, per month
-                      </span>
-                    </>
-                  )}
-                </p>
+                <div className="my-8 border-b border-gray-900/10 pb-8">
+                  <p className="flex items-baseline gap-x-1 xl:flex-col">
+                    {typeof tier.price === 'string' ? (
+                      <>
+                        <span className="text-4xl font-bold tracking-tight text-gray-900">
+                          {tier.price}
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-4xl font-bold tracking-tight text-gray-900">
+                          {tier.price.monthly}
+                        </span>
+                        <span className="ml-1 text-sm font-semibold leading-6 text-gray-600 xl:ml-0 xl:mt-0.5">
+                          per cloud account, per month
+                        </span>
+                      </>
+                    )}
+                  </p>
+                  <p
+                    className={cn(
+                      typeof tier.price === 'string'
+                        ? 'mt-0.5 xl:mb-6'
+                        : "before:content-['('] after:content-[')']",
+                      'text-sm text-gray-600',
+                    )}
+                  >
+                    {tier.cloudAccounts.maximum
+                      ? `${tier.cloudAccounts.maximum} cloud account maximum`
+                      : `${tier.cloudAccounts.minimum} cloud account minimum`}
+                  </p>
+                </div>
                 <div className="gap-y-2 text-base leading-6 text-gray-600">
-                  <p>{tier.maxCloudAccounts} cloud account max</p>
                   <p>{tier.scanFrequency} scans</p>
                   <p>
                     {tier.seats.included
