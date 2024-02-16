@@ -1,5 +1,3 @@
-import UnstyledLink from '@/components/common/links/UnstyledLink';
-
 import ArangoDBLogo from '@/assets/customers/arangodb.svg';
 import BloomreachLogo from '@/assets/customers/bloomreach.svg';
 import BricomanLogo from '@/assets/customers/bricoman.svg';
@@ -44,12 +42,10 @@ export default function Customers() {
     <div className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2
-          className="text-center text-xl font-semibold leading-8 text-gray-900"
+          className="text-center text-xl font-bold leading-8 text-gray-900"
           id="customers"
         >
-          Built on our popular open-source product{' '}
-          <UnstyledLink href="https://resoto.com">Resoto</UnstyledLink> and
-          trusted by:
+          Trusted by security engineers at:
         </h2>
         <div className="mt-2 flex flex-wrap items-center justify-center gap-x-8 text-gray-500 lg:mt-4 lg:justify-between lg:gap-x-0">
           {customers.map((customer, index) => (

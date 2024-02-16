@@ -1106,6 +1106,10 @@ type Mutation {
   resendWebhookRequest(
     input: ResendWebhookRequestInput!
   ): ResendWebhookRequestPayload!
+  """
+  Restores a deleted post.
+  """
+  restorePost(input: RestorePostInput!): RestorePostPayload!
   scheduleDraft(
     """
     Information about the draft to be published.
@@ -2383,6 +2387,9 @@ type PublicationNavbarItem {
   The order of the navbar item.
   """
   priority: Int
+    @deprecated(
+      reason: "Navbar items are already returned in the correct order. Priority value is not needed and might be 0 in most cases."
+    )
   """
   The series added to the navbar item.
   """
@@ -2440,6 +2447,10 @@ Connection to get list of posts in publications.
 Returns a list of edges which contains the posts in publication and cursor to the last item of the previous page.
 """
 input PublicationPostConnectionFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """
   Remove pinned post from the result set.
   """
@@ -2899,6 +2910,14 @@ type ResendWebhookRequestPayload {
   webhookMessage: WebhookMessage
 }
 
+input RestorePostInput {
+  id: ID!
+}
+
+type RestorePostPayload {
+  post: Post
+}
+
 """
 Information to help in seo related meta tags.
 """
@@ -2985,6 +3004,7 @@ enum Scope {
   recommend_publications
   remove_comment
   remove_reply
+  restore_post
   signup
   team_hashnode
   update_comment
@@ -2995,6 +3015,7 @@ enum Scope {
   write_post
   write_series
   write_static_page
+  write_widget
 }
 
 """
@@ -3014,6 +3035,10 @@ type SearchPostConnection implements Connection {
 }
 
 input SearchPostsOfPublicationFilter {
+  """
+  Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
+  """
+  deletedOnly: Boolean
   """
   The ID of publications to search from.
   """
