@@ -62,6 +62,12 @@ module.exports = {
       },
       {
         source: '/:path*',
+        has: [{ type: 'host', value: 'origin.fix.security' }],
+        permanent: true,
+        destination: 'https://fix.security/:path*',
+      },
+      {
+        source: '/:path*',
         has: [{ type: 'host', value: 'blog.fix.security' }],
         permanent: true,
         destination: 'https://fix.security/blog/:path*',
