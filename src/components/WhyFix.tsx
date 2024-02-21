@@ -81,9 +81,9 @@ export default function WhyFix() {
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
                 <dt className="text-lg font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cornflower-blue-500">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-marian-blue-50">
                     <feature.icon
-                      className="h-6 w-6 text-white"
+                      className="h-6 w-6 text-cornflower-blue-600"
                       aria-hidden="true"
                     />
                   </div>

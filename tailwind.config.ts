@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -79,7 +80,12 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-nunito-sans)'],
+        sans: ['var(--font-nunito-sans)', ...defaultTheme.fontFamily.sans],
+        display: [
+          'var(--font-oswald)',
+          'var(--font-nunito-sans)',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
     },
   },

@@ -1,5 +1,4 @@
 import { Metadata, Viewport } from 'next';
-import { Nunito_Sans } from 'next/font/google';
 import { cookies } from 'next/headers';
 import Script from 'next/script';
 import { CookiesProvider } from 'next-client-cookies/server';
@@ -10,6 +9,7 @@ import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
+import { nunitoSans, oswald } from '@/app/fonts';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
@@ -73,12 +73,6 @@ export const viewport: Viewport = {
   colorScheme: 'only light',
 };
 
-const nunitoSans = Nunito_Sans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-nunito-sans',
-});
-
 const gtmScript = `
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
@@ -109,7 +103,10 @@ export default function RootLayout({
   const consent = cookieStore.get('cookie_consent')?.value === 'true';
 
   return (
-    <html lang="en" className={`scroll-smooth ${nunitoSans.variable}`}>
+    <html
+      lang="en"
+      className={`scroll-smooth ${nunitoSans.variable} ${oswald.variable}`}
+    >
       <body className="bg-white">
         <CookiesProvider>
           <Header />
