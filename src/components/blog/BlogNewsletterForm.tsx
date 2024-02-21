@@ -117,7 +117,10 @@ export default function BlogNewsletterForm() {
             </form>
             <p className="mt-4 text-center text-sm leading-6 text-gray-600">
               We care about your data. Read our{' '}
-              <PrimaryLink href="#">privacy&nbsp;policy</PrimaryLink>.
+              <PrimaryLink href="/privacy-policy">
+                privacy&nbsp;policy
+              </PrimaryLink>
+              .
             </p>
           </>
         )}

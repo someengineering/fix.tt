@@ -41,12 +41,8 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex items-center space-x-5 text-sm font-semibold leading-7 text-gray-500">
-          <time
-            dateTime={post.publishedAt}
-            className="font-bold text-marian-blue-800"
-            itemProp="datePublished"
-          >
+        <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-500">
+          <time dateTime={post.publishedAt} itemProp="datePublished">
             {new Date(post.publishedAt).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
@@ -70,7 +66,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         </header>
         <div className="group relative max-w-xl space-y-4">
           <h3
-            className="mt-2 text-2xl font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
+            className="mt-2 text-pretty font-display text-3xl font-medium uppercase text-marian-blue-900 group-hover:text-marian-blue-800"
             itemProp="headline"
           >
             <UnstyledLink href={`/blog/${post.slug}`} itemProp="url">
@@ -79,7 +75,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </UnstyledLink>
           </h3>
           <p
-            className="text-base leading-6 text-gray-600"
+            className="text-pretty text-base font-semibold leading-6 text-gray-900"
             itemProp="description"
           >
             {post.subtitle ?? post.brief}
@@ -124,11 +120,11 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </div>
           </div>
         </div>
-        <footer className="mt-4 flex gap-x-1.5 border-t border-gray-900/5 pt-4 text-sm font-medium text-marian-blue-900">
+        <footer className="mt-4 flex gap-x-1.5 text-sm font-semibold text-marian-blue-900">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 hover:border-marian-blue-100 hover:bg-marian-blue-50"
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}
