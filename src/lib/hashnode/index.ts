@@ -59,7 +59,7 @@ import { getUserLink } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
 const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
-  next: { revalidate: isLocal ? 0 : 3600, tags: ['hashnode'] },
+  next: { revalidate: isLocal ? 0 : 300, tags: ['hashnode'] },
 });
 
 export const getPublicationId = async () => {
