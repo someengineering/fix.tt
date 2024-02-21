@@ -1,7 +1,6 @@
 'use client';
 
 import { Dialog } from '@headlessui/react';
-import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
 
@@ -21,11 +20,10 @@ const navigation = [
 ];
 
 export default function Header() {
-  const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className={pathname === '/' ? 'bg-marian-blue-50' : ''}>
+    <header>
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -54,11 +52,7 @@ export default function Header() {
             <a
               key={item.name}
               href={item.href}
-              className={`${
-                pathname === '/'
-                  ? 'hover:bg-marian-blue-200'
-                  : 'hover:bg-marian-blue-50'
-              } rounded-full px-3 py-1.5`}
+              className="rounded-full px-3 py-1.5 hover:bg-marian-blue-50"
             >
               {item.name}
             </a>
@@ -76,7 +70,7 @@ export default function Header() {
             href="https://app.global.fixcloud.io/auth/register"
             onClick={() => setMobileMenuOpen(false)}
           >
-            Sign up
+            Start for free
           </ButtonLink>
         </div>
       </nav>
@@ -128,7 +122,7 @@ export default function Header() {
                   href="https://app.global.fixcloud.io/auth/register"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Sign up
+                  Start for free
                 </ButtonLink>
               </div>
             </div>

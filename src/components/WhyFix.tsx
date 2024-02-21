@@ -49,17 +49,20 @@ export default function WhyFix() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
-            className="mb-3 text-lg font-semibold uppercase leading-7 text-marian-blue-800 sm:text-xl"
+            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl"
             id="why"
           >
             Why Fix?
           </h2>
-          <p className="max-w-prose text-pretty text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Detect, prioritize, and remediate critical cloud risks.
+          <p className="max-w-prose text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+            <span className="font-semibold text-cornflower-blue-500">
+              Detect, prioritize, and remediate
+            </span>{' '}
+            critical cloud risks.
           </p>
           <div className="max-w-prose text-lg leading-8 text-gray-600">
             <p className="mt-6">
-              <strong>
+              <strong className="text-gray-900">
                 Fix connects to cloud APIs to take full snapshots of your cloud
                 infrastructure and technology stack.
               </strong>{' '}
@@ -81,9 +84,9 @@ export default function WhyFix() {
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
                 <dt className="text-lg font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-2xl bg-cornflower-blue-500">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-marian-blue-50">
                     <feature.icon
-                      className="h-6 w-6 text-white"
+                      className="h-6 w-6 text-cornflower-blue-600"
                       aria-hidden="true"
                     />
                   </div>

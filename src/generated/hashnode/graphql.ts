@@ -1638,6 +1638,8 @@ export type PublicationIntegrations = {
   matomoURL?: Maybe<Scalars['String']['output']>;
   /** A flag indicating if the custom domain is enabled for integration with Plausible Analytics. */
   plausibleAnalyticsEnabled?: Maybe<Scalars['Boolean']['output']>;
+  /** The share ID for the Hashnode-provided Umami analytics instance. */
+  umamiShareId?: Maybe<Scalars['String']['output']>;
   /** The ID for the Hashnode-provided Umami analytics instance. */
   umamiWebsiteUUID?: Maybe<Scalars['String']['output']>;
   /** Web Monetization Payment Pointer for integration with Web Monetization. */
@@ -1821,8 +1823,11 @@ export type PublishPostInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
   /** The subtitle of the post. */
   subtitle?: InputMaybe<Scalars['String']['input']>;
-  /** A list of tags added to the post. */
-  tags: Array<PublishPostTagInput>;
+  /**
+   * A list of tags to add to the post. You can get a list of popular tags available on Hashnode here.
+   * https://github.com/Hashnode/support/blob/main/misc/tags.json
+   */
+  tags?: InputMaybe<Array<PublishPostTagInput>>;
   /** The title of the post. */
   title: Scalars['String']['input'];
 };

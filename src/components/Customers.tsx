@@ -1,9 +1,9 @@
-import ArangoDBLogo from '@/assets/customers/arangodb.svg';
 import BloomreachLogo from '@/assets/customers/bloomreach.svg';
-import BricomanLogo from '@/assets/customers/bricoman.svg';
-import DevoteamLogo from '@/assets/customers/devoteam.svg';
-import HadrianLogo from '@/assets/customers/hadrian.svg';
-import WingbackLogo from '@/assets/customers/wingback.svg';
+import DespegarLogo from '@/assets/customers/despegar.svg';
+import ElectronicArtsLogo from '@/assets/customers/electronic-arts.svg';
+import KelloggsLogo from '@/assets/customers/kelloggs.svg';
+import MarsLogo from '@/assets/customers/mars.svg';
+import PayplugLogo from '@/assets/customers/payplug.svg';
 
 const customers: {
   name: string;
@@ -12,47 +12,47 @@ const customers: {
   ) => JSX.Element;
 }[] = [
   {
-    name: 'Devoteam',
-    logo: (props) => <DevoteamLogo {...props} />,
+    name: 'Mars',
+    logo: (props) => <MarsLogo {...props} />,
   },
   {
-    name: 'ArangoDB',
-    logo: (props) => <ArangoDBLogo {...props} />,
+    name: 'Kellogg’s',
+    logo: (props) => <KelloggsLogo {...props} />,
   },
   {
-    name: 'Wingback',
-    logo: (props) => <WingbackLogo {...props} />,
+    name: 'Electronic Arts',
+    logo: (props) => <ElectronicArtsLogo {...props} />,
   },
   {
-    name: 'Hadrian',
-    logo: (props) => <HadrianLogo {...props} />,
+    name: 'Despegar',
+    logo: (props) => <DespegarLogo {...props} />,
+  },
+  {
+    name: 'Payplug',
+    logo: (props) => <PayplugLogo {...props} />,
   },
   {
     name: 'Bloomreach',
     logo: (props) => <BloomreachLogo {...props} />,
   },
-  {
-    name: 'Bricoman',
-    logo: (props) => <BricomanLogo {...props} />,
-  },
 ];
 
 export default function Customers() {
   return (
-    <div className="py-16 sm:py-24">
+    <div className="bg-gray-50 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2
-          className="text-center text-xl font-bold leading-8 text-gray-900"
+          className="text-center font-display text-2xl font-medium uppercase leading-8 text-gray-900"
           id="customers"
         >
-          Trusted by security engineers at:
+          Security engineers at startups and Fortune 500 companies use fix:
         </h2>
-        <div className="mt-2 flex flex-wrap items-center justify-center gap-x-8 text-gray-500 lg:mt-4 lg:justify-between lg:gap-x-0">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:mt-10 lg:justify-between lg:gap-x-0">
           {customers.map((customer, index) => (
             <div key={`customer-${index}`}>
               <span className="sr-only">{customer.name}</span>
               <customer.logo
-                className="h-14 max-w-[8rem] lg:h-16 lg:max-w-[9rem]"
+                className="h-8 max-w-[8rem] lg:h-10 lg:max-w-[10rem]"
                 aria-hidden="true"
               />
             </div>

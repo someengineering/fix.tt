@@ -2297,6 +2297,10 @@ type PublicationIntegrations {
   """
   plausibleAnalyticsEnabled: Boolean
   """
+  The share ID for the Hashnode-provided Umami analytics instance.
+  """
+  umamiShareId: String
+  """
   The ID for the Hashnode-provided Umami analytics instance.
   """
   umamiWebsiteUUID: String
@@ -2577,9 +2581,10 @@ input PublishPostInput {
   """
   subtitle: String
   """
-  A list of tags added to the post.
+  A list of tags to add to the post. You can get a list of popular tags available on Hashnode here.
+  https://github.com/Hashnode/support/blob/main/misc/tags.json
   """
-  tags: [PublishPostTagInput!]!
+  tags: [PublishPostTagInput!]
   """
   The title of the post.
   """

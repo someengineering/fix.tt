@@ -118,23 +118,22 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
           <h2
-            className="mb-3 text-lg font-semibold uppercase leading-7 text-marian-blue-800 sm:text-xl"
+            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl"
             id="pricing"
           >
             Pricing
           </h2>
-          <p className="mx-auto mt-2 max-w-prose text-balance text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
-            Foundational AWS security for your whole company. Free for engineers
-            to try.
+          <p className="mx-auto max-w-prose text-balance font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+            Foundational AWS security for your whole company.{' '}
+            <span className="font-semibold text-cornflower-blue-500">
+              Free for engineers to try.
+            </span>
           </p>
         </div>
-        <div className="relative mx-auto max-w-prose text-balance text-lg leading-8 text-gray-600">
-          <p className="mt-6">
-            Fix pricing scales on a per-cloud-account basis, with an add-on to
-            buy more seats for your team. We offer a free tier and two-week
-            trials.
-          </p>
-        </div>
+        <p className="relative mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl">
+          Fix pricing scales on a per-cloud-account basis, with an add-on to buy
+          more seats for your team. We offer a free tier and two-week trials.
+        </p>
         <div className="mt-20 flow-root">
           <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
             {tiers.map((tier, index) => (

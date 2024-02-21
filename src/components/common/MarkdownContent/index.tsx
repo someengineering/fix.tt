@@ -1,5 +1,6 @@
 import GithubSlugger from 'github-slugger';
 import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import remarkSmartypants from 'remark-smartypants';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
@@ -24,6 +25,7 @@ export default function MarkdownContent({
 
   return (
     <Markdown
+      rehypePlugins={[rehypeRaw]}
       remarkPlugins={[remarkSmartypants]}
       components={{
         a: (props) => (
