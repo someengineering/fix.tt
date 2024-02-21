@@ -38,13 +38,9 @@ export default function BlogPostHeader({
 
   return (
     <header className="space-y-4">
-      <div className="flex flex-row items-center justify-between gap-x-8">
-        <span className="flex items-center space-x-6 text-base font-semibold leading-7 text-gray-500">
-          <time
-            dateTime={publishedAt}
-            className="font-bold text-marian-blue-800"
-            itemProp="datePublished"
-          >
+      <div className="flex flex-row items-center justify-between gap-x-10">
+        <span className="flex items-center space-x-6 text-base font-bold uppercase leading-7 text-gray-500 sm:text-lg">
+          <time dateTime={publishedAt} itemProp="datePublished">
             {new Date(publishedAt).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
