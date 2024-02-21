@@ -9,7 +9,7 @@
     h4,
     h5,
     h6 {
-      @apply mb-6 mt-12 font-display font-medium tracking-tight text-gray-900;
+      @apply mb-6 mt-12 font-bold tracking-tight text-gray-900;
 
       .hash-link {
         @apply select-none pl-1.5 opacity-0 transition-opacity before:content-['#'] hover:opacity-100;
@@ -60,12 +60,12 @@
 
   .static-page {
     p {
-      @apply my-8 text-xl leading-8 sm:text-2xl sm:leading-9;
+      @apply my-8 text-xl font-medium leading-8 text-gray-900 sm:text-2xl sm:leading-9;
     }
 
     h2 ~ p,
     li p {
-      @apply my-6 text-base leading-7 sm:text-lg sm:leading-8;
+      @apply my-6 text-base font-normal leading-7 sm:text-lg sm:leading-8;
     }
   }
 }

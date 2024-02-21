@@ -111,7 +111,7 @@ export default function Team() {
     <section className="bg-marian-blue-50 py-24 md:py-32">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-x-16 gap-y-20 px-6 lg:px-8 xl:grid-cols-6">
         <div className="max-w-2xl space-y-6 text-lg leading-8 text-gray-600 sm:text-xl xl:col-span-2">
-          <h2 className="text-4xl font-bold leading-none tracking-tight text-gray-900 sm:text-5xl">
+          <h2 className="font-display text-5xl font-medium uppercase leading-none tracking-tight text-marian-blue-900 sm:text-6xl">
             Meet the team
           </h2>
           <p>

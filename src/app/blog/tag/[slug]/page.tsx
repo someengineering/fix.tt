@@ -84,14 +84,14 @@ export default async function BlogTagPage({
         >
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-2 text-lg font-semibold uppercase leading-8 text-marian-blue-800 sm:text-xl">
+          <p className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl">
             From the blog
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
             {tagName.charAt(0).toUpperCase()}
             {tagName.slice(1)}
           </h1>
-          <p className="mt-2 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9">
+          <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
             Guides, how-tos, and news about {tagName} from the Fix team.
           </p>
           <BlogPostList

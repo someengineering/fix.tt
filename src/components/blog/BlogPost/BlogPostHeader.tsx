@@ -85,13 +85,15 @@ export default function BlogPostHeader({
         ) : null}
       </div>
       <h1
-        className="text-4xl font-bold tracking-tight text-gray-900"
+        className="text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl"
         itemProp="headline"
       >
         {title}
       </h1>
       {subtitle ? (
-        <p className="text-xl leading-8">{subtitle}</p>
+        <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
+          {subtitle}
+        </p>
       ) : (
         <meta itemProp="description" content={brief} />
       )}
