@@ -87,7 +87,7 @@ export default async function BlogSeriesPage({
           <p className="mb-2 text-lg font-semibold uppercase leading-8 text-marian-blue-800 sm:text-xl">
             From the blog
           </p>
-          <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h1 className="font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
             {seriesInfo.name}
           </h1>
           {seriesInfo.description ? (

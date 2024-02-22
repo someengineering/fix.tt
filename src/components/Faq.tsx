@@ -40,7 +40,7 @@ const faqs: {
           Security and compliance are a shared responsibility between cloud
           providers and their customers:
         </p>
-        <ul className="list-inside list-disc">
+        <ul className="ml-4 list-outside list-disc">
           <li>
             <strong>
               Security <em>of</em> the cloud:
@@ -80,7 +80,7 @@ const faqs: {
           recognized approach in cloud security referred to as &ldquo;agentless
           scanning.&rdquo;
         </p>
-        <ul className="list-inside list-disc">
+        <ul className="ml-4 list-outside list-disc">
           <li>
             <strong>Fix Collectors</strong> harvest configuration data for each
             individual resource via cloud provider APIs and send this data to
@@ -157,7 +157,7 @@ const faqs: {
   {
     question: 'How does Fix protect my data?',
     answer: (
-      <ul className="list-inside list-disc">
+      <ul className="ml-4 list-outside list-disc">
         <li>
           <strong>
             Fix does not access the actual data stored on your storage volumes
@@ -308,7 +308,7 @@ export default function Faq() {
     <section className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
         <h2
-          className="font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl"
+          className="font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl"
           id="faq"
         >
           Frequently asked questions
@@ -320,7 +320,7 @@ export default function Faq() {
                 <>
                   <Disclosure.Button
                     as="dt"
-                    className="flex w-full cursor-pointer items-start justify-between text-left text-gray-900 hover:text-cornflower-blue-500"
+                    className="flex w-full cursor-pointer items-start justify-between text-left text-gray-900 hover:text-gray-950"
                   >
                     <span className="text-lg font-semibold leading-7">
                       {faq.question}
@@ -335,7 +335,7 @@ export default function Faq() {
                   </Disclosure.Button>
                   <Disclosure.Panel
                     as="dd"
-                    className="mt-6 space-y-2 pr-12 text-base leading-7 text-gray-600"
+                    className="mt-6 space-y-2 pr-12 text-base leading-7 text-gray-700"
                     unmount={false}
                   >
                     {faq.answer}

@@ -54,7 +54,7 @@ export default function WhyFix() {
           >
             Why Fix?
           </h2>
-          <p className="max-w-prose text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+          <p className="max-w-prose text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
             <span className="font-semibold text-cornflower-blue-500">
               Detect, prioritize, and remediate
             </span>{' '}
@@ -84,9 +84,9 @@ export default function WhyFix() {
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
                 <dt className="text-lg font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-marian-blue-50">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-100">
                     <feature.icon
-                      className="h-6 w-6 text-cornflower-blue-600"
+                      className="h-6 w-6 text-marian-blue-900"
                       aria-hidden="true"
                     />
                   </div>

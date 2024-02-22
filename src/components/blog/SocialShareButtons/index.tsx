@@ -17,12 +17,12 @@ export default function SocialShareButtons({
   hashtags?: string[];
 }) {
   return (
-    <span className="isolate inline-flex flex-nowrap -space-x-px rounded-full shadow-sm">
+    <span className="isolate inline-flex flex-nowrap -space-x-px rounded-md">
       <TwitterShareButton url={url} title={title} hashtags={hashtags}>
         <span
           title="Share on X"
           aria-hidden="true"
-          className="relative inline-flex items-center rounded-l-full bg-white px-3.5 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-black focus:z-10"
+          className="relative inline-flex items-center rounded-l-md bg-white px-3.5 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-black focus:z-10"
         >
           <FaXTwitter className="h-5 w-5" />
         </span>
@@ -40,7 +40,7 @@ export default function SocialShareButtons({
         <span
           title="Share on Reddit"
           aria-hidden="true"
-          className="relative inline-flex items-center rounded-r-full bg-white px-3.5 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-[#ff4500] focus:z-10"
+          className="relative inline-flex items-center rounded-r-md bg-white px-3.5 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 hover:text-[#ff4500] focus:z-10"
         >
           <FaReddit className="h-5 w-5" />
         </span>

@@ -81,7 +81,7 @@ export default function BlogPostHeader({
         ) : null}
       </div>
       <h1
-        className="text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl"
+        className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl"
         itemProp="headline"
       >
         {title}
@@ -110,10 +110,10 @@ export default function BlogPostHeader({
             itemProp="image"
           />
         ) : (
-          <div className="h-10 w-10 shrink-0 rounded-full bg-gray-50" />
+          <div className="h-12 w-12 shrink-0 rounded-full bg-gray-50" />
         )}
-        <div className="text-base">
-          <p className="font-semibold text-gray-900" itemProp="name">
+        <div>
+          <p className="text-lg font-semibold text-gray-900" itemProp="name">
             {authorLink ? (
               <UnstyledLink href={authorLink} itemProp="url">
                 {author.name}
@@ -123,7 +123,10 @@ export default function BlogPostHeader({
             )}
           </p>
           {authorDescription ? (
-            <p className="line-clamp-1 text-gray-600" itemProp="description">
+            <p
+              className="line-clamp-1 text-base text-gray-500"
+              itemProp="description"
+            >
               {authorDescription}
             </p>
           ) : null}

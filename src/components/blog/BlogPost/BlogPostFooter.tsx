@@ -21,7 +21,7 @@ export default function BlogPost({
         {tags?.map((tag) => (
           <UnstyledLink
             href={`/blog/tag/${tag.slug}`}
-            className="relative z-10 rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 hover:border-marian-blue-100 hover:bg-marian-blue-50"
+            className="relative z-10 rounded-md bg-gray-50 px-3 py-1.5 hover:bg-marian-blue-50"
             key={`tag-${tag.slug}`}
           >
             {tag.name}

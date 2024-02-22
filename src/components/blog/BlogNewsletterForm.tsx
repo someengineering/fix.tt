@@ -47,7 +47,7 @@ export default function BlogNewsletterForm() {
 
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="relative isolate bg-gray-50 px-6 py-16 sm:rounded-3xl sm:px-24 xl:py-24">
+      <div className="relative isolate bg-gray-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
         <h2 className="mx-auto mb-10 max-w-2xl text-balance text-center font-display text-3xl font-medium uppercase text-marian-blue-900 sm:text-4xl">
           <span className="font-semibold text-cornflower-blue-500">
             Subscribe to our newsletter
@@ -100,7 +100,7 @@ export default function BlogNewsletterForm() {
                 placeholder="Email address"
                 required
                 {...register('email', { required: true })}
-                className={`min-w-0 flex-auto rounded-full border-0 bg-white px-3.5 py-2 text-base text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
+                className={`min-w-0 flex-auto rounded-lg border-0 bg-white px-3.5 py-2 text-base text-gray-900 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                   !touchedFields.email || !errors.email
                     ? 'ring-gray-400 focus:ring-marian-blue-600'
                     : 'ring-amaranth-600 focus:ring-amaranth-600'

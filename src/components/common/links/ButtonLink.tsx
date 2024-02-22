@@ -46,24 +46,24 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         ref={ref}
         {...rest}
         className={cn(
-          'inline-flex items-center whitespace-nowrap rounded-full font-bold',
+          'inline-flex items-center whitespace-nowrap font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-marian-blue-500',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
           [
-            size === 'lg' && ['px-5 py-2.5', 'text-lg'],
-            size === 'base' && ['px-4 py-2', 'text-base'],
-            size === 'sm' && ['px-3 py-1.5', 'text-sm'],
+            size === 'lg' && ['rounded-lg px-5 py-2.5', 'text-lg'],
+            size === 'base' && ['rounded-md px-4 py-2', 'text-base'],
+            size === 'sm' && ['rounded px-3 py-1.5', 'text-sm'],
           ],
           //#endregion  //*======== Size ===========
           //#region  //*=========== Variants ===========
           [
             variant === 'default' && [
-              'border-cornflower-blue-700 bg-cornflower-blue-600 text-white',
-              'hover:border-cornflower-blue-800 hover:bg-cornflower-blue-700 hover:text-white',
-              'active:border-cornflower-blue-900 active:bg-cornflower-blue-800',
-              'disabled:border-cornflower-blue-700 disabled:bg-cornflower-blue-600',
+              'border-cornflower-blue-600 bg-cornflower-blue-600 text-white',
+              'hover:border-cornflower-blue-700 hover:bg-cornflower-blue-700 hover:text-white',
+              'active:border-cornflower-blue-800 active:bg-cornflower-blue-800',
+              'disabled:border-cornflower-blue-600 disabled:bg-cornflower-blue-600',
             ],
             variant === 'outline' && [
               'text-cornflower-blue-600',

@@ -99,8 +99,11 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             ) : (
               <div className="h-10 w-10 shrink-0 rounded-full bg-gray-50" />
             )}
-            <div className="text-sm">
-              <p className="font-semibold text-gray-900" itemProp="name">
+            <div>
+              <p
+                className="text-base font-semibold text-gray-900"
+                itemProp="name"
+              >
                 {authorLink ? (
                   <UnstyledLink href={authorLink} itemProp="url">
                     {post.author.name}
@@ -111,7 +114,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               </p>
               {authorDescription ? (
                 <p
-                  className="line-clamp-1 text-gray-600"
+                  className="line-clamp-1 text-sm text-gray-500"
                   itemProp="description"
                 >
                   {authorDescription}
@@ -124,7 +127,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
+              className="relative z-10 rounded-md bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

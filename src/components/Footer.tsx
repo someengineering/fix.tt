@@ -51,7 +51,7 @@ export default function Footer() {
           <div key={item.name} className="pb-6">
             <UnstyledLink
               href={item.href}
-              className="text-sm font-bold uppercase leading-6 text-gray-500 hover:text-gray-900"
+              className="text-sm font-bold uppercase leading-6 text-gray-600 hover:text-gray-900"
             >
               {item.name}
             </UnstyledLink>

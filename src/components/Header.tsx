@@ -40,14 +40,14 @@ export default function Header() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-full p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center p-2.5 text-gray-600 hover:text-gray-900"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
             <LuMenu className="h-10 w-10" aria-hidden="true" />
           </button>
         </div>
-        <div className="hidden text-base font-bold uppercase text-gray-500 lg:flex lg:gap-x-12">
+        <div className="hidden text-base font-bold uppercase text-gray-600 lg:flex lg:gap-x-12">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="hover:text-gray-900">
               {item.name}
@@ -85,7 +85,7 @@ export default function Header() {
             </a>
             <button
               type="button"
-              className="-m-2.5 rounded-full p-2.5 text-gray-700"
+              className="-m-2.5 p-2.5 text-gray-600 hover:text-gray-900"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -99,7 +99,7 @@ export default function Header() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="block text-lg font-bold uppercase leading-7 text-gray-500 hover:text-gray-900"
+                    className="block text-lg font-bold uppercase leading-7 text-gray-600 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}

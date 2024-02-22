@@ -123,7 +123,7 @@ export default function Pricing() {
           >
             Pricing
           </h2>
-          <p className="mx-auto max-w-prose text-balance font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+          <p className="mx-auto max-w-prose text-balance font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
             Foundational AWS security for your whole company.{' '}
             <span className="font-semibold text-cornflower-blue-500">
               Free for engineers to try.
@@ -141,40 +141,40 @@ export default function Pricing() {
                 key={`tier-${slugger.slug(tier.name)}`}
                 className={cn(
                   tier.mostPopular
-                    ? 'ring-2 ring-marian-blue-600'
+                    ? 'ring-2 ring-cornflower-blue-600'
                     : 'ring-1 ring-gray-200',
-                  'flex flex-col rounded-3xl p-8',
+                  'flex flex-col rounded-2xl p-8',
                 )}
               >
                 <h3
                   id={`tier-${slugger.slug(tier.name)}`}
-                  className="flex items-center gap-3 text-3xl font-semibold leading-7 text-marian-blue-900"
+                  className="flex items-center gap-3 font-display text-3xl font-medium uppercase text-marian-blue-900"
                 >
                   <tier.icon />
                   {tier.name}
                   {tier.mostPopular ? (
-                    <span className="inline-flex items-center rounded-full bg-marian-blue-100 px-2 py-1 text-xs font-medium text-marian-blue-600 lg:hidden">
+                    <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 font-sans text-xs font-semibold normal-case text-marian-blue-900 lg:hidden">
                       Most popular
                     </span>
                   ) : null}
                 </h3>
-                <p className="mt-6 text-base leading-6 text-gray-900">
+                <p className="mt-6 text-base font-medium leading-6 text-gray-900">
                   {tier.description}
                 </p>
                 <div className="my-8 border-b border-gray-900/10 pb-8">
                   <p className="flex items-baseline gap-x-1 xl:flex-col">
                     {typeof tier.price === 'string' ? (
                       <>
-                        <span className="text-4xl font-bold tracking-tight text-gray-900">
+                        <span className="font-display text-3xl font-medium uppercase tracking-tight text-gray-900">
                           {tier.price}
                         </span>
                       </>
                     ) : (
                       <>
-                        <span className="text-4xl font-bold tracking-tight text-gray-900">
+                        <span className="text-3xl font-bold tracking-tight text-gray-900">
                           {tier.price.monthly}
                         </span>
-                        <span className="ml-1 text-sm font-semibold leading-6 text-gray-600 xl:ml-0 xl:mt-0.5">
+                        <span className="ml-1 text-sm font-semibold leading-6 text-gray-900 xl:ml-0 xl:mt-0.5">
                           per cloud account, per month
                         </span>
                       </>
@@ -184,13 +184,15 @@ export default function Pricing() {
                     className={cn(
                       typeof tier.price === 'string'
                         ? 'mt-0.5 xl:mb-6'
-                        : "before:content-['('] after:content-[')']",
-                      'text-sm text-gray-600',
+                        : 'xl:mt-0.5',
+                      'text-sm text-gray-500',
                     )}
                   >
+                    (
                     {tier.cloudAccounts.maximum
-                      ? `${tier.cloudAccounts.maximum} cloud account maximum`
-                      : `${tier.cloudAccounts.minimum} cloud account minimum`}
+                      ? `maximum of ${tier.cloudAccounts.maximum} cloud account`
+                      : `minimum of ${tier.cloudAccounts.minimum} cloud accounts`}
+                    )
                   </p>
                 </div>
                 <div className="gap-y-2 text-base leading-6 text-gray-600">
@@ -211,9 +213,9 @@ export default function Pricing() {
                   className="mt-1.5 grow space-y-1.5 text-sm leading-6 text-gray-600"
                 >
                   {tier.features.map((feature) => (
-                    <li key={feature} className="flex gap-x-3">
+                    <li key={feature} className="flex gap-x-2">
                       <LuCheck
-                        className="h-6 w-6 flex-none text-cornflower-blue-500"
+                        className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-500"
                         aria-hidden="true"
                       />
                       {feature}
@@ -233,13 +235,13 @@ export default function Pricing() {
         </div>
         <div className="mb-20 mt-5 flow-root">
           <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
-            <div className="flex flex-col rounded-3xl p-8 ring-1 ring-gray-200">
+            <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
               <h3 className="flex items-center gap-3 text-3xl font-semibold leading-7 text-marian-blue-900">
                 <LuArmchair />
                 Additional seats
               </h3>
               <p className="my-8 flex items-baseline gap-x-1">
-                <span className="text-4xl font-bold tracking-tight text-gray-900">
+                <span className="text-3xl font-bold tracking-tight text-gray-900">
                   $5
                 </span>
                 <span className="ml-1 text-sm font-semibold leading-6 text-gray-600">
@@ -250,7 +252,7 @@ export default function Pricing() {
                 Add additional seats to any paid plan.
               </p>
             </div>
-            <div className="flex flex-col rounded-3xl p-8 ring-1 ring-gray-200">
+            <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
               <h3 className="flex items-center gap-3 text-3xl font-semibold leading-7 text-marian-blue-900">
                 <LuPencilRuler />
                 Custom plans

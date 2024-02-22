@@ -43,7 +43,7 @@ export default function HomePage() {
             src={dashboardScreenshot}
             alt="Fix dashboard displays changes detected in the last week, security score, and top 5 possible security enhancements."
             sizes="100vw"
-            className="rounded-3xl shadow-lg"
+            className="rounded-xl shadow-md"
           />
         </div>
       </section>

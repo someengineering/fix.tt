@@ -60,7 +60,7 @@ export default async function AboutPage() {
           <h1 className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl">
             {staticPage.title}
           </h1>
-          <p className="text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+          <p className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
             We don&rsquo;t have a{' '}
             <span className="font-semibold text-cornflower-blue-500">
               silver bullet for cloud security

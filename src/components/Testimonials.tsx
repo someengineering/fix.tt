@@ -72,20 +72,20 @@ export default function Testimonials() {
                 <testimonial.companyLogo className="h-8 max-w-[6rem] self-start" />
               )}
               <figure className="flex flex-auto flex-col justify-between space-y-8">
-                <blockquote className="text-lg leading-8 text-gray-900">
+                <blockquote className="text-lg font-medium leading-8 text-gray-900">
                   <p>&ldquo;{testimonial.quote}&rdquo;</p>
                 </blockquote>
-                <figcaption className="flex items-center gap-x-6">
+                <figcaption className="flex items-center gap-x-4">
                   <Image
-                    className="h-14 w-14 rounded-full bg-gray-50"
+                    className="h-12 w-12 rounded-full bg-gray-50"
                     src={testimonial.authorPhoto}
                     alt=""
                   />
-                  <div className="text-base">
-                    <div className="font-semibold text-gray-900">
+                  <div>
+                    <div className="text-lg font-semibold text-gray-900">
                       {testimonial.authorName}
                     </div>
-                    <div className="mt-1 text-gray-500">
+                    <div className="line-clamp-1 text-base text-gray-500">
                       {testimonial.authorTitle} at {testimonial.companyName}
                     </div>
                   </div>

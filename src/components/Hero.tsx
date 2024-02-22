@@ -14,7 +14,7 @@ export default function Hero() {
           >
             For cloud security engineers
           </div>
-          <h1 className="text-balance font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+          <h1 className="text-balance font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
             The{' '}
             <span className="font-semibold text-cornflower-blue-500">
               asset inventory
@@ -24,7 +24,7 @@ export default function Hero() {
           <p className="mt-6 text-balance text-lg font-semibold text-gray-900 sm:text-xl">
             {siteConfig.description}
           </p>
-          <ul className="mt-2 list-inside list-disc">
+          <ul className="ml-4 mt-2 list-outside list-disc">
             <li>Understand your cloud resources and configurations.</li>
             <li>
               Get notified of policy violations in Slack, Discord, or Teams.

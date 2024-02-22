@@ -87,7 +87,7 @@ export default async function BlogTagPage({
           <p className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl">
             From the blog
           </p>
-          <h1 className="text-pretty font-display text-5xl font-medium uppercase text-marian-blue-900 sm:text-6xl">
+          <h1 className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
             {tagName.charAt(0).toUpperCase()}
             {tagName.slice(1)}
           </h1>
