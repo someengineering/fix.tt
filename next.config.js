@@ -2,9 +2,10 @@
 // @ts-check
 
 const { flatten } = require('lodash');
+const { withPlausibleProxy } = require('next-plausible');
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withPlausibleProxy()({
   eslint: {
     dirs: ['src'],
   },
@@ -126,4 +127,4 @@ module.exports = {
     useDeploymentIdServerActions: true,
     webpackBuildWorker: true,
   },
-};
+});

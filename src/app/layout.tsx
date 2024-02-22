@@ -2,6 +2,7 @@ import { Metadata, Viewport } from 'next';
 import { cookies } from 'next/headers';
 import Script from 'next/script';
 import { CookiesProvider } from 'next-client-cookies/server';
+import PlausibleProvider from 'next-plausible';
 
 import '@/styles/globals.css';
 
@@ -107,6 +108,9 @@ export default function RootLayout({
       lang="en"
       className={`scroll-smooth ${nunitoSans.variable} ${oswald.variable}`}
     >
+      <head>
+        <PlausibleProvider domain="fix.security" />
+      </head>
       <body className="bg-white">
         <CookiesProvider>
           <Header />
