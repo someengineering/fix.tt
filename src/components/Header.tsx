@@ -12,10 +12,10 @@ import Logo from '@/assets/logo.svg';
 import { siteConfig } from '@/constants/config';
 
 const navigation = [
-  { name: 'Why Fix?', href: '/#why' },
+  { name: 'About', href: '/about' },
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
-  { name: 'About', href: '/about' },
+  { name: 'Docs', href: 'https://docs.fix.security' },
   { name: 'Blog', href: '/blog' },
 ];
 
@@ -47,30 +47,26 @@ export default function Header() {
             <LuMenu className="h-10 w-10" aria-hidden="true" />
           </button>
         </div>
-        <div className="hidden text-base font-semibold leading-6 text-gray-900 lg:flex lg:gap-x-6">
+        <div className="hidden text-base font-bold uppercase text-gray-500 lg:flex lg:gap-x-12">
           {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="rounded-full px-3 py-1.5 hover:bg-marian-blue-50"
-            >
+            <a key={item.name} href={item.href} className="hover:text-gray-900">
               {item.name}
             </a>
           ))}
         </div>
         <div className="hidden space-x-2 lg:flex lg:flex-1 lg:justify-end">
           <ButtonLink
+            href="https://app.global.fixcloud.io/auth/register"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Start for free
+          </ButtonLink>
+          <ButtonLink
             href="https://app.global.fixcloud.io/auth/login"
             variant="ghost"
             onClick={() => setMobileMenuOpen(false)}
           >
             Log in
-          </ButtonLink>
-          <ButtonLink
-            href="https://app.global.fixcloud.io/auth/register"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Start for free
           </ButtonLink>
         </div>
       </nav>
@@ -96,14 +92,14 @@ export default function Header() {
               <LuX className="h-10 w-10" aria-hidden="true" />
             </button>
           </div>
-          <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
-              <div className="space-y-2 py-6">
+          <div className="mt-4 flow-root">
+            <div className="divide-y divide-gray-500/10">
+              <div className="space-y-6 py-6">
                 {navigation.map((item) => (
                   <a
                     key={item.name}
                     href={item.href}
-                    className="-mx-3 block rounded-full border border-transparent px-3 py-2 text-lg font-medium leading-7 text-gray-900 hover:border-cornflower-blue-100 hover:bg-cornflower-blue-50"
+                    className="block text-lg font-bold uppercase leading-7 text-gray-500 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -112,17 +108,17 @@ export default function Header() {
               </div>
               <div className="space-x-2 py-6">
                 <ButtonLink
-                  href="https://app.global.fixcloud.io/auth/login"
-                  variant="outline"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Log in
-                </ButtonLink>
-                <ButtonLink
                   href="https://app.global.fixcloud.io/auth/register"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Start for free
+                </ButtonLink>
+                <ButtonLink
+                  href="https://app.global.fixcloud.io/auth/login"
+                  variant="ghost"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Log in
                 </ButtonLink>
               </div>
             </div>

@@ -47,10 +47,12 @@ export default function BlogNewsletterForm() {
 
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="relative isolate overflow-hidden border border-marian-blue-100 bg-marian-blue-50 px-6 py-16 sm:rounded-3xl sm:px-24 xl:py-24">
-        <h2 className="mx-auto mb-10 max-w-2xl text-center text-3xl font-bold tracking-tight text-marian-blue-900 sm:text-4xl">
-          Subscribe to our newsletter to get notified of new articles and
-          updates.
+      <div className="relative isolate bg-gray-50 px-6 py-16 sm:rounded-3xl sm:px-24 xl:py-24">
+        <h2 className="mx-auto mb-10 max-w-2xl text-balance text-center font-display text-3xl font-medium uppercase text-marian-blue-900 sm:text-4xl">
+          <span className="font-semibold text-cornflower-blue-500">
+            Subscribe to our newsletter
+          </span>{' '}
+          to get notified of new articles and updates.
         </h2>
         {isSubmitted ? (
           <p className="text-center text-base font-semibold text-gray-600">

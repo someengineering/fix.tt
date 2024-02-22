@@ -7,9 +7,10 @@ import UnstyledLink from '@/components/common/links/UnstyledLink';
 import { siteConfig } from '@/constants/config';
 
 const navigation = [
+  { name: 'About', href: '/about' },
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
-  { name: 'About', href: '/about' },
+  { name: 'Docs', href: 'https://docs.fix.security' },
   { name: 'Blog', href: '/blog' },
   { name: 'Privacy', href: '/privacy-policy' },
   { name: 'Terms', href: '/terms-and-conditions' },
@@ -50,7 +51,7 @@ export default function Footer() {
           <div key={item.name} className="pb-6">
             <UnstyledLink
               href={item.href}
-              className="text-sm leading-6 text-gray-600 hover:text-gray-900"
+              className="text-sm font-bold uppercase leading-6 text-gray-500 hover:text-gray-900"
             >
               {item.name}
             </UnstyledLink>
@@ -69,7 +70,7 @@ export default function Footer() {
           </UnstyledLink>
         ))}
       </div>
-      <p className="mt-10 text-center text-xs leading-5 text-gray-500">
+      <p className="mt-10 text-center text-xs font-semibold uppercase leading-5 text-gray-500">
         {siteConfig.copyright}
       </p>
     </footer>
