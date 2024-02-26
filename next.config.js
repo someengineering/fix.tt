@@ -25,6 +25,16 @@ module.exports = withPlausibleProxy()({
   async redirects() {
     return [
       {
+        source: '/privacy',
+        permanent: true,
+        destination: `/privacy-policy`,
+      },
+      {
+        source: '/terms',
+        permanent: true,
+        destination: `/terms-and-conditions`,
+      },
+      {
         source: '/blog/series/:path*',
         permanent: false,
         destination: `/blog/category/:path*`,
@@ -56,14 +66,12 @@ module.exports = withPlausibleProxy()({
       {
         source: '/:path*',
         has: [
-          { type: 'host', value: 'fix-git-main-some-engineering.vercel.app' },
+          {
+            type: 'host',
+            value:
+              '(fix-git-main-some-engineering\\.vercel\\.app|origin\\.fix\\.security)',
+          },
         ],
-        permanent: true,
-        destination: 'https://fix.security/:path*',
-      },
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'origin.fix.security' }],
         permanent: true,
         destination: 'https://fix.security/:path*',
       },
@@ -77,6 +85,11 @@ module.exports = withPlausibleProxy()({
         source: '/docs/:path*',
         permanent: true,
         destination: 'https://docs.fix.security/:path*',
+      },
+      {
+        source: '/podcast(s)?/:path*',
+        permanent: false,
+        destination: 'https://resoto.com/podcast/:path*',
       },
     ];
   },
