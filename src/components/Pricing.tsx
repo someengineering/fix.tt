@@ -153,7 +153,7 @@ export default function Pricing() {
                   <tier.icon />
                   {tier.name}
                   {tier.mostPopular ? (
-                    <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 font-sans text-xs font-semibold normal-case text-marian-blue-900 lg:hidden">
+                    <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 font-sans text-xs font-semibold normal-case text-marian-blue-900 xl:hidden">
                       Most popular
                     </span>
                   ) : null}
