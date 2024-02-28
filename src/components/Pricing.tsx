@@ -53,7 +53,7 @@ const tiers: {
   },
   {
     name: 'Plus',
-    href: 'https://app.global.fixcloud.io/auth/register',
+    href: 'https://app.global.fixcloud.io/workspace-settings/billing-receipts?tier=Plus',
     icon: (props) => <LuWarehouse {...props} />,
     cta: 'Get started',
     price: { monthly: '$30' },
@@ -71,7 +71,7 @@ const tiers: {
   },
   {
     name: 'Business',
-    href: 'https://app.global.fixcloud.io/auth/register',
+    href: 'https://app.global.fixcloud.io/workspace-settings/billing-receipts?tier=Business',
     icon: (props) => <LuBuilding {...props} />,
     cta: 'Get started',
     price: { monthly: '$40' },
@@ -90,7 +90,7 @@ const tiers: {
   },
   {
     name: 'Enterprise',
-    href: 'https://app.global.fixcloud.io/auth/register',
+    href: 'https://app.global.fixcloud.io/workspace-settings/billing-receipts?tier=Enterprise',
     icon: (props) => <LuBuilding2 {...props} />,
     cta: 'Get started',
     price: { monthly: '$50' },

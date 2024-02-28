@@ -49,8 +49,8 @@
     "zod-form-data": "2.0.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "19.0.1",
-    "@commitlint/config-conventional": "19.0.0",
+    "@commitlint/cli": "19.0.3",
+    "@commitlint/config-conventional": "19.0.3",
     "@graphql-codegen/cli": "5.0.2",
     "@graphql-codegen/typed-document-node": "5.0.6",
     "@graphql-codegen/typescript": "4.0.6",
