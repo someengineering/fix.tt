@@ -11,17 +11,17 @@ export default function Hero() {
           <div className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl">
             For cloud security engineers
           </div>
-          <h1 className="text-balance font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
+          <h1 className="max-w-prose text-balance font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl lg:text-pretty">
             The{' '}
             <span className="font-semibold text-cornflower-blue-500">
               asset inventory
             </span>{' '}
             for your AWS security posture.
           </h1>
-          <p className="mt-6 text-balance text-lg font-semibold text-gray-900 sm:text-xl">
+          <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl lg:text-pretty">
             {siteConfig.description}
           </p>
-          <ul className="ml-4 mt-2 list-inside list-disc lg:list-outside">
+          <ul className="mx-auto mt-2 max-w-prose list-inside list-disc text-balance lg:ml-4 lg:list-outside lg:text-pretty">
             <li>Understand your cloud resources and configurations.</li>
             <li>
               Get notified of policy violations in Slack, Discord, or Teams.
