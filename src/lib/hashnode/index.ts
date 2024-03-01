@@ -56,7 +56,6 @@ import {
   TagSlugsQueryVariables,
 } from '@/generated/hashnode/graphql';
 import { getUserLink } from '@/utils/hashnode';
-import { openGraph } from '@/utils/og';
 
 const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
   next: { revalidate: isLocal ? 0 : 300, tags: ['hashnode'] },
@@ -384,12 +383,7 @@ export const getFeed = async (): Promise<Feed> => {
         date: new Date(post.updatedAt ? post.updatedAt : post.publishedAt),
         description: post.subtitle ?? post.brief,
         content: post.content?.html,
-        image: encodeXML(
-          openGraph({
-            title: post.title,
-            description: post.subtitle ?? undefined,
-          }),
-        ),
+        image: post.coverImage ? encodeXML(post.coverImage.url) : undefined,
         author: post.author
           ? [
               {

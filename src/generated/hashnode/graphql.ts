@@ -372,6 +372,8 @@ export type Draft = Node & {
   /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
   readTimeInMinutes: Scalars['Int']['output'];
+  /** The date the draft is scheduled to be published. */
+  scheduledDate?: Maybe<Scalars['DateTime']['output']>;
   /** SEO information of the draft. Contains title and description used in meta tags. */
   seo?: Maybe<Seo>;
   /** Information of the series the draft belongs to. */
@@ -572,9 +574,9 @@ export enum FeedType {
 }
 
 export enum HttpRedirectionType {
-  /** A permanent redirect that corresponds to the 308 HTTP status code. */
+  /** A permanent redirect that corresponds to the 302 HTTP status code. */
   Permanent = 'PERMANENT',
-  /** A temporary redirect that corresponds to the 307 HTTP status code. */
+  /** A temporary redirect that corresponds to the 301 HTTP status code. */
   Temporary = 'TEMPORARY',
 }
 
@@ -1167,6 +1169,8 @@ export type Post = Node & {
   series?: Maybe<Series>;
   /** The slug of the post. Used as address of the post on blog. Example - https://johndoe.com/my-post-slug */
   slug: Scalars['String']['output'];
+  /** Boolean flag to identify whether or not the post is sourced from GitHub. */
+  sourcedFromGithub: Scalars['Boolean']['output'];
   /** The subtitle of the post. Subtitle is a short description of the post which is also used in SEO if meta tags are not provided. */
   subtitle?: Maybe<Scalars['String']['output']>;
   /** Returns list of tags added to the post. Contains tag id, name, slug, etc. */
@@ -1407,6 +1411,8 @@ export type Publication = Node & {
   __typename?: 'Publication';
   /** The about section of the publication. */
   about?: Maybe<Content>;
+  /** Boolean flag indicating if the publication allows edits by contributors */
+  allowContributorEdits: Scalars['Boolean']['output'];
   /** The author who owns the publication. */
   author: User;
   /** The canonical URL of the publication. */
@@ -1681,6 +1687,27 @@ export type PublicationLinks = {
   /** YouTube URL of the publication. */
   youtube?: Maybe<Scalars['String']['output']>;
 };
+
+/** Contains the publication member information. */
+export type PublicationMember = Node & {
+  __typename?: 'PublicationMember';
+  /** The ID of the publication member. */
+  id: Scalars['ID']['output'];
+  /** The role of the user in the publication. */
+  role: PublicationMemberRole;
+  /** The user who is a member of the publication. */
+  user?: Maybe<User>;
+};
+
+/** The role of the user in the publication. */
+export enum PublicationMemberRole {
+  /** The user is an admin of the publication. */
+  Admin = 'ADMIN',
+  /** The user is a owner of the publication. */
+  Author = 'AUTHOR',
+  /** The user is a member of the publication. */
+  Contributor = 'CONTRIBUTOR',
+}
 
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
@@ -1983,10 +2010,11 @@ export type RecommendedPublicationEdge = Edge & {
   node: Publication;
 };
 
-export type RedirectionRule = {
+export type RedirectionRule = Node & {
   __typename?: 'RedirectionRule';
   /** The destination URL of the redirection rule. */
   destination: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
   /** The source URL of the redirection rule. */
   source: Scalars['String']['output'];
   /** The type of the redirection rule. */

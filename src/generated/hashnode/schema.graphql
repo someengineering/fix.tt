@@ -521,6 +521,10 @@ type Draft implements Node {
   ogMetaData: OpenGraphMetaData
   readTimeInMinutes: Int!
   """
+  The date the draft is scheduled to be published.
+  """
+  scheduledDate: DateTime
+  """
   SEO information of the draft. Contains title and description used in meta tags.
   """
   seo: SEO
@@ -819,11 +823,11 @@ enum FeedType {
 
 enum HttpRedirectionType {
   """
-  A permanent redirect that corresponds to the 308 HTTP status code.
+  A permanent redirect that corresponds to the 302 HTTP status code.
   """
   PERMANENT
   """
-  A temporary redirect that corresponds to the 307 HTTP status code.
+  A temporary redirect that corresponds to the 301 HTTP status code.
   """
   TEMPORARY
 }
@@ -1643,6 +1647,10 @@ type Post implements Node {
   """
   slug: String!
   """
+  Boolean flag to identify whether or not the post is sourced from GitHub.
+  """
+  sourcedFromGithub: Boolean!
+  """
   The subtitle of the post. Subtitle is a short description of the post which is also used in SEO if meta tags are not provided.
   """
   subtitle: String
@@ -1960,6 +1968,10 @@ type Publication implements Node {
   The about section of the publication.
   """
   about: Content
+  """
+  Boolean flag indicating if the publication allows edits by contributors
+  """
+  allowContributorEdits: Boolean!
   """
   The author who owns the publication.
   """
@@ -2369,6 +2381,42 @@ type PublicationLinks {
   YouTube URL of the publication.
   """
   youtube: String
+}
+
+"""
+Contains the publication member information.
+"""
+type PublicationMember implements Node {
+  """
+  The ID of the publication member.
+  """
+  id: ID!
+  """
+  The role of the user in the publication.
+  """
+  role: PublicationMemberRole!
+  """
+  The user who is a member of the publication.
+  """
+  user: User
+}
+
+"""
+The role of the user in the publication.
+"""
+enum PublicationMemberRole {
+  """
+  The user is an admin of the publication.
+  """
+  ADMIN
+  """
+  The user is a owner of the publication.
+  """
+  AUTHOR
+  """
+  The user is a member of the publication.
+  """
+  CONTRIBUTOR
 }
 
 """
@@ -2797,11 +2845,12 @@ type RecommendedPublicationEdge implements Edge {
   node: Publication!
 }
 
-type RedirectionRule {
+type RedirectionRule implements Node {
   """
   The destination URL of the redirection rule.
   """
   destination: String!
+  id: ID!
   """
   The source URL of the redirection rule.
   """
