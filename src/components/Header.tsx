@@ -56,13 +56,13 @@ export default function Header() {
         </div>
         <div className="hidden space-x-2 lg:flex lg:flex-1 lg:justify-end">
           <ButtonLink
-            href="https://app.global.fixcloud.io/auth/register"
+            href="https://app.fix.security/auth/register"
             onClick={() => setMobileMenuOpen(false)}
           >
             Start for free
           </ButtonLink>
           <ButtonLink
-            href="https://app.global.fixcloud.io/auth/login"
+            href="https://app.fix.security/auth/login"
             variant="ghost"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -108,13 +108,13 @@ export default function Header() {
               </div>
               <div className="space-x-2 py-6">
                 <ButtonLink
-                  href="https://app.global.fixcloud.io/auth/register"
+                  href="https://app.fix.security/auth/register"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Start for free
                 </ButtonLink>
                 <ButtonLink
-                  href="https://app.global.fixcloud.io/auth/login"
+                  href="https://app.fix.security/auth/login"
                   variant="ghost"
                   onClick={() => setMobileMenuOpen(false)}
                 >
