@@ -29,10 +29,7 @@ export default function Hero() {
             <li>Address risks with remediation suggestions.</li>
           </ul>
           <div className="mt-10 space-x-5">
-            <ButtonLink
-              href="https://app.global.fixcloud.io/auth/register"
-              size="lg"
-            >
+            <ButtonLink href="https://app.fix.security/auth/register" size="lg">
               Start for free
             </ButtonLink>
           </div>
