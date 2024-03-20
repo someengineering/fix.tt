@@ -1,4 +1,4 @@
-import { FaGithub, FaLinkedin, FaSquareRss } from 'react-icons/fa6';
+import { FaDiscord, FaGithub, FaLinkedin, FaSquareRss } from 'react-icons/fa6';
 
 import '@/styles/globals.css';
 
@@ -32,6 +32,11 @@ const social: {
     name: 'GitHub',
     href: 'https://github.com/someengineering',
     icon: (props) => <FaGithub {...props} />,
+  },
+  {
+    name: 'Discord',
+    href: 'https://discord.gg/fixsecurity',
+    icon: (props) => <FaDiscord {...props} />,
   },
   {
     name: 'Blog RSS feed',
