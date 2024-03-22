@@ -1,0 +1,4 @@
+export const SPOTIFY_CLIENT_ID = 'a71da6c1310545e888ea199105215402';
+export const SPOTIFY_CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+
+export const SPOTIFY_SHOW_ID = '5tZMGLARVjk2gZ8efyPiRc';

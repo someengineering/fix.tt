@@ -45,36 +45,34 @@ export default async function BlogPage() {
   }
 
   return (
-    <div className="py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div
-          className="mx-auto max-w-2xl lg:max-w-4xl"
-          itemScope
-          itemType="http://schema.org/Blog"
-          itemID={url}
+    <div className="px-6 py-16 sm:py-24 lg:px-8">
+      <div
+        className="mx-auto max-w-2xl lg:max-w-4xl"
+        itemScope
+        itemType="http://schema.org/Blog"
+        itemID={url}
+      >
+        <h1 className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
+          {title}
+        </h1>
+        <meta itemProp="name" content={siteConfig.blogTitle} />
+        <p
+          className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl"
+          itemProp="description"
         >
-          <h1 className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
-            {title}
-          </h1>
-          <meta itemProp="name" content={siteConfig.blogTitle} />
-          <p
-            className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl"
-            itemProp="description"
-          >
-            {description}
-          </p>
-          <BlogPostList
-            initialPosts={posts.edges.map((edge) => edge.node)}
-            initialPageInfo={posts.pageInfo}
-            getPosts={async (after: string) => {
-              'use server';
+          {description}
+        </p>
+        <BlogPostList
+          initialPosts={posts.edges.map((edge) => edge.node)}
+          initialPageInfo={posts.pageInfo}
+          getPosts={async (after: string) => {
+            'use server';
 
-              return await getPosts({
-                after,
-              });
-            }}
-          />
-        </div>
+            return await getPosts({
+              after,
+            });
+          }}
+        />
       </div>
     </div>
   );

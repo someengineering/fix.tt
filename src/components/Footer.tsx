@@ -1,4 +1,10 @@
-import { FaDiscord, FaGithub, FaLinkedin, FaSquareRss } from 'react-icons/fa6';
+import {
+  FaDiscord,
+  FaGithub,
+  FaLinkedin,
+  FaSpotify,
+  FaSquareRss,
+} from 'react-icons/fa6';
 
 import '@/styles/globals.css';
 
@@ -12,6 +18,7 @@ const navigation = [
   { name: 'FAQ', href: '/#faq' },
   { name: 'Docs', href: 'https://docs.fix.security' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Podcast', href: '/podcast' },
   { name: 'Privacy', href: '/privacy-policy' },
   { name: 'Terms', href: '/terms-and-conditions' },
 ];
@@ -37,6 +44,11 @@ const social: {
     name: 'Discord',
     href: 'https://discord.gg/fixsecurity',
     icon: (props) => <FaDiscord {...props} />,
+  },
+  {
+    name: 'Spotify',
+    href: 'https://podcasters.spotify.com/pod/show/the-security-cloud',
+    icon: (props) => <FaSpotify {...props} />,
   },
   {
     name: 'Blog RSS feed',

@@ -8,4 +8,7 @@ export const siteConfig = {
   blogTitle: 'Fix blog',
   blogDescription:
     'Guides, how-tos, and news about cloud security and the Fix platform.',
+  podcastTitle: 'The Security Cloud Podcast',
+  podcastDescription:
+    'Interviews with security engineers and CISOs about challenges in securing their cloud infrastructure. They share their stories and strategies used to drive results.',
 };
