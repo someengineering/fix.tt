@@ -6,7 +6,7 @@ import {
   TagFragment as HashnodeTag,
 } from '@/generated/hashnode/graphql';
 
-export default function BlogPost({
+export default function BlogPostFooter({
   url,
   title,
   tags,

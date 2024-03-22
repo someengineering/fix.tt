@@ -17,6 +17,7 @@ const navigation = [
   { name: 'FAQ', href: '/#faq' },
   { name: 'Docs', href: 'https://docs.fix.security' },
   { name: 'Blog', href: '/blog' },
+  { name: 'Podcast', href: '/podcast' },
 ];
 
 export default function Header() {

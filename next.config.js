@@ -15,10 +15,8 @@ module.exports = withPlausibleProxy()({
 
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cdn.hashnode.com',
-      },
+      { protocol: 'https', hostname: 'cdn.hashnode.com' },
+      { protocol: 'https', hostname: 'i.scdn.co' },
     ],
   },
 
@@ -87,9 +85,10 @@ module.exports = withPlausibleProxy()({
         destination: 'https://docs.fix.security/:path*',
       },
       {
-        source: '/podcast(s)?/:path*',
-        permanent: false,
-        destination: 'https://resoto.com/podcast/:path*',
+        source:
+          '/blog/graph-based-cloud-security-at-lyft-with-alex-chantavy-senior-software-engineer-at-lyft',
+        permanent: true,
+        destination: 'https://open.spotify.com/episode/1LysDLw6D6m5YuqBd2a9BF',
       },
     ];
   },
@@ -136,8 +135,6 @@ module.exports = withPlausibleProxy()({
   },
 
   experimental: {
-    useDeploymentId: true,
-    useDeploymentIdServerActions: true,
     webpackBuildWorker: true,
   },
 });

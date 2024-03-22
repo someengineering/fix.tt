@@ -2526,20 +2526,10 @@ export type PublicationMember = Node & {
   /** The ID of the publication member. */
   id: Scalars['ID']['output'];
   /** The role of the user in the publication. */
-  role: PublicationMemberRole;
+  role: UserPublicationRole;
   /** The user who is a member of the publication. */
   user?: Maybe<User>;
 };
-
-/** The role of the user in the publication. */
-export enum PublicationMemberRole {
-  /** The user is an admin of the publication. */
-  Admin = 'ADMIN',
-  /** The user is a owner of the publication. */
-  Author = 'AUTHOR',
-  /** The user is a member of the publication. */
-  Contributor = 'CONTRIBUTOR',
-}
 
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
