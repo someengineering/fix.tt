@@ -15,6 +15,7 @@ module.exports = {
         : { userAgent: '*', disallow: '/' },
       {
         userAgent: '*',
+        allow: ['/blog/feed.json'],
         disallow: [
           '/*.json$',
           '/*_buildManifest.js$',
