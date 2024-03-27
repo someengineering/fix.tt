@@ -23,7 +23,12 @@ const tiers: {
   cta: string;
   price: string | { monthly: string; annually?: string };
   description: string;
-  cloudAccounts: { maximum?: number; minimum?: number };
+  cloudAccounts:
+    | { maximum: number }
+    | {
+        included: number;
+        additionalCost: number;
+      };
   scanFrequency: string;
   seats: { included?: number; maximum?: number };
   features: string[];
@@ -56,10 +61,10 @@ const tiers: {
     href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Plus',
     icon: (props) => <LuWarehouse {...props} />,
     cta: 'Get started',
-    price: { monthly: '$30' },
+    price: { monthly: '$90' },
     description:
       'For growing teams looking to stay secure as they build out infrastructure.',
-    cloudAccounts: { minimum: 3 },
+    cloudAccounts: { included: 3, additionalCost: 30 },
     scanFrequency: 'Daily',
     seats: { included: 2, maximum: 20 },
     features: [
@@ -74,10 +79,10 @@ const tiers: {
     href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Business',
     icon: (props) => <LuBuilding {...props} />,
     cta: 'Get started',
-    price: { monthly: '$40' },
+    price: { monthly: '$400' },
     description:
       'For engineering teams looking to automate their cloud infrastructure security.',
-    cloudAccounts: { minimum: 10 },
+    cloudAccounts: { included: 10, additionalCost: 40 },
     scanFrequency: 'Hourly',
     seats: { included: 5, maximum: 50 },
     features: [
@@ -93,10 +98,10 @@ const tiers: {
     href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Enterprise',
     icon: (props) => <LuBuilding2 {...props} />,
     cta: 'Get started',
-    price: { monthly: '$50' },
+    price: { monthly: '$1250' },
     description:
       'For dedicated security teams looking to built an integrated security toolchain.',
-    cloudAccounts: { minimum: 25 },
+    cloudAccounts: { included: 25, additionalCost: 50 },
     scanFrequency: 'Hourly',
     seats: { included: 20 },
     features: [
@@ -135,7 +140,7 @@ export default function Pricing() {
           more seats for your team. We offer a free tier and two-week trials.
         </p>
         <div className="mt-20 flow-root">
-          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
+          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
             {tiers.map((tier, index) => (
               <div
                 key={`tier-${slugger.slug(tier.name)}`}
@@ -162,7 +167,7 @@ export default function Pricing() {
                   {tier.description}
                 </p>
                 <div className="my-8 border-b border-gray-900/10 pb-8">
-                  <p className="flex items-baseline gap-x-1 xl:flex-col">
+                  <p className="flex items-baseline gap-x-1">
                     {typeof tier.price === 'string' ? (
                       <>
                         <span className="font-display text-3xl font-medium uppercase tracking-tight text-gray-900">
@@ -174,33 +179,35 @@ export default function Pricing() {
                         <span className="text-3xl font-bold tracking-tight text-gray-900">
                           {tier.price.monthly}
                         </span>
-                        <span className="ml-1 text-sm font-semibold leading-6 text-gray-900 xl:ml-0 xl:mt-0.5">
-                          per cloud account, per month
+                        <span className="ml-1 text-lg font-semibold leading-6 text-gray-900 xl:ml-0 xl:mt-0.5">
+                          / month
                         </span>
                       </>
                     )}
                   </p>
-                  <p
-                    className={cn(
-                      typeof tier.price === 'string'
-                        ? 'mt-0.5 xl:mb-6'
-                        : 'xl:mt-0.5',
-                      'text-sm text-gray-500',
-                    )}
-                  >
-                    (
-                    {tier.cloudAccounts.maximum
-                      ? `maximum of ${tier.cloudAccounts.maximum} cloud account`
-                      : `minimum of ${tier.cloudAccounts.minimum} cloud accounts`}
-                    )
-                  </p>
+
+                  {'maximum' in tier.cloudAccounts ? (
+                    <p className="mt-0.5 text-base text-gray-500 md:mb-6 xl:mb-12">
+                      maximum of {tier.cloudAccounts.maximum} cloud account
+                    </p>
+                  ) : (
+                    <>
+                      <p className="mt-0.5 text-base text-gray-500">
+                        {tier.cloudAccounts.included} cloud accounts included
+                      </p>
+                      <p className="text-base text-gray-500">
+                        (${tier.cloudAccounts.additionalCost} / month per
+                        additional account)
+                      </p>
+                    </>
+                  )}
                 </div>
                 <div className="gap-y-2 text-base leading-6 text-gray-600">
                   <p>{tier.scanFrequency} scans</p>
                   <p>
                     {tier.seats.included
                       ? `${tier.seats.included} seats included${tier.seats.maximum ? ` (${tier.seats.maximum} max)` : ''}`
-                      : `${tier.seats.maximum} seat${tier.seats.maximum === 1 ? '' : 's'} max`}
+                      : `${tier.seats.maximum} seat${tier.seats.maximum === 1 ? '' : 's'} maximum`}
                   </p>
                 </div>
                 <p className="mt-6 text-base font-semibold leading-6 text-gray-900">
