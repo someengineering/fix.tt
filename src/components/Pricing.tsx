@@ -32,6 +32,7 @@ const tiers: {
   scanFrequency: string;
   seats: { included?: number; maximum?: number };
   features: string[];
+  support: string[];
   mostPopular?: boolean;
 }[] = [
   {
@@ -55,6 +56,7 @@ const tiers: {
       'Remediation recommendations',
       'Core CSPM scanning capabilities',
     ],
+    support: ['Community support'],
   },
   {
     name: 'Plus',
@@ -73,6 +75,7 @@ const tiers: {
       'Weekly email report',
       'Data export (CSV, JSON, PDF)',
     ],
+    support: ['Product support via email'],
   },
   {
     name: 'Business',
@@ -91,6 +94,7 @@ const tiers: {
       'Alerting integrations (PD, Slack, Discord, Teams)',
       'Task management integrations (coming soon!)',
     ],
+    support: ['Product support via email and live chat'],
     mostPopular: true,
   },
   {
@@ -111,6 +115,11 @@ const tiers: {
       'Single Sign on (coming soon!)',
       'Workspace analytics (coming soon!)',
       'Snowflake data export (coming soon!)	',
+    ],
+    support: [
+      'Product support via email, live chat, and video call',
+      'Integration advice for your specific cloud environment via video call',
+      'Optional professional services',
     ],
   },
 ];
@@ -217,15 +226,38 @@ export default function Pricing() {
                 </p>
                 <ul
                   role="list"
-                  className="mt-1.5 grow space-y-1.5 text-sm leading-6 text-gray-600"
+                  className="mt-1.5 space-y-1.5 text-sm leading-6 text-gray-600 md:min-h-[15rem] xl:min-h-[18rem]"
                 >
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex gap-x-2">
+                  {tier.features.map((feature, index) => (
+                    <li
+                      key={`feature-${slugger.slug(tier.name)}-${index}`}
+                      className="flex gap-x-2"
+                    >
                       <LuCheck
                         className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-500"
                         aria-hidden="true"
                       />
                       {feature}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-6 text-base font-semibold leading-6 text-gray-900">
+                  Support:
+                </p>
+                <ul
+                  role="list"
+                  className="mt-1.5 grow space-y-1.5 text-sm leading-6 text-gray-600"
+                >
+                  {tier.support.map((option, index) => (
+                    <li
+                      key={`support-${slugger.slug(tier.name)}-${index}`}
+                      className="flex gap-x-2"
+                    >
+                      <LuCheck
+                        className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-500"
+                        aria-hidden="true"
+                      />
+                      {option}
                     </li>
                   ))}
                 </ul>
