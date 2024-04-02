@@ -11,7 +11,7 @@ export default function HowFixWorks() {
           >
             How Fix works
           </h2>
-          <p className="mx-auto mt-2 max-w-prose font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
+          <p className="mx-auto mt-2 max-w-prose text-4xl font-extrabold sm:text-5xl">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </div>

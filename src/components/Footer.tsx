@@ -68,7 +68,7 @@ export default function Footer() {
           <div key={item.name} className="pb-6">
             <UnstyledLink
               href={item.href}
-              className="text-sm font-bold uppercase leading-6 text-gray-600 hover:text-gray-900"
+              className="text-sm font-bold leading-6 text-gray-600 hover:text-gray-900"
             >
               {item.name}
             </UnstyledLink>
@@ -80,14 +80,14 @@ export default function Footer() {
           <UnstyledLink
             key={item.name}
             href={item.href}
-            className="text-gray-400 hover:text-gray-500"
+            className="text-gray-400 hover:text-gray-600"
           >
             <span className="sr-only">{item.name}</span>
             <item.icon className="h-6 w-6" aria-hidden="true" />
           </UnstyledLink>
         ))}
       </div>
-      <p className="mt-10 text-center text-xs font-semibold uppercase leading-5 text-gray-500">
+      <p className="mt-10 text-center text-xs font-semibold leading-5 text-gray-600">
         {siteConfig.copyright}
       </p>
     </footer>

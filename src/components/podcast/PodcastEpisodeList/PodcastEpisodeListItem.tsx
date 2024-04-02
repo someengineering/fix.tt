@@ -39,7 +39,7 @@ export default function PodcastEpisodeListItem({
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-500">
+        <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-600">
           <time dateTime={episode.release_date} itemProp="datePublished">
             {new Date(episode.release_date).toLocaleDateString('en-US', {
               year: 'numeric',
@@ -56,7 +56,7 @@ export default function PodcastEpisodeListItem({
         </header>
         <div className="group relative max-w-xl space-y-4">
           <h3
-            className="mt-2 text-pretty font-display text-3xl font-medium uppercase text-marian-blue-900 group-hover:text-marian-blue-800"
+            className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
             itemProp="headline"
           >
             <UnstyledLink href={episode.external_urls.spotify} itemProp="url">

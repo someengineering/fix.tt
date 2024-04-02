@@ -49,13 +49,13 @@ export default function WhyFix() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2
-            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl"
+            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl"
             id="why"
           >
             Why Fix?
           </h2>
-          <p className="max-w-prose text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
-            <span className="font-semibold text-cornflower-blue-500">
+          <p className="max-w-prose text-pretty text-4xl font-extrabold sm:text-5xl">
+            <span className="text-cornflower-blue-600">
               Detect, prioritize, and remediate
             </span>{' '}
             critical cloud risks.
@@ -83,10 +83,10 @@ export default function WhyFix() {
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
-                <dt className="text-lg font-semibold leading-7 text-gray-900">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-100">
+                <dt className="text-lg font-bold leading-7 text-gray-900">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50">
                     <feature.icon
-                      className="h-6 w-6 text-marian-blue-900"
+                      className="h-6 w-6 text-cornflower-blue-600"
                       aria-hidden="true"
                     />
                   </div>

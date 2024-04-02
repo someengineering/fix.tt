@@ -84,7 +84,7 @@ const tiers: {
     cta: 'Get started',
     price: { monthly: '$400' },
     description:
-      'For engineering teams looking to automate their cloud infrastructure security.',
+      'For engineering teams looking to automate cloud infrastructure security.',
     cloudAccounts: { included: 10, additionalCost: 40 },
     scanFrequency: 'Hourly',
     seats: { included: 5, maximum: 50 },
@@ -132,14 +132,14 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
           <h2
-            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl"
+            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl"
             id="pricing"
           >
             Pricing
           </h2>
-          <p className="mx-auto max-w-prose text-balance font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
+          <p className="mx-auto max-w-prose text-balance text-4xl font-extrabold sm:text-5xl">
             Foundational AWS security for your whole company.{' '}
-            <span className="font-semibold text-cornflower-blue-500">
+            <span className="text-cornflower-blue-600">
               Free for engineers to try.
             </span>
           </p>
@@ -162,24 +162,24 @@ export default function Pricing() {
               >
                 <h3
                   id={`tier-${slugger.slug(tier.name)}`}
-                  className="flex items-center gap-3 font-display text-3xl font-medium uppercase text-marian-blue-900"
+                  className="flex items-center gap-3 text-3xl font-bold text-cornflower-blue-600"
                 >
                   <tier.icon />
                   {tier.name}
                   {tier.mostPopular ? (
-                    <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 font-sans text-xs font-semibold normal-case text-marian-blue-900 xl:hidden">
+                    <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 font-sans text-xs xl:hidden">
                       Most popular
                     </span>
                   ) : null}
                 </h3>
-                <p className="mt-6 text-base font-medium leading-6 text-gray-900">
+                <p className="mt-6 text-base font-medium leading-6 text-gray-900 xl:min-h-[6rem]">
                   {tier.description}
                 </p>
-                <div className="my-8 border-b border-gray-900/10 pb-8">
+                <div className="my-8 border-b border-gray-900/10 pb-8 text-base">
                   <p className="flex items-baseline gap-x-1">
                     {typeof tier.price === 'string' ? (
                       <>
-                        <span className="font-display text-3xl font-medium uppercase tracking-tight text-gray-900">
+                        <span className="text-3xl font-medium tracking-tight text-gray-900">
                           {tier.price}
                         </span>
                       </>
@@ -194,24 +194,23 @@ export default function Pricing() {
                       </>
                     )}
                   </p>
-
                   {'maximum' in tier.cloudAccounts ? (
-                    <p className="mt-0.5 text-base text-gray-500 md:mb-6 xl:mb-12">
+                    <p className="mt-0.5 md:mb-6 xl:mb-12">
                       maximum of {tier.cloudAccounts.maximum} cloud account
                     </p>
                   ) : (
                     <>
-                      <p className="mt-0.5 text-base text-gray-500">
+                      <p className="mt-0.5">
                         {tier.cloudAccounts.included} cloud accounts included
                       </p>
-                      <p className="text-base text-gray-500">
+                      <p>
                         (${tier.cloudAccounts.additionalCost} / month per
                         additional account)
                       </p>
                     </>
                   )}
                 </div>
-                <div className="gap-y-2 text-base leading-6 text-gray-600">
+                <div className="gap-y-2 text-base leading-6">
                   <p>{tier.scanFrequency} scans</p>
                   <p>
                     {tier.seats.included
@@ -226,7 +225,7 @@ export default function Pricing() {
                 </p>
                 <ul
                   role="list"
-                  className="mt-1.5 space-y-1.5 text-sm leading-6 text-gray-600 md:min-h-[15rem] xl:min-h-[18rem]"
+                  className={`mt-1.5 space-y-1.5 text-sm leading-6 text-gray-600 ${index < 2 ? 'md:min-h-[14.625rem]' : 'md:min-h-[10.875rem]'} xl:min-h-[17.625rem]`}
                 >
                   {tier.features.map((feature, index) => (
                     <li
@@ -234,7 +233,7 @@ export default function Pricing() {
                       className="flex gap-x-2"
                     >
                       <LuCheck
-                        className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-500"
+                        className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-600"
                         aria-hidden="true"
                       />
                       {feature}
@@ -254,7 +253,7 @@ export default function Pricing() {
                       className="flex gap-x-2"
                     >
                       <LuCheck
-                        className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-500"
+                        className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-600"
                         aria-hidden="true"
                       />
                       {option}
@@ -275,7 +274,7 @@ export default function Pricing() {
         <div className="mb-20 mt-5 flow-root">
           <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
             <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
-              <h3 className="flex items-center gap-3 text-3xl font-semibold leading-7 text-marian-blue-900">
+              <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
                 <LuArmchair />
                 Additional seats
               </h3>
@@ -292,7 +291,7 @@ export default function Pricing() {
               </p>
             </div>
             <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
-              <h3 className="flex items-center gap-3 text-3xl font-semibold leading-7 text-marian-blue-900">
+              <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
                 <LuPencilRuler />
                 Custom plans
               </h3>

@@ -10,7 +10,7 @@ import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
-import { nunitoSans, oswald } from '@/app/fonts';
+import { plusJakartaSans } from '@/app/fonts';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { GTM_CONTAINER_ID } from '@/constants/google';
@@ -104,10 +104,7 @@ export default function RootLayout({
   const consent = cookieStore.get('cookie_consent')?.value === 'true';
 
   return (
-    <html
-      lang="en"
-      className={`scroll-smooth ${nunitoSans.variable} ${oswald.variable}`}
-    >
+    <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
         <PlausibleProvider domain="fix.security" />
       </head>

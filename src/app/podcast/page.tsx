@@ -44,7 +44,7 @@ export default async function PodcastPage() {
       <div className="mx-auto max-w-2xl lg:max-w-4xl">
         <div itemScope itemType="http://schema.org/PodcastSeries" itemID={url}>
           <h1
-            className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl"
+            className="text-pretty text-4xl font-extrabold sm:text-5xl"
             itemProp="name"
           >
             {siteConfig.podcastTitle}

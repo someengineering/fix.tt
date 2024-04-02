@@ -84,10 +84,10 @@ export default async function BlogTagPage({
         >
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl">
+          <p className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
             From the blog
           </p>
-          <h1 className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
+          <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
             {tagName.charAt(0).toUpperCase()}
             {tagName.slice(1)}
           </h1>

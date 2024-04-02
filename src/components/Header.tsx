@@ -26,13 +26,13 @@ export default function Header() {
   return (
     <header>
       <nav
-        className="flex items-center justify-between p-6 lg:px-8"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:gap-x-12 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1">
+        <div className="flex">
           <a
             href="/"
-            className="-m-1.5 p-1.5 text-marian-blue-900 hover:text-marian-blue-800"
+            className="-m-1.5 p-1.5 text-cornflower-blue-600 hover:text-cornflower-blue-700"
           >
             <span className="sr-only">{siteConfig.title}</span>
             <Logo className="h-16 w-auto" />
@@ -41,14 +41,14 @@ export default function Header() {
         <div className="flex lg:hidden">
           <button
             type="button"
-            className="-m-2.5 inline-flex items-center justify-center p-2.5 text-gray-600 hover:text-gray-900"
+            className="-m-2.5 inline-flex items-center justify-center p-2.5 text-gray-700 hover:text-gray-900"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
             <LuMenu className="h-10 w-10" aria-hidden="true" />
           </button>
         </div>
-        <div className="hidden text-base font-bold uppercase text-gray-600 lg:flex lg:gap-x-12">
+        <div className="hidden text-base font-bold text-gray-700 lg:flex lg:gap-x-10">
           {navigation.map((item) => (
             <a key={item.name} href={item.href} className="hover:text-gray-900">
               {item.name}
@@ -82,11 +82,11 @@ export default function Header() {
           <div className="flex items-center justify-between">
             <a href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">{siteConfig.title}</span>
-              <Logo className="h-16 w-auto text-marian-blue-900 hover:text-marian-blue-800" />
+              <Logo className="h-16 w-auto text-cornflower-blue-600 hover:text-cornflower-blue-700" />
             </a>
             <button
               type="button"
-              className="-m-2.5 p-2.5 text-gray-600 hover:text-gray-900"
+              className="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
@@ -100,7 +100,7 @@ export default function Header() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="block text-lg font-bold uppercase leading-7 text-gray-600 hover:text-gray-900"
+                    className="block text-lg font-bold leading-7 text-gray-700 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}

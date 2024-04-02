@@ -60,7 +60,7 @@
 
   .static-page {
     p {
-      @apply my-8 text-xl font-medium leading-8 text-gray-900 sm:text-2xl sm:leading-9;
+      @apply my-8 text-xl font-medium leading-8 sm:text-2xl sm:leading-9;
     }
 
     h2 ~ p,

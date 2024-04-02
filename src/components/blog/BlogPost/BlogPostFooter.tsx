@@ -17,7 +17,7 @@ export default function BlogPostFooter({
 }) {
   return (
     <footer className="flex flex-col gap-y-8 md:flex-row md:justify-between md:gap-x-8 md:gap-y-0">
-      <div className="flex flex-wrap justify-center gap-2 text-base font-medium text-marian-blue-900 md:justify-start">
+      <div className="flex flex-wrap justify-center gap-2 text-base font-semibold text-cornflower-blue-600 md:justify-start">
         {tags?.map((tag) => (
           <UnstyledLink
             href={`/blog/tag/${tag.slug}`}

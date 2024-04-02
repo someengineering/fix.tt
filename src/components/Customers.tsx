@@ -42,10 +42,10 @@ export default function Customers() {
     <div className="bg-gray-50 py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <h2
-          className="text-balance text-center font-display text-2xl font-medium uppercase leading-8 text-gray-900"
+          className="text-balance text-center text-2xl font-bold leading-8 text-gray-900"
           id="customers"
         >
-          Security engineers at startups and Fortune 500 companies use fix:
+          Security engineers at startups and Fortune 500 companies use Fix:
         </h2>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:mt-10 lg:justify-between lg:gap-x-0">
           {customers.map((customer, index) => (

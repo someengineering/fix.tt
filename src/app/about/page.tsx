@@ -57,12 +57,12 @@ export default async function AboutPage() {
     <>
       <div className="px-6 py-32 lg:px-8">
         <div className="mx-auto max-w-3xl text-lg leading-7 text-gray-700">
-          <h1 className="mb-3 text-lg font-bold uppercase leading-7 text-gray-500 sm:text-xl">
+          <h1 className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
             {staticPage.title}
           </h1>
-          <p className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl">
+          <p className="text-pretty text-4xl font-extrabold sm:text-5xl">
             We don&rsquo;t have a{' '}
-            <span className="font-semibold text-cornflower-blue-500">
+            <span className="text-cornflower-blue-600">
               silver bullet for cloud security
             </span>
             .

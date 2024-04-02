@@ -307,10 +307,7 @@ export default function Faq() {
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-        <h2
-          className="font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl"
-          id="faq"
-        >
+        <h2 className="text-4xl font-extrabold sm:text-5xl" id="faq">
           Frequently asked questions
         </h2>
         <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
@@ -335,7 +332,7 @@ export default function Faq() {
                   </Disclosure.Button>
                   <Disclosure.Panel
                     as="dd"
-                    className="mt-6 space-y-2 pr-12 text-base leading-7 text-gray-700"
+                    className="mt-6 space-y-2 pr-12 text-base font-medium leading-7 text-gray-700"
                     unmount={false}
                   >
                     {faq.answer}

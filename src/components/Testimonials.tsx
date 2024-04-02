@@ -85,7 +85,7 @@ export default function Testimonials() {
                     <div className="text-lg font-semibold text-gray-900">
                       {testimonial.authorName}
                     </div>
-                    <div className="line-clamp-1 text-base text-gray-500">
+                    <div className="line-clamp-1 text-base text-gray-600">
                       {testimonial.authorTitle} at {testimonial.companyName}
                     </div>
                   </div>

@@ -1,13 +1,7 @@
-import { Nunito_Sans, Oswald } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 
-export const nunitoSans = Nunito_Sans({
+export const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-nunito-sans',
-});
-
-export const oswald = Oswald({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-oswald',
+  variable: '--font-plus-jakarta-sans',
 });

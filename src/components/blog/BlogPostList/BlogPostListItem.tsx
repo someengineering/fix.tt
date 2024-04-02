@@ -41,7 +41,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-500">
+        <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-600">
           <time dateTime={post.publishedAt} itemProp="datePublished">
             {new Date(post.publishedAt).toLocaleDateString('en-US', {
               year: 'numeric',
@@ -64,9 +64,9 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             <meta itemProp="dateModified" content={post.updatedAt} />
           ) : null}
         </header>
-        <div className="group relative max-w-xl space-y-4">
+        <div className="group relative max-w-xl space-y-2">
           <h3
-            className="mt-2 text-pretty font-display text-3xl font-medium uppercase text-marian-blue-900 group-hover:text-marian-blue-800"
+            className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
             itemProp="headline"
           >
             <UnstyledLink href={`/blog/${post.slug}`} itemProp="url">
@@ -81,7 +81,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             {post.subtitle ?? post.brief}
           </p>
           <div
-            className="relative flex items-center gap-x-3"
+            className="relative flex items-center gap-x-3 pt-2"
             itemProp="author"
             itemScope
             itemType="https://schema.org/Person"
@@ -114,7 +114,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               </p>
               {authorDescription ? (
                 <p
-                  className="line-clamp-1 text-sm text-gray-500"
+                  className="line-clamp-1 text-sm font-medium text-gray-600"
                   itemProp="description"
                 >
                   {authorDescription}
@@ -123,7 +123,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </div>
           </div>
         </div>
-        <footer className="mt-4 flex gap-x-1.5 text-sm font-semibold text-marian-blue-900">
+        <footer className="mt-4 flex gap-x-1.5 text-sm font-semibold text-cornflower-blue-600">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}

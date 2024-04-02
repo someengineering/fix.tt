@@ -38,32 +38,6 @@ export default {
         '900': '#2b357d',
         '950': '#1e234d',
       },
-      // tangerine: {
-      //   '50': '#fffbec',
-      //   '100': '#fff5d3',
-      //   '200': '#ffe8a5',
-      //   '300': '#ffd66d',
-      //   '400': '#ffb832',
-      //   '500': '#ffa00a',
-      //   '600': '#f78400', // Tangerine
-      //   '700': '#cc6402',
-      //   '800': '#a14d0b',
-      //   '900': '#82410c',
-      //   '950': '#461f04',
-      // },
-      // jade: {
-      //   '50': '#ebfef4',
-      //   '100': '#d0fbe2',
-      //   '200': '#a4f6ca',
-      //   '300': '#6aebaf',
-      //   '400': '#2fd88f',
-      //   '500': '#0abf77',
-      //   '600': '#00ac6b', // Jade
-      //   '700': '#007c51',
-      //   '800': '#036241',
-      //   '900': '#045037',
-      //   '950': '#012d20',
-      // },
       amaranth: {
         '50': '#fff1f3',
         '100': '#ffe4e7',
@@ -80,10 +54,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-nunito-sans)', ...defaultTheme.fontFamily.sans],
-        display: [
-          'var(--font-oswald)',
-          'var(--font-nunito-sans)',
+        sans: [
+          'var(--font-plus-jakarta-sans)',
           ...defaultTheme.fontFamily.sans,
         ],
       },

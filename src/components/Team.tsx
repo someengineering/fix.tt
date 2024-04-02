@@ -111,7 +111,7 @@ export default function Team() {
     <section className="bg-gray-50 px-6 py-32 lg:px-8">
       <div className="mx-auto grid max-w-3xl grid-cols-1 gap-x-16 gap-y-20 xl:max-w-7xl xl:grid-cols-6">
         <div className="max-w-2xl space-y-6 text-lg font-medium leading-8 text-gray-900 sm:text-xl xl:col-span-2">
-          <h2 className="font-display text-5xl font-medium uppercase leading-none text-marian-blue-900 sm:text-6xl">
+          <h2 className="text-5xl font-extrabold leading-none sm:text-6xl">
             Meet the team
           </h2>
           <p>
@@ -139,10 +139,10 @@ export default function Team() {
                 alt=""
               />
               <div className="max-w-xl flex-auto">
-                <h3 className="font-display text-3xl font-medium uppercase text-marian-blue-900 sm:text-4xl">
+                <h3 className="text-3xl font-extrabold text-cornflower-blue-600">
                   {person.name}
                 </h3>
-                <p className="text-base font-semibold leading-7 text-gray-900">
+                <p className="text-lg font-bold leading-7 text-gray-900">
                   {person.role}
                 </p>
                 <div className="mt-6 space-y-4 text-base leading-7 text-gray-600">
@@ -152,7 +152,7 @@ export default function Team() {
                   <li>
                     <a
                       href={person.linkedinUrl}
-                      className="text-gray-400 hover:text-gray-500"
+                      className="text-gray-400 hover:text-gray-600"
                     >
                       <span className="sr-only">LinkedIn</span>
                       <FaLinkedin className="h-5 w-5" aria-hidden="true" />
@@ -161,7 +161,7 @@ export default function Team() {
                   <li>
                     <a
                       href={person.githubUrl}
-                      className="text-gray-400 hover:text-gray-500"
+                      className="text-gray-400 hover:text-gray-600"
                     >
                       <span className="sr-only">GitHub</span>
                       <FaGithub className="h-5 w-5" aria-hidden="true" />

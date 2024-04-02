@@ -39,7 +39,7 @@ export default function BlogPostHeader({
   return (
     <header className="space-y-4">
       <div className="flex flex-row items-center justify-between gap-x-10">
-        <span className="flex items-center space-x-6 text-base font-bold uppercase leading-7 text-gray-500 sm:text-lg">
+        <span className="flex items-center space-x-6 text-base font-bold uppercase leading-7 text-gray-600 sm:text-lg">
           <time dateTime={publishedAt} itemProp="datePublished">
             {new Date(publishedAt).toLocaleDateString('en-US', {
               year: 'numeric',
@@ -81,7 +81,7 @@ export default function BlogPostHeader({
         ) : null}
       </div>
       <h1
-        className="text-pretty font-display text-4xl font-medium uppercase text-marian-blue-900 sm:text-5xl"
+        className="text-pretty text-4xl font-extrabold text-cornflower-blue-600 sm:text-5xl"
         itemProp="headline"
       >
         {title}
@@ -94,7 +94,7 @@ export default function BlogPostHeader({
         <meta itemProp="description" content={brief} />
       )}
       <div
-        className="relative flex items-center gap-x-4"
+        className="relative flex items-center gap-x-4 pt-2"
         itemProp="author"
         itemScope
         itemType="https://schema.org/Person"
@@ -124,7 +124,7 @@ export default function BlogPostHeader({
           </p>
           {authorDescription ? (
             <p
-              className="line-clamp-1 text-base text-gray-500"
+              className="line-clamp-1 text-base font-medium text-gray-600"
               itemProp="description"
             >
               {authorDescription}
