@@ -1,3 +1,4 @@
+import { YouTubeEmbed } from '@next/third-parties/google';
 import GithubSlugger from 'github-slugger';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -86,6 +87,22 @@ export default function MarkdownContent({
             sizes="350vw"
           />
         ),
+        p: (props) => {
+          const youtubeEmbed = props.children
+            ?.toString()
+            .match(/^%\[https:\/\/youtu\.be\/(?<videoId>[\w\d\-_]{11})]$/);
+
+          if (youtubeEmbed?.groups?.videoId) {
+            return (
+              <YouTubeEmbed
+                videoid={youtubeEmbed.groups.videoId}
+                params="controls=0&rel=0"
+              />
+            );
+          }
+
+          return <p>{props.children}</p>;
+        },
       }}
       className={cn('markdown', className)}
     >
