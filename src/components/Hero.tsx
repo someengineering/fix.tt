@@ -1,13 +1,14 @@
 import ButtonLink from '@/components/common/links/ButtonLink';
 
 import CspmDiagram from '@/assets/diagrams/cspm.svg';
+import CspmDiagramMobile from '@/assets/diagrams/cspm-mobile.svg';
 import { siteConfig } from '@/constants/config';
 
 export default function Hero() {
   return (
     <section className="isolate py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 text-center lg:flex lg:items-center lg:gap-x-4 lg:px-8 lg:text-left">
-        <div className="mx-auto pb-10 lg:p-0">
+        <div className="mx-auto pb-12 lg:p-0">
           <div className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
             For cloud security engineers
           </div>
@@ -28,13 +29,14 @@ export default function Hero() {
             </li>
             <li>Address risks with remediation suggestions.</li>
           </ul>
-          <div className="mt-10 space-x-5">
+          <div className="mt-6 space-x-5">
             <ButtonLink href="https://app.fix.security/auth/register" size="lg">
               Start for free
             </ButtonLink>
           </div>
         </div>
-        <CspmDiagram className="mx-auto w-full max-w-3xl flex-shrink-0 lg:w-7/12" />
+        <CspmDiagramMobile className="w-full sm:hidden" />
+        <CspmDiagram className="mx-auto hidden w-full max-w-3xl flex-shrink-0 sm:flex lg:w-7/12" />
       </div>
     </section>
   );
