@@ -99,6 +99,14 @@ module.exports = withPlausibleProxy()({
         source: '/api/blog/view',
         destination: 'https://hn-ping2.hashnode.com/api/view',
       },
+      {
+        source: '/api/ingest/static/:path*',
+        destination: 'https://eu-assets.i.posthog.com/static/:path*',
+      },
+      {
+        source: '/api/ingest/:path*',
+        destination: 'https://eu.i.posthog.com/:path*',
+      },
     ];
   },
 

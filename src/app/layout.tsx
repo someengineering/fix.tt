@@ -1,6 +1,5 @@
 import { Metadata, Viewport } from 'next';
-import { cookies } from 'next/headers';
-import Script from 'next/script';
+import dynamic from 'next/dynamic';
 import { CookiesProvider } from 'next-client-cookies/server';
 import PlausibleProvider from 'next-plausible';
 
@@ -13,8 +12,12 @@ import Header from '@/components/Header';
 import { plusJakartaSans } from '@/app/fonts';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
-import { GTM_CONTAINER_ID } from '@/constants/google';
+import PosthogProvider from '@/providers/posthog';
 import { openGraph } from '@/utils/og';
+
+const PosthogPageView = dynamic(() => import('../components/PosthogPageView'), {
+  ssr: false,
+});
 
 const url = siteConfig.url;
 const title = siteConfig.title;
@@ -74,35 +77,11 @@ export const viewport: Viewport = {
   colorScheme: 'only light',
 };
 
-const gtmScript = `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('consent', 'default', {
-  'ad_storage': 'denied',
-  'analytics_storage': 'denied'
-});
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');
-`;
-
-const consentScript = `
-gtag('consent', 'update', {
-  'ad_storage': 'granted',
-  'analytics_storage': 'granted'
-});
-`;
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-  const consent = cookieStore.get('cookie_consent')?.value === 'true';
-
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
@@ -110,33 +89,13 @@ export default function RootLayout({
       </head>
       <body className="bg-white">
         <CookiesProvider>
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          {GTM_CONTAINER_ID ? (
-            <>
-              <Script
-                id="gtm"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{
-                  __html: gtmScript,
-                }}
-              />
-              {consent ? (
-                <>
-                  <Script
-                    id="consent"
-                    strategy="afterInteractive"
-                    dangerouslySetInnerHTML={{
-                      __html: consentScript,
-                    }}
-                  />
-                </>
-              ) : (
-                <CookieConsent />
-              )}
-            </>
-          ) : null}
+          <PosthogProvider>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+            <CookieConsent />
+            <PosthogPageView />
+          </PosthogProvider>
         </CookiesProvider>
       </body>
     </html>
