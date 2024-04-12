@@ -1,23 +1,30 @@
 'use client';
 
 import { useCookies } from 'next-client-cookies';
+import { usePostHog } from 'posthog-js/react';
 import { useEffect, useState } from 'react';
 
 import Button from '@/components/common/buttons/Button';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 export default function CookieConsent() {
+  const posthog = usePostHog();
   const cookies = useCookies();
   const [showConsent, setShowConsent] = useState(false);
 
-  useEffect(
-    () =>
-      setShowConsent(
-        cookies.get('cookie_consent') !== 'true' &&
-          cookies.get('cookie_consent') !== 'false',
-      ),
-    [cookies],
-  );
+  useEffect(() => {
+    if (posthog) {
+      if (posthog.has_opted_in_capturing()) {
+        setShowConsent(false);
+      } else {
+        setShowConsent(cookies.get('cookie_consent') !== 'false');
+      }
+    }
+
+    if (cookies.get('cookie_consent') !== 'false') {
+      cookies.remove('cookie_consent');
+    }
+  }, [cookies, posthog]);
 
   if (!showConsent) {
     return null;
@@ -35,14 +42,8 @@ export default function CookieConsent() {
           <Button
             onClick={(e) => {
               e.preventDefault();
-              cookies.set('cookie_consent', 'true', {
-                expires: Date.now() + 365 * 24 * 60 * 60 * 1000,
-              });
               setShowConsent(false);
-              gtag('consent', 'update', {
-                ad_storage: 'granted',
-                analytics_storage: 'granted',
-              });
+              posthog.opt_in_capturing({ enable_persistence: true });
             }}
           >
             Accept
@@ -51,10 +52,9 @@ export default function CookieConsent() {
             variant="ghost"
             onClick={(e) => {
               e.preventDefault();
-              cookies.set('cookie_consent', 'false', {
-                expires: Date.now() + 24 * 60 * 60 * 1000,
-              });
               setShowConsent(false);
+              cookies.set('cookie_consent', 'false', { expires: 180 });
+              posthog.opt_out_capturing();
             }}
           >
             Reject
