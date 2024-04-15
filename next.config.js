@@ -33,6 +33,11 @@ module.exports = withPlausibleProxy()({
         destination: `/terms-and-conditions`,
       },
       {
+        source: '/podcasts/:path*',
+        permanent: true,
+        destination: `/podcast/:path*`,
+      },
+      {
         source: '/blog/series/:path*',
         permanent: false,
         destination: `/blog/category/:path*`,
