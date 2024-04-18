@@ -1,5 +1,4 @@
 import { Metadata, Viewport } from 'next';
-import dynamic from 'next/dynamic';
 import PlausibleProvider from 'next-plausible';
 import { Suspense } from 'react';
 
@@ -8,16 +7,13 @@ import '@/styles/globals.css';
 import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import PosthogPageView from '@/components/PosthogPageView';
 
 import { plusJakartaSans } from '@/app/fonts';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import PosthogProvider from '@/providers/posthog';
 import { openGraph } from '@/utils/og';
-
-const PosthogPageView = dynamic(() => import('../components/PosthogPageView'), {
-  ssr: false,
-});
 
 const url = siteConfig.url;
 const title = siteConfig.title;
