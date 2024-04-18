@@ -1,6 +1,6 @@
 'use client';
 
-import { useCookies } from 'next-client-cookies';
+import Cookies from 'js-cookie';
 import { usePostHog } from 'posthog-js/react';
 import { useEffect, useState } from 'react';
 
@@ -11,26 +11,25 @@ import { isLocal, isProd } from '@/constants/env';
 
 export default function CookieConsent() {
   const posthog = usePostHog();
-  const cookies = useCookies();
   const [showConsent, setShowConsent] = useState(false);
 
   useEffect(() => {
     if (posthog.has_opted_in_capturing()) {
       setShowConsent(false);
     } else {
-      setShowConsent(cookies.get('cookie_consent') !== 'false');
+      setShowConsent(Cookies.get('cookie_consent') !== 'false');
     }
 
     if (
       posthog.has_opted_in_capturing() ||
-      cookies.get('cookie_consent') !== 'false'
+      Cookies.get('cookie_consent') !== 'false'
     ) {
-      cookies.remove('cookie_consent', {
+      Cookies.remove('cookie_consent', {
         domain: isProd ? '.fix.security' : undefined,
         secure: !isLocal,
       });
     }
-  }, [cookies, posthog]);
+  }, [posthog]);
 
   if (!showConsent) {
     return null;
@@ -59,8 +58,8 @@ export default function CookieConsent() {
             onClick={(e) => {
               e.preventDefault();
               setShowConsent(false);
-              cookies.set('cookie_consent', 'false', {
-                expires: 30,
+              Cookies.set('cookie_consent', 'false', {
+                expires: isProd ? 30 : undefined,
                 domain: isProd ? '.fix.security' : undefined,
                 secure: !isLocal,
               });

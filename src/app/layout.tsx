@@ -1,7 +1,7 @@
 import { Metadata, Viewport } from 'next';
 import dynamic from 'next/dynamic';
-import { CookiesProvider } from 'next-client-cookies/server';
 import PlausibleProvider from 'next-plausible';
+import { Suspense } from 'react';
 
 import '@/styles/globals.css';
 
@@ -88,15 +88,15 @@ export default function RootLayout({
         <PlausibleProvider domain="fix.security" />
       </head>
       <body className="bg-white">
-        <CookiesProvider>
-          <PosthogProvider>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-            <CookieConsent />
+        <PosthogProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <CookieConsent />
+          <Suspense>
             <PosthogPageView />
-          </PosthogProvider>
-        </CookiesProvider>
+          </Suspense>
+        </PosthogProvider>
       </body>
     </html>
   );

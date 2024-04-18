@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 
 export default function BlogLayout({
@@ -8,7 +10,9 @@ export default function BlogLayout({
   return (
     <>
       {children}
-      <BlogNewsletterForm />
+      <Suspense>
+        <BlogNewsletterForm />
+      </Suspense>
     </>
   );
 }
