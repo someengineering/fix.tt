@@ -13,15 +13,16 @@ export default function CookieConsent() {
   const [showConsent, setShowConsent] = useState(false);
 
   useEffect(() => {
-    if (posthog) {
-      if (posthog.has_opted_in_capturing()) {
-        setShowConsent(false);
-      } else {
-        setShowConsent(cookies.get('cookie_consent') !== 'false');
-      }
+    if (posthog.has_opted_in_capturing()) {
+      setShowConsent(false);
+    } else {
+      setShowConsent(cookies.get('cookie_consent') !== 'false');
     }
 
-    if (cookies.get('cookie_consent') !== 'false') {
+    if (
+      posthog.has_opted_in_capturing() ||
+      cookies.get('cookie_consent') !== 'false'
+    ) {
       cookies.remove('cookie_consent');
     }
   }, [cookies, posthog]);
@@ -53,7 +54,7 @@ export default function CookieConsent() {
             onClick={(e) => {
               e.preventDefault();
               setShowConsent(false);
-              cookies.set('cookie_consent', 'false', { expires: 180 });
+              cookies.set('cookie_consent', 'false');
               posthog.opt_out_capturing();
             }}
           >

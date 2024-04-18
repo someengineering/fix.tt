@@ -155,6 +155,27 @@ const faqs: {
     ),
   },
   {
+    question: 'How does Fix ensure the security and compliance of its systems?',
+    answer: (
+      <p>
+        Fix is currently undergoing{' '}
+        <PrimaryLink href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2">
+          <abbr title="Service Organization Control Type 2">SOC 2</abbr>
+        </PrimaryLink>{' '}
+        and{' '}
+        <PrimaryLink href="https://www.iso.org/standard/27001">
+          <abbr title="International Organization for Standardization">
+            ISO
+          </abbr>
+          /<abbr title="International Electrotechnical Commission">IEC</abbr>{' '}
+          27001
+        </PrimaryLink>{' '}
+        certifications to demonstrate our commitment to security and compliance
+        best practices.
+      </p>
+    ),
+  },
+  {
     question: 'How does Fix protect my data?',
     answer: (
       <ul className="ml-4 list-outside list-disc">
