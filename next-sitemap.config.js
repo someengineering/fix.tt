@@ -10,7 +10,7 @@ module.exports = {
   robotsTxtOptions: {
     additionalSitemaps: ['https://fix.security/sitemap.xml'],
     policies: [
-      process.env.VERCEL_ENV === 'production'
+      process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
         ? { userAgent: '*', allow: '/' }
         : { userAgent: '*', disallow: '/' },
       {
