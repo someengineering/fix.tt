@@ -3,7 +3,7 @@
 import posthog from 'posthog-js';
 import { PostHogProvider as Provider } from 'posthog-js/react';
 
-import { isLocal } from '@/constants/env';
+import { isLocal, isProd } from '@/constants/env';
 import {
   POSTHOG_API_HOST,
   POSTHOG_PROJECT_API_KEY,
@@ -14,6 +14,8 @@ if (typeof window !== 'undefined' && POSTHOG_PROJECT_API_KEY) {
   posthog.init(POSTHOG_PROJECT_API_KEY, {
     api_host: POSTHOG_API_HOST,
     ui_host: POSTHOG_UI_HOST,
+    cross_subdomain_cookie: isProd,
+    secure_cookie: !isLocal,
     debug: isLocal,
     capture_pageview: false, // Page views are captured manually
 

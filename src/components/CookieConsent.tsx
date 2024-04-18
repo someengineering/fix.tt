@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import Button from '@/components/common/buttons/Button';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
+import { isLocal, isProd } from '@/constants/env';
+
 export default function CookieConsent() {
   const posthog = usePostHog();
   const cookies = useCookies();
@@ -23,7 +25,10 @@ export default function CookieConsent() {
       posthog.has_opted_in_capturing() ||
       cookies.get('cookie_consent') !== 'false'
     ) {
-      cookies.remove('cookie_consent');
+      cookies.remove('cookie_consent', {
+        domain: isProd ? '.fix.security' : undefined,
+        secure: !isLocal,
+      });
     }
   }, [cookies, posthog]);
 
@@ -54,7 +59,11 @@ export default function CookieConsent() {
             onClick={(e) => {
               e.preventDefault();
               setShowConsent(false);
-              cookies.set('cookie_consent', 'false');
+              cookies.set('cookie_consent', 'false', {
+                expires: 30,
+                domain: isProd ? '.fix.security' : undefined,
+                secure: !isLocal,
+              });
               posthog.opt_out_capturing();
             }}
           >
