@@ -38,9 +38,9 @@ module.exports = withPlausibleProxy()({
         destination: `/podcast/:path*`,
       },
       {
-        source: '/blog/series/:path*',
-        permanent: false,
-        destination: `/blog/category/:path*`,
+        source: '/blog/category/:path*',
+        permanent: true,
+        destination: `/blog/series/:path*`,
       },
       ...flatten(
         ['/rss.xml', '/atom.xml', '/feed.json'].map((path) => [

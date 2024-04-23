@@ -26,7 +26,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
       itemType="http://schema.org/BlogPosting"
       itemID={`${siteConfig.url}/blog/${post.slug}`}
     >
-      <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+      <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-[7/8] lg:w-60 lg:shrink-0">
         {post.coverImage ? (
           <NextImage
             src={post.coverImage.url}
@@ -41,17 +41,32 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-600">
-          <time dateTime={post.publishedAt} itemProp="datePublished">
-            {new Date(post.publishedAt).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </time>
-          <span className="flex items-center space-x-1.5">
-            <LuBookOpen className="h-4 w-4" aria-hidden="true" />
-            <span>{post.readTimeInMinutes} min read</span>
+        <header className="flex flex-wrap items-center gap-x-5 gap-y-0.5 text-sm font-bold uppercase leading-7 text-gray-600">
+          {post.series ? (
+            <UnstyledLink
+              href={`/blog/series/${post.series.slug}`}
+              title="This post is part of a series"
+              className="whitespace-nowrap rounded-md bg-cornflower-blue-800 px-2 py-1 font-extrabold leading-none text-white hover:bg-cornflower-blue-900"
+            >
+              {post.series.name}
+            </UnstyledLink>
+          ) : null}
+          <span className="flex flex-wrap items-center gap-x-5">
+            <time
+              dateTime={post.publishedAt}
+              itemProp="datePublished"
+              className="whitespace-nowrap"
+            >
+              {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+            <span className="flex items-center space-x-1.5 whitespace-nowrap">
+              <LuBookOpen className="h-4 w-4" aria-hidden="true" />
+              <span>{post.readTimeInMinutes} min read</span>
+            </span>
           </span>
           <link
             itemProp="image"
@@ -64,9 +79,9 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             <meta itemProp="dateModified" content={post.updatedAt} />
           ) : null}
         </header>
-        <div className="group relative max-w-xl space-y-2">
+        <div className="group relative space-y-2">
           <h3
-            className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
+            className="mt-1 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
             itemProp="headline"
           >
             <UnstyledLink href={`/blog/${post.slug}`} itemProp="url">

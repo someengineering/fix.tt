@@ -65,7 +65,7 @@ export async function GET() {
       }),
     ),
     ...seriesSlugs
-      .map((slug) => `${siteConfig.url}/blog/category/${slug}`)
+      .map((slug) => `${siteConfig.url}/blog/series/${slug}`)
       .map(
         (loc): ISitemapField => ({
           loc,

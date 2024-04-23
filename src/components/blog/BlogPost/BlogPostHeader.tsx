@@ -6,6 +6,7 @@ import NextImage from '@/components/common/NextImage';
 
 import {
   DraftTagFragment as HashnodeDraftTag,
+  SeriesFragment as HashnodeSeries,
   TagFragment as HashnodeTag,
   UserFragment as HashnodeUser,
 } from '@/generated/hashnode/graphql';
@@ -18,6 +19,7 @@ export default function BlogPostHeader({
   subtitle,
   brief,
   author,
+  series,
   tags,
   publishedAt,
   updatedAt,
@@ -28,6 +30,7 @@ export default function BlogPostHeader({
   subtitle?: string;
   brief?: string;
   author: HashnodeUser;
+  series?: HashnodeSeries;
   tags?: (HashnodeTag | HashnodeDraftTag)[];
   publishedAt: string;
   updatedAt?: string;
@@ -39,20 +42,31 @@ export default function BlogPostHeader({
   return (
     <header className="space-y-4">
       <div className="flex flex-row items-center justify-between gap-x-10">
-        <span className="flex items-center space-x-6 text-base font-bold uppercase leading-7 text-gray-600 sm:text-lg">
-          <time dateTime={publishedAt} itemProp="datePublished">
-            {new Date(publishedAt).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </time>
-          {readTimeInMinutes ? (
-            <span className="flex items-center space-x-2">
-              <LuBookOpen className="h-5 w-5" aria-hidden="true" />
-              <span>{readTimeInMinutes} min read</span>
-            </span>
+        <span className="flex flex-wrap items-center gap-x-6 gap-y-1 whitespace-nowrap text-base font-bold uppercase leading-7 text-gray-600 sm:text-lg">
+          {series ? (
+            <UnstyledLink
+              href={`/blog/series/${series.slug}`}
+              title="This post is part of a series"
+              className="rounded-md bg-cornflower-blue-800 px-3 py-1.5 font-extrabold leading-none text-white hover:bg-cornflower-blue-900"
+            >
+              {series.name}
+            </UnstyledLink>
           ) : null}
+          <span className="flex flex-wrap items-center gap-x-6">
+            <time dateTime={publishedAt} itemProp="datePublished">
+              {new Date(publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </time>
+            {readTimeInMinutes ? (
+              <span className="flex items-center space-x-2">
+                <LuBookOpen className="h-5 w-5" aria-hidden="true" />
+                <span>{readTimeInMinutes} min read</span>
+              </span>
+            ) : null}
+          </span>
         </span>
         <link
           itemProp="image"

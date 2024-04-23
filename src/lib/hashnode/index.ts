@@ -49,6 +49,7 @@ import {
   SubscribeToNewsletterMutation,
   SubscribeToNewsletterMutationVariables,
   TagDocument,
+  TagFragment,
   TagQuery,
   TagQueryVariables,
   TagSlugsDocument,
@@ -160,7 +161,9 @@ export const getAllSeriesSlugs = async () => {
 
       slugs = [
         ...slugs,
-        ...data.publication.seriesList.edges.map((edge) => edge.node.slug),
+        ...data.publication.seriesList.edges
+          .filter((edge) => edge.node.posts.totalDocuments)
+          .map((edge) => edge.node.slug),
       ];
 
       if (
@@ -254,55 +257,39 @@ export const getPosts = async ({
     },
   );
 
+  data.publication?.posts?.edges.forEach((edge) => {
+    if (edge.node.tags) {
+      Object.assign(edge.node.tags, sortAndFormatTags(edge.node.tags));
+    }
+  });
+
   return data.publication?.posts;
 };
 
 export const getAllPosts = async () => {
-  const data = await gqlClient.request<PostsQuery, PostsQueryVariables>(
-    PostsDocument,
-    {
-      host: HASHNODE_HOST,
-      first: 20,
-    },
-  );
+  const data = await getPosts({ first: 20 });
 
   let posts: PostFragment[] = [];
 
-  if (data.publication) {
-    posts = data.publication.posts.edges.map((edge) => edge.node);
+  if (data?.edges) {
+    posts = data.edges.map((edge) => edge.node);
 
     const fetchMore = async (after?: string) => {
-      const data = await gqlClient.request<PostsQuery, PostsQueryVariables>(
-        PostsDocument,
-        {
-          host: HASHNODE_HOST,
-          first: 20,
-          after,
-        },
-      );
+      const data = await getPosts({ first: 20, after });
 
-      if (!data.publication) {
+      if (!data?.edges) {
         return;
       }
 
-      posts = [
-        ...posts,
-        ...data.publication.posts.edges.map((edge) => edge.node),
-      ];
+      posts = [...posts, ...data.edges.map((edge) => edge.node)];
 
-      if (
-        data.publication.posts.pageInfo.hasNextPage &&
-        data.publication.posts.pageInfo.endCursor
-      ) {
-        await fetchMore(data.publication.posts.pageInfo.endCursor);
+      if (data.pageInfo?.hasNextPage && data.pageInfo.endCursor) {
+        await fetchMore(data.pageInfo.endCursor);
       }
     };
 
-    if (
-      data.publication.posts.pageInfo.hasNextPage &&
-      data.publication.posts.pageInfo.endCursor
-    ) {
-      await fetchMore(data.publication.posts.pageInfo.endCursor);
+    if (data.pageInfo?.hasNextPage && data.pageInfo.endCursor) {
+      await fetchMore(data.pageInfo.endCursor);
     }
   }
 
@@ -328,6 +315,12 @@ export const getPostsByTag = async ({
     after,
   });
 
+  data.publication?.posts?.edges.forEach((edge) => {
+    if (edge.node.tags) {
+      Object.assign(edge.node.tags, sortAndFormatTags(edge.node.tags));
+    }
+  });
+
   return data.publication?.posts;
 };
 
@@ -348,6 +341,12 @@ export const getPostsBySeries = async ({
     seriesSlug,
     first: first && first > 0 ? (first > 20 ? 20 : first) : 5,
     after,
+  });
+
+  data.publication?.series?.posts?.edges.forEach((edge) => {
+    if (edge.node.tags) {
+      Object.assign(edge.node.tags, sortAndFormatTags(edge.node.tags));
+    }
   });
 
   return data.publication?.series?.posts;
@@ -411,11 +410,34 @@ export const getPost = async (postSlug: string) => {
     },
   );
 
+  if (data.publication?.post?.tags) {
+    Object.assign(
+      data.publication.post.tags,
+      sortAndFormatTags(data.publication.post.tags),
+    );
+  }
+
   return data.publication?.post;
 };
 
 const tagNameMapping: Record<string, string> = {
   cspm: 'CSPM',
+};
+
+const formatTagName = (tag: string) => {
+  if (tag in tagNameMapping) {
+    return tagNameMapping[tag];
+  }
+
+  return tag;
+};
+
+const sortAndFormatTags = (tags: TagFragment[]): TagFragment[] => {
+  return tags
+    .map((tag) => ({ ...tag, name: formatTagName(tag.name) }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, 'en-US', { sensitivity: 'base' }),
+    );
 };
 
 export const getTagName = async (tagSlug: string) => {
@@ -426,11 +448,7 @@ export const getTagName = async (tagSlug: string) => {
     },
   );
 
-  if (data.tag?.name && data.tag.name in tagNameMapping) {
-    return tagNameMapping[data.tag.name];
-  }
-
-  return data.tag?.name;
+  return formatTagName(data.tag?.name ?? tagSlug);
 };
 
 export const getSeries = async (seriesSlug: string) => {
@@ -456,6 +474,13 @@ export const getDraft = async (id: string) => {
       id,
     },
   );
+
+  if (data.draft?.tagsV2) {
+    Object.assign(
+      data.draft.tagsV2,
+      sortAndFormatTags(data.draft.tagsV2 as TagFragment[]),
+    );
+  }
 
   return data.draft;
 };

@@ -112,7 +112,7 @@ export default function BlogNewsletterForm() {
                 {...register('email', { required: true })}
                 className={`min-w-0 flex-auto rounded-lg border-0 bg-white px-3.5 py-2 text-base text-gray-900 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                   !touchedFields.email || !errors.email
-                    ? 'ring-gray-400 focus:ring-marian-blue-600'
+                    ? 'ring-gray-400 focus:ring-cornflower-blue-600'
                     : 'ring-amaranth-600 focus:ring-amaranth-600'
                 }`}
               />

@@ -28,7 +28,7 @@ export async function generateMetadata({
     return {};
   }
 
-  const url = `${siteConfig.url}/blog/category/${params.slug}`;
+  const url = `${siteConfig.url}/blog/series/${params.slug}`;
   const title = `${series.name} | Blog`;
   const description = series.description?.text;
   const ogImage = openGraph({
@@ -84,14 +84,14 @@ export default async function BlogSeriesPage({
         >
           <meta itemProp="name" content={siteConfig.blogTitle} />
           <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-2 text-lg font-semibold uppercase leading-8 text-marian-blue-800 sm:text-xl">
-            From the blog
+          <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
+            Blog series
           </p>
-          <h1 className="text-4xl font-extrabold sm:text-5xl">
+          <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
             {seriesInfo.name}
           </h1>
           {seriesInfo.description ? (
-            <p className="mt-2 text-xl leading-8 text-gray-600 sm:text-2xl sm:leading-9">
+            <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
               {seriesInfo.description.text}
             </p>
           ) : null}
@@ -106,6 +106,7 @@ export default async function BlogSeriesPage({
                 after,
               });
             }}
+            showSeries={false}
           />
         </div>
       </div>

@@ -39,6 +39,7 @@ export default function BlogPost({
             subtitle={post.subtitle ?? undefined}
             brief={post.brief}
             author={post.author}
+            series={post.series ?? undefined}
             tags={post.tags ?? undefined}
             publishedAt={post.publishedAt}
             updatedAt={post.updatedAt ?? undefined}

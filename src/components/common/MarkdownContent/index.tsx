@@ -1,6 +1,6 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import GithubSlugger from 'github-slugger';
-import React from 'react';
+import React, { isValidElement } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkSmartypants from 'remark-smartypants';
@@ -86,6 +86,10 @@ export default function MarkdownContent({
                 params="controls=0&rel=0"
               />
             );
+          }
+
+          if (isValidElement(props.children)) {
+            return props.children;
           }
 
           return <p>{props.children}</p>;

@@ -44,7 +44,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         className={cn(
           'inline-flex items-center whitespace-nowrap font-bold',
-          'focus:outline-none focus-visible:ring focus-visible:ring-marian-blue-500',
+          'focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500',
           'border',
           'disabled:opacity-50',
           'transition-colors duration-75',
@@ -100,7 +100,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               {
                 'text-white': ['default', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
-                'text-marian-blue-500': ['outline', 'ghost'].includes(variant),
+                'text-cornflower-blue-500': ['outline', 'ghost'].includes(
+                  variant,
+                ),
               },
             )}
           >

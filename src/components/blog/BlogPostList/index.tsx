@@ -16,6 +16,7 @@ export default function BlogPostList({
   initialPosts,
   initialPageInfo,
   getPosts,
+  showSeries = true,
 }: {
   initialPosts: HashnodePost[];
   initialPageInfo: HashnodePageInfo;
@@ -24,6 +25,7 @@ export default function BlogPostList({
   ) => Promise<
     PublicationPostConnectionFragment | SeriesPostConnectionFragment | undefined
   >;
+  showSeries?: boolean;
 }) {
   const [posts, setPosts] = useState<HashnodePost[]>(initialPosts);
   const [pageInfo, setPageInfo] = useState<HashnodePageInfo>(initialPageInfo);
@@ -57,7 +59,10 @@ export default function BlogPostList({
   return (
     <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
       {posts.map((post) => (
-        <BlogPostListItem post={post} key={`post-${post.slug}`} />
+        <BlogPostListItem
+          post={{ ...post, series: showSeries ? post.series : undefined }}
+          key={`post-${post.slug}`}
+        />
       ))}
       <div ref={sentryRef} />
     </div>

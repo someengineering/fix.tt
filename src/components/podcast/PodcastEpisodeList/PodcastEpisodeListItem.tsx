@@ -3,9 +3,9 @@
 import { Episode as SpotifyEpisode } from '@/lib/spotify';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-import NextImage from '@/components/common/NextImage';
 
 import { openGraph } from '@/utils/og';
+// import NextImage from '@/components/common/NextImage';
 
 export default function PodcastEpisodeListItem({
   episode,
@@ -18,26 +18,11 @@ export default function PodcastEpisodeListItem({
 
   return (
     <article
-      className="relative isolate flex flex-col items-center gap-8 lg:flex-row"
       itemProp="blogPost"
       itemScope
       itemType="http://schema.org/PodcastEpisode"
       itemID={episode.external_urls.spotify}
     >
-      <div className="relative aspect-square lg:w-64 lg:shrink-0">
-        {episode.images.length ? (
-          <NextImage
-            src={episode.images[0].url}
-            alt=""
-            className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl bg-gray-50"
-            classNames={{ image: 'object-cover' }}
-            fill
-          />
-        ) : (
-          <div className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover" />
-        )}
-        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-      </div>
       <div>
         <header className="flex items-center space-x-5 text-sm font-bold uppercase leading-7 text-gray-600">
           <time dateTime={episode.release_date} itemProp="datePublished">
@@ -54,7 +39,7 @@ export default function PodcastEpisodeListItem({
             })}
           />
         </header>
-        <div className="group relative max-w-xl space-y-4">
+        <div className="group relative space-y-4">
           <h3
             className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
             itemProp="headline"
@@ -65,7 +50,7 @@ export default function PodcastEpisodeListItem({
             </UnstyledLink>
           </h3>
           <p
-            className="line-clamp-3 text-pretty text-base font-semibold leading-6 text-gray-900"
+            className="line-clamp-3 max-w-prose text-pretty text-lg font-semibold text-gray-900"
             itemProp="description"
           >
             {episode.description}

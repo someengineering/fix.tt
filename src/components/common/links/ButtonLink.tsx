@@ -47,7 +47,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         {...rest}
         className={cn(
           'inline-flex items-center whitespace-nowrap font-bold',
-          'focus:outline-none focus-visible:ring focus-visible:ring-marian-blue-500',
+          'focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========

@@ -13,18 +13,24 @@ export const metadata: Metadata = {
 
 export default function NotFoundPage() {
   return (
-    <div className="mx-auto flex w-full max-w-7xl flex-auto flex-col justify-center px-6 py-24 sm:py-64 lg:px-8">
-      <p className="mb-2 text-xl font-semibold leading-8 text-marian-blue-900">
-        404
-      </p>
-      <h1 className="text-4xl font-extrabold sm:text-5xl">Page not found</h1>
-      <p className="mt-6 text-lg leading-7 text-gray-600">
-        Sorry, we couldn&rsquo;t find the page you&rsquo;re looking for.
-      </p>
-      <div className="mt-10">
-        <PrimaryLink href="/">
-          <span aria-hidden="true">&larr;</span> Back to home
-        </PrimaryLink>
+    <div className="py-16 sm:py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:max-w-4xl">
+          <p className="mb-2 text-lg font-bold leading-8 text-cornflower-blue-600 sm:text-xl">
+            404
+          </p>
+          <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
+            Page not found
+          </h1>
+          <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
+            Sorry, we couldn&rsquo;t find the page you&rsquo;re looking for.
+          </p>
+          <div className="mt-10">
+            <PrimaryLink href="/">
+              <span aria-hidden="true">&larr;</span> Back to home
+            </PrimaryLink>
+          </div>
+        </div>
       </div>
     </div>
   );
