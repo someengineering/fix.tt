@@ -194,7 +194,9 @@ export const getAllPostSlugs = async () => {
   let slugs: string[] = [];
 
   if (data.publication) {
-    slugs = data.publication.posts.edges.map((edge) => edge.node.slug);
+    slugs = data.publication.posts.edges
+      .filter((edge) => !edge.node.preferences.isDelisted)
+      .map((edge) => edge.node.slug);
 
     const fetchMore = async (after?: string) => {
       const data = await gqlClient.request<
@@ -212,7 +214,9 @@ export const getAllPostSlugs = async () => {
 
       slugs = [
         ...slugs,
-        ...data.publication.posts.edges.map((edge) => edge.node.slug),
+        ...data.publication.posts.edges
+          .filter((edge) => !edge.node.preferences.isDelisted)
+          .map((edge) => edge.node.slug),
       ];
 
       if (
@@ -468,7 +472,9 @@ export const getAllStaticPageSlugs = async () => {
   let slugs: string[] = [];
 
   if (data.publication) {
-    slugs = data.publication.staticPages.edges.map((edge) => edge.node.slug);
+    slugs = data.publication.staticPages.edges
+      .filter((edge) => !edge.node.hidden)
+      .map((edge) => edge.node.slug);
 
     const fetchMore = async (after?: string) => {
       const data = await gqlClient.request<
@@ -486,7 +492,9 @@ export const getAllStaticPageSlugs = async () => {
 
       slugs = [
         ...slugs,
-        ...data.publication.staticPages.edges.map((edge) => edge.node.slug),
+        ...data.publication.staticPages.edges
+          .filter((edge) => !edge.node.hidden)
+          .map((edge) => edge.node.slug),
       ];
 
       if (

@@ -839,6 +839,27 @@ export type CreateDraftTagInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type CreateSeriesInput = {
+  /** The cover image of the series. */
+  coverImage?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the series. Accepts markdown. */
+  descriptionMarkdown?: InputMaybe<Scalars['String']['input']>;
+  /** The name of the series. */
+  name: Scalars['String']['input'];
+  /** The id of the publication the series belongs to. */
+  publicationId: Scalars['ID']['input'];
+  /** The slug of the series. Used to access series page.  Example https://johndoe.com/series/series-slug */
+  slug: Scalars['String']['input'];
+  /** The sort order of the series, determines if the latest posts should appear first or last in series. */
+  sortOrder?: InputMaybe<SortOrder>;
+};
+
+export type CreateSeriesPayload = {
+  __typename?: 'CreateSeriesPayload';
+  /** Returns the created series. */
+  series: Series;
+};
+
 export type CreateWebhookInput = {
   events: Array<WebhookEvent>;
   publicationId: Scalars['ID']['input'];
@@ -884,6 +905,19 @@ export type DarkModePreferences = {
   enabled?: Maybe<Scalars['Boolean']['output']>;
   /** The custom dark mode logo of the publication. */
   logo?: Maybe<Scalars['String']['output']>;
+};
+
+export type DeleteRoleBasedInviteInput = {
+  /** The ID of the role based invite. */
+  inviteId: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+};
+
+/** Response to deleting a role based invite. */
+export type DeleteRoleBasedInvitePayload = {
+  __typename?: 'DeleteRoleBasedInvitePayload';
+  /** Deleted invite. */
+  invite: RoleBasedInvite;
 };
 
 export type DeleteWebhookPayload = {
@@ -1482,6 +1516,17 @@ export type LikePostPayload = {
   post?: Maybe<Post>;
 };
 
+export type LikeReplyInput = {
+  commentId: Scalars['ID']['input'];
+  likesCount?: InputMaybe<Scalars['Int']['input']>;
+  replyId: Scalars['ID']['input'];
+};
+
+export type LikeReplyPayload = {
+  __typename?: 'LikeReplyPayload';
+  reply?: Maybe<Reply>;
+};
+
 /** Contains information about meta tags. Used for SEO purpose. */
 export type MetaTagsInput = {
   /** The description of the post used in og:description for SEO. */
@@ -1503,12 +1548,18 @@ export type Mutation = {
   cancelScheduledDraft: CancelScheduledDraftPayload;
   /** Creates a new draft for a post. */
   createDraft: CreateDraftPayload;
+  /** Creates a new series. */
+  createSeries: CreateSeriesPayload;
   createWebhook: CreateWebhookPayload;
+  /** Deletes a role based invite. */
+  deleteRoleBasedInvite: DeleteRoleBasedInvitePayload;
   deleteWebhook: DeleteWebhookPayload;
   /** Likes a comment. */
   likeComment: LikeCommentPayload;
   /** Likes a post. */
   likePost: LikePostPayload;
+  /** Likes a reply. */
+  likeReply: LikeReplyPayload;
   /** Publishes an existing draft as a post. */
   publishDraft: PublishDraftPayload;
   /** Creates a new post. */
@@ -1521,6 +1572,8 @@ export type Mutation = {
   removeRecommendation: RemoveRecommendationPayload;
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload;
+  /** Removes a series. */
+  removeSeries: RemoveSeriesPayload;
   /** Reschedule a draft. */
   rescheduleDraft: RescheduleDraftPayload;
   resendWebhookRequest: ResendWebhookRequestPayload;
@@ -1542,6 +1595,8 @@ export type Mutation = {
   updatePost: UpdatePostPayload;
   /** Updates a reply */
   updateReply: UpdateReplyPayload;
+  /** Updates a series. */
+  updateSeries: UpdateSeriesPayload;
   updateWebhook: UpdateWebhookPayload;
 };
 
@@ -1565,8 +1620,16 @@ export type MutationCreateDraftArgs = {
   input: CreateDraftInput;
 };
 
+export type MutationCreateSeriesArgs = {
+  input: CreateSeriesInput;
+};
+
 export type MutationCreateWebhookArgs = {
   input: CreateWebhookInput;
+};
+
+export type MutationDeleteRoleBasedInviteArgs = {
+  input: DeleteRoleBasedInviteInput;
 };
 
 export type MutationDeleteWebhookArgs = {
@@ -1579,6 +1642,10 @@ export type MutationLikeCommentArgs = {
 
 export type MutationLikePostArgs = {
   input: LikePostInput;
+};
+
+export type MutationLikeReplyArgs = {
+  input: LikeReplyInput;
 };
 
 export type MutationPublishDraftArgs = {
@@ -1607,6 +1674,10 @@ export type MutationRemoveRecommendationArgs = {
 
 export type MutationRemoveReplyArgs = {
   input: RemoveReplyInput;
+};
+
+export type MutationRemoveSeriesArgs = {
+  input: RemoveSeriesInput;
 };
 
 export type MutationRescheduleDraftArgs = {
@@ -1652,6 +1723,10 @@ export type MutationUpdatePostArgs = {
 
 export type MutationUpdateReplyArgs = {
   input: UpdateReplyInput;
+};
+
+export type MutationUpdateSeriesArgs = {
+  input: UpdateSeriesInput;
 };
 
 export type MutationUpdateWebhookArgs = {
@@ -1877,6 +1952,18 @@ export type PagesPreferences = {
   members?: Maybe<Scalars['Boolean']['output']>;
   /** A flag indicating if the publication's newsletter page is enabled. */
   newsletter?: Maybe<Scalars['Boolean']['output']>;
+};
+
+export type PendingInvite = Node & {
+  __typename?: 'PendingInvite';
+  /** The email of the user that was invited. */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The ID of the pending invite. */
+  id: Scalars['ID']['output'];
+  /** The role assigned to the user in the publication. */
+  role: UserPublicationRole;
+  /** Invited Hashnode user, returns null if the user is not a Hashnode user. */
+  user?: Maybe<User>;
 };
 
 /** Contains basic information about the tag returned by popularTags query. */
@@ -2525,11 +2612,23 @@ export type PublicationMember = Node & {
   __typename?: 'PublicationMember';
   /** The ID of the publication member. */
   id: Scalars['ID']['output'];
+  /**
+   * Denotes if the member is public or private
+   * A private member is not visible on members page
+   */
+  privacyState?: Maybe<PublicationMemberPrivacyState>;
   /** The role of the user in the publication. */
   role: UserPublicationRole;
   /** The user who is a member of the publication. */
   user?: Maybe<User>;
 };
+
+export enum PublicationMemberPrivacyState {
+  /** The member is private and not visible on the members page. */
+  Private = 'PRIVATE',
+  /** The member is public and visible on the members page. */
+  Public = 'PUBLIC',
+}
 
 /** Contains the publication's navbar items. */
 export type PublicationNavbarItem = {
@@ -2810,8 +2909,14 @@ export type QueryUserArgs = {
 export type RssImport = Node & {
   __typename?: 'RSSImport';
   id: Scalars['ID']['output'];
+  /** Indicates whether posts should be imported as drafts or not */
+  importAsDrafts: Scalars['Boolean']['output'];
+  /** RSS Tag name to be considered as the post content for automatic import. */
+  rssTagName?: Maybe<Scalars['String']['output']>;
   /** The URL pointing to the RSS feed. */
   rssURL: Scalars['String']['output'];
+  /** Indicates whether the posts should be scraped or not */
+  scrapePosts: Scalars['Boolean']['output'];
 };
 
 /**
@@ -2895,6 +3000,17 @@ export type RemoveReplyPayload = {
   reply?: Maybe<Reply>;
 };
 
+export type RemoveSeriesInput = {
+  /** The id of the series to remove. */
+  id: Scalars['ID']['input'];
+};
+
+export type RemoveSeriesPayload = {
+  __typename?: 'RemoveSeriesPayload';
+  /** Returns the updated series. */
+  series: Series;
+};
+
 /**
  * Contains basic information about the reply.
  * A reply is a response to a comment.
@@ -2952,6 +3068,22 @@ export type RestorePostPayload = {
   post?: Maybe<Post>;
 };
 
+export type RoleBasedInvite = Node & {
+  __typename?: 'RoleBasedInvite';
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: Maybe<Scalars['Int']['output']>;
+  /** The expiry date of the invite. */
+  expiryDate?: Maybe<Scalars['DateTime']['output']>;
+  /** The ID of the role based invite. */
+  id: Scalars['ID']['output'];
+  /** Invite link of the role based invite. */
+  inviteLink?: Maybe<Scalars['String']['output']>;
+  /** Boolean that signifies if the invite has unlimited capacity. */
+  isUnlimitedCapacity?: Maybe<Scalars['Boolean']['output']>;
+  /** The role assigned to the user in the publication. */
+  role: UserPublicationRole;
+};
+
 /** Information to help in seo related meta tags. */
 export type Seo = {
   __typename?: 'SEO';
@@ -3003,7 +3135,10 @@ export enum Scope {
   AssignProPublications = 'assign_pro_publications',
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
+  DocsEditorOrOwner = 'docs_editor_or_owner',
+  DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
+  InvitedTeamUser = 'invited_team_user',
   PublicationAdmin = 'publication_admin',
   PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
@@ -3047,6 +3182,16 @@ export type SearchPostsOfPublicationFilter = {
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
   query: Scalars['String']['input'];
+};
+
+export type SearchUser = Node & {
+  __typename?: 'SearchUser';
+  /** ID of the user. */
+  id: Scalars['ID']['output'];
+  /** Signifies if the user has a pending invite to the publication. Returned when the filter has pendingInviteStatus set to true. */
+  pendingInviteStatus?: Maybe<Scalars['Boolean']['output']>;
+  /** User node containing the user information. */
+  user: User;
 };
 
 /**
@@ -3429,6 +3574,27 @@ export type UpdateReplyInput = {
 export type UpdateReplyPayload = {
   __typename?: 'UpdateReplyPayload';
   reply?: Maybe<Reply>;
+};
+
+export type UpdateSeriesInput = {
+  /** The cover image of the series. */
+  coverImage?: InputMaybe<Scalars['String']['input']>;
+  /** The description of the series. Accepts markdown. */
+  descriptionMarkdown?: InputMaybe<Scalars['String']['input']>;
+  /** The id of the series to update. */
+  id: Scalars['ID']['input'];
+  /** The name of the series. */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the series. Used to access series page.  Example https://johndoe.com/series/series-slug */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The sort order of the series, determines if the latest posts should appear first or last in series. */
+  sortOrder?: InputMaybe<SortOrder>;
+};
+
+export type UpdateSeriesPayload = {
+  __typename?: 'UpdateSeriesPayload';
+  /** Returns the updated series. */
+  series: Series;
 };
 
 export type UpdateWebhookInput = {
@@ -3846,6 +4012,21 @@ export type DraftFragment = {
     } | null;
   };
   content?: { __typename?: 'Content'; markdown: string } | null;
+  features: {
+    __typename?: 'DraftFeatures';
+    tableOfContents: {
+      __typename?: 'TableOfContentsFeature';
+      isEnabled: boolean;
+      items: Array<{
+        __typename?: 'TableOfContentsItem';
+        id: string;
+        level: number;
+        slug: string;
+        title: string;
+        parentId?: string | null;
+      }>;
+    };
+  };
 };
 
 type DraftTag_DraftBaseTag_Fragment = {
@@ -3889,6 +4070,7 @@ export type PostFragment = {
       linkedin?: string | null;
     } | null;
   };
+  preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
 };
 
 export type PostWithMarkdownContentFragment = {
@@ -3902,6 +4084,21 @@ export type PostWithMarkdownContentFragment = {
   publishedAt: string;
   updatedAt?: string | null;
   content: { __typename?: 'Content'; markdown: string };
+  features: {
+    __typename?: 'PostFeatures';
+    tableOfContents: {
+      __typename?: 'TableOfContentsFeature';
+      isEnabled: boolean;
+      items: Array<{
+        __typename?: 'TableOfContentsItem';
+        id: string;
+        level: number;
+        slug: string;
+        title: string;
+        parentId?: string | null;
+      }>;
+    };
+  };
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
   series?: { __typename?: 'Series'; name: string; slug: string } | null;
@@ -3915,6 +4112,7 @@ export type PostWithMarkdownContentFragment = {
       linkedin?: string | null;
     } | null;
   };
+  preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
 };
 
 export type PublicationPostConnectionFragment = {
@@ -3944,6 +4142,7 @@ export type PublicationPostConnectionFragment = {
           linkedin?: string | null;
         } | null;
       };
+      preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
     };
   }>;
   pageInfo: {
@@ -3986,6 +4185,7 @@ export type SeriesPostConnectionFragment = {
           linkedin?: string | null;
         } | null;
       };
+      preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
     };
   }>;
   pageInfo: {
@@ -4003,6 +4203,28 @@ export type StaticPageFragment = {
   hidden: boolean;
   content: { __typename?: 'Content'; markdown: string };
   seo?: { __typename?: 'SEO'; description?: string | null } | null;
+};
+
+export type TableOfContentsFeatureFragment = {
+  __typename?: 'TableOfContentsFeature';
+  isEnabled: boolean;
+  items: Array<{
+    __typename?: 'TableOfContentsItem';
+    id: string;
+    level: number;
+    slug: string;
+    title: string;
+    parentId?: string | null;
+  }>;
+};
+
+export type TableOfContentsItemFragment = {
+  __typename?: 'TableOfContentsItem';
+  id: string;
+  level: number;
+  slug: string;
+  title: string;
+  parentId?: string | null;
 };
 
 export type TagFragment = { __typename?: 'Tag'; name: string; slug: string };
@@ -4058,6 +4280,21 @@ export type DraftQuery = {
       } | null;
     };
     content?: { __typename?: 'Content'; markdown: string } | null;
+    features: {
+      __typename?: 'DraftFeatures';
+      tableOfContents: {
+        __typename?: 'TableOfContentsFeature';
+        isEnabled: boolean;
+        items: Array<{
+          __typename?: 'TableOfContentsItem';
+          id: string;
+          level: number;
+          slug: string;
+          title: string;
+          parentId?: string | null;
+        }>;
+      };
+    };
   } | null;
 };
 
@@ -4101,6 +4338,7 @@ export type FeedPostsQuery = {
               linkedin?: string | null;
             } | null;
           };
+          preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
         };
       }>;
     };
@@ -4127,6 +4365,21 @@ export type PostQuery = {
       publishedAt: string;
       updatedAt?: string | null;
       content: { __typename?: 'Content'; markdown: string };
+      features: {
+        __typename?: 'PostFeatures';
+        tableOfContents: {
+          __typename?: 'TableOfContentsFeature';
+          isEnabled: boolean;
+          items: Array<{
+            __typename?: 'TableOfContentsItem';
+            id: string;
+            level: number;
+            slug: string;
+            title: string;
+            parentId?: string | null;
+          }>;
+        };
+      };
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
       tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
       series?: { __typename?: 'Series'; name: string; slug: string } | null;
@@ -4140,6 +4393,7 @@ export type PostQuery = {
           linkedin?: string | null;
         } | null;
       };
+      preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
     } | null;
   } | null;
 };
@@ -4158,7 +4412,11 @@ export type PostSlugsQuery = {
       __typename?: 'PublicationPostConnection';
       edges: Array<{
         __typename?: 'PostEdge';
-        node: { __typename?: 'Post'; slug: string };
+        node: {
+          __typename?: 'Post';
+          slug: string;
+          preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
+        };
       }>;
       pageInfo: {
         __typename?: 'PageInfo';
@@ -4210,6 +4468,7 @@ export type PostsQuery = {
               linkedin?: string | null;
             } | null;
           };
+          preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
         };
       }>;
       pageInfo: {
@@ -4269,6 +4528,10 @@ export type PostsBySeriesQuery = {
                 linkedin?: string | null;
               } | null;
             };
+            preferences: {
+              __typename?: 'PostPreferences';
+              isDelisted: boolean;
+            };
           };
         }>;
         pageInfo: {
@@ -4323,6 +4586,7 @@ export type PostsByTagQuery = {
               linkedin?: string | null;
             } | null;
           };
+          preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
         };
       }>;
       pageInfo: {
@@ -4428,7 +4692,7 @@ export type StaticPageSlugsQuery = {
       __typename?: 'StaticPageConnection';
       edges: Array<{
         __typename?: 'StaticPageEdge';
-        node: { __typename?: 'StaticPage'; slug: string };
+        node: { __typename?: 'StaticPage'; slug: string; hidden: boolean };
       }>;
       pageInfo: {
         __typename?: 'PageInfo';
@@ -4610,6 +4874,79 @@ export const UserFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<UserFragment, unknown>;
+export const TableOfContentsItemFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TableOfContentsItemFragment, unknown>;
+export const TableOfContentsFeatureFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'isEnabled' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TableOfContentsItem' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<TableOfContentsFeatureFragment, unknown>;
 export const DraftFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -4675,6 +5012,28 @@ export const DraftFragmentDoc = {
               ],
             },
           },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'features' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tableOfContents' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
         ],
       },
@@ -4691,6 +5050,24 @@ export const DraftFragmentDoc = {
         selections: [
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
         ],
       },
     },
@@ -4778,6 +5155,33 @@ export const DraftFragmentDoc = {
         ],
       },
     },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'isEnabled' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TableOfContentsItem' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
   ],
 } as unknown as DocumentNode<DraftFragment, unknown>;
 export const PostFragmentDoc = {
@@ -4850,6 +5254,16 @@ export const PostFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -4935,6 +5349,28 @@ export const PostWithMarkdownContentFragmentDoc = {
               ],
             },
           },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'features' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tableOfContents' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -4991,6 +5427,24 @@ export const PostWithMarkdownContentFragmentDoc = {
               ],
             },
           },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
         ],
       },
     },
@@ -5061,6 +5515,43 @@ export const PostWithMarkdownContentFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'isEnabled' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TableOfContentsItem' },
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5260,6 +5751,16 @@ export const PublicationPostConnectionFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5454,6 +5955,16 @@ export const SeriesPostConnectionFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5720,6 +6231,51 @@ export const DraftDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'isEnabled' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TableOfContentsItem' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'Draft' },
       typeCondition: {
         kind: 'NamedType',
@@ -5777,6 +6333,28 @@ export const DraftDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'markdown' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'features' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tableOfContents' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -6005,6 +6583,16 @@ export const FeedPostsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6218,6 +6806,61 @@ export const PostDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsItem' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'isEnabled' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'TableOfContentsItem' },
+                },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6239,6 +6882,28 @@ export const PostDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'markdown' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'features' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tableOfContents' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'TableOfContentsFeature' },
+                      },
+                    ],
+                  },
+                },
               ],
             },
           },
@@ -6344,6 +7009,25 @@ export const PostSlugsDocument = {
                                   {
                                     kind: 'Field',
                                     name: { kind: 'Name', value: 'slug' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'preferences',
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'isDelisted',
+                                          },
+                                        },
+                                      ],
+                                    },
                                   },
                                 ],
                               },
@@ -6611,6 +7295,16 @@ export const PostsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6961,6 +7655,16 @@ export const PostsBySeriesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7238,6 +7942,16 @@ export const PostsByTagDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'readTimeInMinutes' } },
           { kind: 'Field', name: { kind: 'Name', value: 'publishedAt' } },
           { kind: 'Field', name: { kind: 'Name', value: 'updatedAt' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preferences' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'isDelisted' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7852,6 +8566,10 @@ export const StaticPageSlugsDocument = {
                                   {
                                     kind: 'Field',
                                     name: { kind: 'Name', value: 'slug' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'hidden' },
                                   },
                                 ],
                               },

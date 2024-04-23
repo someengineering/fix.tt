@@ -4,6 +4,7 @@ query StaticPageSlugs($host: String!, $first: Int!, $after: String) {
       edges {
         node {
           slug
+          hidden
         }
       }
       pageInfo {

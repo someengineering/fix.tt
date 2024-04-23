@@ -14,5 +14,10 @@ fragment Draft on Draft {
   content {
     markdown
   }
+  features {
+    tableOfContents {
+      ...TableOfContentsFeature
+    }
+  }
   updatedAt
 }

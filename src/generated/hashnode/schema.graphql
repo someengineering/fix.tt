@@ -1474,6 +1474,40 @@ input CreateDraftTagInput {
   slug: String
 }
 
+input CreateSeriesInput {
+  """
+  The cover image of the series.
+  """
+  coverImage: String
+  """
+  The description of the series. Accepts markdown.
+  """
+  descriptionMarkdown: String
+  """
+  The name of the series.
+  """
+  name: String!
+  """
+  The id of the publication the series belongs to.
+  """
+  publicationId: ID!
+  """
+  The slug of the series. Used to access series page.  Example https://johndoe.com/series/series-slug
+  """
+  slug: String!
+  """
+  The sort order of the series, determines if the latest posts should appear first or last in series.
+  """
+  sortOrder: SortOrder
+}
+
+type CreateSeriesPayload {
+  """
+  Returns the created series.
+  """
+  series: Series!
+}
+
 input CreateWebhookInput {
   events: [WebhookEvent!]!
   publicationId: ID!
@@ -1545,6 +1579,24 @@ type DarkModePreferences {
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+input DeleteRoleBasedInviteInput {
+  """
+  The ID of the role based invite.
+  """
+  inviteId: ID!
+  publicationId: ID!
+}
+
+"""
+Response to deleting a role based invite.
+"""
+type DeleteRoleBasedInvitePayload {
+  """
+  Deleted invite.
+  """
+  invite: RoleBasedInvite!
+}
 
 type DeleteWebhookPayload {
   webhook: Webhook
@@ -2423,6 +2475,16 @@ type LikePostPayload {
   post: Post
 }
 
+input LikeReplyInput {
+  commentId: ID!
+  likesCount: Int = 1
+  replyId: ID!
+}
+
+type LikeReplyPayload {
+  reply: Reply
+}
+
 """
 Contains information about meta tags. Used for SEO purpose.
 """
@@ -2466,7 +2528,17 @@ type Mutation {
     """
     input: CreateDraftInput!
   ): CreateDraftPayload!
+  """
+  Creates a new series.
+  """
+  createSeries(input: CreateSeriesInput!): CreateSeriesPayload!
   createWebhook(input: CreateWebhookInput!): CreateWebhookPayload!
+  """
+  Deletes a role based invite.
+  """
+  deleteRoleBasedInvite(
+    input: DeleteRoleBasedInviteInput!
+  ): DeleteRoleBasedInvitePayload!
   deleteWebhook(id: ID!): DeleteWebhookPayload!
   """
   Likes a comment.
@@ -2476,6 +2548,10 @@ type Mutation {
   Likes a post.
   """
   likePost(input: LikePostInput!): LikePostPayload!
+  """
+  Likes a reply.
+  """
+  likeReply(input: LikeReplyInput!): LikeReplyPayload!
   """
   Publishes an existing draft as a post.
   """
@@ -2512,6 +2588,10 @@ type Mutation {
   Removes a reply from a comment.
   """
   removeReply(input: RemoveReplyInput!): RemoveReplyPayload!
+  """
+  Removes a series.
+  """
+  removeSeries(input: RemoveSeriesInput!): RemoveSeriesPayload!
   """
   Reschedule a draft.
   """
@@ -2554,6 +2634,10 @@ type Mutation {
   Updates a reply
   """
   updateReply(input: UpdateReplyInput!): UpdateReplyPayload!
+  """
+  Updates a series.
+  """
+  updateSeries(input: UpdateSeriesInput!): UpdateSeriesPayload!
   updateWebhook(input: UpdateWebhookInput!): UpdateWebhookPayload!
 }
 
@@ -2871,6 +2955,25 @@ type PagesPreferences {
   A flag indicating if the publication's newsletter page is enabled.
   """
   newsletter: Boolean
+}
+
+type PendingInvite implements Node {
+  """
+  The email of the user that was invited.
+  """
+  email: String
+  """
+  The ID of the pending invite.
+  """
+  id: ID!
+  """
+  The role assigned to the user in the publication.
+  """
+  role: UserPublicationRole!
+  """
+  Invited Hashnode user, returns null if the user is not a Hashnode user.
+  """
+  user: User
 }
 
 """
@@ -3855,6 +3958,11 @@ type PublicationMember implements Node {
   """
   id: ID!
   """
+  Denotes if the member is public or private
+  A private member is not visible on members page
+  """
+  privacyState: PublicationMemberPrivacyState
+  """
   The role of the user in the publication.
   """
   role: UserPublicationRole!
@@ -3862,6 +3970,17 @@ type PublicationMember implements Node {
   The user who is a member of the publication.
   """
   user: User
+}
+
+enum PublicationMemberPrivacyState {
+  """
+  The member is private and not visible on the members page.
+  """
+  PRIVATE
+  """
+  The member is public and visible on the members page.
+  """
+  PUBLIC
 }
 
 """
@@ -4260,9 +4379,21 @@ type Query {
 type RSSImport implements Node {
   id: ID!
   """
+  Indicates whether posts should be imported as drafts or not
+  """
+  importAsDrafts: Boolean!
+  """
+  RSS Tag name to be considered as the post content for automatic import.
+  """
+  rssTagName: String
+  """
   The URL pointing to the RSS feed.
   """
   rssURL: String!
+  """
+  Indicates whether the posts should be scraped or not
+  """
+  scrapePosts: Boolean!
 }
 
 """
@@ -4356,6 +4487,20 @@ type RemoveReplyPayload {
   reply: Reply
 }
 
+input RemoveSeriesInput {
+  """
+  The id of the series to remove.
+  """
+  id: ID!
+}
+
+type RemoveSeriesPayload {
+  """
+  Returns the updated series.
+  """
+  series: Series!
+}
+
 """
 Contains basic information about the reply.
 A reply is a response to a comment.
@@ -4425,6 +4570,33 @@ input RestorePostInput {
 
 type RestorePostPayload {
   post: Post
+}
+
+type RoleBasedInvite implements Node {
+  """
+  The capacity of how many members to be invited by the link.
+  """
+  capacity: Int
+  """
+  The expiry date of the invite.
+  """
+  expiryDate: DateTime
+  """
+  The ID of the role based invite.
+  """
+  id: ID!
+  """
+  Invite link of the role based invite.
+  """
+  inviteLink: String
+  """
+  Boolean that signifies if the invite has unlimited capacity.
+  """
+  isUnlimitedCapacity: Boolean
+  """
+  The role assigned to the user in the publication.
+  """
+  role: UserPublicationRole!
 }
 
 """
@@ -4503,7 +4675,10 @@ enum Scope {
   assign_pro_publications
   change_pro_subscription
   create_pro
+  docs_editor_or_owner
+  docs_owner
   import_subscribers_to_publication
+  invited_team_user
   publication_admin
   publication_member
   publish_comment
@@ -4556,6 +4731,21 @@ input SearchPostsOfPublicationFilter {
   The query to be searched in post.
   """
   query: String!
+}
+
+type SearchUser implements Node {
+  """
+  ID of the user.
+  """
+  id: ID!
+  """
+  Signifies if the user has a pending invite to the publication. Returned when the filter has pendingInviteStatus set to true.
+  """
+  pendingInviteStatus: Boolean
+  """
+  User node containing the user information.
+  """
+  user: User!
 }
 
 """
@@ -5115,6 +5305,40 @@ input UpdateReplyInput {
 
 type UpdateReplyPayload {
   reply: Reply
+}
+
+input UpdateSeriesInput {
+  """
+  The cover image of the series.
+  """
+  coverImage: String
+  """
+  The description of the series. Accepts markdown.
+  """
+  descriptionMarkdown: String
+  """
+  The id of the series to update.
+  """
+  id: ID!
+  """
+  The name of the series.
+  """
+  name: String
+  """
+  The slug of the series. Used to access series page.  Example https://johndoe.com/series/series-slug
+  """
+  slug: String
+  """
+  The sort order of the series, determines if the latest posts should appear first or last in series.
+  """
+  sortOrder: SortOrder
+}
+
+type UpdateSeriesPayload {
+  """
+  Returns the updated series.
+  """
+  series: Series!
 }
 
 input UpdateWebhookInput {

@@ -1,0 +1,14 @@
+fragment TableOfContentsFeature on TableOfContentsFeature {
+  isEnabled
+  items {
+    ...TableOfContentsItem
+  }
+}
+
+fragment TableOfContentsItem on TableOfContentsItem {
+  id
+  level
+  slug
+  title
+  parentId
+}

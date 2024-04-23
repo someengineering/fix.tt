@@ -6,6 +6,7 @@ import { getAllPostSlugs, getPost, getPublicationId } from '@/lib/hashnode';
 import BlogPost from '@/components/blog/BlogPost';
 
 import { metadata as rootMetadata } from '@/app/layout';
+import { metadata as notFoundMetadata } from '@/app/not-found';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
@@ -60,6 +61,7 @@ export async function generateMetadata({
       description,
       images: [ogImage],
     },
+    ...(post.preferences.isDelisted ? { robots: notFoundMetadata.robots } : {}),
   };
 }
 

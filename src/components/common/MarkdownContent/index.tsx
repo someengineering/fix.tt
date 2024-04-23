@@ -1,5 +1,6 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import GithubSlugger from 'github-slugger';
+import React from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkSmartypants from 'remark-smartypants';
@@ -14,10 +15,11 @@ import { sanitizeMarkdown } from '@/utils/hashnode';
 export default function MarkdownContent({
   children,
   className,
+  ...props
 }: {
   children?: string;
   className?: string;
-}) {
+} & React.HTMLAttributes<HTMLDivElement>) {
   if (!children) {
     return null;
   }
@@ -105,6 +107,7 @@ export default function MarkdownContent({
         },
       }}
       className={cn('markdown', className)}
+      {...props}
     >
       {sanitizeMarkdown(children)}
     </Markdown>

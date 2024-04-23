@@ -4,6 +4,9 @@ query PostSlugs($host: String!, $first: Int!, $after: String) {
       edges {
         node {
           slug
+          preferences {
+            isDelisted
+          }
         }
       }
       pageInfo {

@@ -44,7 +44,14 @@ export default function BlogPost({
             updatedAt={post.updatedAt ?? undefined}
             readTimeInMinutes={post.readTimeInMinutes}
           />
-          <BlogPostContent markdown={post.content?.markdown} />
+          <BlogPostContent
+            markdown={post.content?.markdown}
+            tocItems={
+              post.features.tableOfContents.isEnabled
+                ? post.features.tableOfContents.items
+                : undefined
+            }
+          />
           <BlogPostFooter
             url={url}
             title={post.title}

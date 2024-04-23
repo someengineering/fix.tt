@@ -19,11 +19,19 @@ fragment Post on Post {
   readTimeInMinutes
   publishedAt
   updatedAt
+  preferences {
+    isDelisted
+  }
 }
 
 fragment PostWithMarkdownContent on Post {
   ...Post
   content {
     markdown
+  }
+  features {
+    tableOfContents {
+      ...TableOfContentsFeature
+    }
   }
 }
