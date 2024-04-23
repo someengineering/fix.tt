@@ -1,6 +1,8 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
+
+import { getText } from '@/utils/hashnode';
 
 export default function Heading({
   as: As,
@@ -10,9 +12,9 @@ export default function Heading({
 }: {
   as: 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   slug: string;
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
-  const hashLinkLabel = `Direct link to “${children?.toString()}”`;
+  const hashLinkLabel = `Direct link to “${getText(children)}”`;
 
   return (
     <As {...props} id={slug}>

@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 
 const userTitleMapping: Record<string, string> = {
@@ -26,4 +28,27 @@ export const sanitizeMarkdown = (markdown: string): string => {
     .replace(/\s+align="\w+"/g, '')
     .replace(/]\(https?:\/\/(www\.)?fix\.(security|tt)\/?/g, '](/')
     .replace(/]\(https?:\/\/blog\.fix\.(security|tt)\/?/g, '](/blog/');
+};
+
+export const getText = (element: React.ReactNode): string => {
+  if (element) {
+    switch (typeof element) {
+      case 'string':
+      case 'number':
+        return element.toString();
+
+      case 'object':
+        if (element instanceof Array) {
+          return element
+            .map((child: React.ReactNode) => getText(child))
+            .join('');
+        }
+
+        if ('props' in element) {
+          return getText(element.props.children);
+        }
+    }
+  }
+
+  return '';
 };

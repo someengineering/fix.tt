@@ -10,7 +10,7 @@ import Heading from '@/components/common/MarkdownContent/Heading';
 import NextImage from '@/components/common/NextImage';
 
 import { cn } from '@/utils/css';
-import { sanitizeMarkdown } from '@/utils/hashnode';
+import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 
 export default function MarkdownContent({
   children,
@@ -36,42 +36,27 @@ export default function MarkdownContent({
         ),
         h1: 'h2',
         h2: (props) => (
-          <Heading
-            as="h2"
-            slug={slugger.slug(props.children?.toString() ?? '')}
-          >
+          <Heading as="h2" slug={slugger.slug(getText(props.children))}>
             {props.children}
           </Heading>
         ),
         h3: (props) => (
-          <Heading
-            as="h3"
-            slug={slugger.slug(props.children?.toString() ?? '')}
-          >
+          <Heading as="h3" slug={slugger.slug(getText(props.children))}>
             {props.children}
           </Heading>
         ),
         h4: (props) => (
-          <Heading
-            as="h4"
-            slug={slugger.slug(props.children?.toString() ?? '')}
-          >
+          <Heading as="h4" slug={slugger.slug(getText(props.children))}>
             {props.children}
           </Heading>
         ),
         h5: (props) => (
-          <Heading
-            as="h5"
-            slug={slugger.slug(props.children?.toString() ?? '')}
-          >
+          <Heading as="h5" slug={slugger.slug(getText(props.children))}>
             {props.children}
           </Heading>
         ),
         h6: (props) => (
-          <Heading
-            as="h6"
-            slug={slugger.slug(props.children?.toString() ?? '')}
-          >
+          <Heading as="h6" slug={slugger.slug(getText(props.children))}>
             {props.children}
           </Heading>
         ),
