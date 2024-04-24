@@ -1,4 +1,7 @@
+'use client';
+
 import GithubSlugger from 'github-slugger';
+import { usePathname } from 'next/navigation';
 import {
   LuArmchair,
   LuBuilding,
@@ -125,18 +128,22 @@ const tiers: {
 ];
 
 export default function Pricing() {
+  const pathname = usePathname();
   const slugger = new GithubSlugger();
 
+  const Heading: keyof JSX.IntrinsicElements =
+    pathname === '/pricing' ? 'h1' : 'h2';
+
   return (
-    <section className="isolate py-16 sm:py-24">
+    <section
+      className="isolate py-16 sm:py-24"
+      id={pathname === 'pricing' ? undefined : 'pricing'}
+    >
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
-          <h2
-            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl"
-            id="pricing"
-          >
+          <Heading className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
             Pricing
-          </h2>
+          </Heading>
           <p className="mx-auto max-w-prose text-balance text-4xl font-extrabold sm:text-5xl">
             Foundational AWS security for your whole company.{' '}
             <span className="text-cornflower-blue-600">
@@ -271,40 +278,38 @@ export default function Pricing() {
             ))}
           </div>
         </div>
-        <div className="mb-20 mt-5 flow-root">
-          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
-            <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
-              <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
-                <LuArmchair />
-                Additional seats
-              </h3>
-              <p className="my-8 flex items-baseline gap-x-1">
-                <span className="text-3xl font-bold tracking-tight text-gray-900">
-                  $5
-                </span>
-                <span className="ml-1 text-sm font-semibold leading-6 text-gray-600">
-                  per seat, per month
-                </span>
-              </p>
-              <p className="text-base leading-6 text-gray-600">
-                Add additional seats to any paid plan.
-              </p>
-            </div>
-            <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
-              <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
-                <LuPencilRuler />
-                Custom plans
-              </h3>
-              <p className="my-8 text-xl font-semibold leading-8 text-gray-600">
-                <UnstyledLink href="mailto:hi@fix.security">
-                  Schedule a call with us &rarr;
-                </UnstyledLink>
-              </p>
-              <p className="text-base leading-6 text-gray-600">
-                Need more seats, support for custom data sources, or private
-                deployment options?
-              </p>
-            </div>
+        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
+          <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
+            <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
+              <LuArmchair />
+              Additional seats
+            </h3>
+            <p className="my-8 flex items-baseline gap-x-1">
+              <span className="text-3xl font-bold tracking-tight text-gray-900">
+                $5
+              </span>
+              <span className="ml-1 text-sm font-semibold leading-6 text-gray-600">
+                per seat, per month
+              </span>
+            </p>
+            <p className="text-base leading-6 text-gray-600">
+              Add additional seats to any paid plan.
+            </p>
+          </div>
+          <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
+            <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
+              <LuPencilRuler />
+              Custom plans
+            </h3>
+            <p className="my-8 text-xl font-semibold leading-8 text-gray-600">
+              <UnstyledLink href="mailto:hi@fix.security">
+                Schedule a call with us &rarr;
+              </UnstyledLink>
+            </p>
+            <p className="text-base leading-6 text-gray-600">
+              Need more seats, support for custom data sources, or private
+              deployment options?
+            </p>
           </div>
         </div>
       </div>

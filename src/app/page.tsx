@@ -5,7 +5,6 @@ import { WebSite, WithContext } from 'schema-dts';
 import Customers from '@/components/Customers';
 import Faq from '@/components/Faq';
 import Hero from '@/components/Hero';
-// import HowFixWorks from '@/components/HowFixWorks';
 import Pricing from '@/components/Pricing';
 import Testimonials from '@/components/Testimonials';
 import WhyFix from '@/components/WhyFix';
@@ -48,7 +47,6 @@ export default function HomePage() {
         </div>
       </section>
       <Testimonials />
-      {/* <HowFixWorks /> */}
       <WhyFix />
       <Pricing />
       <Faq />

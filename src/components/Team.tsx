@@ -108,7 +108,7 @@ const people = [
 
 export default function Team() {
   return (
-    <section className="bg-gray-50 px-6 py-32 lg:px-8">
+    <section className="bg-gray-50 px-6 py-32 lg:px-8" id="team">
       <div className="mx-auto grid max-w-3xl grid-cols-1 gap-x-16 gap-y-20 xl:max-w-7xl xl:grid-cols-6">
         <div className="max-w-2xl space-y-6 text-lg font-medium leading-8 text-gray-900 sm:text-xl xl:col-span-2">
           <h2 className="text-5xl font-extrabold leading-none sm:text-6xl">

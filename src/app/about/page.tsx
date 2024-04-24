@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { getStaticPage } from '@/lib/hashnode';
 
 import MarkdownContent from '@/components/common/MarkdownContent';
+import Faq from '@/components/Faq';
 import Team from '@/components/Team';
 
 import { metadata as rootMetadata } from '@/app/layout';
@@ -73,6 +74,7 @@ export default async function AboutPage() {
         </div>
       </div>
       <Team />
+      <Faq />
     </>
   );
 }

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { getAllTagSlugs, getPostsByTag, getTagName } from '@/lib/hashnode';
 
@@ -70,7 +70,7 @@ export default async function BlogTagPage({
   const [tagName, posts] = await Promise.all([tagNameData, postsData]);
 
   if (!tagName || !posts) {
-    redirect('/blog');
+    notFound();
   }
 
   return (

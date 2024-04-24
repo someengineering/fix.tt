@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { getAllPostSlugs, getPost, getPublicationId } from '@/lib/hashnode';
 
@@ -79,7 +79,7 @@ export default async function BlogPostPage({
   ]);
 
   if (!publicationId || !post) {
-    redirect('/blog');
+    notFound();
   }
 
   return <BlogPost post={post} publicationId={publicationId} />;

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 
 import { getPosts } from '@/lib/hashnode';
 
@@ -40,10 +39,6 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   const posts = await getPosts({});
 
-  if (!posts) {
-    redirect('/');
-  }
-
   return (
     <div className="px-6 py-16 sm:py-24 lg:px-8">
       <div
@@ -62,17 +57,19 @@ export default async function BlogPage() {
         >
           {description}
         </p>
-        <BlogPostList
-          initialPosts={posts.edges.map((edge) => edge.node)}
-          initialPageInfo={posts.pageInfo}
-          getPosts={async (after: string) => {
-            'use server';
+        {posts ? (
+          <BlogPostList
+            initialPosts={posts.edges.map((edge) => edge.node)}
+            initialPageInfo={posts.pageInfo}
+            getPosts={async (after: string) => {
+              'use server';
 
-            return await getPosts({
-              after,
-            });
-          }}
-        />
+              return await getPosts({
+                after,
+              });
+            }}
+          />
+        ) : null}
       </div>
     </div>
   );

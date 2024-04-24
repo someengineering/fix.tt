@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 
 import '@/styles/globals.css';
 
+import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -86,7 +87,12 @@ export default function RootLayout({
       <body className="bg-white">
         <PosthogProvider>
           <Header />
-          <main>{children}</main>
+          <main>
+            {children}
+            <Suspense>
+              <BlogNewsletterForm />
+            </Suspense>
+          </main>
           <Footer />
           <CookieConsent />
           <Suspense>

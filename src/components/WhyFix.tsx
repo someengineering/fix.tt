@@ -45,13 +45,10 @@ const features: {
 
 export default function WhyFix() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" id="why">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2
-            className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl"
-            id="why"
-          >
+          <h2 className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
             Why Fix?
           </h2>
           <p className="max-w-prose text-pretty text-4xl font-extrabold sm:text-5xl">

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 import { getAllSeriesSlugs, getPostsBySeries, getSeries } from '@/lib/hashnode';
 
@@ -70,7 +70,7 @@ export default async function BlogSeriesPage({
   const [seriesInfo, posts] = await Promise.all([seriesInfoData, postsData]);
 
   if (!seriesInfo || !seriesInfo.posts.totalDocuments || !posts) {
-    redirect('/blog');
+    notFound();
   }
 
   return (

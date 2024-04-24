@@ -23,6 +23,11 @@ module.exports = withPlausibleProxy()({
   async redirects() {
     return [
       {
+        source: '/faq',
+        permanent: true,
+        destination: `/frequency-asked-questions`,
+      },
+      {
         source: '/privacy',
         permanent: true,
         destination: `/privacy-policy`,
@@ -88,12 +93,6 @@ module.exports = withPlausibleProxy()({
         source: '/docs/:path*',
         permanent: true,
         destination: 'https://docs.fix.security/:path*',
-      },
-      {
-        source:
-          '/blog/graph-based-cloud-security-at-lyft-with-alex-chantavy-senior-software-engineer-at-lyft',
-        permanent: true,
-        destination: 'https://open.spotify.com/episode/1LysDLw6D6m5YuqBd2a9BF',
       },
     ];
   },

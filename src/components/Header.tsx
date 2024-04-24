@@ -13,8 +13,7 @@ import { siteConfig } from '@/constants/config';
 
 const navigation = [
   { name: 'About', href: '/about' },
-  { name: 'Pricing', href: '/#pricing' },
-  { name: 'FAQ', href: '/#faq' },
+  { name: 'Pricing', href: '/pricing' },
   { name: 'Docs', href: 'https://docs.fix.security' },
   { name: 'Blog', href: '/blog' },
   { name: 'Podcast', href: '/podcast' },

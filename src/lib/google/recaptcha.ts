@@ -6,9 +6,6 @@ type ValidateCaptchaResult =
   | { isValid: true }
   | { isValid: false; reason: string };
 
-/**
- * Checks the captcha validity.
- */
 export async function validateCaptcha(
   captcha: string,
 ): Promise<ValidateCaptchaResult> {

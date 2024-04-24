@@ -50,12 +50,9 @@ const testimonials: {
 
 export default function Testimonials() {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" id="testimonials">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div
-          className="mx-auto -mt-10 grid max-w-2xl grid-cols-1 gap-y-10 divide-y divide-gray-900/10 sm:-mt-16 sm:gap-y-16 lg:mx-0 lg:-ml-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:divide-x lg:divide-y-0"
-          id="testimonials"
-        >
+        <div className="mx-auto -mt-10 grid max-w-2xl grid-cols-1 gap-y-10 divide-y divide-gray-900/10 sm:-mt-16 sm:gap-y-16 lg:mx-0 lg:-ml-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:divide-x lg:divide-y-0">
           {testimonials.map((testimonial, index) => (
             <div
               className="flex flex-col space-y-8 pt-10 sm:pt-16 lg:pl-8 lg:pt-0"

@@ -1,6 +1,7 @@
 'use client';
 
 import { Disclosure } from '@headlessui/react';
+import { usePathname } from 'next/navigation';
 import { LuMinus, LuPlus } from 'react-icons/lu';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
@@ -325,13 +326,21 @@ const faqs: {
 ];
 
 export default function Faq() {
+  const pathname = usePathname();
+
+  const Heading: keyof JSX.IntrinsicElements =
+    pathname === '/frequently-asked-questions' ? 'h1' : 'h2';
+
   return (
-    <section className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8">
+    <section
+      className="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:px-8"
+      id={pathname === '/frequently-asked-questions' ? undefined : 'faq'}
+    >
       <div className="mx-auto max-w-4xl divide-y divide-gray-900/10">
-        <h2 className="text-4xl font-extrabold sm:text-5xl" id="faq">
+        <Heading className="text-4xl font-extrabold sm:text-5xl">
           Frequently asked questions
-        </h2>
-        <dl className="mt-10 space-y-6 divide-y divide-gray-900/10">
+        </Heading>
+        <dl className="mt-20 space-y-6 divide-y divide-gray-900/10">
           {faqs.map((faq, index) => (
             <Disclosure as="div" key={`faq-${index}`} className="pt-6">
               {({ open }) => (
