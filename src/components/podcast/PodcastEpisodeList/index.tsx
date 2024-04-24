@@ -11,14 +11,18 @@ import {
 
 import PodcastEpisodeListItem from '@/components/podcast/PodcastEpisodeList/PodcastEpisodeListItem';
 
+import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
+
 export default function PodcastEpisodeList({
   initialEpisodes,
   initialPageInfo,
   getEpisodes,
+  host,
 }: {
   initialEpisodes: SpotifyEpisode[];
   initialPageInfo: SpotifyPageInfo;
   getEpisodes: (offset: number) => Promise<SpotifyEpisodesResult>;
+  host?: HashnodeUser;
 }) {
   const [episodes, setEpisodes] = useState<SpotifyEpisode[]>(initialEpisodes);
   const [pageInfo, setPageInfo] = useState<SpotifyPageInfo>(initialPageInfo);
@@ -57,6 +61,7 @@ export default function PodcastEpisodeList({
         <PodcastEpisodeListItem
           episode={episode}
           key={`episode-${episode.id}`}
+          host={host}
         />
       ))}
       <div ref={sentryRef} />

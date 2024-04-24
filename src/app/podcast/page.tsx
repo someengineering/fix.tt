@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 
+import { getUser } from '@/lib/hashnode';
 import { getEpisodes } from '@/lib/spotify';
 
 import PodcastEpisodeList from '@/components/podcast/PodcastEpisodeList';
@@ -38,6 +39,7 @@ export const metadata: Metadata = {
 
 export default async function PodcastPage() {
   const { items: episodes, ...pageInfo } = await getEpisodes({});
+  const host = await getUser('scapecast');
 
   return (
     <div className="px-6 py-16 sm:py-24 lg:px-8">
@@ -66,6 +68,7 @@ export default async function PodcastPage() {
               offset,
             });
           }}
+          host={host ?? undefined}
         />
       </div>
     </div>

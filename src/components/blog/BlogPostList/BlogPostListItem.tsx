@@ -105,14 +105,14 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
               <NextImage
                 src={post.author.profilePicture}
                 alt=""
-                className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-gray-50"
+                className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
                 classNames={{ image: 'w-full h-full object-cover' }}
                 width={40}
                 height={40}
                 itemProp="image"
               />
             ) : (
-              <div className="h-10 w-10 shrink-0 rounded-full bg-gray-50" />
+              <div className="h-11 w-11 shrink-0 rounded-full bg-gray-50" />
             )}
             <div>
               <p

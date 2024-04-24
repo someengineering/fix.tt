@@ -4740,6 +4740,24 @@ export type TagSlugsQuery = {
   } | null;
 };
 
+export type UserQueryVariables = Exact<{
+  username: Scalars['String']['input'];
+}>;
+
+export type UserQuery = {
+  __typename?: 'Query';
+  user?: {
+    __typename?: 'User';
+    username: string;
+    name: string;
+    profilePicture?: string | null;
+    socialMediaLinks?: {
+      __typename?: 'SocialMediaLinks';
+      linkedin?: string | null;
+    } | null;
+  } | null;
+};
+
 export const TagFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -8822,3 +8840,83 @@ export const TagSlugsDocument = {
     },
   ],
 } as unknown as DocumentNode<TagSlugsQuery, TagSlugsQueryVariables>;
+export const UserDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'User' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'username' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'user' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'username' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'username' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'User' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'User' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'User' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'username' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'socialMediaLinks' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'linkedin' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<UserQuery, UserQueryVariables>;

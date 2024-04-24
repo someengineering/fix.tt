@@ -55,6 +55,9 @@ import {
   TagSlugsDocument,
   TagSlugsQuery,
   TagSlugsQueryVariables,
+  UserDocument,
+  UserQuery,
+  UserQueryVariables,
 } from '@/generated/hashnode/graphql';
 import { getUserLink } from '@/utils/hashnode';
 
@@ -71,6 +74,17 @@ export const getPublicationId = async () => {
   });
 
   return data.publication?.id;
+};
+
+export const getUser = async (username: string) => {
+  const data = await gqlClient.request<UserQuery, UserQueryVariables>(
+    UserDocument,
+    {
+      username,
+    },
+  );
+
+  return data.user;
 };
 
 export const getAllTagSlugs = async () => {
