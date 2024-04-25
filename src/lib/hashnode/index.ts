@@ -512,7 +512,7 @@ export const getAllStaticPageSlugs = async () => {
 
   if (data.publication) {
     slugs = data.publication.staticPages.edges
-      .filter((edge) => !edge.node.hidden)
+      .filter((edge) => !edge.node.hidden && edge.node.slug !== 'about')
       .map((edge) => edge.node.slug);
 
     const fetchMore = async (after?: string) => {
@@ -532,7 +532,7 @@ export const getAllStaticPageSlugs = async () => {
       slugs = [
         ...slugs,
         ...data.publication.staticPages.edges
-          .filter((edge) => !edge.node.hidden)
+          .filter((edge) => !edge.node.hidden && edge.node.slug !== 'about')
           .map((edge) => edge.node.slug),
       ];
 

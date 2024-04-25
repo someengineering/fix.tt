@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly',
       priority: 1,
     },
-    ...['pricing', 'frequently-asked-questions'].map(
+    ...['about', 'pricing', 'frequently-asked-questions'].map(
       (slug): SitemapField => ({
         url: `${siteConfig.url}/${slug}`,
         changeFrequency: 'monthly',
