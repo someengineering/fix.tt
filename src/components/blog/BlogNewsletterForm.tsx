@@ -52,7 +52,7 @@ export default function BlogNewsletterForm() {
 
   return (
     <div className="mx-auto max-w-7xl py-16 sm:px-6 sm:py-24 lg:px-8">
-      <div className="relative isolate bg-marian-blue-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
+      <div className="bg-marian-blue-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
         <h2 className="mx-auto mb-10 max-w-2xl text-balance text-center text-3xl font-extrabold sm:text-4xl">
           <span className="text-cornflower-blue-600">
             Subscribe to our newsletter

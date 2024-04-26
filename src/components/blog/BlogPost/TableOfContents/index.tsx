@@ -4,29 +4,29 @@ import { Disclosure } from '@headlessui/react';
 import { useMemo } from 'react';
 import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 
-import BlogPostTableOfContentsRow from '@/components/blog/BlogPost/BlogPostTableOfContents/BlogPostTableOfContentsRow';
+import TableOfContentsRow from '@/components/blog/BlogPost/TableOfContents/TableOfContentsRow';
 
 import { TableOfContentsItemFragment as HashnodeTableOfContentsItem } from '@/generated/hashnode/graphql';
 
-export type BlogPostTableOfContentsItem = {
+export type TableOfContentsItem = {
   id: string;
   slug: string;
   title: string;
   level: number;
   parentId?: string | null;
-  children: BlogPostTableOfContentsItem[];
+  children: TableOfContentsItem[];
 };
 
-export default function BlogPostTableOfContents({
+export default function TableOfContents({
   items,
 }: {
   items: HashnodeTableOfContentsItem[];
 }) {
-  const tocTree: BlogPostTableOfContentsItem[] = useMemo(() => {
+  const tocTree: TableOfContentsItem[] = useMemo(() => {
     {
       const processItem = (
         item: HashnodeTableOfContentsItem,
-      ): BlogPostTableOfContentsItem => ({
+      ): TableOfContentsItem => ({
         ...item,
         children: items
           .filter((i) => i.level === item.level + 1 && i.parentId === item.id)
@@ -66,7 +66,7 @@ export default function BlogPostTableOfContents({
           </Disclosure.Button>
           <Disclosure.Panel as="ul" unmount={false} className="mt-4 space-y-2">
             {tocTree.map((item) => (
-              <BlogPostTableOfContentsRow
+              <TableOfContentsRow
                 key={item.id}
                 slug={item.slug}
                 title={item.title}

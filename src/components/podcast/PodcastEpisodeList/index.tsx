@@ -9,7 +9,7 @@ import {
   PageInfo as SpotifyPageInfo,
 } from '@/lib/spotify';
 
-import PodcastEpisodeListItem from '@/components/podcast/PodcastEpisodeList/PodcastEpisodeListItem';
+import Item from '@/components/podcast/PodcastEpisodeList/Item';
 
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 
@@ -56,13 +56,9 @@ export default function PodcastEpisodeList({
   });
 
   return (
-    <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
+    <div className="mt-16 space-y-20 lg:mt-20">
       {episodes?.map((episode) => (
-        <PodcastEpisodeListItem
-          episode={episode}
-          key={`episode-${episode.id}`}
-          host={host}
-        />
+        <Item episode={episode} key={`episode-${episode.id}`} host={host} />
       ))}
       <div ref={sentryRef} />
     </div>

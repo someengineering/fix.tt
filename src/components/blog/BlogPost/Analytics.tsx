@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-export default function BlogPostAnalytics({
+export default function Analytics({
   publicationId,
   postId,
   url,

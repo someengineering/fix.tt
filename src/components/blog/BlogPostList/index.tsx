@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
-import BlogPostListItem from '@/components/blog/BlogPostList/BlogPostListItem';
+import Item from '@/components/blog/BlogPostList/Item';
 
 import {
   PageInfo as HashnodePageInfo,
@@ -57,9 +57,9 @@ export default function BlogPostList({
   });
 
   return (
-    <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
+    <div className="mt-16 space-y-20 lg:mt-20">
       {posts.map((post) => (
-        <BlogPostListItem
+        <Item
           post={{ ...post, series: showSeries ? post.series : undefined }}
           key={`post-${post.slug}`}
         />

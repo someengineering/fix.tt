@@ -10,7 +10,7 @@ import { PostFragment as HashnodePost } from '@/generated/hashnode/graphql';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
-export default function BlogPostListItem({ post }: { post: HashnodePost }) {
+export default function Item({ post }: { post: HashnodePost }) {
   if (!post) {
     return null;
   }
@@ -20,7 +20,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
 
   return (
     <article
-      className="relative isolate flex flex-col items-center gap-8 lg:flex-row"
+      className="relative flex flex-col items-center gap-8 lg:flex-row"
       itemProp="blogPost"
       itemScope
       itemType="http://schema.org/BlogPosting"
@@ -90,7 +90,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
             </UnstyledLink>
           </h3>
           <p
-            className="text-pretty text-base font-semibold leading-6 text-gray-900"
+            className="text-pretty text-base font-semibold text-gray-900"
             itemProp="description"
           >
             {post.subtitle ?? post.brief}
@@ -144,7 +144,7 @@ export default function BlogPostListItem({ post }: { post: HashnodePost }) {
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="relative z-10 rounded-md bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
+              className="z-10 rounded-md bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

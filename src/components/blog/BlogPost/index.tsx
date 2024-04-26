@@ -1,7 +1,7 @@
-import BlogPostAnalytics from '@/components/blog/BlogPost/BlogPostAnalytics';
-import BlogPostContent from '@/components/blog/BlogPost/BlogPostContent';
-import BlogPostFooter from '@/components/blog/BlogPost/BlogPostFooter';
-import BlogPostHeader from '@/components/blog/BlogPost/BlogPostHeader';
+import Analytics from '@/components/blog/BlogPost/Analytics';
+import Content from '@/components/blog/BlogPost/Content';
+import Footer from '@/components/blog/BlogPost/Footer';
+import Header from '@/components/blog/BlogPost/Header';
 
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
@@ -33,7 +33,7 @@ export default function BlogPost({
           itemType="http://schema.org/BlogPosting"
           itemID={url}
         >
-          <BlogPostHeader
+          <Header
             url={url}
             title={post.title}
             subtitle={post.subtitle ?? undefined}
@@ -45,7 +45,7 @@ export default function BlogPost({
             updatedAt={post.updatedAt ?? undefined}
             readTimeInMinutes={post.readTimeInMinutes}
           />
-          <BlogPostContent
+          <Content
             markdown={post.content?.markdown}
             tocItems={
               post.features.tableOfContents.isEnabled
@@ -53,19 +53,11 @@ export default function BlogPost({
                 : undefined
             }
           />
-          <BlogPostFooter
-            url={url}
-            title={post.title}
-            tags={post.tags ?? undefined}
-          />
+          <Footer url={url} title={post.title} tags={post.tags ?? undefined} />
         </article>
       </div>
       {isProd ? (
-        <BlogPostAnalytics
-          publicationId={publicationId}
-          postId={post.id}
-          url={url}
-        />
+        <Analytics publicationId={publicationId} postId={post.id} url={url} />
       ) : null}
     </>
   );

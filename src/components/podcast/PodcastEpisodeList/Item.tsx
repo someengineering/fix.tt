@@ -10,7 +10,7 @@ import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 import { parseEpisodeTitle } from '@/utils/spotify';
 
-export default function PodcastEpisodeListItem({
+export default function Item({
   episode,
   host,
 }: {

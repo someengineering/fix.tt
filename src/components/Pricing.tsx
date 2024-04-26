@@ -136,12 +136,12 @@ export default function Pricing() {
 
   return (
     <section
-      className="isolate py-16 sm:py-24"
+      className="py-16 sm:py-24"
       id={pathname === 'pricing' ? undefined : 'pricing'}
     >
       <div className="mx-auto max-w-7xl px-6 text-center lg:px-8">
         <div className="mx-auto max-w-4xl">
-          <Heading className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
+          <Heading className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
             Pricing
           </Heading>
           <p className="mx-auto max-w-prose text-balance text-4xl font-extrabold sm:text-5xl">
@@ -151,12 +151,12 @@ export default function Pricing() {
             </span>
           </p>
         </div>
-        <p className="relative mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl">
+        <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl">
           Fix pricing scales on a per-cloud-account basis, with an add-on to buy
           more seats for your team. We offer a free tier and two-week trials.
         </p>
         <div className="mt-20 flow-root">
-          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
+          <div className="mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
             {tiers.map((tier, index) => (
               <div
                 key={`tier-${slugger.slug(tier.name)}`}
@@ -217,7 +217,7 @@ export default function Pricing() {
                     </>
                   )}
                 </div>
-                <div className="gap-y-2 text-base leading-6">
+                <div className="gap-y-2 text-base">
                   <p>{tier.scanFrequency} scans</p>
                   <p>
                     {tier.seats.included
@@ -225,7 +225,7 @@ export default function Pricing() {
                       : `${tier.seats.maximum} seat${tier.seats.maximum === 1 ? '' : 's'} maximum`}
                   </p>
                 </div>
-                <p className="mt-6 text-base font-semibold leading-6 text-gray-900">
+                <p className="mt-6 text-base font-semibold text-gray-900">
                   {index === 0
                     ? 'Features:'
                     : `Everything in ${tiers[index - 1].name}, and:`}
@@ -247,7 +247,7 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 text-base font-semibold leading-6 text-gray-900">
+                <p className="mt-6 text-base font-semibold text-gray-900">
                   Support:
                 </p>
                 <ul
@@ -278,7 +278,7 @@ export default function Pricing() {
             ))}
           </div>
         </div>
-        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
+        <div className="mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
           <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
             <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
               <LuArmchair />
@@ -292,7 +292,7 @@ export default function Pricing() {
                 per seat, per month
               </span>
             </p>
-            <p className="text-base leading-6 text-gray-600">
+            <p className="text-base text-gray-600">
               Add additional seats to any paid plan.
             </p>
           </div>
@@ -306,7 +306,7 @@ export default function Pricing() {
                 Schedule a call with us &rarr;
               </UnstyledLink>
             </p>
-            <p className="text-base leading-6 text-gray-600">
+            <p className="text-base text-gray-600">
               Need more seats, support for custom data sources, or private
               deployment options?
             </p>

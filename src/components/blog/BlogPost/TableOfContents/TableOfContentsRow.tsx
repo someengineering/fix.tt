@@ -1,4 +1,4 @@
-import { BlogPostTableOfContentsItem } from '@/components/blog/BlogPost/BlogPostTableOfContents';
+import { TableOfContentsItem } from '@/components/blog/BlogPost/TableOfContents';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 export default function BlogPostTableOfContentsRow({
@@ -8,7 +8,7 @@ export default function BlogPostTableOfContentsRow({
 }: {
   slug: string;
   title: string;
-  childItems: BlogPostTableOfContentsItem[];
+  childItems: TableOfContentsItem[];
 }) {
   return (
     <li>

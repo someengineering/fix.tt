@@ -6,10 +6,10 @@ import { siteConfig } from '@/constants/config';
 
 export default function Hero() {
   return (
-    <section className="isolate py-16 sm:py-24">
+    <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-7xl px-6 text-center lg:flex lg:items-center lg:gap-x-4 lg:px-8 lg:text-left">
         <div className="mx-auto pb-12 lg:p-0">
-          <div className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
+          <div className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
             For cloud security engineers
           </div>
           <h1 className="max-w-prose text-balance text-4xl font-extrabold sm:text-5xl lg:text-pretty">

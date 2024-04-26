@@ -48,7 +48,7 @@ export default function WhyFix() {
     <section className="py-16 sm:py-24" id="why">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
-          <h2 className="mb-3 text-lg font-bold uppercase leading-7 text-gray-600 sm:text-xl">
+          <h2 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
             Why Fix?
           </h2>
           <p className="max-w-prose text-pretty text-4xl font-extrabold sm:text-5xl">
@@ -80,7 +80,7 @@ export default function WhyFix() {
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
             {features.map((feature, index) => (
               <div key={`feature-${index}`} className="flex flex-col">
-                <dt className="text-lg font-bold leading-7 text-gray-900">
+                <dt className="text-lg font-bold text-gray-900">
                   <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50">
                     <feature.icon
                       className="h-6 w-6 text-cornflower-blue-600"

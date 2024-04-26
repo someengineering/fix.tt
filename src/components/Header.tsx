@@ -99,7 +99,7 @@ export default function Header() {
                   <a
                     key={item.name}
                     href={item.href}
-                    className="block text-lg font-bold leading-7 text-gray-700 hover:text-gray-900"
+                    className="block text-lg font-bold text-gray-700 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}

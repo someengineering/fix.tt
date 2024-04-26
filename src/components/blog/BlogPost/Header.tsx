@@ -13,7 +13,7 @@ import {
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 
-export default function BlogPostHeader({
+export default function Header({
   url,
   title,
   subtitle,
@@ -108,7 +108,7 @@ export default function BlogPostHeader({
         <meta itemProp="description" content={brief} />
       )}
       <div
-        className="relative flex items-center gap-x-4 pt-2"
+        className="flex items-center gap-x-4 pt-2"
         itemProp="author"
         itemScope
         itemType="https://schema.org/Person"

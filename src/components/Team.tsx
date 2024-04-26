@@ -142,9 +142,7 @@ export default function Team() {
                 <h3 className="text-3xl font-extrabold text-cornflower-blue-600">
                   {person.name}
                 </h3>
-                <p className="text-lg font-bold leading-7 text-gray-900">
-                  {person.role}
-                </p>
+                <p className="text-lg font-bold text-gray-900">{person.role}</p>
                 <div className="mt-6 space-y-4 text-base leading-7 text-gray-600">
                   {person.bio}
                 </div>

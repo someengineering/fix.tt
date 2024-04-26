@@ -6,7 +6,7 @@ import {
   TagFragment as HashnodeTag,
 } from '@/generated/hashnode/graphql';
 
-export default function BlogPostFooter({
+export default function Footer({
   url,
   title,
   tags,
@@ -21,7 +21,7 @@ export default function BlogPostFooter({
         {tags?.map((tag) => (
           <UnstyledLink
             href={`/blog/tag/${tag.slug}`}
-            className="relative z-10 rounded-md bg-gray-50 px-3 py-1.5 hover:bg-marian-blue-50"
+            className="z-10 rounded-md bg-gray-50 px-3 py-1.5 hover:bg-marian-blue-50"
             key={`tag-${tag.slug}`}
           >
             {tag.name}
