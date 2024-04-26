@@ -2,6 +2,7 @@ import Analytics from '@/components/blog/BlogPost/Analytics';
 import Content from '@/components/blog/BlogPost/Content';
 import Footer from '@/components/blog/BlogPost/Footer';
 import Header from '@/components/blog/BlogPost/Header';
+import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
 
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
@@ -19,7 +20,7 @@ export default function BlogPost({
   return (
     <>
       <div
-        className="px-6 py-32 lg:px-8"
+        className="px-6 pt-32 lg:px-8"
         itemScope
         itemType="http://schema.org/Blog"
         itemID={`${siteConfig.url}/blog`}
@@ -27,7 +28,7 @@ export default function BlogPost({
         <meta itemProp="name" content={siteConfig.blogTitle} />
         <meta itemProp="description" content={siteConfig.blogDescription} />
         <article
-          className="mx-auto max-w-3xl text-lg leading-7 text-gray-700"
+          className="mx-auto max-w-3xl text-lg text-gray-700"
           itemProp="blogPost"
           itemScope
           itemType="http://schema.org/BlogPosting"
@@ -55,6 +56,12 @@ export default function BlogPost({
           />
           <Footer url={url} title={post.title} tags={post.tags ?? undefined} />
         </article>
+        {post.series ? (
+          <RelatedPosts
+            excludedPostSlug={post.slug}
+            seriesSlug={post.series.slug}
+          />
+        ) : null}
       </div>
       {isProd ? (
         <Analytics publicationId={publicationId} postId={post.id} url={url} />
