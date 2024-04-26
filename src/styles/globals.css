@@ -56,6 +56,26 @@
     li > p:only-child {
       @apply my-0;
     }
+
+    pre {
+      @apply overflow-x-auto rounded-xl bg-gray-50 p-3;
+    }
+
+    ::-webkit-scrollbar {
+      @apply max-h-2;
+    }
+
+    ::-webkit-scrollbar-track {
+      @apply rounded-xl bg-cornflower-blue-50;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      @apply rounded-xl bg-cornflower-blue-200;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      @apply bg-cornflower-blue-300;
+    }
   }
 
   .static-page {
@@ -68,8 +88,4 @@
       @apply my-6 text-base font-normal leading-7 sm:text-lg sm:leading-8;
     }
   }
-}
-
-.calendly-spinner {
-  display: none;
 }

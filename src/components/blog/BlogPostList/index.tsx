@@ -57,7 +57,7 @@ export default function BlogPostList({
   });
 
   return (
-    <div className="mt-16 space-y-20 lg:mt-20">
+    <div className="-mb-20 mt-16 space-y-20 lg:mt-20">
       {posts.map((post) => (
         <Item
           post={{ ...post, series: showSeries ? post.series : undefined }}

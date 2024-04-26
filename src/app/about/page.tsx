@@ -56,7 +56,7 @@ export default async function AboutPage() {
 
   return (
     <>
-      <div className="px-6 pt-32 lg:px-8">
+      <div className="px-6 py-16 sm:py-24 lg:px-8">
         <div className="mx-auto max-w-3xl text-lg text-gray-700">
           <h1 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
             {staticPage.title}

@@ -37,6 +37,16 @@ type AddCommentPayload {
   comment: Comment
 }
 
+input AddDocumentationProjectCustomDomainInput {
+  domain: String!
+  projectId: ID!
+  wwwDomain: Boolean!
+}
+
+type AddDocumentationProjectCustomDomainPayload {
+  project: DocumentationProject
+}
+
 input AddPostToSeriesInput {
   """
   The ID of the post to be added to the series.
@@ -199,6 +209,29 @@ type CancelScheduledDraftPayload {
   Payload returned in response of cancel scheduled post mutation.
   """
   scheduledPost: ScheduledPost!
+}
+
+input CheckCustomDomainAvailabilityInput {
+  domain: String!
+  withWWWRedirect: Boolean!
+}
+
+type CheckCustomDomainAvailabilityResult {
+  domainAvailable: Boolean!
+}
+
+type CheckSubdomainAvailabilityResult {
+  subdomainAvailable: Boolean!
+}
+
+"""
+Contains the flag indicating if the collaboration feature is enabled or not.
+"""
+type CollaborationFeature implements Feature {
+  """
+  A flag indicating if the collaboration feature is enabled or not.
+  """
+  isEnabled: Boolean!
 }
 
 """
@@ -1362,6 +1395,80 @@ input CoverImageOptionsInput {
   stickCoverToBottom: Boolean
 }
 
+input CreateDocumentationApiReferenceInput {
+  name: String
+  projectId: ID!
+  slug: String
+  url: String!
+}
+
+type CreateDocumentationApiReferencePayload {
+  guide: DocumentationApiReference!
+}
+
+input CreateDocumentationGuideInput {
+  name: String!
+  projectId: ID!
+  slug: String
+}
+
+type CreateDocumentationGuidePayload {
+  guide: DocumentationGuide!
+}
+
+input CreateDocumentationLinkInput {
+  guideSlug: String!
+  label: String!
+  projectId: ID!
+  url: String!
+}
+
+type CreateDocumentationLinkPayload {
+  guide: DocumentationGuide
+  link: DocumentationLink
+}
+
+input CreateDocumentationPageDraftInput {
+  content: String
+  description: String
+  guideSlug: String!
+  label: String = "Untitled Page"
+  parentId: ID
+  projectId: ID!
+  title: String = "Untitled Page"
+}
+
+type CreateDocumentationPageDraftPayload {
+  guide: DocumentationGuide
+  page: DocumentationPage
+}
+
+input CreateDocumentationProjectInput {
+  description: String
+  favIconUrl: String
+  links: DocumentationProjectLinksInput
+  logoDarkThemeUrl: String
+  logoUrl: String
+  name: String!
+  settings: DocumentationProjectSettingsInput
+  subdomain: String!
+}
+
+type CreateDocumentationProjectPayload {
+  project: DocumentationProject!
+}
+
+input CreateDocumentationSectionInput {
+  guideSlug: String!
+  label: String = "Untitled Section"
+  projectId: ID!
+}
+
+type CreateDocumentationSectionPayload {
+  guide: DocumentationGuide
+  section: DocumentationSection
+}
+
 input CreateDraftInput {
   """
   Ids of the co-authors of the resulting draft.
@@ -1561,6 +1668,12 @@ type CustomCSSFeature implements Feature {
   published: CustomCSS
 }
 
+enum CustomDomainStatus {
+  INVALID
+  VALID
+  VERIFYING
+}
+
 """
 Contains the publication's dark mode preferences.
 """
@@ -1579,6 +1692,11 @@ type DarkModePreferences {
 A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar DateTime
+
+enum DefaultDocsTheme {
+  DARK
+  LIGHT
+}
 
 input DeleteRoleBasedInviteInput {
   """
@@ -1607,6 +1725,311 @@ enum DeviceType {
   LAPTOP
   MOBILE
   TABLET
+}
+
+type DocumentationApiReference implements IGuide {
+  id: ID!
+  lastModified: DateTime!
+  name: String!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  slug: String!
+  status: DocumentationGuideItemStatus!
+  url: String!
+}
+
+type DocumentationGuide implements IGuide {
+  hasChanges: Boolean!
+  id: ID!
+  lastModified: DateTime!
+  name: String!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  page(id: ID, path: String): DocumentationPage
+  publishedPage(id: ID!, path: String!): DocumentationPage
+  publishedSidebarItems: [DocumentationSidebarItem!]!
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  sidebarItems: [DocumentationSidebarItem!]!
+  slug: String!
+  status: DocumentationGuideItemStatus!
+  """
+  Url of the published guide.
+  """
+  url: String
+}
+
+union DocumentationGuideItem = DocumentationApiReference | DocumentationGuide
+
+enum DocumentationGuideItemStatus {
+  DELETED
+  PUBLISHED
+  UNPUBLISHED
+}
+
+type DocumentationLink implements IDocumentationSidebarItem {
+  createdAt: DateTime!
+  id: ID!
+  label: String!
+  status: DocumentationSidebarItemStatus!
+  updatedAt: DateTime
+  url: String!
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+enum DocumentationMemberRole {
+  EDITOR
+  OWNER
+}
+
+type DocumentationPage {
+  content: DocumentationPageContent!
+  createdAt: DateTime!
+  description: String
+  draft: DocumentationPageDraft!
+  id: ID!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  path: String!
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  status: DocumentationSidebarItemStatus!
+  title: String!
+  updatedAt: DateTime
+  """
+  Url of the published page.
+  """
+  url: String
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+type DocumentationPageContent {
+  mdx: String!
+}
+
+type DocumentationPageDraft {
+  content: DocumentationPageContent!
+  description: String
+  title: String!
+}
+
+type DocumentationProject implements Node {
+  appearance: DocumentationProjectAppearance!
+  createdAt: DateTime!
+  defaultGuide: DocumentationGuideItem
+  description: String
+  domain: DocumentationProjectDomainSettings
+  """
+  Object containing information about beta features enabled for the documentation project.
+  """
+  features: DocumentationProjectFeatures!
+  guide(slug: String!): DocumentationGuideItem
+  guides: [DocumentationGuideItem!]!
+  id: ID!
+  integrations: DocumentationProjectIntegrations
+  links: DocumentationProjectLinks!
+  members: [DocumentationProjectMember!]!
+  name: String!
+  publishedGuide(slug: String!): DocumentationGuideItem
+  publishedGuides: [DocumentationGuideItem!]!
+  settings: DocumentationProjectSettings!
+  updatedAt: DateTime
+}
+
+type DocumentationProjectAppearance {
+  defaultDocsTheme: DefaultDocsTheme!
+  favIconUrl: String
+  logoDarkThemeUrl: String
+  logoUrl: String
+  primaryColor: String
+}
+
+input DocumentationProjectAppearanceInput {
+  defaultDocsTheme: DefaultDocsTheme
+  favIconUrl: String
+  logoDarkThemeUrl: String
+  logoUrl: String
+  primaryColor: String
+}
+
+type DocumentationProjectCustomDomain {
+  domain: String!
+  status: CustomDomainStatus!
+  verifiedAt: DateTime
+  wwwDomain: DocumentationProjectCustomWWWDomain
+}
+
+type DocumentationProjectCustomWWWDomain {
+  status: CustomDomainStatus!
+  verifiedAt: DateTime
+}
+
+type DocumentationProjectDomainSettings {
+  customDomain: DocumentationProjectCustomDomain
+  hashnodeSubDomain: String!
+}
+
+"""
+Contains the documentation project's beta features.
+"""
+type DocumentationProjectFeatures {
+  """
+  Collaboration feature for the docs project which enables collaborative editing in the page editor.
+  """
+  collaboration: CollaborationFeature!
+}
+
+type DocumentationProjectIntegrations {
+  """
+  FB Pixel ID for integration with Facebook Pixel.
+  """
+  fbPixelID: String
+  """
+  Google Tag Manager ID for integration with Google Tag Manager.
+  """
+  gTagManagerID: String
+  """
+  Google Analytics Tracking ID for integration with Google Analytics.
+  """
+  gaTrackingID: String
+  """
+  Hotjar Site ID for integration with Hotjar.
+  """
+  hotjarSiteID: String
+  """
+  Intercom ID for integration with Intercom
+  """
+  intercomID: String
+  """
+  The meta tags associated with the documentation project.
+  """
+  metaTags: String
+}
+
+input DocumentationProjectIntegrationsInput {
+  fbPixelID: String
+  gTagManagerID: String
+  gaTrackingID: String
+  hotjarSiteID: String
+  intercomID: String
+  metaTags: String
+}
+
+type DocumentationProjectLinks {
+  """
+  Daily.dev URL of the publication.
+  """
+  dailydev: String
+  """
+  GitHub URL of the publication.
+  """
+  github: String
+  """
+  Hashnode profile of author of the publication.
+  """
+  hashnode: String
+  """
+  Instagram URL of the publication.
+  """
+  instagram: String
+  """
+  LinkedIn URL of the publication.
+  """
+  linkedin: String
+  """
+  Mastodon URL of the publication.
+  """
+  mastodon: String
+  """
+  Twitter URL of the publication.
+  """
+  twitter: String
+  """
+  Website URL of the publication.
+  """
+  website: String
+  """
+  YouTube URL of the publication.
+  """
+  youtube: String
+}
+
+input DocumentationProjectLinksInput {
+  dailydev: String
+  github: String
+  hashnode: String
+  instagram: String
+  linkedin: String
+  mastodon: String
+  twitter: String
+  website: String
+  youtube: String
+}
+
+type DocumentationProjectMember {
+  role: DocumentationMemberRole!
+  user: User!
+}
+
+type DocumentationProjectSettings {
+  isHashnodeLoginAllowed: Boolean!
+  isRobotsAllowed: Boolean!
+}
+
+input DocumentationProjectSettingsInput {
+  allowHashnodeLogin: Boolean
+  allowRobots: Boolean
+}
+
+type DocumentationSection implements IDocumentationNestableSidebarItem & IDocumentationSidebarItem {
+  createdAt: DateTime!
+  id: ID!
+  label: String!
+  pages: [DocumentationSidebarItemPage!]!
+  status: DocumentationSidebarItemStatus!
+  updatedAt: DateTime
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+union DocumentationSidebarItem =
+  | DocumentationLink
+  | DocumentationSection
+  | DocumentationSidebarItemPage
+
+type DocumentationSidebarItemPage implements IDocumentationNestableSidebarItem & IDocumentationSidebarItem {
+  createdAt: DateTime!
+  hasChanges: Boolean!
+  id: ID!
+  label: String!
+  pages: [DocumentationSidebarItemPage!]!
+  path: String!
+  status: DocumentationSidebarItemStatus!
+  updatedAt: DateTime
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+enum DocumentationSidebarItemStatus {
+  PUBLISHED
+  UNPUBLISHED
+}
+
+enum DocumentationSidebarItemVisibility {
+  HIDDEN
+  PUBLIC
 }
 
 """
@@ -2284,6 +2707,25 @@ enum HttpRedirectionType {
   TEMPORARY
 }
 
+interface IDocumentationNestableSidebarItem {
+  pages: [DocumentationSidebarItemPage!]!
+}
+
+interface IDocumentationSidebarItem {
+  createdAt: DateTime!
+  id: ID!
+  label: String!
+  updatedAt: DateTime
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+interface IGuide {
+  id: ID!
+  lastModified: DateTime!
+  name: String!
+  slug: String!
+}
+
 """
 Contains basic information about the tag.
 A tag is a label that categorizes posts with similar topics.
@@ -2503,11 +2945,26 @@ input MetaTagsInput {
   title: String
 }
 
+input MoveDocumentationSidebarItemInput {
+  guideSlug: String!
+  itemId: ID!
+  parentId: ID
+  position: Int
+  projectId: ID!
+}
+
+type MoveDocumentationSidebarItemPayload {
+  guide: DocumentationGuide
+}
+
 type Mutation {
   """
   Adds a comment to a post.
   """
   addComment(input: AddCommentInput!): AddCommentPayload!
+  addDocumentationProjectCustomDomain(
+    input: AddDocumentationProjectCustomDomainInput!
+  ): AddDocumentationProjectCustomDomainPayload!
   """
   Adds a post to a series.
   """
@@ -2519,6 +2976,24 @@ type Mutation {
   cancelScheduledDraft(
     input: CancelScheduledDraftInput!
   ): CancelScheduledDraftPayload!
+  createDocumentationApiReference(
+    input: CreateDocumentationApiReferenceInput!
+  ): CreateDocumentationApiReferencePayload!
+  createDocumentationGuide(
+    input: CreateDocumentationGuideInput!
+  ): CreateDocumentationGuidePayload!
+  createDocumentationLink(
+    input: CreateDocumentationLinkInput!
+  ): CreateDocumentationLinkPayload!
+  createDocumentationPageDraft(
+    input: CreateDocumentationPageDraftInput!
+  ): CreateDocumentationPageDraftPayload!
+  createDocumentationProject(
+    input: CreateDocumentationProjectInput!
+  ): CreateDocumentationProjectPayload!
+  createDocumentationSection(
+    input: CreateDocumentationSectionInput!
+  ): CreateDocumentationSectionPayload!
   """
   Creates a new draft for a post.
   """
@@ -2552,6 +3027,18 @@ type Mutation {
   Likes a reply.
   """
   likeReply(input: LikeReplyInput!): LikeReplyPayload!
+  moveDocumentationSidebarItem(
+    input: MoveDocumentationSidebarItemInput!
+  ): MoveDocumentationSidebarItemPayload!
+  publishDocumentationApiReference(
+    input: PublishDocumentationApiReferenceInput!
+  ): PublishDocumentationApiReferencePayload!
+  publishDocumentationGuide(
+    input: PublishDocumentationGuideInput!
+  ): PublishDocumentationGuidePayload!
+  publishDocumentationPageDraft(
+    input: PublishDocumentationPageDraftInput!
+  ): PublishDocumentationPageDraftPayload!
   """
   Publishes an existing draft as a post.
   """
@@ -2577,6 +3064,15 @@ type Mutation {
   Removes a comment from a post.
   """
   removeComment(input: RemoveCommentInput!): RemoveCommentPayload!
+  removeDocumentationGuide(
+    input: RemoveDocumentationGuideInput!
+  ): RemoveDocumentationGuidePayload!
+  removeDocumentationProjectCustomDomain(
+    input: RemoveDocumentationProjectCustomDomainInput!
+  ): RemoveDocumentationProjectCustomDomainPayload!
+  removeDocumentationSidebarItem(
+    input: RemoveDocumentationSidebarItemInput!
+  ): RemoveDocumentationSidebarItemPayload!
   """
   Removes a post.
   """
@@ -2592,6 +3088,12 @@ type Mutation {
   Removes a series.
   """
   removeSeries(input: RemoveSeriesInput!): RemoveSeriesPayload!
+  renameDocumentationGuide(
+    input: RenameDocumentationGuideItemInput!
+  ): RenameDocumentationGuideItemPayload!
+  renameDocumentationSidebarItem(
+    input: RenameDocumentationSidebarItemInput!
+  ): RenameDocumentationSidebarItemPayload!
   """
   Reschedule a draft.
   """
@@ -2603,12 +3105,21 @@ type Mutation {
   Restores a deleted post.
   """
   restorePost(input: RestorePostInput!): RestorePostPayload!
+  retryDocumentationProjectCustomDomainVerification(
+    input: RetryDocumentationProjectCustomDomainVerificationInput!
+  ): RetryDocumentationProjectCustomDomainVerificationPayload!
+  saveDocumentationPageDraftContent(
+    input: SaveDocumentationPageDraftContentInput!
+  ): SaveDocumentationPageDraftContentPayload!
   scheduleDraft(
     """
     Information about the draft to be published.
     """
     input: ScheduleDraftInput!
   ): ScheduleDraftPayload!
+  setDocumentationSidebarItemVisibility(
+    input: SetDocumentationSidebarItemVisibilityInput!
+  ): SetDocumentationSidebarItemVisibilityPayload!
   subscribeToNewsletter(
     input: SubscribeToNewsletterInput!
   ): SubscribeToNewsletterPayload!
@@ -2629,6 +3140,27 @@ type Mutation {
   Updates a comment on a post.
   """
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
+  updateDocumentationAppearance(
+    input: UpdateDocumentationAppearanceInput!
+  ): UpdateDocumentationAppearancePayload!
+  updateDocumentationGeneralSettings(
+    input: UpdateDocumentationGeneralSettingsInput!
+  ): UpdateDocumentationGeneralSettingsPayload!
+  updateDocumentationGuide(
+    input: UpdateDocumentationGuideInput!
+  ): UpdateDocumentationGuidePayload!
+  updateDocumentationIntegrations(
+    input: UpdateDocumentationIntegrationsInput!
+  ): UpdateDocumentationIntegrationsPayload!
+  updateDocumentationLink(
+    input: UpdateDocumentationLinkInput!
+  ): UpdateDocumentationLinkPayload!
+  updateDocumentationPageSettings(
+    input: UpdateDocumentationPageSettingsInput!
+  ): UpdateDocumentationPageSettingsPayload!
+  updateDocumentationProjectSubdomain(
+    input: UpdateDocumentationProjectSubdomainInput!
+  ): UpdateDocumentationProjectSubdomainPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
   """
   Updates a reply
@@ -4130,6 +4662,34 @@ type PublicationVisitorsEdge implements Edge {
   node: Visitors!
 }
 
+input PublishDocumentationApiReferenceInput {
+  guideSlug: String!
+  projectId: ID!
+}
+
+type PublishDocumentationApiReferencePayload {
+  guide: DocumentationApiReference
+}
+
+input PublishDocumentationGuideInput {
+  guideSlug: String!
+  projectId: ID!
+}
+
+type PublishDocumentationGuidePayload {
+  guide: DocumentationGuide
+}
+
+input PublishDocumentationPageDraftInput {
+  guideSlug: String!
+  pageId: ID!
+  projectId: ID!
+}
+
+type PublishDocumentationPageDraftPayload {
+  page: DocumentationPage
+}
+
 input PublishDraftInput {
   """
   The id of the draft that should be published
@@ -4262,6 +4822,13 @@ input PublishPostTagInput {
 }
 
 type Query {
+  checkCustomDomainAvailability(
+    input: CheckCustomDomainAvailabilityInput!
+  ): CheckCustomDomainAvailabilityResult!
+  checkSubdomainAvailability(
+    subdomain: String!
+  ): CheckSubdomainAvailabilityResult!
+  documentationProject(host: String, id: ID): DocumentationProject
   """
   Returns a draft by ID.
   Draft is a post that is not published yet.
@@ -4455,6 +5022,33 @@ type RemoveCommentPayload {
   comment: Comment
 }
 
+input RemoveDocumentationGuideInput {
+  guideSlug: String!
+  projectId: ID!
+}
+
+type RemoveDocumentationGuidePayload {
+  guide: DocumentationGuideItem
+}
+
+input RemoveDocumentationProjectCustomDomainInput {
+  projectId: ID!
+}
+
+type RemoveDocumentationProjectCustomDomainPayload {
+  project: DocumentationProject
+}
+
+input RemoveDocumentationSidebarItemInput {
+  guideSlug: String!
+  itemId: ID!
+  projectId: ID!
+}
+
+type RemoveDocumentationSidebarItemPayload {
+  guide: DocumentationGuide
+}
+
 input RemovePostInput {
   """
   The ID of the post to remove.
@@ -4499,6 +5093,27 @@ type RemoveSeriesPayload {
   Returns the updated series.
   """
   series: Series!
+}
+
+input RenameDocumentationGuideItemInput {
+  guideSlug: String!
+  name: String!
+  projectId: ID!
+}
+
+type RenameDocumentationGuideItemPayload {
+  guide: DocumentationGuideItem
+}
+
+input RenameDocumentationSidebarItemInput {
+  guideSlug: String!
+  itemId: ID!
+  label: String!
+  projectId: ID!
+}
+
+type RenameDocumentationSidebarItemPayload {
+  item: DocumentationSidebarItem
 }
 
 """
@@ -4572,6 +5187,14 @@ type RestorePostPayload {
   post: Post
 }
 
+input RetryDocumentationProjectCustomDomainVerificationInput {
+  projectId: ID!
+}
+
+type RetryDocumentationProjectCustomDomainVerificationPayload {
+  project: DocumentationProject
+}
+
 type RoleBasedInvite implements Node {
   """
   The capacity of how many members to be invited by the link.
@@ -4611,6 +5234,19 @@ type SEO {
   The title used in og:title tag for SEO purposes.
   """
   title: String
+}
+
+input SaveDocumentationPageDraftContentInput {
+  content: String
+  description: String
+  guideSlug: String!
+  pageId: ID!
+  projectId: ID!
+  title: String
+}
+
+type SaveDocumentationPageDraftContentPayload {
+  page: DocumentationPage
 }
 
 input ScheduleDraftInput {
@@ -4856,6 +5492,17 @@ type SeriesPostConnection implements Connection {
   The total number of documents in the connection.
   """
   totalDocuments: Int!
+}
+
+input SetDocumentationSidebarItemVisibilityInput {
+  guideSlug: String!
+  itemId: ID!
+  projectId: ID!
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+type SetDocumentationSidebarItemVisibilityPayload {
+  item: DocumentationSidebarItem
 }
 
 """
@@ -5206,6 +5853,84 @@ input UpdateCommentInput {
 
 type UpdateCommentPayload {
   comment: Comment
+}
+
+input UpdateDocumentationAppearanceInput {
+  appearance: DocumentationProjectAppearanceInput!
+  projectId: ID!
+}
+
+type UpdateDocumentationAppearancePayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationGeneralSettingsInput {
+  description: String
+  links: DocumentationProjectLinksInput
+  name: String
+  projectId: ID!
+  settings: DocumentationProjectSettingsInput
+}
+
+type UpdateDocumentationGeneralSettingsPayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationGuideInput {
+  guideId: ID!
+  metaTags: MetaTagsInput
+  name: String
+  projectId: ID!
+  slug: String
+}
+
+type UpdateDocumentationGuidePayload {
+  guide: DocumentationGuide
+}
+
+input UpdateDocumentationIntegrationsInput {
+  integrations: DocumentationProjectIntegrationsInput!
+  projectId: ID!
+}
+
+type UpdateDocumentationIntegrationsPayload {
+  project: DocumentationProject
+}
+
+input UpdateDocumentationLinkInput {
+  guideSlug: String!
+  label: String!
+  linkId: ID!
+  projectId: ID!
+  url: String
+}
+
+type UpdateDocumentationLinkPayload {
+  link: DocumentationLink
+}
+
+input UpdateDocumentationPageSettingsInput {
+  guideSlug: String!
+  label: String
+  metaTags: MetaTagsInput
+  pageId: ID!
+  projectId: ID!
+  slug: String
+  visibility: DocumentationSidebarItemVisibility
+}
+
+type UpdateDocumentationPageSettingsPayload {
+  page: DocumentationPage
+  sidebarItem: DocumentationSidebarItemPage
+}
+
+input UpdateDocumentationProjectSubdomainInput {
+  projectId: ID!
+  subdomain: String!
+}
+
+type UpdateDocumentationProjectSubdomainPayload {
+  project: DocumentationProject
 }
 
 input UpdatePostInput {

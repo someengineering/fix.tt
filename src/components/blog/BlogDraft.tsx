@@ -1,18 +1,19 @@
 import Content from '@/components/blog/BlogPost/Content';
 import Footer from '@/components/blog/BlogPost/Footer';
 import Header from '@/components/blog/BlogPost/Header';
+import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
 
 import { siteConfig } from '@/constants/config';
 import { DraftFragment as HashnodeDraft } from '@/generated/hashnode/graphql';
 
 export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
-  if (!draft.title || !draft.author) {
+  if (!draft.title || !draft.author || !draft.content) {
     return null;
   }
 
   return (
     <div
-      className="px-6 pt-32 lg:px-8"
+      className="px-6 py-16 sm:py-24 lg:px-8"
       itemScope
       itemType="http://schema.org/Blog"
       itemID={`${siteConfig.url}/blog`}
@@ -29,11 +30,14 @@ export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
           title={draft.title}
           subtitle={draft.subtitle ?? undefined}
           author={draft.author}
+          series={draft.series ?? undefined}
           tags={draft.tagsV2}
-          publishedAt={draft.updatedAt}
+          publishedAt={draft.scheduledDate ?? draft.updatedAt}
+          readTimeInMinutes={draft.readTimeInMinutes}
         />
-        <Content markdown={draft.content?.markdown} />
+        <Content markdown={draft.content.markdown} />
         <Footer title={draft.title} tags={draft.tagsV2} />
+        {draft.series ? <RelatedPosts seriesSlug={draft.series.slug} /> : null}
       </article>
     </div>
   );

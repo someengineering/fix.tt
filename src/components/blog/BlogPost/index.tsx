@@ -20,7 +20,7 @@ export default function BlogPost({
   return (
     <>
       <div
-        className="px-6 pt-32 lg:px-8"
+        className="px-6 py-16 sm:py-24 lg:px-8"
         itemScope
         itemType="http://schema.org/Blog"
         itemID={`${siteConfig.url}/blog`}
@@ -47,7 +47,7 @@ export default function BlogPost({
             readTimeInMinutes={post.readTimeInMinutes}
           />
           <Content
-            markdown={post.content?.markdown}
+            markdown={post.content.markdown}
             tocItems={
               post.features.tableOfContents.isEnabled
                 ? post.features.tableOfContents.items
@@ -58,8 +58,8 @@ export default function BlogPost({
         </article>
         {post.series ? (
           <RelatedPosts
-            excludedPostSlug={post.slug}
             seriesSlug={post.series.slug}
+            excludePostSlug={post.slug}
           />
         ) : null}
       </div>

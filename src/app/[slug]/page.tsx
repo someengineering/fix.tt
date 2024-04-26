@@ -69,7 +69,7 @@ export default async function StaticPage({
   }
 
   return (
-    <div className="px-6 pt-32 lg:px-8">
+    <div className="px-6 py-16 sm:py-24 lg:px-8">
       <div className="mx-auto max-w-3xl text-lg text-gray-700">
         <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
           {staticPage.title}

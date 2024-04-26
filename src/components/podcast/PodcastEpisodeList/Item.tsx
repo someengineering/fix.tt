@@ -70,7 +70,7 @@ export default function Item({
           >
             {episode.description}
           </p>
-          <div className="flex items-center justify-start gap-x-16">
+          <div className="flex flex-col gap-y-2 sm:flex-row sm:items-center sm:justify-start sm:gap-x-16">
             {host ? (
               <div
                 className="relative flex items-center gap-x-3 pt-2"

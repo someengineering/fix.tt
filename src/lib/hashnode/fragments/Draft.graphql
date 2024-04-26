@@ -19,5 +19,7 @@ fragment Draft on Draft {
       ...TableOfContentsFeature
     }
   }
+  readTimeInMinutes
+  scheduledDate
   updatedAt
 }

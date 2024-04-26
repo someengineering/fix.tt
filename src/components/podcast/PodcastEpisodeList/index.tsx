@@ -56,7 +56,7 @@ export default function PodcastEpisodeList({
   });
 
   return (
-    <div className="mt-16 space-y-20 lg:mt-20">
+    <div className="-mb-20 mt-16 space-y-20 lg:mt-20">
       {episodes?.map((episode) => (
         <Item episode={episode} key={`episode-${episode.id}`} host={host} />
       ))}

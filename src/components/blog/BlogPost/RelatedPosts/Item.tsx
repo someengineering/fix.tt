@@ -47,32 +47,21 @@ export default function Item({
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
       <div>
-        <header className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs font-bold uppercase leading-7 text-gray-600">
-          {post.series ? (
-            <UnstyledLink
-              href={`/blog/series/${post.series.slug}`}
-              title="This post is part of a series"
-              className="whitespace-nowrap rounded-md bg-cornflower-blue-800 px-2 py-1 font-extrabold leading-none text-white hover:bg-cornflower-blue-900"
-            >
-              {post.series.name}
-            </UnstyledLink>
-          ) : null}
-          <span className="flex flex-wrap items-center gap-x-5">
-            <time
-              dateTime={post.publishedAt}
-              itemProp="datePublished"
-              className="whitespace-nowrap"
-            >
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </time>
-            <span className="flex items-center space-x-1.5 whitespace-nowrap">
-              <LuBookOpen className="h-4 w-4" aria-hidden="true" />
-              <span>{post.readTimeInMinutes} min read</span>
-            </span>
+        <header className="flex items-center gap-x-5 text-xs font-bold uppercase leading-7 text-gray-600">
+          <time
+            dateTime={post.publishedAt}
+            itemProp="datePublished"
+            className="whitespace-nowrap"
+          >
+            {new Date(post.publishedAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })}
+          </time>
+          <span className="flex items-center space-x-1.5 whitespace-nowrap">
+            <LuBookOpen className="h-4 w-4" aria-hidden="true" />
+            <span>{post.readTimeInMinutes} min read</span>
           </span>
           <link
             itemProp="image"
