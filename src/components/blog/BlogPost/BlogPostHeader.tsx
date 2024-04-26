@@ -1,4 +1,4 @@
-import { LuBookOpen } from 'react-icons/lu';
+import { LuBookOpen, LuUserCircle2 } from 'react-icons/lu';
 
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
@@ -124,7 +124,9 @@ export default function BlogPostHeader({
             itemProp="image"
           />
         ) : (
-          <div className="h-12 w-12 shrink-0 rounded-full bg-gray-50" />
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-50 text-gray-300">
+            <LuUserCircle2 className="h-[110%] w-[110%] shrink-0" />
+          </div>
         )}
         <div>
           <p className="text-lg font-semibold text-gray-900" itemProp="name">

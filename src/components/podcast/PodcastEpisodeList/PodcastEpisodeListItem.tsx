@@ -1,4 +1,4 @@
-import { LuPodcast } from 'react-icons/lu';
+import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
 import { Episode as SpotifyEpisode } from '@/lib/spotify';
 
@@ -89,7 +89,9 @@ export default function PodcastEpisodeListItem({
                     itemProp="image"
                   />
                 ) : (
-                  <div className="h-11 w-11 shrink-0 rounded-full bg-gray-50" />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-50 text-gray-300">
+                    <LuUserCircle2 className="h-[110%] w-[110%] shrink-0" />
+                  </div>
                 )}
                 <div>
                   <p
@@ -121,7 +123,9 @@ export default function PodcastEpisodeListItem({
               itemScope
               itemType="https://schema.org/Person"
             >
-              <div className="h-11 w-11 shrink-0 rounded-full bg-gray-100" />
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-50 text-gray-300">
+                <LuUserCircle2 className="h-[110%] w-[110%] shrink-0" />
+              </div>
               <div>
                 <p
                   className="text-base font-semibold text-gray-900"
