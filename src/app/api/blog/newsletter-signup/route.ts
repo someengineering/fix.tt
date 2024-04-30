@@ -2,6 +2,7 @@ import type { NextRequest } from 'next/server';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 
+import { addPerson as addPersonToAttio } from '@/lib/attio';
 import { validateCaptcha } from '@/lib/google/recaptcha';
 import { subscribeToNewsletter } from '@/lib/hashnode';
 
@@ -17,6 +18,12 @@ export async function POST(req: NextRequest) {
 
   if (!captchaResult.isValid) {
     return new Response('Invalid captcha', { status: 400 });
+  }
+
+  try {
+    await addPersonToAttio(email);
+  } catch (e) {
+    // do nothing
   }
 
   try {
