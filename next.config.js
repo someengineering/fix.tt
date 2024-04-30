@@ -25,7 +25,7 @@ module.exports = withPlausibleProxy()({
       {
         source: '/faq',
         permanent: true,
-        destination: `/frequency-asked-questions`,
+        destination: `/frequently-asked-questions`,
       },
       {
         source: '/privacy',
@@ -40,7 +40,7 @@ module.exports = withPlausibleProxy()({
       {
         source: '/podcasts/:path*',
         permanent: true,
-        destination: `/podcast/:path*`,
+        destination: `/podcast`,
       },
       {
         source: '/blog/category/:path*',
