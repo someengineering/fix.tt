@@ -35,7 +35,14 @@ export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
           publishedAt={draft.scheduledDate ?? draft.updatedAt}
           readTimeInMinutes={draft.readTimeInMinutes}
         />
-        <Content markdown={draft.content.markdown} />
+        <Content
+          markdown={draft.content.markdown}
+          tocItems={
+            draft.features.tableOfContents.isEnabled
+              ? draft.features.tableOfContents.items
+              : undefined
+          }
+        />
         <Footer title={draft.title} tags={draft.tagsV2} />
         {draft.series ? <RelatedPosts seriesSlug={draft.series.slug} /> : null}
       </article>
