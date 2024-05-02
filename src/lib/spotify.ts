@@ -82,7 +82,7 @@ export const getEpisodes = async ({
         Authorization: `Bearer ${await getAccessToken()}`,
         'Content-Type': 'application/json',
       },
-      next: { revalidate: isLocal ? 0 : 300, tags: ['spotify'] },
+      next: { revalidate: isLocal ? 0 : 60, tags: ['spotify'] },
     },
   ).then((res) => res.json());
 
