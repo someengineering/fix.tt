@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 @layer base {
-  .markdown {
+  .markdown,
+  .html {
     h2,
     h3,
     h4,

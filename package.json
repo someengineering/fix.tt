@@ -26,6 +26,7 @@
     "github-slugger": "2.0.0",
     "graphql": "16.8.1",
     "graphql-request": "7.0.1",
+    "html-react-parser": "5.1.10",
     "js-cookie": "3.0.5",
     "lodash": "4.17.21",
     "next": "14.2.3",
