@@ -106,7 +106,7 @@ export const getEpisodes = async ({
 };
 
 export const getAllEpisodeSlugs = async () => {
-  const data = await getEpisodes({ pageSize: 50 });
+  const data = await getEpisodes({ pageSize: 20 });
 
   let slugs: string[] = [];
 
@@ -114,7 +114,7 @@ export const getAllEpisodeSlugs = async () => {
     slugs = data.data.map((episode) => episode.attributes.slug);
 
     const fetchMore = async (pageNumber?: number) => {
-      const data = await getEpisodes({ pageNumber, pageSize: 50 });
+      const data = await getEpisodes({ pageNumber, pageSize: 20 });
 
       if (!data.data.length || data.meta.currentPage >= data.meta.totalPages) {
         return;
@@ -136,6 +136,36 @@ export const getAllEpisodeSlugs = async () => {
   }
 
   return slugs;
+};
+
+export const getAllEpisodes = async () => {
+  const data = await getEpisodes({ pageSize: 20 });
+
+  let episodes: Episode[] = [];
+
+  if (data.data.length) {
+    episodes = data.data;
+
+    const fetchMore = async (pageNumber?: number) => {
+      const data = await getEpisodes({ pageNumber, pageSize: 20 });
+
+      if (!data.data.length || data.meta.currentPage >= data.meta.totalPages) {
+        return;
+      }
+
+      episodes = [...episodes, ...data.data];
+
+      if (data.meta.currentPage >= data.meta.totalPages) {
+        await fetchMore(data.meta.currentPage + 1);
+      }
+    };
+
+    if (data.meta.currentPage >= data.meta.totalPages) {
+      await fetchMore(data.meta.currentPage + 1);
+    }
+  }
+
+  return episodes;
 };
 
 export const getEpisode = async (query: string): Promise<Episode | null> => {
