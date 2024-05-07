@@ -1561,6 +1561,12 @@ type CustomCSSFeature implements Feature {
   published: CustomCSS
 }
 
+enum CustomDomainStatus {
+  INVALID
+  VALID
+  VERIFYING
+}
+
 """
 Contains the publication's dark mode preferences.
 """
@@ -1641,6 +1647,15 @@ type DomainStatus {
   A flag indicating if the publication domain is ready.
   """
   ready: Boolean!
+  """
+  A flag indicating the status of a publication domain
+  """
+  status: CustomDomainStatus!
+  """
+  A timestamp indicating when the domain was verified.
+  It is only present if the domain is verified.
+  """
+  verifiedAt: DateTime
 }
 
 """
@@ -3664,6 +3679,16 @@ type Publication implements Node {
     """
     first: Int!
   ): PublicationPostConnection!
+  postsViaPage(
+    """
+    The page number that should be returned.
+    """
+    page: Int!
+    """
+    The number of posts to return on a single page.
+    """
+    pageSize: Int!
+  ): PublicationPostPageConnection!
   """
   The publication preferences around layout, theme and other personalisations.
   """
@@ -4083,6 +4108,21 @@ input PublicationPostConnectionFilter {
   It is an "OR" filter and not an "AND" filter.
   """
   tags: [ObjectId!]
+}
+
+type PublicationPostPageConnection implements PageConnection {
+  """
+  The posts belonging to the publication.
+  """
+  nodes: [Post!]!
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: OffsetPageInfo!
+  """
+  The total number of posts.
+  """
+  totalDocuments: Int!
 }
 
 """

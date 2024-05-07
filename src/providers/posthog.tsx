@@ -18,6 +18,7 @@ if (typeof window !== 'undefined' && POSTHOG_PROJECT_API_KEY) {
     secure_cookie: !isLocal,
     debug: isLocal,
     capture_pageview: false, // Page views are captured manually
+    capture_pageleave: true,
 
     opt_out_persistence_by_default: true,
     opt_out_capturing_by_default: true,

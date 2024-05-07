@@ -26,11 +26,11 @@ type SitemapField = {
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPageSlugsData = await getAllStaticPageSlugs();
-  const postsData = await getAllPosts();
-  const seriesSlugsData = await getAllSeriesSlugs();
-  const tagSlugsData = await getAllTagSlugs();
-  const latestEpisodeData = await getLatestEpisode();
+  const staticPageSlugsData = getAllStaticPageSlugs();
+  const postsData = getAllPosts();
+  const seriesSlugsData = getAllSeriesSlugs();
+  const tagSlugsData = getAllTagSlugs();
+  const latestEpisodeData = getLatestEpisode();
 
   const [staticPageSlugs, posts, seriesSlugs, tagSlugs, latestEpisode] =
     await Promise.all([

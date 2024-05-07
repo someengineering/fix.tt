@@ -1,5 +1,7 @@
 import { getFeed } from '@/lib/hashnode';
 
+export const revalidate = 300;
+
 export async function GET() {
   const feed = await getFeed();
 

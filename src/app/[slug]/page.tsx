@@ -9,6 +9,8 @@ import NotFoundPage, { metadata as notFoundMetadata } from '@/app/not-found';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 
+export const revalidate = 300;
+
 export async function generateStaticParams() {
   const slugs = await getAllStaticPageSlugs();
 

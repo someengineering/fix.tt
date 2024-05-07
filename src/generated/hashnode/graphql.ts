@@ -898,6 +898,12 @@ export type CustomCssFeature = Feature & {
   published?: Maybe<CustomCss>;
 };
 
+export enum CustomDomainStatus {
+  Invalid = 'INVALID',
+  Valid = 'VALID',
+  Verifying = 'VERIFYING',
+}
+
 /** Contains the publication's dark mode preferences. */
 export type DarkModePreferences = {
   __typename?: 'DarkModePreferences';
@@ -954,6 +960,13 @@ export type DomainStatus = {
   host: Scalars['String']['output'];
   /** A flag indicating if the publication domain is ready. */
   ready: Scalars['Boolean']['output'];
+  /** A flag indicating the status of a publication domain */
+  status: CustomDomainStatus;
+  /**
+   * A timestamp indicating when the domain was verified.
+   * It is only present if the domain is verified.
+   */
+  verifiedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
 /**
@@ -2382,6 +2395,7 @@ export type Publication = Node & {
   post?: Maybe<Post>;
   /** Returns the list of posts in the publication. */
   posts: PublicationPostConnection;
+  postsViaPage: PublicationPostPageConnection;
   /** The publication preferences around layout, theme and other personalisations. */
   preferences: Preferences;
   /** Publications that are recommended by this publication. */
@@ -2443,6 +2457,15 @@ export type PublicationPostsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<PublicationPostConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationPostsViaPageArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 /**
@@ -2698,6 +2721,16 @@ export type PublicationPostConnectionFilter = {
    * It is an "OR" filter and not an "AND" filter.
    */
   tags?: InputMaybe<Array<Scalars['ObjectId']['input']>>;
+};
+
+export type PublicationPostPageConnection = PageConnection & {
+  __typename?: 'PublicationPostPageConnection';
+  /** The posts belonging to the publication. */
+  nodes: Array<Post>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of posts. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /**
