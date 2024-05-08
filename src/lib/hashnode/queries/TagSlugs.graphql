@@ -6,6 +6,9 @@ query TagSlugs($host: String!, $first: Int!, $after: String) {
           tags {
             slug
           }
+          preferences {
+            isDelisted
+          }
         }
       }
       pageInfo {

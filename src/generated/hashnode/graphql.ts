@@ -4766,6 +4766,7 @@ export type TagSlugsQuery = {
         node: {
           __typename?: 'Post';
           tags?: Array<{ __typename?: 'Tag'; slug: string }> | null;
+          preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
         };
       }>;
       pageInfo: {
@@ -8832,6 +8833,25 @@ export const TagSlugsDocument = {
                                         {
                                           kind: 'Field',
                                           name: { kind: 'Name', value: 'slug' },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'preferences',
+                                    },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'isDelisted',
+                                          },
                                         },
                                       ],
                                     },

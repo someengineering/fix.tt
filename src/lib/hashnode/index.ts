@@ -101,7 +101,9 @@ export const getAllTagSlugs = async () => {
 
   if (data.publication) {
     slugs = flatten(
-      data.publication.posts.edges.map((edge) => edge.node.tags ?? []),
+      data.publication.posts.edges
+        .filter((edge) => !edge.node.preferences.isDelisted)
+        .map((edge) => edge.node.tags ?? []),
     ).map((tag) => tag.slug);
 
     const fetchMore = async (after?: string) => {
@@ -121,7 +123,9 @@ export const getAllTagSlugs = async () => {
       slugs = [
         ...slugs,
         ...flatten(
-          data.publication.posts.edges.map((edge) => edge.node.tags ?? []),
+          data.publication.posts.edges
+            .filter((edge) => !edge.node.preferences.isDelisted)
+            .map((edge) => edge.node.tags ?? []),
         ).map((tag) => tag.slug),
       ];
 
@@ -278,7 +282,14 @@ export const getPosts = async ({
     }
   });
 
-  return data.publication?.posts;
+  return data.publication?.posts
+    ? {
+        ...data.publication?.posts,
+        edges: data.publication?.posts?.edges.filter(
+          (edge) => !edge.node.preferences.isDelisted,
+        ),
+      }
+    : undefined;
 };
 
 export const getAllPosts = async () => {
@@ -336,7 +347,14 @@ export const getPostsByTag = async ({
     }
   });
 
-  return data.publication?.posts;
+  return data.publication?.posts
+    ? {
+        ...data.publication?.posts,
+        edges: data.publication?.posts?.edges.filter(
+          (edge) => !edge.node.preferences.isDelisted,
+        ),
+      }
+    : undefined;
 };
 
 export const getPostsBySeries = async ({
@@ -364,7 +382,14 @@ export const getPostsBySeries = async ({
     }
   });
 
-  return data.publication?.series?.posts;
+  return data.publication?.series?.posts
+    ? {
+        ...data.publication?.series?.posts,
+        edges: data.publication?.series?.posts.edges.filter(
+          (edge) => !edge.node.preferences.isDelisted,
+        ),
+      }
+    : undefined;
 };
 
 export const getFeed = async (): Promise<Feed> => {
@@ -392,6 +417,7 @@ export const getFeed = async (): Promise<Feed> => {
   );
 
   data.publication?.posts.edges
+    .filter((edge) => !edge.node.preferences.isDelisted)
     .map((edge) => edge.node)
     .forEach((post) => {
       feed.addItem({
