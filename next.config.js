@@ -38,11 +38,6 @@ module.exports = withPlausibleProxy()({
         destination: `/terms-and-conditions`,
       },
       {
-        source: '/podcasts/:path*',
-        permanent: true,
-        destination: `/podcast`,
-      },
-      {
         source: '/blog/category/:path*',
         permanent: true,
         destination: `/blog/series/:path*`,
@@ -77,7 +72,7 @@ module.exports = withPlausibleProxy()({
           {
             type: 'host',
             value:
-              '(fix-git-main-some-engineering\\.vercel\\.app|origin\\.fix\\.security)',
+              '(www\\.fix\\.security|(www\\.)?fix\\.tt|fix-(git-main-)?some-engineering\\.vercel\\.app|(www\\.)?some\\.engineering)',
           },
         ],
         permanent: true,
@@ -85,9 +80,20 @@ module.exports = withPlausibleProxy()({
       },
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'blog.fix.security' }],
+        has: [{ type: 'host', value: '(blog\\.fix\\.(security|tt))' }],
         permanent: true,
         destination: 'https://fix.security/blog/:path*',
+      },
+      {
+        source: '/podcasts/:path*',
+        permanent: true,
+        destination: `/podcast`,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: '(podcasts?\\.fix\\.(security|tt))' }],
+        permanent: true,
+        destination: 'https://fix.security/podcast',
       },
       {
         source: '/docs/:path*',
