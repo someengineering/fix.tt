@@ -1,14 +1,17 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-import { getStaticPage } from '@/lib/hashnode';
+import { getPublicationId, getStaticPage } from '@/lib/hashnode';
 
+import HashnodePageView from '@/components/analytics/HashnodePageView';
 import MarkdownContent from '@/components/common/MarkdownContent';
 import Faq from '@/components/Faq';
 import Team from '@/components/Team';
 
 import { metadata as rootMetadata } from '@/app/layout';
-import NotFoundPage, { metadata as notFoundMetadata } from '@/app/not-found';
+import { metadata as notFoundMetadata } from '@/app/not-found';
 import { siteConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
 import { openGraph } from '@/utils/og';
 
 export const revalidate = 300;
@@ -50,10 +53,16 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const staticPage = await getStaticPage('about');
+  const publicationIdData = getPublicationId();
+  const staticPageData = getStaticPage('about');
 
-  if (!staticPage) {
-    return <NotFoundPage />;
+  const [publicationId, staticPage] = await Promise.all([
+    publicationIdData,
+    staticPageData,
+  ]);
+
+  if (!publicationId || !staticPage) {
+    notFound();
   }
 
   return (
@@ -77,6 +86,12 @@ export default async function AboutPage() {
       </div>
       <Team />
       <Faq />
+      {isProd ? (
+        <HashnodePageView
+          publicationId={publicationId}
+          staticPageId={staticPage.id}
+        />
+      ) : null}
     </>
   );
 }

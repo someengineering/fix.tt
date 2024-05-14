@@ -1,12 +1,19 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getAllTagSlugs, getPostsByTag, getTagName } from '@/lib/hashnode';
+import {
+  getAllTagSlugs,
+  getPostsByTag,
+  getPublicationId,
+  getTagName,
+} from '@/lib/hashnode';
 
+import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
 import { openGraph } from '@/utils/og';
 
 export async function generateStaticParams() {
@@ -64,50 +71,58 @@ export default async function BlogTagPage({
 }: {
   params: { slug: string };
 }) {
+  const publicationIdData = getPublicationId();
   const tagNameData = getTagName(params.slug);
   const postsData = getPostsByTag({ tagSlug: params.slug });
 
-  const [tagName, posts] = await Promise.all([tagNameData, postsData]);
+  const [publicationId, tagName, posts] = await Promise.all([
+    publicationIdData,
+    tagNameData,
+    postsData,
+  ]);
 
-  if (!tagName || !posts) {
+  if (!publicationId || !tagName || !posts) {
     notFound();
   }
 
   return (
-    <div className="py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div
-          className="mx-auto max-w-2xl lg:max-w-4xl"
-          itemScope
-          itemType="http://schema.org/Blog"
-          itemID={`${siteConfig.url}/blog`}
-        >
-          <meta itemProp="name" content={siteConfig.blogTitle} />
-          <meta itemProp="description" content={siteConfig.blogDescription} />
-          <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
-            From the blog
-          </p>
-          <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
-            {tagName.charAt(0).toUpperCase()}
-            {tagName.slice(1)}
-          </h1>
-          <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
-            Guides, how-tos, and news about {tagName} from the Fix team.
-          </p>
-          <BlogPostList
-            initialPosts={posts.edges.map((edge) => edge.node)}
-            initialPageInfo={posts.pageInfo}
-            getPosts={async (after: string) => {
-              'use server';
+    <>
+      <div className="py-16 sm:py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div
+            className="mx-auto max-w-2xl lg:max-w-4xl"
+            itemScope
+            itemType="http://schema.org/Blog"
+            itemID={`${siteConfig.url}/blog`}
+          >
+            <meta itemProp="name" content={siteConfig.blogTitle} />
+            <meta itemProp="description" content={siteConfig.blogDescription} />
+            <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
+              From the blog
+            </p>
+            <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
+              {tagName.charAt(0).toUpperCase()}
+              {tagName.slice(1)}
+            </h1>
+            <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
+              Guides, how-tos, and news about {tagName} from the Fix team.
+            </p>
+            <BlogPostList
+              initialPosts={posts.edges.map((edge) => edge.node)}
+              initialPageInfo={posts.pageInfo}
+              getPosts={async (after: string) => {
+                'use server';
 
-              return await getPostsByTag({
-                tagSlug: params.slug,
-                after,
-              });
-            }}
-          />
+                return await getPostsByTag({
+                  tagSlug: params.slug,
+                  after,
+                });
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      {isProd ? <HashnodePageView publicationId={publicationId} /> : null}
+    </>
   );
 }

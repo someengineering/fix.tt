@@ -106,8 +106,8 @@ module.exports = withPlausibleProxy()({
   async rewrites() {
     return [
       {
-        source: '/api/blog/view',
-        destination: 'https://hn-ping2.hashnode.com/api/view',
+        source: '/api/analytics',
+        destination: 'https://user-analytics.hashnode.com/api/analytics',
       },
       {
         source: '/api/ingest/static/:path*',

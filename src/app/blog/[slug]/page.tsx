@@ -70,12 +70,12 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  const postData = getPost(params.slug);
   const publicationIdData = getPublicationId();
+  const postData = getPost(params.slug);
 
-  const [post, publicationId] = await Promise.all([
-    postData,
+  const [publicationId, post] = await Promise.all([
     publicationIdData,
+    postData,
   ]);
 
   if (!publicationId || !post) {

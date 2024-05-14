@@ -773,6 +773,11 @@ export type CreateDraftInput = {
   coverImageOptions?: InputMaybe<CoverImageOptionsInput>;
   /** A flag to indicate if the comments are disabled for the resulting draft. */
   disableComments?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * The id of the user who owns the draft. When this field is supplied, the draft is created directly under that user's account.
+   * Only applicable for team publications.
+   */
+  draftOwner?: InputMaybe<Scalars['ID']['input']>;
   /** Information about the meta tags added to the resulting draft, used for SEO purpose. */
   metaTags?: InputMaybe<MetaTagsInput>;
   /** The URL of the original article if the draft is imported from an external source. */
@@ -1594,6 +1599,8 @@ export type Mutation = {
   restorePost: RestorePostPayload;
   scheduleDraft: ScheduleDraftPayload;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
+  /** Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles. */
+  toggleAllowContributorEdits: ToggleAllowContributorEditsPayload;
   /**
    * Update the follow state for the user that is provided via id or username.
    * If the authenticated user does not follow the user, the mutation will follow the user.
@@ -1711,6 +1718,10 @@ export type MutationScheduleDraftArgs = {
 
 export type MutationSubscribeToNewsletterArgs = {
   input: SubscribeToNewsletterInput;
+};
+
+export type MutationToggleAllowContributorEditsArgs = {
+  input: ToggleAllowContributorEditsInput;
 };
 
 export type MutationToggleFollowUserArgs = {
@@ -3484,6 +3495,15 @@ export type TextSelectionSharerFeature = Feature & {
   isEnabled: Scalars['Boolean']['output'];
 };
 
+export type ToggleAllowContributorEditsInput = {
+  publicationId: Scalars['ID']['input'];
+};
+
+export type ToggleAllowContributorEditsPayload = {
+  __typename?: 'ToggleAllowContributorEditsPayload';
+  publication?: Maybe<Publication>;
+};
+
 /** Payload for the toggleFollowingUser mutation. */
 export type ToggleFollowUserPayload = {
   __typename?: 'ToggleFollowUserPayload';
@@ -4035,7 +4055,12 @@ export type DraftFragment = {
     | { __typename?: 'DraftBaseTag'; name: string; slug: string }
     | { __typename?: 'Tag'; name: string; slug: string }
   >;
-  series?: { __typename?: 'Series'; name: string; slug: string } | null;
+  series?: {
+    __typename?: 'Series';
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
   author: {
     __typename?: 'User';
     username: string;
@@ -4094,7 +4119,12 @@ export type PostFragment = {
   updatedAt?: string | null;
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
-  series?: { __typename?: 'Series'; name: string; slug: string } | null;
+  series?: {
+    __typename?: 'Series';
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
   author: {
     __typename?: 'User';
     username: string;
@@ -4136,7 +4166,12 @@ export type PostWithMarkdownContentFragment = {
   };
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
   tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
-  series?: { __typename?: 'Series'; name: string; slug: string } | null;
+  series?: {
+    __typename?: 'Series';
+    id: string;
+    name: string;
+    slug: string;
+  } | null;
   author: {
     __typename?: 'User';
     username: string;
@@ -4166,7 +4201,12 @@ export type PublicationPostConnectionFragment = {
       updatedAt?: string | null;
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
       tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
-      series?: { __typename?: 'Series'; name: string; slug: string } | null;
+      series?: {
+        __typename?: 'Series';
+        id: string;
+        name: string;
+        slug: string;
+      } | null;
       author: {
         __typename?: 'User';
         username: string;
@@ -4189,6 +4229,7 @@ export type PublicationPostConnectionFragment = {
 
 export type SeriesFragment = {
   __typename?: 'Series';
+  id: string;
   name: string;
   slug: string;
 };
@@ -4209,7 +4250,12 @@ export type SeriesPostConnectionFragment = {
       updatedAt?: string | null;
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
       tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
-      series?: { __typename?: 'Series'; name: string; slug: string } | null;
+      series?: {
+        __typename?: 'Series';
+        id: string;
+        name: string;
+        slug: string;
+      } | null;
       author: {
         __typename?: 'User';
         username: string;
@@ -4305,7 +4351,12 @@ export type DraftQuery = {
       | { __typename?: 'DraftBaseTag'; name: string; slug: string }
       | { __typename?: 'Tag'; name: string; slug: string }
     >;
-    series?: { __typename?: 'Series'; name: string; slug: string } | null;
+    series?: {
+      __typename?: 'Series';
+      id: string;
+      name: string;
+      slug: string;
+    } | null;
     author: {
       __typename?: 'User';
       username: string;
@@ -4364,7 +4415,12 @@ export type FeedPostsQuery = {
             name: string;
             slug: string;
           }> | null;
-          series?: { __typename?: 'Series'; name: string; slug: string } | null;
+          series?: {
+            __typename?: 'Series';
+            id: string;
+            name: string;
+            slug: string;
+          } | null;
           author: {
             __typename?: 'User';
             username: string;
@@ -4419,7 +4475,12 @@ export type PostQuery = {
       };
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
       tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
-      series?: { __typename?: 'Series'; name: string; slug: string } | null;
+      series?: {
+        __typename?: 'Series';
+        id: string;
+        name: string;
+        slug: string;
+      } | null;
       author: {
         __typename?: 'User';
         username: string;
@@ -4494,7 +4555,12 @@ export type PostsQuery = {
             name: string;
             slug: string;
           }> | null;
-          series?: { __typename?: 'Series'; name: string; slug: string } | null;
+          series?: {
+            __typename?: 'Series';
+            id: string;
+            name: string;
+            slug: string;
+          } | null;
           author: {
             __typename?: 'User';
             username: string;
@@ -4552,6 +4618,7 @@ export type PostsBySeriesQuery = {
             }> | null;
             series?: {
               __typename?: 'Series';
+              id: string;
               name: string;
               slug: string;
             } | null;
@@ -4612,7 +4679,12 @@ export type PostsByTagQuery = {
             name: string;
             slug: string;
           }> | null;
-          series?: { __typename?: 'Series'; name: string; slug: string } | null;
+          series?: {
+            __typename?: 'Series';
+            id: string;
+            name: string;
+            slug: string;
+          } | null;
           author: {
             __typename?: 'User';
             username: string;
@@ -4655,6 +4727,7 @@ export type SeriesQuery = {
     __typename?: 'Publication';
     series?: {
       __typename?: 'Series';
+      id: string;
       name: string;
       description?: { __typename?: 'Content'; text: string } | null;
       posts: { __typename?: 'SeriesPostConnection'; totalDocuments: number };
@@ -4892,6 +4965,7 @@ export const SeriesFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5182,6 +5256,7 @@ export const DraftFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5350,6 +5425,7 @@ export const PostFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5457,6 +5533,7 @@ export const PostWithMarkdownContentFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5711,6 +5788,7 @@ export const PublicationPostConnectionFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5915,6 +5993,7 @@ export const SeriesPostConnectionFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -6256,6 +6335,7 @@ export const DraftDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -6545,6 +6625,7 @@ export const FeedPostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -6768,6 +6849,7 @@ export const PostDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -7257,6 +7339,7 @@ export const PostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -7617,6 +7700,7 @@ export const PostsBySeriesDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -7904,6 +7988,7 @@ export const PostsByTagDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -8197,6 +8282,7 @@ export const SeriesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
                         kind: 'Field',

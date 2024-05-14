@@ -1,4 +1,5 @@
 fragment Series on Series {
+  id
   name
   slug
 }

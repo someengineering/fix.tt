@@ -1,6 +1,7 @@
 query Series($host: String!, $seriesSlug: String!) {
   publication(host: $host) {
     series(slug: $seriesSlug) {
+      id
       name
       description {
         text

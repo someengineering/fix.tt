@@ -4,11 +4,11 @@ import { Suspense } from 'react';
 
 import '@/styles/globals.css';
 
+import PosthogPageView from '@/components/analytics/PosthogPageView';
 import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 import CookieConsent from '@/components/CookieConsent';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import PosthogPageView from '@/components/PosthogPageView';
 
 import { plusJakartaSans } from '@/app/fonts';
 import { siteConfig } from '@/constants/config';

@@ -1,4 +1,4 @@
-import Analytics from '@/components/blog/BlogPost/Analytics';
+import HashnodePageView from '@/components/analytics/HashnodePageView';
 import Content from '@/components/blog/BlogPost/Content';
 import Footer from '@/components/blog/BlogPost/Footer';
 import Header from '@/components/blog/BlogPost/Header';
@@ -64,7 +64,11 @@ export default function BlogPost({
         ) : null}
       </div>
       {isProd ? (
-        <Analytics publicationId={publicationId} postId={post.id} url={url} />
+        <HashnodePageView
+          publicationId={publicationId}
+          postId={post.id}
+          seriesId={post.series?.id}
+        />
       ) : null}
     </>
   );
