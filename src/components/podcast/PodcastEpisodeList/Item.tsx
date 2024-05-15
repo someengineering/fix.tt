@@ -1,9 +1,9 @@
+import Image from 'next/image';
 import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
 import { Episode as SpotifyEpisode } from '@/lib/spotify';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-import NextImage from '@/components/common/NextImage';
 
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
@@ -79,13 +79,12 @@ export default function Item({
                 itemType="https://schema.org/Person"
               >
                 {host?.profilePicture ? (
-                  <NextImage
+                  <Image
                     src={host.profilePicture}
                     alt=""
                     className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
-                    classNames={{ image: 'w-full h-full object-cover' }}
-                    width={40}
-                    height={40}
+                    width={44}
+                    height={44}
                     itemProp="image"
                   />
                 ) : (

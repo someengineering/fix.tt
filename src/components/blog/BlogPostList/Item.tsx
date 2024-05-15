@@ -1,9 +1,7 @@
-'use client';
-
+import Image from 'next/image';
 import { LuBookOpen, LuUserCircle2 } from 'react-icons/lu';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-import NextImage from '@/components/common/NextImage';
 
 import { siteConfig } from '@/constants/config';
 import { PostFragment as HashnodePost } from '@/generated/hashnode/graphql';
@@ -26,21 +24,21 @@ export default function Item({ post }: { post: HashnodePost }) {
       itemType="http://schema.org/BlogPosting"
       itemID={`${siteConfig.url}/blog/${post.slug}`}
     >
-      <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-[7/8] lg:w-60 lg:shrink-0">
+      <div className="relative hidden overflow-hidden rounded-2xl lg:block lg:aspect-[7/8] lg:w-60 lg:shrink-0">
         {post.coverImage ? (
-          <NextImage
+          <Image
             src={post.coverImage.url}
             alt=""
-            className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl bg-gray-50"
-            classNames={{ image: 'object-cover' }}
+            className="bg-gray-50 object-cover"
             fill
+            sizes="240px"
           />
         ) : (
-          <div className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover" />
+          <div className="h-full w-full bg-gray-50 object-cover" />
         )}
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
-      <div>
+      <div className="w-full">
         <header className="flex flex-wrap items-center gap-x-5 gap-y-0.5 text-sm font-bold uppercase leading-7 text-gray-600">
           {post.series ? (
             <UnstyledLink
@@ -102,13 +100,12 @@ export default function Item({ post }: { post: HashnodePost }) {
             itemType="https://schema.org/Person"
           >
             {post.author.profilePicture ? (
-              <NextImage
+              <Image
                 src={post.author.profilePicture}
                 alt=""
                 className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
-                classNames={{ image: 'w-full h-full object-cover' }}
-                width={40}
-                height={40}
+                width={44}
+                height={44}
                 itemProp="image"
               />
             ) : (
@@ -140,11 +137,11 @@ export default function Item({ post }: { post: HashnodePost }) {
             </div>
           </div>
         </div>
-        <footer className="mt-4 flex gap-x-1.5 text-sm font-semibold text-cornflower-blue-600">
+        <footer className="mt-4 flex flex-wrap gap-1.5 text-sm font-semibold text-cornflower-blue-600">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="z-10 rounded-md bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
+              className="z-10 text-nowrap rounded-md bg-gray-50 px-3  py-1.5 hover:bg-marian-blue-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

@@ -1,9 +1,7 @@
-'use client';
-
+import Image from 'next/image';
 import { LuBookOpen, LuUserCircle2 } from 'react-icons/lu';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-import NextImage from '@/components/common/NextImage';
 
 import { siteConfig } from '@/constants/config';
 import { PostFragment as HashnodePost } from '@/generated/hashnode/graphql';
@@ -32,17 +30,17 @@ export default function Item({
       itemType="http://schema.org/BlogPosting"
       itemID={`${siteConfig.url}/blog/${post.slug}`}
     >
-      <div className="relative aspect-[16/9] w-full rounded-2xl sm:aspect-[2/1]">
+      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl sm:aspect-[2/1]">
         {post.coverImage ? (
-          <NextImage
+          <Image
             src={post.coverImage.url}
             alt=""
-            className="absolute inset-0 h-full w-full overflow-hidden rounded-2xl bg-gray-50"
-            classNames={{ image: 'object-cover' }}
+            className="bg-gray-50 object-cover"
             fill
+            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
           />
         ) : (
-          <div className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover" />
+          <div className="h-full w-full bg-gray-50 object-cover" />
         )}
         <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
       </div>
@@ -99,13 +97,12 @@ export default function Item({
             itemType="https://schema.org/Person"
           >
             {post.author.profilePicture ? (
-              <NextImage
+              <Image
                 src={post.author.profilePicture}
                 alt=""
                 className="h-9 w-9 shrink-0 overflow-hidden rounded-full bg-gray-50"
-                classNames={{ image: 'w-full h-full object-cover' }}
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 itemProp="image"
               />
             ) : (
@@ -136,11 +133,11 @@ export default function Item({
               ) : null}
             </div>
           </div>
-          <div className="mt-4 flex gap-x-1.5 text-xs font-semibold text-cornflower-blue-600">
+          <div className="mt-4 flex flex-wrap gap-1.5 text-xs font-semibold text-cornflower-blue-600">
             {post.tags?.map((tag) => (
               <UnstyledLink
                 href={`/blog/tag/${tag.slug}`}
-                className="z-10 rounded-md bg-gray-50 px-3 py-1.5  hover:bg-marian-blue-50"
+                className="z-10 text-nowrap rounded-md bg-gray-50 px-3  py-1.5 hover:bg-marian-blue-50"
                 key={`tag-${tag.slug}`}
               >
                 {tag.name}

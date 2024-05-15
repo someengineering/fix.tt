@@ -63,6 +63,7 @@ export default function Testimonials() {
                 <Image
                   src={testimonial.companyLogo}
                   className="h-8 w-auto self-start"
+                  height={32}
                   alt=""
                 />
               ) : (
@@ -76,6 +77,8 @@ export default function Testimonials() {
                   <Image
                     className="h-12 w-12 rounded-full bg-gray-50"
                     src={testimonial.authorPhoto}
+                    width={48}
+                    height={48}
                     alt=""
                   />
                   <div>

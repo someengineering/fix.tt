@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import { LuBookOpen, LuUserCircle2 } from 'react-icons/lu';
 
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-import NextImage from '@/components/common/NextImage';
 
 import {
   DraftTagFragment as HashnodeDraftTag,
@@ -114,13 +114,12 @@ export default function Header({
         itemType="https://schema.org/Person"
       >
         {author.profilePicture ? (
-          <NextImage
+          <Image
             src={author.profilePicture}
             alt=""
             className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
-            classNames={{ image: 'w-full h-full object-cover' }}
-            width={40}
-            height={40}
+            width={48}
+            height={48}
             itemProp="image"
           />
         ) : (

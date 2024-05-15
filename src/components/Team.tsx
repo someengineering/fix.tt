@@ -136,6 +136,7 @@ export default function Team() {
               <Image
                 className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
                 src={person.photo}
+                width={208}
                 alt=""
               />
               <div className="max-w-xl flex-auto">
