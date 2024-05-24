@@ -87,7 +87,13 @@ module.exports = withPlausibleProxy()({
       {
         source: '/podcasts/:path*',
         permanent: true,
-        destination: `/podcast`,
+        destination: `/podcast/:path*`,
+      },
+      {
+        source: '/episodes/:path*',
+        has: [{ type: 'host', value: '(podcasts?\\.fix\\.(security|tt))' }],
+        permanent: true,
+        destination: 'https://fix.security/podcast/:path*',
       },
       {
         source: '/:path*',
