@@ -80,10 +80,10 @@ export default function Item({
           >
             {episode.attributes.formatted_summary}
           </p>
-          <div className="flex flex-col gap-y-2 sm:flex-row sm:items-center sm:justify-start sm:gap-x-16">
+          <div className="flex flex-col gap-y-2 py-2 sm:flex-row sm:items-center sm:justify-start sm:gap-x-16">
             {host ? (
               <div
-                className="relative flex items-center gap-x-3 pt-2"
+                className="relative flex items-center gap-x-3"
                 itemProp="director"
                 itemScope
                 itemType="https://schema.org/Person"
@@ -128,7 +128,7 @@ export default function Item({
             ) : null}
             {guest ? (
               <div
-                className="relative flex items-center gap-x-3 pt-2"
+                className="relative flex items-center gap-x-3"
                 itemProp="actor"
                 itemScope
                 itemType="https://schema.org/Person"
@@ -155,6 +155,11 @@ export default function Item({
               </div>
             ) : null}
           </div>
+          <audio
+            controls
+            src={episode.attributes.media_url}
+            className="w-full"
+          />
         </div>
       </div>
     </article>

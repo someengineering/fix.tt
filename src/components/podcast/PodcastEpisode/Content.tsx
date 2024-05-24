@@ -1,7 +1,8 @@
-import parse, { DOMNode, Element, domToReact } from 'html-react-parser';
+import parse, { DOMNode, domToReact, Element } from 'html-react-parser';
+
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 import { sanitizeHtml } from '@/utils/transistor';
-import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const parserOptions = {
   replace: (domNode: DOMNode) => {
@@ -18,10 +19,17 @@ const parserOptions = {
   },
 };
 
-export default function Content({ html }: { html: string }) {
+export default function Content({
+  audioUrl,
+  htmlDescription,
+}: {
+  audioUrl: string;
+  htmlDescription: string;
+}) {
   return (
-    <div className="w-prose html my-8 border-y border-gray-900/5 pt-8">
-      {parse(sanitizeHtml(html), parserOptions)}
+    <div className="w-prose html my-8 border-y border-gray-900/5 py-8">
+      <audio controls src={audioUrl} className="mb-8 w-full" />
+      {parse(sanitizeHtml(htmlDescription), parserOptions)}
     </div>
   );
 }

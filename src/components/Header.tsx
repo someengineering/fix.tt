@@ -24,10 +24,7 @@ export default function Header() {
 
   return (
     <header>
-      <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:gap-x-12 lg:px-8"
-        aria-label="Global"
-      >
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:gap-x-12 lg:px-8">
         <div className="flex">
           <a
             href="/"

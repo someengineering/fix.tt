@@ -35,7 +35,10 @@ export default function PodcastEpisode({
             updatedAt={episode.attributes.updated_at}
             duration={episode.attributes.duration}
           />
-          <Content html={episode.attributes.formatted_description} />
+          <Content
+            audioUrl={episode.attributes.media_url}
+            htmlDescription={episode.attributes.formatted_description}
+          />
         </article>
       </div>
     </>

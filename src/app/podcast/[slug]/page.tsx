@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 import { getUser } from '@/lib/hashnode';
 import { getAllEpisodeSlugs, getEpisode } from '@/lib/transistor';
@@ -75,6 +75,10 @@ export default async function PodcastEpisodePage({
 
   if (!episode) {
     notFound();
+  }
+
+  if (params.slug !== episode.attributes.slug) {
+    permanentRedirect(`/podcast/${episode.attributes.slug}`);
   }
 
   return <PodcastEpisode episode={episode} host={host ?? undefined} />;

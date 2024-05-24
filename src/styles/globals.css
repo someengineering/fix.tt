@@ -37,13 +37,15 @@
       @apply text-base italic sm:text-lg;
     }
 
-    p {
+    p,
+    ol,
+    ul {
       @apply my-6 text-base leading-7 sm:text-lg sm:leading-8;
     }
 
     ol,
     ul {
-      @apply my-6 ml-8 list-outside space-y-2 text-gray-600;
+      @apply ml-8 list-outside space-y-2;
     }
 
     ol {
@@ -88,5 +90,13 @@
     li p {
       @apply my-6 text-base font-normal leading-7 sm:text-lg sm:leading-8;
     }
+  }
+
+  audio::-webkit-media-controls-panel {
+    @apply bg-marian-blue-50;
+  }
+
+  audio::-webkit-media-controls-play-button {
+    @apply text-marian-blue-600;
   }
 }
