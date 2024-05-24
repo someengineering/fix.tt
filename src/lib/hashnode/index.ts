@@ -30,9 +30,9 @@ import {
   PostSlugsQueryVariables,
   PostsQuery,
   PostsQueryVariables,
-  PublicationDocument,
-  PublicationQuery,
-  PublicationQueryVariables,
+  PublicationIdDocument,
+  PublicationIdQuery,
+  PublicationIdQueryVariables,
   SeriesDocument,
   SeriesQuery,
   SeriesQueryVariables,
@@ -68,9 +68,9 @@ const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
 
 export const getPublicationId = async () => {
   const data = await gqlClient.request<
-    PublicationQuery,
-    PublicationQueryVariables
-  >(PublicationDocument, {
+    PublicationIdQuery,
+    PublicationIdQueryVariables
+  >(PublicationIdDocument, {
     host: HASHNODE_HOST,
   });
 

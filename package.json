@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@graphql-typed-document-node/core": "3.2.0",
-    "@headlessui/react": "2.0.3",
+    "@headlessui/react": "2.0.4",
     "@hookform/resolvers": "3.4.2",
     "@next/third-parties": "14.2.3",
     "clsx": "2.1.1",

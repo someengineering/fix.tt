@@ -1093,6 +1093,26 @@ export type DraftFeatures = {
   tableOfContents: TableOfContentsFeature;
 };
 
+export type DraftRevision = Node & {
+  __typename?: 'DraftRevision';
+  /** The name of the user who created the revision. */
+  authorName: Scalars['String']['output'];
+  /** The content of the draft revision. */
+  content: Content;
+  /** The time the revision has been created. */
+  createdAt: Scalars['DateTime']['output'];
+  /** The ID of the draft revision. */
+  id: Scalars['ID']['output'];
+};
+
+export type DraftRevisionEdge = Edge & {
+  __typename?: 'DraftRevisionEdge';
+  /** A cursor for use in pagination. */
+  cursor: Scalars['String']['output'];
+  /** A node in the connection containing a draft revision. */
+  node: DraftRevision;
+};
+
 export type DraftSettings = {
   __typename?: 'DraftSettings';
   /** A flag to indicate if the comments are disabled for the post. */
@@ -1412,6 +1432,12 @@ export type GroupedByTimeVisitors = Node &
     /** The aggregated number of visitors. */
     total: Scalars['Int']['output'];
   };
+
+export type HeadlessCmsFeature = Feature & {
+  __typename?: 'HeadlessCMSFeature';
+  /** A flag indicating if the Headless CMS feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
+};
 
 export enum HttpRedirectionType {
   /** A permanent redirect that corresponds to the 302 HTTP status code. */
@@ -2571,6 +2597,8 @@ export type PublicationFeatures = {
   audioBlog: AudioBlogFeature;
   /** Individual styling for the publication. */
   customCSS: CustomCssFeature;
+  /** Headless CMS for the publication. */
+  headlessCMS: HeadlessCmsFeature;
   /** Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters. */
   newsletter: NewsletterFeature;
   /** Show the read time for blog posts. */
@@ -3210,6 +3238,7 @@ export enum Scope {
   UpdateReply = 'update_reply',
   WebhookAdmin = 'webhook_admin',
   WriteDraft = 'write_draft',
+  WriteDraftRevision = 'write_draft_revision',
   WritePost = 'write_post',
   WriteSeries = 'write_series',
   WriteStaticPage = 'write_static_page',
@@ -4737,11 +4766,11 @@ export type PostsByTagQuery = {
   } | null;
 };
 
-export type PublicationQueryVariables = Exact<{
+export type PublicationIdQueryVariables = Exact<{
   host: Scalars['String']['input'];
 }>;
 
-export type PublicationQuery = {
+export type PublicationIdQuery = {
   __typename?: 'Query';
   publication?: { __typename?: 'Publication'; id: string } | null;
 };
@@ -8195,13 +8224,13 @@ export const PostsByTagDocument = {
     },
   ],
 } as unknown as DocumentNode<PostsByTagQuery, PostsByTagQueryVariables>;
-export const PublicationDocument = {
+export const PublicationIdDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'Publication' },
+      name: { kind: 'Name', value: 'PublicationId' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -8242,7 +8271,7 @@ export const PublicationDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<PublicationQuery, PublicationQueryVariables>;
+} as unknown as DocumentNode<PublicationIdQuery, PublicationIdQueryVariables>;
 export const SeriesDocument = {
   kind: 'Document',
   definitions: [

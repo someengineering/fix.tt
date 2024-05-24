@@ -1,4 +1,4 @@
-query Publication($host: String!) {
+query PublicationId($host: String!) {
   publication(host: $host) {
     id
   }

@@ -1833,6 +1833,36 @@ type DraftFeatures {
   tableOfContents: TableOfContentsFeature!
 }
 
+type DraftRevision implements Node {
+  """
+  The name of the user who created the revision.
+  """
+  authorName: String!
+  """
+  The content of the draft revision.
+  """
+  content: Content!
+  """
+  The time the revision has been created.
+  """
+  createdAt: DateTime!
+  """
+  The ID of the draft revision.
+  """
+  id: ID!
+}
+
+type DraftRevisionEdge implements Edge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+  """
+  A node in the connection containing a draft revision.
+  """
+  node: DraftRevision!
+}
+
 type DraftSettings {
   """
   A flag to indicate if the comments are disabled for the post.
@@ -2291,6 +2321,13 @@ type GroupedByTimeVisitors implements Node & Visitors {
   The aggregated number of visitors.
   """
   total: Int!
+}
+
+type HeadlessCMSFeature implements Feature {
+  """
+  A flag indicating if the Headless CMS feature is enabled or not.
+  """
+  isEnabled: Boolean!
 }
 
 enum HttpRedirectionType {
@@ -3858,6 +3895,10 @@ type PublicationFeatures {
   """
   customCSS: CustomCSSFeature!
   """
+  Headless CMS for the publication.
+  """
+  headlessCMS: HeadlessCMSFeature!
+  """
   Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters.
   """
   newsletter: NewsletterFeature!
@@ -4757,6 +4798,7 @@ enum Scope {
   update_reply
   webhook_admin
   write_draft
+  write_draft_revision
   write_post
   write_series
   write_static_page
