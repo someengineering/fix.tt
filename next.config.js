@@ -112,10 +112,6 @@ module.exports = withPlausibleProxy()({
   async rewrites() {
     return [
       {
-        source: '/podcast/rss.xml',
-        destination: 'https://feeds.transistor.fm/the-security-cloud-podcast',
-      },
-      {
         source: '/api/analytics',
         destination: 'https://user-analytics.hashnode.com/api/analytics',
       },

@@ -7,7 +7,9 @@ export type Show = {
   id: string;
   type: 'show';
   attributes: {
+    amazon_music: string;
     apple_podcasts: string;
+    deezer: string;
     description: string;
     spotify: string;
     title: string;
@@ -46,7 +48,9 @@ export type EpisodesResult = {
 
 export const getShow = async (): Promise<Show> => {
   const params = new URLSearchParams();
+  params.append('fields[show][]', 'amazon_music');
   params.append('fields[show][]', 'apple_podcasts');
+  params.append('fields[show][]', 'deezer');
   params.append('fields[show][]', 'description');
   params.append('fields[show][]', 'spotify');
   params.append('fields[show][]', 'title');

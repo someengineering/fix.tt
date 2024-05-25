@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { getUser } from '@/lib/hashnode';
 import { getEpisodes, getShow } from '@/lib/transistor';
 
+import ListenAnywhere from '@/components/podcast/ListenAnywhere';
 import PodcastEpisodeList from '@/components/podcast/PodcastEpisodeList';
 
 import { metadata as rootMetadata } from '@/app/layout';
@@ -43,13 +44,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PodcastPage() {
-  const episodesData = getEpisodes({});
   const showData = getShow();
+  const episodesData = getEpisodes({});
   const hostData = getUser('scapecast');
 
-  const [episodes, show, host] = await Promise.all([
-    episodesData,
+  const [show, episodes, host] = await Promise.all([
     showData,
+    episodesData,
     hostData,
   ]);
 
@@ -69,6 +70,12 @@ export default async function PodcastPage() {
           >
             {show.attributes.description}
           </p>
+          <ListenAnywhere
+            applePodcastsUrl={show.attributes.apple_podcasts}
+            spotifyUrl={show.attributes.spotify}
+            amazonMusicUrl={show.attributes.amazon_music}
+            deezerUrl={show.attributes.amazon_music}
+          />
         </div>
         <PodcastEpisodeList
           initialEpisodes={episodes.data}
