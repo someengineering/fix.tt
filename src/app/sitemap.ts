@@ -7,7 +7,7 @@ import {
   getAllStaticPageSlugs,
   getAllTagSlugs,
 } from '@/lib/hashnode';
-import { getLatestEpisode } from '@/lib/spotify';
+import { getAllEpisodes, getShow } from '@/lib/transistor';
 
 import { siteConfig } from '@/constants/config';
 
@@ -30,15 +30,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const postsData = getAllPosts();
   const seriesSlugsData = getAllSeriesSlugs();
   const tagSlugsData = getAllTagSlugs();
-  const latestEpisodeData = getLatestEpisode();
+  const podcastData = getShow();
+  const episodesData = getAllEpisodes();
 
-  const [staticPageSlugs, posts, seriesSlugs, tagSlugs, latestEpisode] =
+  const [staticPageSlugs, posts, seriesSlugs, tagSlugs, podcast, episodes] =
     await Promise.all([
       staticPageSlugsData,
       postsData,
       seriesSlugsData,
       tagSlugsData,
-      latestEpisodeData,
+      podcastData,
+      episodesData,
     ]);
 
   return [
@@ -105,9 +107,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ),
     {
       url: `${siteConfig.url}/podcast`,
-      lastModified: new Date(latestEpisode.release_date).toISOString(),
+      lastModified: new Date(podcast.attributes.updated_at).toISOString(),
       changeFrequency: 'weekly',
       priority: 0.7,
     },
+    ...episodes.map(
+      (episode): SitemapField => ({
+        url: `${siteConfig.url}/podcast/${episode.attributes.slug}`,
+        lastModified: new Date(
+          episode.attributes.updated_at
+            ? episode.attributes.updated_at
+            : episode.attributes.published_at,
+        ).toISOString(),
+        changeFrequency: 'monthly',
+        priority: 0.7,
+      }),
+    ),
   ];
 }

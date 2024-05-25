@@ -4,10 +4,10 @@ import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import {
-  Episode as SpotifyEpisode,
-  EpisodesResult as SpotifyEpisodesResult,
-  PageInfo as SpotifyPageInfo,
-} from '@/lib/spotify';
+  Episode as TransistorEpisode,
+  EpisodesResult as TransistorEpisodesResult,
+  PageInfo as TransistorPageInfo,
+} from '@/lib/transistor';
 
 import Item from '@/components/podcast/PodcastEpisodeList/Item';
 
@@ -19,34 +19,33 @@ export default function PodcastEpisodeList({
   getEpisodes,
   host,
 }: {
-  initialEpisodes: SpotifyEpisode[];
-  initialPageInfo: SpotifyPageInfo;
-  getEpisodes: (offset: number) => Promise<SpotifyEpisodesResult>;
+  initialEpisodes: TransistorEpisode[];
+  initialPageInfo: TransistorPageInfo;
+  getEpisodes: (offset: number) => Promise<TransistorEpisodesResult>;
   host?: HashnodeUser;
 }) {
-  const [episodes, setEpisodes] = useState<SpotifyEpisode[]>(initialEpisodes);
-  const [pageInfo, setPageInfo] = useState<SpotifyPageInfo>(initialPageInfo);
+  const [episodes, setEpisodes] =
+    useState<TransistorEpisode[]>(initialEpisodes);
+  const [pageInfo, setPageInfo] = useState<TransistorPageInfo>(initialPageInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const [sentryRef] = useInfiniteScroll({
     loading: isLoading,
-    hasNextPage: !!pageInfo.next,
+    hasNextPage: pageInfo.currentPage < pageInfo.totalPages,
     onLoadMore: async () => {
       setIsLoading(true);
 
-      if (pageInfo.offset + pageInfo.limit < pageInfo.total) {
-        const data = await getEpisodes(pageInfo.offset + pageInfo.limit);
+      if (pageInfo.currentPage < pageInfo.totalPages) {
+        const data = await getEpisodes(pageInfo.currentPage + 1);
 
         if (!data) {
           setError(true);
           return;
         }
 
-        const { items, ...newPageInfo } = data;
-
-        setEpisodes([...episodes, ...items]);
-        setPageInfo(newPageInfo);
+        setEpisodes([...episodes, ...data.data]);
+        setPageInfo(data.meta);
       }
 
       setIsLoading(false);
@@ -58,7 +57,11 @@ export default function PodcastEpisodeList({
   return (
     <div className="-mb-20 mt-16 space-y-20 lg:mt-20">
       {episodes?.map((episode) => (
-        <Item episode={episode} key={`episode-${episode.id}`} host={host} />
+        <Item
+          episode={episode}
+          key={`episode-${episode.attributes.slug}`}
+          host={host}
+        />
       ))}
       <div ref={sentryRef} />
     </div>
