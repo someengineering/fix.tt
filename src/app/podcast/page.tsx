@@ -71,10 +71,12 @@ export default async function PodcastPage() {
             {show.attributes.description}
           </p>
           <ListenAnywhere
-            applePodcastsUrl={show.attributes.apple_podcasts}
-            spotifyUrl={show.attributes.spotify}
             amazonMusicUrl={show.attributes.amazon_music}
+            applePodcastsUrl={show.attributes.apple_podcasts}
             deezerUrl={show.attributes.amazon_music}
+            playerFmUrl={show.attributes.player_FM}
+            podcastAddictUrl={show.attributes.podcast_addict}
+            spotifyUrl={show.attributes.spotify}
           />
         </div>
         <PodcastEpisodeList

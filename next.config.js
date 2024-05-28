@@ -17,6 +17,7 @@ module.exports = withPlausibleProxy()({
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.hashnode.com' },
       { protocol: 'https', hostname: 'i.scdn.co' },
+      { protocol: 'https', hostname: 'img.transistor.fm' },
     ],
   },
 
@@ -94,6 +95,12 @@ module.exports = withPlausibleProxy()({
         has: [{ type: 'host', value: '(podcasts?\\.fix\\.(security|tt))' }],
         permanent: true,
         destination: 'https://fix.security/podcast/:path*',
+      },
+      {
+        source: '/people/lars-kamp',
+        has: [{ type: 'host', value: '(podcasts?\\.fix\\.(security|tt))' }],
+        permanent: false,
+        destination: 'https://linkedin.com/in/larskamp',
       },
       {
         source: '/:path*',

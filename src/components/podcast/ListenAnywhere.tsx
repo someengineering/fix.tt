@@ -3,17 +3,23 @@ import UnstyledLink from '@/components/common/links/UnstyledLink';
 import AmazonMusicLogo from '@/assets/podcast/apps/amazon-music.svg';
 import ApplePodcastsLogo from '@/assets/podcast/apps/apple-podcasts.svg';
 import DeezerLogo from '@/assets/podcast/apps/deezer.svg';
+import PlayerFmLogo from '@/assets/podcast/apps/player-fm.svg';
+import PodcastAddictLogo from '@/assets/podcast/apps/podcast-addict.svg';
 import SpotifyLogo from '@/assets/podcast/apps/spotify.svg';
 
 export default function ListenAnywhere({
   applePodcastsUrl,
   spotifyUrl,
   amazonMusicUrl,
+  podcastAddictUrl,
+  playerFmUrl,
   deezerUrl,
 }: {
   applePodcastsUrl?: string;
   spotifyUrl?: string;
   amazonMusicUrl?: string;
+  podcastAddictUrl?: string;
+  playerFmUrl?: string;
   deezerUrl?: string;
 }) {
   const apps: {
@@ -39,6 +45,16 @@ export default function ListenAnywhere({
       url: amazonMusicUrl,
     },
     {
+      name: 'Podcast Addict',
+      logo: (props) => <PodcastAddictLogo {...props} />,
+      url: podcastAddictUrl,
+    },
+    {
+      name: 'Player FM',
+      logo: (props) => <PlayerFmLogo {...props} />,
+      url: playerFmUrl,
+    },
+    {
       name: 'Deezer',
       logo: (props) => <DeezerLogo {...props} />,
       url: deezerUrl,
@@ -47,7 +63,7 @@ export default function ListenAnywhere({
 
   return (
     <div id="listen-anywhere">
-      <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
+      <div className="mt-6 flex flex-wrap items-center gap-3">
         {apps.map((app, index) =>
           app.url ? (
             <UnstyledLink

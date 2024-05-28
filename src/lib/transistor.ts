@@ -7,11 +7,14 @@ export type Show = {
   id: string;
   type: 'show';
   attributes: {
-    amazon_music: string;
-    apple_podcasts: string;
-    deezer: string;
+    amazon_music?: string;
+    apple_podcasts?: string;
+    deezer?: string;
     description: string;
-    spotify: string;
+    player_FM?: string;
+    pocket_casts?: string;
+    podcast_addict?: string;
+    spotify?: string;
     title: string;
     updated_at: string;
   };
@@ -52,6 +55,9 @@ export const getShow = async (): Promise<Show> => {
   params.append('fields[show][]', 'apple_podcasts');
   params.append('fields[show][]', 'deezer');
   params.append('fields[show][]', 'description');
+  params.append('fields[show][]', 'player_FM');
+  params.append('fields[show][]', 'pocket_casts');
+  params.append('fields[show][]', 'podcast_addict');
   params.append('fields[show][]', 'spotify');
   params.append('fields[show][]', 'title');
   params.append('fields[show][]', 'updated_at');
@@ -180,4 +186,32 @@ export const getEpisode = async (query: string): Promise<Episode | null> => {
   });
 
   return data.data[0] ?? null;
+};
+
+export const getFeed = async (): Promise<string> => {
+  const feed = await fetch(
+    'https://feeds.transistor.fm/the-security-cloud-u353fdd35ecfce747',
+    {
+      next: { revalidate: isLocal ? 0 : 3600, tags: ['transistor'] },
+    },
+  ).then((res) => res.text());
+
+  return feed
+    .replace(/<\?xml-stylesheet\s+.+\?>/, '')
+    .replace(/\s+owner="doris@some\.engineering"/g, '')
+    .replace(
+      /feeds\.transistor\.fm\/the-security-cloud/g,
+      'fix.security/podcast/rss.xml',
+    )
+    .replace(/podcast\.fix\.security/g, 'fix.security/podcast')
+    .replace(/fix\.security\/podcast\/episodes/g, 'fix.security/podcast')
+    .replace(
+      /fix\.security\/podcast\/people\/lars-kamp/g,
+      'linkedin.com/in/larskamp',
+    )
+    .replace(/role="Guest"\s+href=".+"/g, 'role="Guest"')
+    .replace(
+      /<((?:itunes:)?title)>(.+)\s+-\s+.+<\/(?:itunes:)?title>/g,
+      '<$1>$2</$1>',
+    );
 };
