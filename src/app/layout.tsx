@@ -42,13 +42,13 @@ export const metadata: Metadata = {
   alternates: {
     types: {
       'application/rss+xml': [
-        { url: '/blog/rss.xml', title: 'Fix blog RSS feed' },
+        { url: '/blog/rss.xml', title: 'Fix Security blog RSS feed' },
       ],
       'application/atom+xml': [
-        { url: '/blog/atom.xml', title: 'Fix blog Atom feed' },
+        { url: '/blog/atom.xml', title: 'Fix Security blog Atom feed' },
       ],
       'application/json': [
-        { url: '/blog/feed.json', title: 'Fix blog JSON feed' },
+        { url: '/blog/feed.json', title: 'Fix Security blog JSON feed' },
       ],
     },
   },

@@ -21,11 +21,12 @@ const people = [
           airplanes owned by the United States Government.
         </p>
         <p>
-          At Fix, I spend my time on Zoom calls with our users and turn their
-          needs and feedback into new product capabilities. I built our original
-          open source asset inventory and security graph that&rsquo;s now the
-          foundation for Fix. The cloud is a graph, not a table&mdash;and
-          security tooling should reflect that. I&rsquo;m also our acting{' '}
+          At Fix Security, I spend my time on Zoom calls with our users and turn
+          their needs and feedback into new product capabilities. I built our
+          original open source asset inventory and security graph that&rsquo;s
+          now the foundation for Fix Security. The cloud is a graph, not a
+          table&mdash;and security tooling should reflect that. I&rsquo;m also
+          our acting{' '}
           <abbr title="chief information security officer">CISO</abbr>, keeping
           our own infrastructure and systems secure.
         </p>
@@ -56,12 +57,12 @@ const people = [
           and cloud warehouses.
         </p>
         <p>
-          At Fix, I&rsquo;m usually the first line of support for customers. I
-          ask a lot of questions about your existing security stack and the
-          compliance frameworks you need to track. Since I come from the cloud
-          warehouse space and analytics engineering, I look at security data as
-          just another data source that needs to be centralized and visualized
-          in a dashboard.
+          At Fix Security, I&rsquo;m usually the first line of support for
+          customers. I ask a lot of questions about your existing security stack
+          and the compliance frameworks you need to track. Since I come from the
+          cloud warehouse space and analytics engineering, I look at security
+          data as just another data source that needs to be centralized and
+          visualized in a dashboard.
         </p>
         <p>
           I love writing about startups with my{' '}
@@ -86,18 +87,19 @@ const people = [
     bio: (
       <>
         <p>
-          Before Fix, I was an Apache committer and the technical lead for
-          Marathon, a highly available cluster scheduler for container
+          Before Fix Security, I was an Apache committer and the technical lead
+          for Marathon, a highly available cluster scheduler for container
           orchestration for Apache Mesos. I also built the trip execution and
           vehicle dispatching system for MOIA, Volkswagen&rsquo;s ride pooling
           service.
         </p>
         <p>
-          I lead a team of engineers in creating the building blocks of Fix.
-          This includes developing a search syntax that enables intuitive
-          searching and traversing of our security graph without the hassle of a
-          learning a complex graph query language. I also ensure that our
-          unified data model works across all cloud resources Fix supports.
+          I lead a team of engineers in creating the building blocks of Fix
+          Security. This includes developing a search syntax that enables
+          intuitive searching and traversing of our security graph without the
+          hassle of a learning a complex graph query language. I also ensure
+          that our unified data model works across all cloud resources Fix
+          Security supports.
         </p>
       </>
     ),

@@ -152,8 +152,9 @@ export default function Pricing() {
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl">
-          Fix pricing scales on a per-cloud-account basis, with an add-on to buy
-          more seats for your team. We offer a free tier and two-week trials.
+          Fix Security pricing scales on a per-cloud-account basis, with an
+          add-on to buy more seats for your team. We offer a free tier and
+          two-week trials.
         </p>
         <div className="mt-20 flow-root">
           <div className="mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">

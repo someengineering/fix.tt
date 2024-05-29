@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getPosts, getPublicationId } from '@/lib/hashnode';
+import { getPosts, getPublication } from '@/lib/hashnode';
 
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
@@ -12,43 +12,49 @@ import { isProd } from '@/constants/env';
 import { openGraph } from '@/utils/og';
 
 const url = `${siteConfig.url}/blog`;
-const title = 'Blog';
-const description = siteConfig.blogDescription;
-const ogImage = openGraph({
-  title,
-  description,
-});
 
-export const metadata: Metadata = {
-  title,
-  description,
-  alternates: {
-    ...rootMetadata.alternates,
-    canonical: url,
-  },
-  openGraph: {
-    ...rootMetadata.openGraph,
-    url,
+export async function generateMetadata(): Promise<Metadata> {
+  const publication = await getPublication();
+
+  if (!publication) {
+    return {};
+  }
+
+  const title = publication.title || `${siteConfig.title} Blog`;
+  const description = publication.about?.text;
+  const ogImage = openGraph({
     title,
-    images: [ogImage],
-  },
-  twitter: {
-    ...rootMetadata.twitter,
-    title: `${title} | ${siteConfig.title}`,
-    images: [ogImage],
-  },
-};
+    description,
+  });
+
+  return {
+    title,
+    description,
+    alternates: {
+      ...rootMetadata.alternates,
+      canonical: url,
+    },
+    openGraph: {
+      ...rootMetadata.openGraph,
+      url,
+      title,
+      images: [ogImage],
+    },
+    twitter: {
+      ...rootMetadata.twitter,
+      title: `${title} | ${siteConfig.title}`,
+      images: [ogImage],
+    },
+  };
+}
 
 export default async function BlogPage() {
-  const publicationIdData = getPublicationId();
+  const publicationData = getPublication();
   const postsData = getPosts({});
 
-  const [publicationId, posts] = await Promise.all([
-    publicationIdData,
-    postsData,
-  ]);
+  const [publication, posts] = await Promise.all([publicationData, postsData]);
 
-  if (!publicationId || !posts) {
+  if (!publication || !posts) {
     notFound();
   }
 
@@ -61,15 +67,17 @@ export default async function BlogPage() {
           itemType="http://schema.org/Blog"
           itemID={url}
         >
-          <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
-            {title}
+          <h1
+            className="text-pretty text-4xl font-extrabold sm:text-5xl"
+            itemProp="name"
+          >
+            {publication.title || `${siteConfig.title} Blog`}
           </h1>
-          <meta itemProp="name" content={description} />
           <p
             className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl"
             itemProp="description"
           >
-            {description}
+            {publication.about?.text}
           </p>
           {posts ? (
             <BlogPostList
@@ -84,7 +92,7 @@ export default async function BlogPage() {
           ) : null}
         </div>
       </div>
-      {isProd ? <HashnodePageView publicationId={publicationId} /> : null}
+      {isProd ? <HashnodePageView publicationId={publication.id} /> : null}
     </>
   );
 }

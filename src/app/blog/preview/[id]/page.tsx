@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
-import { getDraft } from '@/lib/hashnode';
+import { getDraft, getPublication } from '@/lib/hashnode';
 
 import BlogDraft from '@/components/blog/BlogDraft';
-import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
@@ -64,32 +64,14 @@ export default async function BlogPreviewPage({
 }: {
   params: { id: string };
 }) {
-  const draft = await getDraft(params.id);
+  const publicationData = getPublication();
+  const draftData = getDraft(params.id);
 
-  if (!draft) {
-    return (
-      <div className="py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:max-w-4xl">
-            <p className="mb-2 text-lg font-bold leading-8 text-cornflower-blue-600 sm:text-xl">
-              404
-            </p>
-            <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
-              Draft not found
-            </h1>
-            <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
-              Was this content published or deleted?
-            </p>
-            <div className="mt-10">
-              <PrimaryLink href="/blog">
-                <span aria-hidden="true">&larr;</span> Back to blog
-              </PrimaryLink>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+  const [publication, draft] = await Promise.all([publicationData, draftData]);
+
+  if (!publication || !draft) {
+    notFound();
   }
 
-  return <BlogDraft draft={draft} />;
+  return <BlogDraft draft={draft} publication={publication} />;
 }

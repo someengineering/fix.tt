@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getAllPostSlugs, getPost, getPublicationId } from '@/lib/hashnode';
+import { getAllPostSlugs, getPost, getPublication } from '@/lib/hashnode';
 
 import BlogPost from '@/components/blog/BlogPost';
 
@@ -70,17 +70,14 @@ export default async function BlogPostPage({
 }: {
   params: { slug: string };
 }) {
-  const publicationIdData = getPublicationId();
+  const publicationData = getPublication();
   const postData = getPost(params.slug);
 
-  const [publicationId, post] = await Promise.all([
-    publicationIdData,
-    postData,
-  ]);
+  const [publication, post] = await Promise.all([publicationData, postData]);
 
-  if (!publicationId || !post) {
+  if (!publication || !post) {
     notFound();
   }
 
-  return <BlogPost post={post} publicationId={publicationId} />;
+  return <BlogPost post={post} publication={publication} />;
 }

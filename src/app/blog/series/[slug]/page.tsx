@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import {
   getAllSeriesSlugs,
   getPostsBySeries,
-  getPublicationId,
+  getPublication,
   getSeries,
 } from '@/lib/hashnode';
 
@@ -71,18 +71,18 @@ export default async function BlogSeriesPage({
 }: {
   params: { slug: string };
 }) {
-  const publicationIdData = getPublicationId();
+  const publicationData = getPublication();
   const seriesInfoData = getSeries(params.slug);
   const postsData = getPostsBySeries({ seriesSlug: params.slug });
 
-  const [publicationId, seriesInfo, posts] = await Promise.all([
-    publicationIdData,
+  const [publication, seriesInfo, posts] = await Promise.all([
+    publicationData,
     seriesInfoData,
     postsData,
   ]);
 
   if (
-    !publicationId ||
+    !publication ||
     !seriesInfo ||
     !seriesInfo.posts.totalDocuments ||
     !posts
@@ -100,8 +100,8 @@ export default async function BlogSeriesPage({
             itemType="http://schema.org/Blog"
             itemID={`${siteConfig.url}/blog`}
           >
-            <meta itemProp="name" content={siteConfig.blogTitle} />
-            <meta itemProp="description" content={siteConfig.blogDescription} />
+            <meta itemProp="name" content={publication.title} />
+            <meta itemProp="description" content={publication.about?.text} />
             <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
               Blog series
             </p>
@@ -131,7 +131,7 @@ export default async function BlogSeriesPage({
       </div>
       {isProd ? (
         <HashnodePageView
-          publicationId={publicationId}
+          publicationId={publication.id}
           seriesId={seriesInfo.id}
         />
       ) : null}

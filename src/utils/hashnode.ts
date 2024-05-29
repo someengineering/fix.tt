@@ -4,9 +4,9 @@ import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 
 const userTitleMapping: Record<string, string> = {
   fixteam: '',
-  lloesche: 'Co-founder & CISO at Fix',
-  scapecast: 'Co-founder & CEO at Fix',
-  aquamatthias: 'Co-founder & CTO at Fix',
+  lloesche: 'Co-founder & CISO at Fix Security',
+  scapecast: 'Co-founder & CEO at Fix Security',
+  aquamatthias: 'Co-founder & CTO at Fix Security',
 };
 
 export const getUserTitle = (user: HashnodeUser): string | undefined => {

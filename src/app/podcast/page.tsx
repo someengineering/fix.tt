@@ -15,7 +15,7 @@ const url = `${siteConfig.url}/podcast`;
 export async function generateMetadata(): Promise<Metadata> {
   const show = await getShow();
 
-  const title = show.attributes.title ?? 'Podcast';
+  const title = show.attributes.title || `${siteConfig.title} Podcast`;
   const description = show.attributes.description;
   const ogImage = openGraph({
     title,
@@ -62,7 +62,7 @@ export default async function PodcastPage() {
             className="text-pretty text-4xl font-extrabold sm:text-5xl"
             itemProp="name"
           >
-            {show.attributes.title}
+            {show.attributes.title || `${siteConfig.title} Blog`}
           </h1>
           <p
             className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl"

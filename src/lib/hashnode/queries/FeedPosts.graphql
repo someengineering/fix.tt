@@ -1,5 +1,6 @@
 query FeedPosts($host: String!) {
   publication(host: $host) {
+    ...Publication
     posts(first: 15) {
       edges {
         node {

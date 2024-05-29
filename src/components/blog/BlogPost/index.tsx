@@ -6,14 +6,17 @@ import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
 
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
-import { PostWithMarkdownContentFragment as HashnodePost } from '@/generated/hashnode/graphql';
+import {
+  PostWithMarkdownContentFragment as HashnodePost,
+  PublicationFragment as HashnodePublication,
+} from '@/generated/hashnode/graphql';
 
 export default function BlogPost({
   post,
-  publicationId,
+  publication,
 }: {
   post: HashnodePost;
-  publicationId: string;
+  publication: HashnodePublication;
 }) {
   const url = `${siteConfig.url}/blog/${post.slug}`;
 
@@ -25,8 +28,8 @@ export default function BlogPost({
         itemType="http://schema.org/Blog"
         itemID={`${siteConfig.url}/blog`}
       >
-        <meta itemProp="name" content={siteConfig.blogTitle} />
-        <meta itemProp="description" content={siteConfig.blogDescription} />
+        <meta itemProp="name" content={publication.title} />
+        <meta itemProp="description" content={publication.about?.text} />
         <article
           className="mx-auto max-w-3xl text-lg text-gray-700"
           itemProp="blogPost"
@@ -65,7 +68,7 @@ export default function BlogPost({
       </div>
       {isProd ? (
         <HashnodePageView
-          publicationId={publicationId}
+          publicationId={publication.id}
           postId={post.id}
           seriesId={post.series?.id}
         />

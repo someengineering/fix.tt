@@ -30,9 +30,12 @@ import {
   PostSlugsQueryVariables,
   PostsQuery,
   PostsQueryVariables,
+  PublicationDocument,
   PublicationIdDocument,
   PublicationIdQuery,
   PublicationIdQueryVariables,
+  PublicationQuery,
+  PublicationQueryVariables,
   SeriesDocument,
   SeriesQuery,
   SeriesQueryVariables,
@@ -65,6 +68,17 @@ const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
   fetch,
   next: { revalidate: isLocal ? 0 : 3600, tags: ['hashnode'] },
 });
+
+export const getPublication = async () => {
+  const data = await gqlClient.request<
+    PublicationQuery,
+    PublicationQueryVariables
+  >(PublicationDocument, {
+    host: HASHNODE_HOST,
+  });
+
+  return data.publication;
+};
 
 export const getPublicationId = async () => {
   const data = await gqlClient.request<
@@ -393,9 +407,16 @@ export const getPostsBySeries = async ({
 };
 
 export const getFeed = async (): Promise<Feed> => {
+  const data = await gqlClient.request<FeedPostsQuery, FeedPostsQueryVariables>(
+    FeedPostsDocument,
+    {
+      host: HASHNODE_HOST,
+    },
+  );
+
   const feed = new Feed({
-    title: siteConfig.blogTitle,
-    description: siteConfig.blogDescription,
+    title: data.publication?.title || `${siteConfig.title} Blog`,
+    description: data.publication?.about?.text,
     id: `${siteConfig.url}/blog`,
     link: `${siteConfig.url}/blog`,
     language: 'en',
@@ -408,13 +429,6 @@ export const getFeed = async (): Promise<Feed> => {
       json: `${siteConfig.url}/blog/feed.json`,
     },
   });
-
-  const data = await gqlClient.request<FeedPostsQuery, FeedPostsQueryVariables>(
-    FeedPostsDocument,
-    {
-      host: HASHNODE_HOST,
-    },
-  );
 
   data.publication?.posts.edges
     .filter((edge) => !edge.node.preferences.isDelisted)

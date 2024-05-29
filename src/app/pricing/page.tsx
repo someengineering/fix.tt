@@ -11,7 +11,7 @@ import { openGraph } from '@/utils/og';
 const url = `${siteConfig.url}/pricing`;
 const title = 'Pricing';
 const description =
-  'Fix pricing scales on a per-cloud-account basis, with an add-on to buy more seats for your team. We offer a free tier and two-week trials.';
+  'Fix Security pricing scales on a per-cloud-account basis, with an add-on to buy more seats for your team. We offer a free tier and two-week trials.';
 const ogImage = openGraph({
   title,
   description,

@@ -26,7 +26,7 @@ const testimonials: {
     companyName: 'Kavak',
     companyLogo: (props) => <KavakLogo {...props} />,
     quote:
-      'The major ‘click’ for me was when I saw how Fix allows you to just search for all relationships for all resources. And that was magical, to be honest.',
+      'The major ‘click’ for me was when I saw how Fix Security allows you to just search for all relationships for all resources. And that was magical, to be honest.',
   },
   {
     authorName: 'Nick Mistry',
@@ -35,7 +35,7 @@ const testimonials: {
     companyName: 'Lineaje',
     companyLogo: lineajeLogo,
     quote:
-      'What I like about Fix is that I can actually see the test. What is the config setting that you’re auditing, what are the results you’re looking for, and how do you determine pass or fail? When the rubber meets the road, what I want to know is: what’s the call you’re making on the API?',
+      'What I like about Fix Security is that I can actually see the test. What is the config setting that you’re auditing, what are the results you’re looking for, and how do you determine pass or fail? When the rubber meets the road, what I want to know is: what’s the call you’re making on the API?',
   },
   {
     authorName: 'Rotem Levi',
@@ -44,7 +44,7 @@ const testimonials: {
     companyName: 'CloudZone',
     companyLogo: cloudzoneLogo,
     quote:
-      'I’ve never found use in tools that just give me an asset list. With Fix, I get filters and scenarios, like public instances with admin rights or IAM users without MFA. And then, in one click, I get the recommendation.',
+      'I’ve never found use in tools that just give me an asset list. With Fix Security, I get filters and scenarios, like public instances with admin rights or IAM users without MFA. And then, in one click, I get the recommendation.',
   },
 ];
 

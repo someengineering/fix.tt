@@ -24,8 +24,8 @@ const features: {
     description: (
       <>
         Get a complete picture of your cloud and see what is running with visual
-        maps. Fix discovers assets and collects rich configuration data for
-        resources, no matter where, when, or how they were provisioned.
+        maps. Fix Security discovers assets and collects rich configuration data
+        for resources, no matter where, when, or how they were provisioned.
       </>
     ),
     icon: (props) => <LuBug {...props} />,
@@ -34,9 +34,9 @@ const features: {
     name: 'Remediation',
     description: (
       <>
-        Fix integrates with your workflow, ticketing, and messaging tools. Set
-        up alerts and automations for policy violations to make it easy for your
-        engineers to keep infrastructure updated and tidy.
+        Fix Security integrates with your workflow, ticketing, and messaging
+        tools. Set up alerts and automations for policy violations to make it
+        easy for your engineers to keep infrastructure updated and tidy.
       </>
     ),
     icon: (props) => <LuShuffle {...props} />,
@@ -49,7 +49,7 @@ export default function WhyFix() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl lg:mx-0">
           <h2 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
-            Why Fix?
+            Why Fix Security?
           </h2>
           <p className="max-w-prose text-pretty text-4xl font-extrabold sm:text-5xl">
             <span className="text-cornflower-blue-600">
@@ -60,8 +60,8 @@ export default function WhyFix() {
           <div className="max-w-prose text-lg leading-8 text-gray-600">
             <p className="mt-6">
               <strong className="text-gray-900">
-                Fix connects to cloud APIs to take full snapshots of your cloud
-                infrastructure and technology stack.
+                Fix Security connects to cloud APIs to take full snapshots of
+                your cloud infrastructure and technology stack.
               </strong>{' '}
               You get a baseline inventory with a complete view of accounts,
               instances, functions, Kubernetes pods, databases, storage buckets,
@@ -69,7 +69,7 @@ export default function WhyFix() {
               place.
             </p>
             <p className="mt-6">
-              The Fix Security Graph also shows relationships between resources,
+              The Fix Security graph also shows relationships between resources,
               providing the context to understand critical risks and attack
               paths&mdash;so you can prioritize and fix the misconfigurations
               and vulnerabilities that matter.

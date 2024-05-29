@@ -1,0 +1,7 @@
+fragment Publication on Publication {
+  id
+  title
+  about {
+    text
+  }
+}

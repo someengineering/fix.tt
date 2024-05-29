@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import {
   getAllTagSlugs,
   getPostsByTag,
-  getPublicationId,
+  getPublication,
   getTagName,
 } from '@/lib/hashnode';
 
@@ -37,7 +37,7 @@ export async function generateMetadata({
 
   const url = `${siteConfig.url}/blog/tag/${params.slug}`;
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)} | Blog`;
-  const description = `Guides, how-tos, and news about ${tag} from the Fix team.`;
+  const description = `Guides, how-tos, and news about ${tag} from the Fix Security team.`;
   const ogImage = openGraph({
     title,
     description,
@@ -71,17 +71,17 @@ export default async function BlogTagPage({
 }: {
   params: { slug: string };
 }) {
-  const publicationIdData = getPublicationId();
+  const publicationData = getPublication();
   const tagNameData = getTagName(params.slug);
   const postsData = getPostsByTag({ tagSlug: params.slug });
 
-  const [publicationId, tagName, posts] = await Promise.all([
-    publicationIdData,
+  const [publication, tagName, posts] = await Promise.all([
+    publicationData,
     tagNameData,
     postsData,
   ]);
 
-  if (!publicationId || !tagName || !posts) {
+  if (!publication || !tagName || !posts) {
     notFound();
   }
 
@@ -95,8 +95,8 @@ export default async function BlogTagPage({
             itemType="http://schema.org/Blog"
             itemID={`${siteConfig.url}/blog`}
           >
-            <meta itemProp="name" content={siteConfig.blogTitle} />
-            <meta itemProp="description" content={siteConfig.blogDescription} />
+            <meta itemProp="name" content={publication.title} />
+            <meta itemProp="description" content={publication.about?.text} />
             <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
               From the blog
             </p>
@@ -105,7 +105,8 @@ export default async function BlogTagPage({
               {tagName.slice(1)}
             </h1>
             <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
-              Guides, how-tos, and news about {tagName} from the Fix team.
+              Guides, how-tos, and news about {tagName} from the Fix Security
+              team.
             </p>
             <BlogPostList
               initialPosts={posts.edges.map((edge) => edge.node)}
@@ -122,7 +123,7 @@ export default async function BlogTagPage({
           </div>
         </div>
       </div>
-      {isProd ? <HashnodePageView publicationId={publicationId} /> : null}
+      {isProd ? <HashnodePageView publicationId={publication.id} /> : null}
     </>
   );
 }

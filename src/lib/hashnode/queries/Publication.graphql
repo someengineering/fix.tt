@@ -1,0 +1,5 @@
+query Publication($host: String!) {
+  publication(host: $host) {
+    ...Publication
+  }
+}

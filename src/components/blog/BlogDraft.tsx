@@ -4,9 +4,18 @@ import Header from '@/components/blog/BlogPost/Header';
 import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
 
 import { siteConfig } from '@/constants/config';
-import { DraftFragment as HashnodeDraft } from '@/generated/hashnode/graphql';
+import {
+  DraftFragment as HashnodeDraft,
+  PublicationFragment as HashnodePublication,
+} from '@/generated/hashnode/graphql';
 
-export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
+export default function BlogDraft({
+  draft,
+  publication,
+}: {
+  draft: HashnodeDraft;
+  publication: HashnodePublication;
+}) {
   if (!draft.title || !draft.author || !draft.content) {
     return null;
   }
@@ -18,8 +27,8 @@ export default function BlogDraft({ draft }: { draft: HashnodeDraft }) {
       itemType="http://schema.org/Blog"
       itemID={`${siteConfig.url}/blog`}
     >
-      <meta itemProp="name" content={siteConfig.blogTitle} />
-      <meta itemProp="description" content={siteConfig.blogDescription} />
+      <meta itemProp="name" content={publication.title} />
+      <meta itemProp="description" content={publication.about?.text} />
       <article
         className="mx-auto max-w-3xl text-lg text-gray-700"
         itemProp="blogPost"

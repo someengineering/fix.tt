@@ -4244,6 +4244,13 @@ export type PostWithMarkdownContentFragment = {
   preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
 };
 
+export type PublicationFragment = {
+  __typename?: 'Publication';
+  id: string;
+  title: string;
+  about?: { __typename?: 'Content'; text: string } | null;
+};
+
 export type PublicationPostConnectionFragment = {
   __typename?: 'PublicationPostConnection';
   edges: Array<{
@@ -4453,6 +4460,8 @@ export type FeedPostsQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
+    title: string;
     posts: {
       __typename?: 'PublicationPostConnection';
       edges: Array<{
@@ -4494,6 +4503,7 @@ export type FeedPostsQuery = {
         };
       }>;
     };
+    about?: { __typename?: 'Content'; text: string } | null;
   } | null;
 };
 
@@ -4763,6 +4773,20 @@ export type PostsByTagQuery = {
         hasNextPage?: boolean | null;
       };
     };
+  } | null;
+};
+
+export type PublicationQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+}>;
+
+export type PublicationQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    id: string;
+    title: string;
+    about?: { __typename?: 'Content'; text: string } | null;
   } | null;
 };
 
@@ -5751,6 +5775,36 @@ export const PostWithMarkdownContentFragmentDoc = {
     },
   ],
 } as unknown as DocumentNode<PostWithMarkdownContentFragment, unknown>;
+export const PublicationFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Publication' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Publication' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'about' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PublicationFragment, unknown>;
 export const PageInfoFragmentDoc = {
   kind: 'Document',
   definitions: [
@@ -6603,6 +6657,10 @@ export const FeedPostsDocument = {
               kind: 'SelectionSet',
               selections: [
                 {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Publication' },
+                },
+                {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'posts' },
                   arguments: [
@@ -6710,6 +6768,31 @@ export const FeedPostsDocument = {
               kind: 'SelectionSet',
               selections: [
                 { kind: 'Field', name: { kind: 'Name', value: 'linkedin' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Publication' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Publication' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'about' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
               ],
             },
           },
@@ -8224,6 +8307,82 @@ export const PostsByTagDocument = {
     },
   ],
 } as unknown as DocumentNode<PostsByTagQuery, PostsByTagQueryVariables>;
+export const PublicationDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Publication' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Publication' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Publication' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Publication' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'about' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PublicationQuery, PublicationQueryVariables>;
 export const PublicationIdDocument = {
   kind: 'Document',
   definitions: [
