@@ -10,24 +10,21 @@ export default function Hero() {
       <div className="mx-auto max-w-7xl px-6 text-center lg:flex lg:items-center lg:gap-x-4 lg:px-8 lg:text-left">
         <div className="mx-auto pb-12 lg:p-0">
           <div className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
-            For cloud security engineers
+            For developers and security engineers
           </div>
           <h1 className="max-w-prose text-balance text-4xl font-extrabold sm:text-5xl lg:text-pretty">
-            The{' '}
             <span className="font-extrabold text-cornflower-blue-600">
-              asset inventory
+              Continuous
             </span>{' '}
-            for your AWS security posture.
+            cloud security
           </h1>
           <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl lg:text-pretty">
             {siteConfig.description}
           </p>
           <ul className="mx-auto mt-3 max-w-prose list-inside list-disc text-balance lg:ml-4 lg:list-outside lg:text-pretty">
-            <li>Understand your cloud resources and configurations.</li>
-            <li>
-              Get notified of policy violations in Slack, Discord, or Teams.
-            </li>
-            <li>Address risks with remediation suggestions.</li>
+            <li>Agentless installation</li>
+            <li>Developer-friendly API and CLI</li>
+            <li>Preconfigured benchmarks and queries</li>
           </ul>
           <div className="mt-6 space-x-5">
             <ButtonLink href="https://app.fix.security/auth/register" size="lg">

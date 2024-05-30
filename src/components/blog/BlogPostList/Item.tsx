@@ -141,7 +141,7 @@ export default function Item({ post }: { post: HashnodePost }) {
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="z-10 text-nowrap rounded-md bg-gray-50 px-3  py-1.5 hover:bg-marian-blue-50"
+              className="z-10 text-nowrap rounded-md bg-gray-50 px-3 py-1.5 hover:bg-marian-blue-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

@@ -15,7 +15,7 @@ export default function CookieConsent() {
 
   useEffect(() => {
     if (Cookies.get('cookie_consent') === 'true') {
-      posthog.opt_in_capturing({ enable_persistence: true });
+      posthog.opt_in_capturing();
     } else if (!posthog.has_opted_in_capturing()) {
       setShowConsent(Cookies.get('cookie_consent') !== 'false');
     }
@@ -53,7 +53,7 @@ export default function CookieConsent() {
                 secure: !isLocal,
                 expires: 365,
               });
-              posthog.opt_in_capturing({ enable_persistence: true });
+              posthog.opt_in_capturing();
             }}
           >
             Accept

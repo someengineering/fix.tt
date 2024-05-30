@@ -1,8 +1,8 @@
 export const siteConfig = {
   title: 'Fix Security',
-  tagline: 'The asset inventory for your AWS security posture.',
+  tagline: 'Continuous cloud security',
   description:
-    'Fix Security combines user, resource, and configuration data into a centralized dashboard with full-text search.',
+    'Your cloud is dynamic and changes by the hour. Built on open source, Fix Security regularly scans and checks your cloud so you stay secure and compliant.',
   url: 'https://fix.security',
   copyright: `© ${new Date().getFullYear()} Some Engineering Inc. All rights reserved.`,
 };
