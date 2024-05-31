@@ -1,11 +1,10 @@
 import Image from 'next/image';
 import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
-import PrimaryLink from '@/components/common/links/PrimaryLink';
-
 import larsPhoto from '@/assets/team/lars.jpg';
 import lukasPhoto from '@/assets/team/lukas.jpg';
 import matthiasPhoto from '@/assets/team/matthias.jpg';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const people = [
   {

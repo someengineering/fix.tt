@@ -2,9 +2,8 @@ import { revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
 
-import { validateSignature } from '@/lib/hashnode/webhook';
-
 import { HASHNODE_WEBHOOK_SECRET } from '@/constants/hashnode';
+import { validateSignature } from '@/lib/hashnode/webhook';
 
 export async function POST(req: NextRequest) {
   const signatureHeader = headers().get('x-hashnode-signature');

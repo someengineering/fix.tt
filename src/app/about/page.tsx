@@ -1,17 +1,15 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getPublicationId, getStaticPage } from '@/lib/hashnode';
-
+import { metadata as rootMetadata } from '@/app/layout';
+import { metadata as notFoundMetadata } from '@/app/not-found';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import MarkdownContent from '@/components/common/MarkdownContent';
 import Faq from '@/components/Faq';
 import Team from '@/components/Team';
-
-import { metadata as rootMetadata } from '@/app/layout';
-import { metadata as notFoundMetadata } from '@/app/not-found';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
+import { getPublicationId, getStaticPage } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
 
 export const revalidate = 300;
@@ -68,7 +66,7 @@ export default async function AboutPage() {
   return (
     <>
       <div className="px-6 py-16 sm:py-24 lg:px-8">
-        <div className="mx-auto max-w-3xl text-lg text-gray-700">
+        <div className="mx-auto max-w-3xl">
           <h1 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
             {staticPage.title}
           </h1>

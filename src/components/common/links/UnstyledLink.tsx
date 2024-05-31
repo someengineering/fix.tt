@@ -34,7 +34,7 @@ const UnstyledLink = forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
       <a
         ref={ref}
         target="_blank"
-        rel="noopener noreferrer"
+        rel={!href.includes('fix.security') ? 'noopener noreferrer' : ''}
         href={href}
         {...rest}
         className={className}

@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 
 import Button from '@/components/common/buttons/Button';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
-
 import { isLocal, isProd } from '@/constants/env';
 
 export default function CookieConsent() {

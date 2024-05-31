@@ -1,10 +1,9 @@
 import { Metadata } from 'next';
 
+import { metadata as rootMetadata } from '@/app/layout';
 import Customers from '@/components/Customers';
 import Faq from '@/components/Faq';
 import Pricing from '@/components/Pricing';
-
-import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 

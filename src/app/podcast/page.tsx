@@ -1,13 +1,11 @@
 import { Metadata } from 'next';
 
-import { getUser } from '@/lib/hashnode';
-import { getEpisodes, getShow } from '@/lib/transistor';
-
+import { metadata as rootMetadata } from '@/app/layout';
 import ListenAnywhere from '@/components/podcast/ListenAnywhere';
 import PodcastEpisodeList from '@/components/podcast/PodcastEpisodeList';
-
-import { metadata as rootMetadata } from '@/app/layout';
 import { siteConfig } from '@/constants/config';
+import { getUser } from '@/lib/hashnode';
+import { getEpisodes, getShow } from '@/lib/transistor';
 import { openGraph } from '@/utils/og';
 
 const url = `${siteConfig.url}/podcast`;

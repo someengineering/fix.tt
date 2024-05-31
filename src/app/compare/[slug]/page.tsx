@@ -3,8 +3,12 @@ import { notFound, permanentRedirect } from 'next/navigation';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
+import FixLogo from '@/assets/logo.svg';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import MarkdownContent from '@/components/common/MarkdownContent';
+import CompetitorLogo, { hasLogo } from '@/components/compare/CompetitorLogo';
+import Customers from '@/components/Customers';
+import Faq from '@/components/Faq';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import {
@@ -20,7 +24,7 @@ export async function generateStaticParams() {
   const slugs = await getAllStaticPageSlugs();
 
   return slugs
-    .filter((slug) => !slug.startsWith('fix-vs-'))
+    .filter((slug) => slug.startsWith('fix-vs-'))
     .map((slug) => ({
       slug,
     }));
@@ -37,8 +41,8 @@ export async function generateMetadata({
     return notFoundMetadata;
   }
 
-  const url = `${siteConfig.url}/${staticPage.slug}`;
-  const title = staticPage.title;
+  const url = `${siteConfig.url}/compare/${staticPage.slug}`;
+  const title = `Fix Security vs. ${staticPage.title}`;
   const description = staticPage.seo?.description ?? undefined;
   const ogImage = openGraph({ title, description });
 
@@ -66,13 +70,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function StaticPage({
+export default async function ComparisonPage({
   params,
 }: {
   params: { slug: string };
 }) {
-  if (params.slug.startsWith('fix-vs-')) {
-    permanentRedirect(`/compare/${params.slug}`);
+  if (!params.slug.startsWith('fix-vs-')) {
+    permanentRedirect(`/${params.slug}`);
   }
 
   const publicationIdData = getPublicationId();
@@ -87,18 +91,48 @@ export default async function StaticPage({
     notFound();
   }
 
+  const title = `Fix Security vs. ${staticPage.title}`;
+  const subtitle = `Why engineers choose Fix Security over ${staticPage.title}`;
+  const competitorSlug = params.slug.replace('fix-vs-', '');
+
   return (
     <>
       <div className="px-6 py-16 sm:py-24 lg:px-8">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
-            {staticPage.title}
-          </h1>
-          <MarkdownContent className="static-page">
+        <div className="mx-auto max-w-7xl text-center">
+          {hasLogo(competitorSlug) ? (
+            <h1 className="mb-12 flex items-center justify-center space-x-10">
+              <span className="sr-only">{title}</span>
+              <FixLogo
+                className="h-24 w-24 text-cornflower-blue-600"
+                aria-hidden="true"
+              />
+              <span
+                className="h-10 w-10 rounded-full bg-marian-blue-50 text-lg font-extrabold leading-10"
+                aria-hidden="true"
+              >
+                VS
+              </span>
+              <CompetitorLogo
+                slug={competitorSlug}
+                className="h-24 w-24"
+                aria-hidden="true"
+              />
+            </h1>
+          ) : (
+            <h1 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
+              {title}
+            </h1>
+          )}
+          <h2 className="text-pretty text-4xl font-extrabold sm:text-5xl">
+            {subtitle}
+          </h2>
+          <MarkdownContent className="compare-page">
             {staticPage.content.markdown}
           </MarkdownContent>
         </div>
       </div>
+      <Customers />
+      <Faq />
       {isProd ? (
         <HashnodePageView
           publicationId={publicationId}

@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getAllPostSlugs, getPost, getPublication } from '@/lib/hashnode';
-
-import BlogPost from '@/components/blog/BlogPost';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
+import BlogPost from '@/components/blog/BlogPost';
 import { siteConfig } from '@/constants/config';
+import { getAllPostSlugs, getPost, getPublication } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
 
 export async function generateStaticParams() {

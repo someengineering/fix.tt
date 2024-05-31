@@ -1,6 +1,5 @@
-import { getPostsBySeries } from '@/lib/hashnode';
-
 import Item from '@/components/blog/BlogPost/RelatedPosts/Item';
+import { getPostsBySeries } from '@/lib/hashnode';
 
 export default async function RelatedPosts({
   seriesSlug,

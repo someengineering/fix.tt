@@ -2,7 +2,6 @@ import Image from 'next/image';
 import { LuBookOpen, LuUserCircle2 } from 'react-icons/lu';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-
 import { siteConfig } from '@/constants/config';
 import { PostFragment as HashnodePost } from '@/generated/hashnode/graphql';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';

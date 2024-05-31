@@ -3,7 +3,6 @@ import { forwardRef } from 'react';
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/common/links/UnstyledLink';
-
 import { cn } from '@/utils/css';
 
 const PrimaryLinkVariant = ['default', 'basic', 'light'] as const;

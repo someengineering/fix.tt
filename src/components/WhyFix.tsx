@@ -76,26 +76,24 @@ export default function WhyFix() {
             </p>
           </div>
         </div>
-        <div className="mx-auto mt-8 max-w-2xl sm:mt-12 lg:max-w-none">
-          <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-16 lg:max-w-none lg:grid-cols-3">
-            {features.map((feature, index) => (
-              <div key={`feature-${index}`} className="flex flex-col">
-                <dt className="text-lg font-bold text-gray-900">
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50">
-                    <feature.icon
-                      className="h-6 w-6 text-cornflower-blue-600"
-                      aria-hidden="true"
-                    />
-                  </div>
-                  {feature.name}
-                </dt>
-                <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
-                  <p className="flex-auto">{feature.description}</p>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
+        <dl className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-10 sm:mt-12 lg:max-w-none lg:grid-cols-3">
+          {features.map((feature, index) => (
+            <div key={`feature-${index}`} className="flex flex-col">
+              <dt className="text-lg font-bold text-gray-900">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50">
+                  <feature.icon
+                    className="h-6 w-6 text-cornflower-blue-600"
+                    aria-hidden="true"
+                  />
+                </div>
+                {feature.name}
+              </dt>
+              <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
+                <p className="flex-auto">{feature.description}</p>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

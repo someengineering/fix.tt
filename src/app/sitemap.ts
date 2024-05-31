@@ -1,6 +1,7 @@
 import { max } from 'lodash';
 import { MetadataRoute } from 'next';
 
+import { siteConfig } from '@/constants/config';
 import {
   getAllPosts,
   getAllSeriesSlugs,
@@ -8,8 +9,6 @@ import {
   getAllTagSlugs,
 } from '@/lib/hashnode';
 import { getAllEpisodes, getShow } from '@/lib/transistor';
-
-import { siteConfig } from '@/constants/config';
 
 type SitemapField = {
   url: string;
@@ -58,7 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ),
     ...staticPageSlugs.map(
       (slug): SitemapField => ({
-        url: `${siteConfig.url}/${slug}`,
+        url: `${siteConfig.url}/${slug.startsWith('fix-vs-') ? 'compare/' : ''}${slug}`,
         ...(slug === 'code-of-conduct' ||
         slug === 'cookie-policy' ||
         slug === 'privacy-policy' ||

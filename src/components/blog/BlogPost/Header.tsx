@@ -3,7 +3,6 @@ import { LuBookOpen, LuUserCircle2 } from 'react-icons/lu';
 
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-
 import {
   DraftTagFragment as HashnodeDraftTag,
   SeriesFragment as HashnodeSeries,

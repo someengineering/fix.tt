@@ -5,10 +5,10 @@ import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkSmartypants from 'remark-smartypants';
 
+import ButtonLink from '@/components/common/links/ButtonLink';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import Heading from '@/components/common/MarkdownContent/Heading';
 import NextImage from '@/components/common/NextImage';
-
 import { cn } from '@/utils/css';
 import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 
@@ -75,6 +75,21 @@ export default function MarkdownContent({
           />
         ),
         p: (props) => {
+          const cta = props.children?.toString().match(/^%%\[cta]$/);
+
+          if (cta) {
+            return (
+              <div className="my-12 space-x-5">
+                <ButtonLink
+                  href="https://app.fix.security/auth/register"
+                  size="lg"
+                >
+                  Try Fix Security for free
+                </ButtonLink>
+              </div>
+            );
+          }
+
           const youtubeEmbed = props.children
             ?.toString()
             .match(/^%\[https:\/\/youtu\.be\/(?<videoId>[\w\d\-_]{11})]$/);

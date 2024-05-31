@@ -1,7 +1,6 @@
 import parse, { DOMNode, domToReact, Element } from 'html-react-parser';
 
 import PrimaryLink from '@/components/common/links/PrimaryLink';
-
 import { sanitizeHtml } from '@/utils/transistor';
 
 const parserOptions = {

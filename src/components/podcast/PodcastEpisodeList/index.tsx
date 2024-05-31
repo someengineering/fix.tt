@@ -3,15 +3,13 @@
 import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
+import Item from '@/components/podcast/PodcastEpisodeList/Item';
+import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 import {
   Episode as TransistorEpisode,
   EpisodesResult as TransistorEpisodesResult,
   PageInfo as TransistorPageInfo,
 } from '@/lib/transistor';
-
-import Item from '@/components/podcast/PodcastEpisodeList/Item';
-
-import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 
 export default function PodcastEpisodeList({
   initialEpisodes,

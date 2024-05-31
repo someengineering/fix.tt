@@ -5,7 +5,6 @@ import { useMemo } from 'react';
 import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 
 import TableOfContentsRow from '@/components/blog/BlogPost/TableOfContents/TableOfContentsRow';
-
 import { TableOfContentsItemFragment as HashnodeTableOfContentsItem } from '@/generated/hashnode/graphql';
 
 export type TableOfContentsItem = {

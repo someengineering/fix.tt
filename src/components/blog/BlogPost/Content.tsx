@@ -1,6 +1,5 @@
 import TableOfContents from '@/components/blog/BlogPost/TableOfContents';
 import MarkdownContent from '@/components/common/MarkdownContent';
-
 import { TableOfContentsItemFragment as HashnodeTableOfContentsItem } from '@/generated/hashnode/graphql';
 
 export default function Content({

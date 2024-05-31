@@ -2,15 +2,14 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import { WebSite, WithContext } from 'schema-dts';
 
+import { metadata as rootMetadata } from '@/app/layout';
+import dashboardScreenshot from '@/assets/screenshots/dashboard.png';
 import Customers from '@/components/Customers';
 import Faq from '@/components/Faq';
 import Hero from '@/components/Hero';
 import Pricing from '@/components/Pricing';
 import Testimonials from '@/components/Testimonials';
 import WhyFix from '@/components/WhyFix';
-
-import { metadata as rootMetadata } from '@/app/layout';
-import dashboardScreenshot from '@/assets/screenshots/dashboard.png';
 import { siteConfig } from '@/constants/config';
 
 export const metadata: Metadata = {

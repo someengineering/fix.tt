@@ -1,7 +1,6 @@
-import ButtonLink from '@/components/common/links/ButtonLink';
-
 import CspmDiagram from '@/assets/diagrams/cspm.svg';
 import CspmDiagramMobile from '@/assets/diagrams/cspm-mobile.svg';
+import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
 
 export default function Hero() {
@@ -22,7 +21,7 @@ export default function Hero() {
             {siteConfig.description}
           </p>
           <ul className="mx-auto mt-3 max-w-prose list-inside list-disc text-balance lg:ml-4 lg:list-outside lg:text-pretty">
-            <li>Agentless installation</li>
+            <li>Agentless scanning</li>
             <li>Developer-friendly API and CLI</li>
             <li>Preconfigured benchmarks and queries</li>
           </ul>

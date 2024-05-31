@@ -1,12 +1,10 @@
 import Image from 'next/image';
 import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
-import { Episode as TransistorEpisode } from '@/lib/transistor';
-
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-
 import { siteConfig } from '@/constants/config';
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
+import { Episode as TransistorEpisode } from '@/lib/transistor';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 import { parseEpisodeTitle } from '@/utils/transistor';

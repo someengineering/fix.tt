@@ -1,13 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 
+import { metadata as rootMetadata } from '@/app/layout';
+import PodcastEpisode from '@/components/podcast/PodcastEpisode';
+import { siteConfig } from '@/constants/config';
 import { getUser } from '@/lib/hashnode';
 import { getAllEpisodeSlugs, getEpisode } from '@/lib/transistor';
-
-import PodcastEpisode from '@/components/podcast/PodcastEpisode';
-
-import { metadata as rootMetadata } from '@/app/layout';
-import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
 import { parseEpisodeTitle } from '@/utils/transistor';
 

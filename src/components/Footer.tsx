@@ -6,10 +6,7 @@ import {
   FaSquareRss,
 } from 'react-icons/fa6';
 
-import '@/styles/globals.css';
-
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-
 import { siteConfig } from '@/constants/config';
 
 const navigation = [

@@ -1,10 +1,8 @@
-import { Episode as TransistorEpisode } from '@/lib/transistor';
-
 import Content from '@/components/podcast/PodcastEpisode/Content';
 import Header from '@/components/podcast/PodcastEpisode/Header';
-
 import { siteConfig } from '@/constants/config';
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
+import { Episode as TransistorEpisode } from '@/lib/transistor';
 import { parseEpisodeTitle } from '@/utils/transistor';
 
 export default function PodcastEpisode({
@@ -21,7 +19,7 @@ export default function PodcastEpisode({
     <>
       <div className="px-6 py-16 sm:py-24 lg:px-8">
         <article
-          className="mx-auto max-w-3xl text-lg text-gray-700"
+          className="mx-auto max-w-3xl"
           itemType="http://schema.org/PodcastEpisode"
           itemID={url}
         >

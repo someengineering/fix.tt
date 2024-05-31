@@ -4,7 +4,6 @@ import { useState } from 'react';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 import Item from '@/components/blog/BlogPostList/Item';
-
 import {
   PageInfo as HashnodePageInfo,
   PostFragment as HashnodePost,

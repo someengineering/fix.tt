@@ -1,12 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getDraft, getPublication } from '@/lib/hashnode';
-
-import BlogDraft from '@/components/blog/BlogDraft';
-
 import { metadata as rootMetadata } from '@/app/layout';
+import BlogDraft from '@/components/blog/BlogDraft';
 import { siteConfig } from '@/constants/config';
+import { getDraft, getPublication } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
 
 export const revalidate = 0;

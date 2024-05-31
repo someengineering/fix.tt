@@ -4,11 +4,8 @@ import { Dialog } from '@headlessui/react';
 import { useState } from 'react';
 import { LuMenu, LuX } from 'react-icons/lu';
 
-import '@/styles/globals.css';
-
-import ButtonLink from '@/components/common/links/ButtonLink';
-
 import Logo from '@/assets/logo.svg';
+import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
 
 const navigation = [

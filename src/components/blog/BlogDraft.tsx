@@ -2,7 +2,6 @@ import Content from '@/components/blog/BlogPost/Content';
 import Footer from '@/components/blog/BlogPost/Footer';
 import Header from '@/components/blog/BlogPost/Header';
 import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
-
 import { siteConfig } from '@/constants/config';
 import {
   DraftFragment as HashnodeDraft,
@@ -30,7 +29,7 @@ export default function BlogDraft({
       <meta itemProp="name" content={publication.title} />
       <meta itemProp="description" content={publication.about?.text} />
       <article
-        className="mx-auto max-w-3xl text-lg text-gray-700"
+        className="mx-auto max-w-3xl"
         itemProp="blogPost"
         itemScope
         itemType="http://schema.org/BlogPosting"
