@@ -1,19 +1,14 @@
 import WizLogo from '@/assets/compare/wiz.svg';
 
 const logos: {
-  slug: string;
-  svg: (
+  [slug: string]: (
     props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>,
   ) => JSX.Element;
-}[] = [
-  {
-    slug: 'wiz',
-    svg: (props) => <WizLogo {...props} />,
-  },
-];
+} = {
+  wiz: (props) => <WizLogo {...props} />,
+};
 
-export const hasLogo = (slug: string) =>
-  logos.some((logo) => logo.slug === slug);
+export const hasLogo = (slug: string) => slug in logos;
 
 export default function CompetitorLogo({
   slug,
@@ -22,5 +17,5 @@ export default function CompetitorLogo({
   slug: string;
   className?: string;
 }) {
-  return logos.find((logo) => logo.slug === slug)?.svg({ className });
+  return logos[slug]({ className });
 }

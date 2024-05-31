@@ -115,7 +115,7 @@
       > li {
         @apply !m-0 flex flex-col text-left;
 
-        > strong:first-child {
+        > strong:first-of-type {
           @apply text-lg font-bold text-gray-900;
         }
       }
