@@ -20,7 +20,7 @@ const title = siteConfig.title;
 const description = siteConfig.description;
 const ogImage = openGraph({
   title: siteConfig.tagline,
-  description: url,
+  description,
 });
 
 export const metadata: Metadata = {
