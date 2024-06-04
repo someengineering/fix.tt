@@ -226,8 +226,9 @@ const faqs: {
     ),
     answer: (
       <p>
-        Yes! This is supported in our <a href="#pricing">Enterprise plan</a>.
-        Please contact us via email at{' '}
+        Yes! This is supported in our{' '}
+        <PrimaryLink href="#pricing">Enterprise plan</PrimaryLink>. Please
+        contact us via email at{' '}
         <PrimaryLink href="mailto:hi@fix.security">hi@fix.security</PrimaryLink>{' '}
         for details.
       </p>

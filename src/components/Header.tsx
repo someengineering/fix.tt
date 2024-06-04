@@ -6,6 +6,7 @@ import { LuMenu, LuX } from 'react-icons/lu';
 
 import Logo from '@/assets/logo.svg';
 import ButtonLink from '@/components/common/links/ButtonLink';
+import UnstyledLink from '@/components/common/links/UnstyledLink';
 import { siteConfig } from '@/constants/config';
 
 const navigation = [
@@ -23,13 +24,13 @@ export default function Header() {
     <header>
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:gap-x-12 lg:px-8">
         <div className="flex">
-          <a
+          <UnstyledLink
             href="/"
             className="-m-1.5 p-1.5 text-cornflower-blue-600 hover:text-cornflower-blue-700"
           >
             <span className="sr-only">{siteConfig.title}</span>
             <Logo className="h-16 w-auto" />
-          </a>
+          </UnstyledLink>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -43,9 +44,13 @@ export default function Header() {
         </div>
         <div className="hidden text-base font-bold text-gray-700 lg:flex lg:gap-x-10">
           {navigation.map((item) => (
-            <a key={item.name} href={item.href} className="hover:text-gray-900">
+            <UnstyledLink
+              key={item.name}
+              href={item.href}
+              className="hover:text-gray-900"
+            >
               {item.name}
-            </a>
+            </UnstyledLink>
           ))}
         </div>
         <div className="hidden space-x-2 lg:flex lg:flex-1 lg:justify-end">
@@ -73,10 +78,10 @@ export default function Header() {
         <div className="fixed inset-0 z-50" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="/" className="-m-1.5 p-1.5">
+            <UnstyledLink href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">{siteConfig.title}</span>
               <Logo className="h-16 w-auto text-cornflower-blue-600 hover:text-cornflower-blue-700" />
-            </a>
+            </UnstyledLink>
             <button
               type="button"
               className="-m-2.5 p-2.5 text-gray-700 hover:text-gray-900"
@@ -90,14 +95,14 @@ export default function Header() {
             <div className="divide-y divide-gray-500/10">
               <div className="space-y-6 py-6">
                 {navigation.map((item) => (
-                  <a
+                  <UnstyledLink
                     key={item.name}
                     href={item.href}
                     className="block text-lg font-bold text-gray-700 hover:text-gray-900"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
-                  </a>
+                  </UnstyledLink>
                 ))}
               </div>
               <div className="space-x-2 py-6">

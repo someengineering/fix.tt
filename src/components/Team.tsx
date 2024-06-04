@@ -5,6 +5,7 @@ import larsPhoto from '@/assets/team/lars.jpg';
 import lukasPhoto from '@/assets/team/lukas.jpg';
 import matthiasPhoto from '@/assets/team/matthias.jpg';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
+import UnstyledLink from '@/components/common/links/UnstyledLink';
 
 const people = [
   {
@@ -150,22 +151,22 @@ export default function Team() {
                 </div>
                 <ul role="list" className="mt-6 flex gap-x-4">
                   <li>
-                    <a
+                    <UnstyledLink
                       href={person.linkedinUrl}
                       className="text-gray-400 hover:text-gray-600"
                     >
                       <span className="sr-only">LinkedIn</span>
                       <FaLinkedin className="h-5 w-5" aria-hidden="true" />
-                    </a>
+                    </UnstyledLink>
                   </li>
                   <li>
-                    <a
+                    <UnstyledLink
                       href={person.githubUrl}
                       className="text-gray-400 hover:text-gray-600"
                     >
                       <span className="sr-only">GitHub</span>
                       <FaGithub className="h-5 w-5" aria-hidden="true" />
-                    </a>
+                    </UnstyledLink>
                   </li>
                 </ul>
               </div>
