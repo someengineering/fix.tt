@@ -1,5 +1,6 @@
 import { YouTubeEmbed } from '@next/third-parties/google';
 import GithubSlugger from 'github-slugger';
+import Image from 'next/image';
 import React, { isValidElement } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
@@ -9,7 +10,6 @@ import ButtonLink from '@/components/common/links/ButtonLink';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import Heading from '@/components/common/MarkdownContent/Heading';
 import Icon from '@/components/common/MarkdownContent/Icon';
-import NextImage from '@/components/common/NextImage';
 import { cn } from '@/utils/css';
 import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 
@@ -62,18 +62,19 @@ export default function MarkdownContent({
           </Heading>
         ),
         img: (props) => (
-          <NextImage
-            src={props.src ?? ''}
-            alt={props.alt ?? ''}
-            title={props.title}
-            className="h-max w-full"
-            classNames={{
-              image: 'h-auto w-auto object-contain mx-auto rounded-xl',
-            }}
-            width={0}
-            height={0}
-            sizes="350vw"
-          />
+          <figure className="h-max w-full">
+            <Image
+              src={props.src ?? ''}
+              alt={props.alt ?? ''}
+              fill
+              className="!relative mx-auto rounded-xl object-contain"
+            />
+            {props.title ? (
+              <figcaption className="text-center italic">
+                {props.title}
+              </figcaption>
+            ) : null}
+          </figure>
         ),
         p: (props) => {
           if (props.children?.toString() === '%%[cta]') {

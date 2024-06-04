@@ -39,8 +39,9 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <Image
             src={dashboardScreenshot}
-            alt="Fix Security dashboard displays changes detected in the last week, security score, and top 5 possible security enhancements."
             sizes="(max-width: 1280px) 100vw, 1280px"
+            placeholder="blur"
+            alt="Fix Security dashboard displays changes detected in the last week, security score, and top 5 possible security enhancements."
             className="rounded-xl shadow-md"
           />
         </div>

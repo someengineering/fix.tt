@@ -136,10 +136,11 @@ export default function Team() {
               className="flex flex-col items-start gap-x-6 gap-y-10 pt-12 sm:flex-row"
             >
               <Image
-                className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
                 src={person.photo}
+                placeholder="blur"
                 width={208}
                 alt=""
+                className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
               />
               <div className="max-w-xl flex-auto">
                 <h3 className="text-3xl font-extrabold text-cornflower-blue-600">

@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
-import NextImage from '@/components/common/NextImage';
 import {
   DraftTagFragment as HashnodeDraftTag,
   SeriesFragment as HashnodeSeries,
@@ -97,13 +97,12 @@ export default function Header({
             itemType="https://schema.org/Person"
           >
             {host.profilePicture ? (
-              <NextImage
+              <Image
                 src={host.profilePicture}
+                width={48}
+                height={48}
                 alt=""
                 className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
-                classNames={{ image: 'w-full h-full object-cover' }}
-                width={40}
-                height={40}
                 itemProp="image"
               />
             ) : (
