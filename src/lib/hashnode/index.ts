@@ -476,6 +476,7 @@ export const getPost = async (postSlug: string) => {
 };
 
 const tagNameMapping: Record<string, string> = {
+  cnapp: 'CNAPP',
   cspm: 'CSPM',
 };
 

@@ -2,10 +2,13 @@ import { IconType } from 'react-icons';
 import {
   LuCloudy,
   LuDatabase,
-  LuGitFork,
   LuGithub,
+  LuListChecks,
   LuListTree,
+  LuNetwork,
   LuPencilRuler,
+  LuSearchCode,
+  LuSendToBack,
   LuSparkles,
 } from 'react-icons/lu';
 
@@ -14,10 +17,13 @@ const icons: {
 } = {
   LuCloudy: (props) => <LuCloudy {...props} />,
   LuDatabase: (props) => <LuDatabase {...props} />,
-  LuGitFork: (props) => <LuGitFork {...props} />,
   LuGithub: (props) => <LuGithub {...props} />,
+  LuListChecks: (props) => <LuListChecks {...props} />,
   LuListTree: (props) => <LuListTree {...props} />,
+  LuNetwork: (props) => <LuNetwork {...props} />,
   LuPencilRuler: (props) => <LuPencilRuler {...props} />,
+  LuSearchCode: (props) => <LuSearchCode {...props} />,
+  LuSendToBack: (props) => <LuSendToBack {...props} />,
   LuSparkles: (props) => <LuSparkles {...props} />,
 };
 

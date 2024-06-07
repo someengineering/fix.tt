@@ -2379,6 +2379,12 @@ export type Preferences = {
   navbarItems: Array<PublicationNavbarItem>;
 };
 
+export type ProTeamFeature = Feature & {
+  __typename?: 'ProTeamFeature';
+  /** A flag indicating if the Pro team feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
+};
+
 /**
  * Contains basic information about the publication.
  * A publication is a blog that can be created for a user or a team.
@@ -2511,6 +2517,7 @@ export type PublicationPostsArgs = {
  * A publication is a blog that can be created for a user or a team.
  */
 export type PublicationPostsViaPageArgs = {
+  filter?: InputMaybe<PublicationPostsViaPageFilter>;
   page: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
 };
@@ -2601,6 +2608,8 @@ export type PublicationFeatures = {
   headlessCMS: HeadlessCmsFeature;
   /** Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters. */
   newsletter: NewsletterFeature;
+  /** Flag to denote if publication is a pro team's publication. */
+  proTeam: ProTeamFeature;
   /** Show the read time for blog posts. */
   readTime: ReadTimeFeature;
   /** Widget that shows up if a text on a blog post is selected. Allows for easy sharing or copying of the selected text. */
@@ -2780,6 +2789,23 @@ export type PublicationPostPageConnection = PageConnection & {
   pageInfo: OffsetPageInfo;
   /** The total number of posts. */
   totalDocuments: Scalars['Int']['output'];
+};
+
+export type PublicationPostsViaPageFilter = {
+  /** Remove pinned post from the result set. */
+  excludePinnedPosts?: InputMaybe<Scalars['Boolean']['input']>;
+  /**
+   * Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+   *
+   * It is an "OR" filter and not an "AND" filter.
+   */
+  tagSlugs?: InputMaybe<Array<Scalars['String']['input']>>;
+  /**
+   * Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+   *
+   * It is an "OR" filter and not an "AND" filter.
+   */
+  tags?: InputMaybe<Array<Scalars['ID']['input']>>;
 };
 
 /**
@@ -3154,6 +3180,8 @@ export type RoleBasedInvite = Node & {
   __typename?: 'RoleBasedInvite';
   /** The capacity of how many members to be invited by the link. */
   capacity?: Maybe<Scalars['Int']['output']>;
+  /** The date the invite was created. */
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
   /** The expiry date of the invite. */
   expiryDate?: Maybe<Scalars['DateTime']['output']>;
   /** The ID of the role based invite. */
@@ -3164,6 +3192,8 @@ export type RoleBasedInvite = Node & {
   isUnlimitedCapacity?: Maybe<Scalars['Boolean']['output']>;
   /** The role assigned to the user in the publication. */
   role: UserPublicationRole;
+  /** The number of members that have already used the link to join the team. */
+  usedCapacity?: Maybe<Scalars['Int']['output']>;
 };
 
 /** Information to help in seo related meta tags. */
@@ -3259,12 +3289,14 @@ export type SearchPostConnection = Connection & {
 };
 
 export type SearchPostsOfPublicationFilter = {
+  /** An array of author Ids to filter the posts. */
+  authorIds?: InputMaybe<Array<Scalars['ID']['input']>>;
   /** Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts. */
   deletedOnly?: InputMaybe<Scalars['Boolean']['input']>;
   /** The ID of publications to search from. */
   publicationId: Scalars['ObjectId']['input'];
   /** The query to be searched in post. */
-  query: Scalars['String']['input'];
+  query?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type SearchUser = Node & {
@@ -3969,6 +4001,10 @@ export type UserRecommendingPublicationEdge = {
   /** The amount of followers the publication has gained by recommendations from the publication referenced in `node`. */
   totalFollowersGained: Scalars['Int']['output'];
 };
+
+export enum ValidationMethod {
+  Id = 'ID',
+}
 
 /**
  * Contains the flag indicating if the view count feature is enabled or not.

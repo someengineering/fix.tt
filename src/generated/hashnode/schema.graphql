@@ -28,6 +28,11 @@ directive @private on FIELD_DEFINITION | OBJECT
 
 directive @requireAuth(scopes: [Scope!]) on FIELD_DEFINITION | OBJECT
 
+directive @validate(
+  message: String
+  method: ValidationMethod!
+) on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
+
 input AddCommentInput {
   contentMarkdown: String!
   postId: ID!
@@ -3595,6 +3600,13 @@ type Preferences {
   navbarItems: [PublicationNavbarItem!]!
 }
 
+type ProTeamFeature implements Feature {
+  """
+  A flag indicating if the Pro team feature is enabled or not.
+  """
+  isEnabled: Boolean!
+}
+
 """
 Contains basic information about the publication.
 A publication is a blog that can be created for a user or a team.
@@ -3738,6 +3750,10 @@ type Publication implements Node {
     first: Int!
   ): PublicationPostConnection!
   postsViaPage(
+    """
+    The filters to be applied to the post list.
+    """
+    filter: PublicationPostsViaPageFilter
     """
     The page number that should be returned.
     """
@@ -3902,6 +3918,10 @@ type PublicationFeatures {
   Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters.
   """
   newsletter: NewsletterFeature!
+  """
+  Flag to denote if publication is a pro team's publication.
+  """
+  proTeam: ProTeamFeature!
   """
   Show the read time for blog posts.
   """
@@ -4185,6 +4205,25 @@ type PublicationPostPageConnection implements PageConnection {
   The total number of posts.
   """
   totalDocuments: Int!
+}
+
+input PublicationPostsViaPageFilter {
+  """
+  Remove pinned post from the result set.
+  """
+  excludePinnedPosts: Boolean
+  """
+  Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+
+  It is an "OR" filter and not an "AND" filter.
+  """
+  tagSlugs: [String!]
+  """
+  Filtering by tag slugs and tag IDs will return posts that match either of the filters.
+
+  It is an "OR" filter and not an "AND" filter.
+  """
+  tags: [ID!]
 }
 
 """
@@ -4680,6 +4719,10 @@ type RoleBasedInvite implements Node {
   """
   capacity: Int
   """
+  The date the invite was created.
+  """
+  createdAt: DateTime
+  """
   The expiry date of the invite.
   """
   expiryDate: DateTime
@@ -4699,6 +4742,10 @@ type RoleBasedInvite implements Node {
   The role assigned to the user in the publication.
   """
   role: UserPublicationRole!
+  """
+  The number of members that have already used the link to join the team.
+  """
+  usedCapacity: Int
 }
 
 """
@@ -4823,6 +4870,10 @@ type SearchPostConnection implements Connection {
 
 input SearchPostsOfPublicationFilter {
   """
+  An array of author Ids to filter the posts.
+  """
+  authorIds: [ID!]
+  """
   Only return posts that are deleted. Query returns active posts by default, set this to true to return deleted posts.
   """
   deletedOnly: Boolean
@@ -4833,7 +4884,7 @@ input SearchPostsOfPublicationFilter {
   """
   The query to be searched in post.
   """
-  query: String!
+  query: String
 }
 
 type SearchUser implements Node {
@@ -5881,6 +5932,10 @@ type UserRecommendingPublicationEdge {
   The amount of followers the publication has gained by recommendations from the publication referenced in `node`.
   """
   totalFollowersGained: Int!
+}
+
+enum ValidationMethod {
+  ID
 }
 
 """
