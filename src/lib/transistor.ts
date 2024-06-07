@@ -69,7 +69,7 @@ export const getShow = async (): Promise<Show> => {
         'x-api-key': TRANSISTOR_API_KEY!,
         'Content-Type': 'application/json',
       },
-      next: { revalidate: isLocal ? 0 : 3600, tags: ['transistor'] },
+      next: { revalidate: isLocal ? 0 : 300, tags: ['transistor'] },
     },
   ).then((res) => res.json());
 
@@ -109,7 +109,7 @@ export const getEpisodes = async ({
       'x-api-key': TRANSISTOR_API_KEY!,
       'Content-Type': 'application/json',
     },
-    next: { revalidate: isLocal ? 0 : 3600, tags: ['transistor'] },
+    next: { revalidate: isLocal ? 0 : 300, tags: ['transistor'] },
   }).then((res) => res.json());
 
   return data;
@@ -192,7 +192,7 @@ export const getFeed = async (): Promise<string> => {
   const feed = await fetch(
     'https://feeds.transistor.fm/the-security-cloud-u353fdd35ecfce747',
     {
-      next: { revalidate: isLocal ? 0 : 3600, tags: ['transistor'] },
+      next: { revalidate: isLocal ? 0 : 300, tags: ['transistor'] },
     },
   ).then((res) => res.text());
 

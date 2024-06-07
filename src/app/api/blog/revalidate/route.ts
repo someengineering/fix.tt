@@ -1,4 +1,4 @@
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
 
@@ -16,6 +16,14 @@ export async function POST(req: NextRequest) {
 
   if (signatureResult.isValid) {
     revalidateTag('hashnode');
+
+    revalidatePath('/[slug]', 'page');
+    revalidatePath('/about', 'page');
+    revalidatePath('/blog', 'layout');
+    revalidatePath('/blog/atom.xml');
+    revalidatePath('/blog/feed.json');
+    revalidatePath('/blog/rss.xml');
+    revalidatePath('/compare', 'layout');
   } else {
     return new Response(signatureResult.reason, { status: 401 });
   }

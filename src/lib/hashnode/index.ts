@@ -66,7 +66,7 @@ import { getUserLink } from '@/utils/hashnode';
 
 const gqlClient = new GraphQLClient(HASHNODE_ENDPOINT, {
   fetch,
-  next: { revalidate: isLocal ? 0 : 3600, tags: ['hashnode'] },
+  next: { revalidate: isLocal ? 0 : 300, tags: ['hashnode'] },
 });
 
 export const getPublication = async () => {
