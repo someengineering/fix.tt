@@ -115,10 +115,11 @@ export default function Header({
         {author.profilePicture ? (
           <Image
             src={author.profilePicture}
-            alt=""
-            className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
             width={48}
             height={48}
+            sizes="48px"
+            alt=""
+            className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
             itemProp="image"
           />
         ) : (

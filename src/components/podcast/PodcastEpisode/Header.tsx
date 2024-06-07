@@ -101,6 +101,7 @@ export default function Header({
                 src={host.profilePicture}
                 width={48}
                 height={48}
+                sizes="48px"
                 alt=""
                 className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
                 itemProp="image"

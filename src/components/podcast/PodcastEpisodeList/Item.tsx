@@ -60,7 +60,7 @@ export default function Item({
           />
         </header>
         <div className="group relative space-y-4">
-          <h3
+          <h2
             className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
             itemProp="headline"
           >
@@ -71,7 +71,7 @@ export default function Item({
               <span className="absolute inset-0" />
               {title}
             </UnstyledLink>
-          </h3>
+          </h2>
           <p
             className="line-clamp-3 max-w-prose text-pretty text-lg font-semibold text-gray-900"
             itemProp="description"
@@ -89,10 +89,11 @@ export default function Item({
                 {host?.profilePicture ? (
                   <Image
                     src={host.profilePicture}
-                    alt=""
-                    className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
                     width={44}
                     height={44}
+                    sizes="44px"
+                    alt=""
+                    className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
                     itemProp="image"
                   />
                 ) : (

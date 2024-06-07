@@ -27,10 +27,10 @@ export default function Item({ post }: { post: HashnodePost }) {
         {post.coverImage ? (
           <Image
             src={post.coverImage.url}
+            sizes="240px"
             alt=""
             className="bg-gray-50 object-cover"
             fill
-            sizes="240px"
           />
         ) : (
           <div className="h-full w-full bg-gray-50 object-cover" />
@@ -77,7 +77,7 @@ export default function Item({ post }: { post: HashnodePost }) {
           ) : null}
         </header>
         <div className="group relative space-y-2">
-          <h3
+          <h2
             className="mt-1 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
             itemProp="headline"
           >
@@ -85,7 +85,7 @@ export default function Item({ post }: { post: HashnodePost }) {
               <span className="absolute inset-0" />
               {post.title}
             </UnstyledLink>
-          </h3>
+          </h2>
           <p
             className="text-pretty text-base font-semibold text-gray-900"
             itemProp="description"
@@ -101,10 +101,11 @@ export default function Item({ post }: { post: HashnodePost }) {
             {post.author.profilePicture ? (
               <Image
                 src={post.author.profilePicture}
-                alt=""
-                className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
                 width={44}
                 height={44}
+                sizes="44px"
+                alt=""
+                className="h-11 w-11 shrink-0 overflow-hidden rounded-full bg-gray-50"
                 itemProp="image"
               />
             ) : (

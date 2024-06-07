@@ -3837,9 +3837,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.4.668:
-  version "1.4.794"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.794.tgz#cca7762998f6c42517770666e272f52a53c08605"
-  integrity sha512-6FApLtsYhDCY0Vglq3AptsdxQ+PJLc6AxlAM0HjEihUAiOPPbkASEsq9gtxUeZY9o0sJIEa3WnF0vVH4VT4iug==
+  version "1.4.795"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.795.tgz#25d05961c529bc32435e5e4abdd8f9dabcbc9dc5"
+  integrity sha512-hHo4lK/8wb4NUa+NJYSFyJ0xedNHiR6ylilDtb8NUW9d4dmBFmGiecYEKCEbti1wTNzbKXLfl4hPWEkAFbHYlw==
 
 emoji-regex@^10.3.0:
   version "10.3.0"
@@ -5805,9 +5805,9 @@ mdast-util-phrasing@^4.0.0:
     unist-util-is "^6.0.0"
 
 mdast-util-to-hast@^13.0.0:
-  version "13.1.0"
-  resolved "https://registry.yarnpkg.com/mdast-util-to-hast/-/mdast-util-to-hast-13.1.0.tgz#1ae54d903150a10fe04d59f03b2b95fd210b2124"
-  integrity sha512-/e2l/6+OdGp/FB+ctrJ9Avz71AN/GRH3oi/3KAx/kMnoUsD6q0woXlDT8lLEeViVKE7oZxE7RXzvO3T8kF2/sA==
+  version "13.2.0"
+  resolved "https://registry.yarnpkg.com/mdast-util-to-hast/-/mdast-util-to-hast-13.2.0.tgz#5ca58e5b921cc0a3ded1bc02eed79a4fe4fe41f4"
+  integrity sha512-QGYKEuUsYT9ykKBCMOEDLsU5JRObWQusAolFMeko/tYPufNkRffBAQjIE+99jbA87xv6FgmjLtwjh9wBWajwAA==
   dependencies:
     "@types/hast" "^3.0.0"
     "@types/mdast" "^4.0.0"
@@ -6680,10 +6680,10 @@ postcss@8.4.38, postcss@^8.4.23:
     picocolors "^1.0.0"
     source-map-js "^1.2.0"
 
-posthog-js@1.138.0:
-  version "1.138.0"
-  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.138.0.tgz#c646dbe41df7a6aaf953bf8da9dc90249d41b493"
-  integrity sha512-Pmvt5KmYPT3Je0auBq3Q3YSvHkPHUiW8Iy1UwS8mN/bQS19u8ls1UoMe6yiGijvnvHYmORjkMu6RYbmlTiKFZg==
+posthog-js@1.138.1:
+  version "1.138.1"
+  resolved "https://registry.yarnpkg.com/posthog-js/-/posthog-js-1.138.1.tgz#02052cdff5087edfa782ac3bb593d48802d0f932"
+  integrity sha512-hLahTznM0/iSM3vl6QGcmdG/zgCcW2DaQqPf7OtXCoqxNdYCWTNp6/sqepd6CxtDmJfm1S5Cbu1tD9TSksOYcA==
   dependencies:
     fflate "^0.4.8"
     preact "^10.19.3"
@@ -6698,10 +6698,10 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier-plugin-tailwindcss@0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.6.1.tgz#6cb1f5f3e1a8d8b5ea3f97d19be516d9ce9931bf"
-  integrity sha512-AnbeYZu0WGj+QgKciUgdMnRxrqcxltleZPgdwfA5104BHM3siBLONN/HLW1yS2HvzSNkzpQ/JAj+LN0jcJO+0w==
+prettier-plugin-tailwindcss@0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.6.2.tgz#1143ac515b97bc9c04ec2d19a1a1db42b36f198c"
+  integrity sha512-eFefm4cg+1c2B57+H274Qm//CTWBdtQN9ansl0YTP/8TC8x3bugCTQSS/e4FC5Ctl9djhTzsbcMrZ7x2/abIow==
 
 prettier@3.3.1:
   version "3.3.1"
@@ -7814,9 +7814,9 @@ type-fest@^0.21.3:
   integrity sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==
 
 type-fest@^4.3.1:
-  version "4.19.0"
-  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.19.0.tgz#f7d3d5f55a7a118b5fe3d2eef53059cf8e516dcd"
-  integrity sha512-CN2l+hWACRiejlnr68vY0/7734Kzu+9+TOslUXbSCQ1ruY9XIHDBSceVXCcHm/oXrdzhtLMMdJEKfemf1yXiZQ==
+  version "4.20.0"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-4.20.0.tgz#019becf5a97cd58eee93f592f0961859a74482a7"
+  integrity sha512-MBh+PHUHHisjXf4tlx0CFWoMdjx8zCMLJHOjnV1prABYZFHqtFOyauCIK2/7w4oIfwkF8iNhLtnJEfVY2vn3iw==
 
 typed-array-buffer@^1.0.2:
   version "1.0.2"

@@ -33,10 +33,10 @@ export default function Item({
         {post.coverImage ? (
           <Image
             src={post.coverImage.url}
+            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+            fill
             alt=""
             className="bg-gray-50 object-cover"
-            fill
-            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
           />
         ) : (
           <div className="h-full w-full bg-gray-50 object-cover" />

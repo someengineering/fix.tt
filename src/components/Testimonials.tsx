@@ -62,10 +62,10 @@ export default function Testimonials() {
               {typeof testimonial.companyLogo === 'object' ? (
                 <Image
                   src={testimonial.companyLogo}
+                  sizes="96px"
                   placeholder="blur"
-                  height={32}
                   alt=""
-                  className="h-8 w-auto self-start"
+                  className="h-8 w-auto max-w-[6rem] self-start"
                 />
               ) : (
                 <testimonial.companyLogo className="h-8 max-w-[6rem] self-start" />
@@ -77,9 +77,8 @@ export default function Testimonials() {
                 <figcaption className="flex items-center gap-x-4">
                   <Image
                     src={testimonial.authorPhoto}
+                    sizes="48px"
                     placeholder="blur"
-                    width={48}
-                    height={48}
                     alt=""
                     className="h-12 w-12 rounded-full bg-gray-50"
                   />

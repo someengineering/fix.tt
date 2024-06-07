@@ -137,8 +137,8 @@ export default function Team() {
             >
               <Image
                 src={person.photo}
+                sizes="208px"
                 placeholder="blur"
-                width={208}
                 alt=""
                 className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
               />
