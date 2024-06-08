@@ -100,24 +100,19 @@ export default async function ComparisonPage({
       <div className="px-6 py-16 sm:py-24 lg:px-8">
         <div className="mx-auto max-w-7xl text-center">
           {hasLogo(competitorSlug) ? (
-            <h1 className="mb-12 flex items-center justify-center space-x-10">
-              <span className="sr-only">{title}</span>
-              <FixLogo
-                className="h-24 w-24 text-cornflower-blue-600"
-                aria-hidden="true"
-              />
-              <span
-                className="h-10 w-10 rounded-full bg-marian-blue-50 text-lg font-extrabold leading-10"
+            <>
+              <h1 className="sr-only">{title}</h1>
+              <div
+                className="mb-12 flex items-center justify-center space-x-10"
                 aria-hidden="true"
               >
-                VS
-              </span>
-              <CompetitorLogo
-                slug={competitorSlug}
-                className="h-24 w-24"
-                aria-hidden="true"
-              />
-            </h1>
+                <FixLogo className="h-24 w-24 text-cornflower-blue-600" />
+                <span className="h-10 w-10 rounded-full bg-marian-blue-50 text-lg font-extrabold leading-10">
+                  VS
+                </span>
+                <CompetitorLogo slug={competitorSlug} className="h-24 w-24" />
+              </div>
+            </>
           ) : (
             <h1 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
               {title}
