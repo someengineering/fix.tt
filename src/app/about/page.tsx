@@ -59,7 +59,7 @@ export default async function AboutPage() {
     staticPageData,
   ]);
 
-  if (!publicationId || !staticPage) {
+  if (!staticPage) {
     notFound();
   }
 
@@ -84,7 +84,7 @@ export default async function AboutPage() {
       </div>
       <Team />
       <Faq />
-      {isProd ? (
+      {isProd && publicationId ? (
         <HashnodePageView
           publicationId={publicationId}
           staticPageId={staticPage.id}

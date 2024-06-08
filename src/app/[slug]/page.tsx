@@ -83,7 +83,7 @@ export default async function StaticPage({
     staticPageData,
   ]);
 
-  if (!publicationId || !staticPage) {
+  if (!staticPage) {
     notFound();
   }
 
@@ -99,7 +99,7 @@ export default async function StaticPage({
           </MarkdownContent>
         </div>
       </div>
-      {isProd ? (
+      {isProd && publicationId ? (
         <HashnodePageView
           publicationId={publicationId}
           staticPageId={staticPage.id}

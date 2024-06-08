@@ -5,6 +5,7 @@ query PostsByTag(
   $after: String
 ) {
   publication(host: $host) {
+    id
     posts(filter: { tagSlugs: [$tagSlug] }, first: $first, after: $after) {
       ...PublicationPostConnection
     }

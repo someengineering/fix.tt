@@ -87,7 +87,7 @@ export default async function ComparisonPage({
     staticPageData,
   ]);
 
-  if (!publicationId || !staticPage) {
+  if (!staticPage) {
     notFound();
   }
 
@@ -133,7 +133,7 @@ export default async function ComparisonPage({
       </div>
       <Customers />
       <Faq />
-      {isProd ? (
+      {isProd && publicationId ? (
         <HashnodePageView
           publicationId={publicationId}
           staticPageId={staticPage.id}

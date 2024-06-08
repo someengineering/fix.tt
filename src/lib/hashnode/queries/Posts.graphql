@@ -1,5 +1,6 @@
 query Posts($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
+    id
     posts(first: $first, after: $after) {
       ...PublicationPostConnection
     }

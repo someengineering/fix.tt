@@ -1,5 +1,6 @@
 query Post($host: String!, $postSlug: String!) {
   publication(host: $host) {
+    id
     post(slug: $postSlug) {
       ...PostWithMarkdownContent
     }

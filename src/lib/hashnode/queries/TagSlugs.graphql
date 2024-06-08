@@ -1,9 +1,11 @@
 query TagSlugs($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
+    id
     posts(first: $first, after: $after) {
       edges {
         node {
           tags {
+            id
             slug
           }
           preferences {

@@ -1,5 +1,6 @@
 query Tag($tagSlug: String!) {
   tag(slug: $tagSlug) {
+    id
     name
   }
 }

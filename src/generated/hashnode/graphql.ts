@@ -4148,7 +4148,7 @@ export type DraftFragment = {
   updatedAt: string;
   tagsV2: Array<
     | { __typename?: 'DraftBaseTag'; name: string; slug: string }
-    | { __typename?: 'Tag'; name: string; slug: string }
+    | { __typename?: 'Tag'; id: string; name: string; slug: string }
   >;
   series?: {
     __typename?: 'Series';
@@ -4158,6 +4158,7 @@ export type DraftFragment = {
   } | null;
   author: {
     __typename?: 'User';
+    id: string;
     username: string;
     name: string;
     profilePicture?: string | null;
@@ -4190,7 +4191,12 @@ type DraftTag_DraftBaseTag_Fragment = {
   slug: string;
 };
 
-type DraftTag_Tag_Fragment = { __typename?: 'Tag'; name: string; slug: string };
+type DraftTag_Tag_Fragment = {
+  __typename?: 'Tag';
+  id: string;
+  name: string;
+  slug: string;
+};
 
 export type DraftTagFragment =
   | DraftTag_DraftBaseTag_Fragment
@@ -4213,7 +4219,12 @@ export type PostFragment = {
   publishedAt: string;
   updatedAt?: string | null;
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
-  tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+  tags?: Array<{
+    __typename?: 'Tag';
+    id: string;
+    name: string;
+    slug: string;
+  }> | null;
   series?: {
     __typename?: 'Series';
     id: string;
@@ -4222,6 +4233,7 @@ export type PostFragment = {
   } | null;
   author: {
     __typename?: 'User';
+    id: string;
     username: string;
     name: string;
     profilePicture?: string | null;
@@ -4260,7 +4272,12 @@ export type PostWithMarkdownContentFragment = {
     };
   };
   coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
-  tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+  tags?: Array<{
+    __typename?: 'Tag';
+    id: string;
+    name: string;
+    slug: string;
+  }> | null;
   series?: {
     __typename?: 'Series';
     id: string;
@@ -4269,6 +4286,7 @@ export type PostWithMarkdownContentFragment = {
   } | null;
   author: {
     __typename?: 'User';
+    id: string;
     username: string;
     name: string;
     profilePicture?: string | null;
@@ -4302,7 +4320,12 @@ export type PublicationPostConnectionFragment = {
       publishedAt: string;
       updatedAt?: string | null;
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
-      tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+      tags?: Array<{
+        __typename?: 'Tag';
+        id: string;
+        name: string;
+        slug: string;
+      }> | null;
       series?: {
         __typename?: 'Series';
         id: string;
@@ -4311,6 +4334,7 @@ export type PublicationPostConnectionFragment = {
       } | null;
       author: {
         __typename?: 'User';
+        id: string;
         username: string;
         name: string;
         profilePicture?: string | null;
@@ -4351,7 +4375,12 @@ export type SeriesPostConnectionFragment = {
       publishedAt: string;
       updatedAt?: string | null;
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
-      tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+      tags?: Array<{
+        __typename?: 'Tag';
+        id: string;
+        name: string;
+        slug: string;
+      }> | null;
       series?: {
         __typename?: 'Series';
         id: string;
@@ -4360,6 +4389,7 @@ export type SeriesPostConnectionFragment = {
       } | null;
       author: {
         __typename?: 'User';
+        id: string;
         username: string;
         name: string;
         profilePicture?: string | null;
@@ -4410,10 +4440,16 @@ export type TableOfContentsItemFragment = {
   parentId?: string | null;
 };
 
-export type TagFragment = { __typename?: 'Tag'; name: string; slug: string };
+export type TagFragment = {
+  __typename?: 'Tag';
+  id: string;
+  name: string;
+  slug: string;
+};
 
 export type UserFragment = {
   __typename?: 'User';
+  id: string;
   username: string;
   name: string;
   profilePicture?: string | null;
@@ -4451,7 +4487,7 @@ export type DraftQuery = {
     updatedAt: string;
     tagsV2: Array<
       | { __typename?: 'DraftBaseTag'; name: string; slug: string }
-      | { __typename?: 'Tag'; name: string; slug: string }
+      | { __typename?: 'Tag'; id: string; name: string; slug: string }
     >;
     series?: {
       __typename?: 'Series';
@@ -4461,6 +4497,7 @@ export type DraftQuery = {
     } | null;
     author: {
       __typename?: 'User';
+      id: string;
       username: string;
       name: string;
       profilePicture?: string | null;
@@ -4516,6 +4553,7 @@ export type FeedPostsQuery = {
           coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
           tags?: Array<{
             __typename?: 'Tag';
+            id: string;
             name: string;
             slug: string;
           }> | null;
@@ -4527,6 +4565,7 @@ export type FeedPostsQuery = {
           } | null;
           author: {
             __typename?: 'User';
+            id: string;
             username: string;
             name: string;
             profilePicture?: string | null;
@@ -4552,6 +4591,7 @@ export type PostQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     post?: {
       __typename?: 'Post';
       id: string;
@@ -4579,7 +4619,12 @@ export type PostQuery = {
         };
       };
       coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
-      tags?: Array<{ __typename?: 'Tag'; name: string; slug: string }> | null;
+      tags?: Array<{
+        __typename?: 'Tag';
+        id: string;
+        name: string;
+        slug: string;
+      }> | null;
       series?: {
         __typename?: 'Series';
         id: string;
@@ -4588,6 +4633,7 @@ export type PostQuery = {
       } | null;
       author: {
         __typename?: 'User';
+        id: string;
         username: string;
         name: string;
         profilePicture?: string | null;
@@ -4611,12 +4657,14 @@ export type PostSlugsQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     posts: {
       __typename?: 'PublicationPostConnection';
       edges: Array<{
         __typename?: 'PostEdge';
         node: {
           __typename?: 'Post';
+          id: string;
           slug: string;
           preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
         };
@@ -4640,6 +4688,7 @@ export type PostsQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     posts: {
       __typename?: 'PublicationPostConnection';
       edges: Array<{
@@ -4657,6 +4706,7 @@ export type PostsQuery = {
           coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
           tags?: Array<{
             __typename?: 'Tag';
+            id: string;
             name: string;
             slug: string;
           }> | null;
@@ -4668,6 +4718,7 @@ export type PostsQuery = {
           } | null;
           author: {
             __typename?: 'User';
+            id: string;
             username: string;
             name: string;
             profilePicture?: string | null;
@@ -4699,8 +4750,10 @@ export type PostsBySeriesQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     series?: {
       __typename?: 'Series';
+      id: string;
       posts: {
         __typename?: 'SeriesPostConnection';
         edges: Array<{
@@ -4718,6 +4771,7 @@ export type PostsBySeriesQuery = {
             coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
             tags?: Array<{
               __typename?: 'Tag';
+              id: string;
               name: string;
               slug: string;
             }> | null;
@@ -4729,6 +4783,7 @@ export type PostsBySeriesQuery = {
             } | null;
             author: {
               __typename?: 'User';
+              id: string;
               username: string;
               name: string;
               profilePicture?: string | null;
@@ -4764,6 +4819,7 @@ export type PostsByTagQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     posts: {
       __typename?: 'PublicationPostConnection';
       edges: Array<{
@@ -4781,6 +4837,7 @@ export type PostsByTagQuery = {
           coverImage?: { __typename?: 'PostCoverImage'; url: string } | null;
           tags?: Array<{
             __typename?: 'Tag';
+            id: string;
             name: string;
             slug: string;
           }> | null;
@@ -4792,6 +4849,7 @@ export type PostsByTagQuery = {
           } | null;
           author: {
             __typename?: 'User';
+            id: string;
             username: string;
             name: string;
             profilePicture?: string | null;
@@ -4844,6 +4902,7 @@ export type SeriesQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     series?: {
       __typename?: 'Series';
       id: string;
@@ -4870,6 +4929,7 @@ export type SeriesSlugsQuery = {
         __typename?: 'SeriesEdge';
         node: {
           __typename?: 'Series';
+          id: string;
           slug: string;
           posts: {
             __typename?: 'SeriesPostConnection';
@@ -4895,6 +4955,7 @@ export type StaticPageQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     staticPage?: {
       __typename?: 'StaticPage';
       id: string;
@@ -4917,11 +4978,17 @@ export type StaticPageSlugsQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     staticPages: {
       __typename?: 'StaticPageConnection';
       edges: Array<{
         __typename?: 'StaticPageEdge';
-        node: { __typename?: 'StaticPage'; slug: string; hidden: boolean };
+        node: {
+          __typename?: 'StaticPage';
+          id: string;
+          slug: string;
+          hidden: boolean;
+        };
       }>;
       pageInfo: {
         __typename?: 'PageInfo';
@@ -4938,7 +5005,7 @@ export type TagQueryVariables = Exact<{
 
 export type TagQuery = {
   __typename?: 'Query';
-  tag?: { __typename?: 'Tag'; name: string } | null;
+  tag?: { __typename?: 'Tag'; id: string; name: string } | null;
 };
 
 export type TagSlugsQueryVariables = Exact<{
@@ -4951,13 +5018,14 @@ export type TagSlugsQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
+    id: string;
     posts: {
       __typename?: 'PublicationPostConnection';
       edges: Array<{
         __typename?: 'PostEdge';
         node: {
           __typename?: 'Post';
-          tags?: Array<{ __typename?: 'Tag'; slug: string }> | null;
+          tags?: Array<{ __typename?: 'Tag'; id: string; slug: string }> | null;
           preferences: { __typename?: 'PostPreferences'; isDelisted: boolean };
         };
       }>;
@@ -4978,6 +5046,7 @@ export type UserQuery = {
   __typename?: 'Query';
   user?: {
     __typename?: 'User';
+    id: string;
     username: string;
     name: string;
     profilePicture?: string | null;
@@ -5001,6 +5070,7 @@ export const TagFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5064,6 +5134,7 @@ export const DraftTagFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5105,6 +5176,7 @@ export const UserFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -5299,6 +5371,7 @@ export const DraftFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5391,6 +5464,7 @@ export const DraftFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -5529,6 +5603,7 @@ export const PostFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5560,6 +5635,7 @@ export const PostFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -5637,6 +5713,7 @@ export const PostWithMarkdownContentFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5668,6 +5745,7 @@ export const PostWithMarkdownContentFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -5922,6 +6000,7 @@ export const PublicationPostConnectionFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -5953,6 +6032,7 @@ export const PublicationPostConnectionFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -6127,6 +6207,7 @@ export const SeriesPostConnectionFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -6158,6 +6239,7 @@ export const SeriesPostConnectionFragmentDoc = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -6426,6 +6508,7 @@ export const DraftDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -6500,6 +6583,7 @@ export const DraftDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -6763,6 +6847,7 @@ export const FeedPostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -6794,6 +6879,7 @@ export const FeedPostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -6970,6 +7056,7 @@ export const PostDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'post' },
@@ -7012,6 +7099,7 @@ export const PostDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -7043,6 +7131,7 @@ export const PostDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -7290,6 +7379,7 @@ export const PostSlugsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'posts' },
@@ -7326,6 +7416,10 @@ export const PostSlugsDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
                                   {
                                     kind: 'Field',
                                     name: { kind: 'Name', value: 'slug' },
@@ -7452,6 +7546,7 @@ export const PostsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'posts' },
@@ -7502,6 +7597,7 @@ export const PostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -7533,6 +7629,7 @@ export const PostsDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -7766,6 +7863,7 @@ export const PostsBySeriesDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'series' },
@@ -7782,6 +7880,7 @@ export const PostsBySeriesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                       {
                         kind: 'Field',
                         name: { kind: 'Name', value: 'posts' },
@@ -7863,6 +7962,7 @@ export const PostsBySeriesDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -7894,6 +7994,7 @@ export const PostsBySeriesDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -8079,6 +8180,7 @@ export const PostsByTagDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'posts' },
@@ -8151,6 +8253,7 @@ export const PostsByTagDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
         ],
@@ -8182,6 +8285,7 @@ export const PostsByTagDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },
@@ -8520,6 +8624,7 @@ export const SeriesDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'series' },
@@ -8678,6 +8783,10 @@ export const SeriesSlugsDocument = {
                                 selections: [
                                   {
                                     kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
                                     name: { kind: 'Name', value: 'slug' },
                                   },
                                   {
@@ -8801,6 +8910,7 @@ export const StaticPageDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'staticPage' },
@@ -8927,6 +9037,7 @@ export const StaticPageSlugsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'staticPages' },
@@ -8963,6 +9074,10 @@ export const StaticPageSlugsDocument = {
                               selectionSet: {
                                 kind: 'SelectionSet',
                                 selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
                                   {
                                     kind: 'Field',
                                     name: { kind: 'Name', value: 'slug' },
@@ -9061,6 +9176,7 @@ export const TagDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 { kind: 'Field', name: { kind: 'Name', value: 'name' } },
               ],
             },
@@ -9128,6 +9244,7 @@ export const TagSlugsDocument = {
             selectionSet: {
               kind: 'SelectionSet',
               selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
                 {
                   kind: 'Field',
                   name: { kind: 'Name', value: 'posts' },
@@ -9170,6 +9287,10 @@ export const TagSlugsDocument = {
                                     selectionSet: {
                                       kind: 'SelectionSet',
                                       selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'id' },
+                                        },
                                         {
                                           kind: 'Field',
                                           name: { kind: 'Name', value: 'slug' },
@@ -9303,6 +9424,7 @@ export const UserDocument = {
       selectionSet: {
         kind: 'SelectionSet',
         selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'username' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'profilePicture' } },

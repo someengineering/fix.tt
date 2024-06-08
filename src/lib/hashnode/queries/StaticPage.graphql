@@ -1,5 +1,6 @@
 query StaticPage($host: String!, $pageSlug: String!) {
   publication(host: $host) {
+    id
     staticPage(slug: $pageSlug) {
       ...StaticPage
     }
