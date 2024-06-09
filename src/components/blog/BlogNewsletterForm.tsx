@@ -19,7 +19,7 @@ const validationSchema = z.object({
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
-export default function BlogNewsletterForm() {
+export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const posthog = usePostHog();
@@ -127,6 +127,7 @@ export default function BlogNewsletterForm() {
                   ref={captchaRef}
                   size="invisible"
                   sitekey={process.env.NEXT_PUBLIC_RECAPTCHA!}
+                  nonce={nonce}
                 />
               ) : null}
             </form>
