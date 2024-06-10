@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
+import { headers } from 'next/headers';
 import Image from 'next/image';
+import Script from 'next/script';
 import { WebSite, WithContext } from 'schema-dts';
 
 import { metadata as rootMetadata } from '@/app/layout';
@@ -20,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  const nonce = headers().get('x-nonce') ?? undefined;
   const jsonLd: WithContext<WebSite> = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
@@ -29,9 +32,11 @@ export default function HomePage() {
 
   return (
     <>
-      <script
+      <Script
+        id="json-ld"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        nonce={nonce}
       />
       <Hero />
       <Customers />

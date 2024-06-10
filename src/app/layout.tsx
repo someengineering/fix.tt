@@ -1,4 +1,5 @@
 import { Metadata, Viewport } from 'next';
+import { headers } from 'next/headers';
 import PlausibleProvider from 'next-plausible';
 import { Suspense } from 'react';
 
@@ -78,10 +79,12 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const nonce = headers().get('x-nonce') ?? undefined;
+
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
-        <PlausibleProvider domain="fix.security" />
+        <PlausibleProvider domain="fix.security" scriptProps={{ nonce }} />
       </head>
       <body className="bg-white">
         <PosthogProvider>
@@ -89,7 +92,7 @@ export default function RootLayout({
           <main>
             {children}
             <Suspense>
-              <BlogNewsletterForm />
+              <BlogNewsletterForm nonce={nonce} />
             </Suspense>
           </main>
           <Footer />
