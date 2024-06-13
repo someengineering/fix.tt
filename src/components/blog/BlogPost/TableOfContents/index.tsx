@@ -1,6 +1,10 @@
 'use client';
 
-import { Disclosure } from '@headlessui/react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from '@headlessui/react';
 import { useMemo } from 'react';
 import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 
@@ -50,7 +54,7 @@ export default function TableOfContents({
     >
       {({ open }) => (
         <>
-          <Disclosure.Button
+          <DisclosureButton
             as="h2"
             className="flex cursor-pointer justify-between font-bold"
           >
@@ -62,8 +66,8 @@ export default function TableOfContents({
                 <LuChevronDown className="h-5 w-5" aria-hidden="true" />
               )}
             </span>
-          </Disclosure.Button>
-          <Disclosure.Panel as="ul" unmount={false} className="mt-4 space-y-2">
+          </DisclosureButton>
+          <DisclosurePanel as="ul" unmount={false} className="mt-4 space-y-2">
             {tocTree.map((item) => (
               <TableOfContentsRow
                 key={item.id}
@@ -72,7 +76,7 @@ export default function TableOfContents({
                 childItems={item.children}
               />
             ))}
-          </Disclosure.Panel>
+          </DisclosurePanel>
         </>
       )}
     </Disclosure>

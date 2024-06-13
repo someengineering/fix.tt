@@ -26,7 +26,7 @@ export default function Hero() {
             <li>Preconfigured benchmarks and queries</li>
           </ul>
           <div className="mt-6 space-x-5">
-            <ButtonLink href="https://app.fix.security/auth/register" size="lg">
+            <ButtonLink href={siteConfig.registerUrl} size="lg">
               Start for free
             </ButtonLink>
           </div>

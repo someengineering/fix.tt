@@ -1,6 +1,10 @@
 'use client';
 
-import { Disclosure } from '@headlessui/react';
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from '@headlessui/react';
 import { usePathname } from 'next/navigation';
 import { LuMinus, LuPlus } from 'react-icons/lu';
 
@@ -350,7 +354,7 @@ export default function Faq() {
             <Disclosure as="div" key={`faq-${index}`} className="pt-6">
               {({ open }) => (
                 <>
-                  <Disclosure.Button
+                  <DisclosureButton
                     as="dt"
                     className="flex w-full cursor-pointer items-start justify-between text-left text-lg font-semibold text-gray-900 hover:text-gray-950"
                   >
@@ -362,14 +366,14 @@ export default function Faq() {
                         <LuPlus className="h-6 w-6" aria-hidden="true" />
                       )}
                     </span>
-                  </Disclosure.Button>
-                  <Disclosure.Panel
+                  </DisclosureButton>
+                  <DisclosurePanel
                     as="dd"
                     className="mt-6 space-y-2 pr-12 text-base font-medium leading-7 text-gray-700"
                     unmount={false}
                   >
                     {faq.answer}
-                  </Disclosure.Panel>
+                  </DisclosurePanel>
                 </>
               )}
             </Disclosure>

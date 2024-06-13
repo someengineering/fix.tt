@@ -7,8 +7,8 @@ import FixLogo from '@/assets/logo.svg';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import MarkdownContent from '@/components/common/MarkdownContent';
 import CompetitorLogo, { hasLogo } from '@/components/compare/CompetitorLogo';
-import Customers from '@/components/Customers';
-import Faq from '@/components/Faq';
+import Customers from '@/components/sections/Customers';
+import Faq from '@/components/sections/Faq';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import {

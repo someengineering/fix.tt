@@ -14,6 +14,7 @@ import {
 
 import ButtonLink from '@/components/common/links/ButtonLink';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
+import { siteConfig } from '@/constants/config';
 import { cn } from '@/utils/css';
 
 const tiers: {
@@ -39,7 +40,7 @@ const tiers: {
 }[] = [
   {
     name: 'Free',
-    href: 'https://app.fix.security/auth/register',
+    href: siteConfig.registerUrl,
     icon: (props) => <LuPersonStanding {...props} />,
     cta: 'Get started',
     price: '$0',

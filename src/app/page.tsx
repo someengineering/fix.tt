@@ -6,12 +6,12 @@ import { WebSite, WithContext } from 'schema-dts';
 
 import { metadata as rootMetadata } from '@/app/layout';
 import dashboardScreenshot from '@/assets/screenshots/dashboard.png';
-import Customers from '@/components/Customers';
-import Faq from '@/components/Faq';
-import Hero from '@/components/Hero';
-import Pricing from '@/components/Pricing';
-import Testimonials from '@/components/Testimonials';
-import WhyFix from '@/components/WhyFix';
+import Customers from '@/components/sections/Customers';
+import Faq from '@/components/sections/Faq';
+import Hero from '@/components/sections/Hero';
+import Pricing from '@/components/sections/Pricing';
+import Testimonials from '@/components/sections/Testimonials';
+import WhyFix from '@/components/sections/WhyFix';
 import { siteConfig } from '@/constants/config';
 
 export const metadata: Metadata = {
