@@ -31,6 +31,31 @@ export type Scalars = {
   URL: { input: any; output: any };
 };
 
+export type AcceptInviteToPublicationInput = {
+  /** The invitation token to accept. */
+  inviteToken: Scalars['String']['input'];
+};
+
+/** Response to accepting an invitation to join a publication. */
+export type AcceptInviteToPublicationPayload = {
+  __typename?: 'AcceptInviteToPublicationPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
+/** Input to accept a role based invite. */
+export type AcceptRoleBasedInviteInput = {
+  /** Invite token of the role based invite. */
+  inviteToken: Scalars['String']['input'];
+};
+
+/** Input to toggle role based invite links. */
+export type AcceptRoleBasedInvitePayload = {
+  __typename?: 'AcceptRoleBasedInvitePayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
 export type AddCommentInput = {
   contentMarkdown: Scalars['String']['input'];
   postId: Scalars['ID']['input'];
@@ -150,6 +175,43 @@ export type CancelScheduledDraftPayload = {
   __typename?: 'CancelScheduledDraftPayload';
   /** Payload returned in response of cancel scheduled post mutation. */
   scheduledPost: ScheduledPost;
+};
+
+/** Input to change the role of a user in a publication. */
+export type ChangePublicationMemberRoleInput = {
+  /** The publication ID the user is a member of. */
+  publicationId: Scalars['ID']['input'];
+  /** The role of the user in the publication. */
+  role: UserPublicationRole;
+  /** The username of the user to change the role for. */
+  username: Scalars['String']['input'];
+};
+
+/** Response to changing the role of a user in a publication. */
+export type ChangePublicationMemberRolePayload = {
+  __typename?: 'ChangePublicationMemberRolePayload';
+  /** The updated publication member. */
+  member: PublicationMember;
+};
+
+/** Input to change the privacy state of a user in a publication. */
+export type ChangePublicationMemberVisibilityInput = {
+  /**
+   * The privacy state of the user in the publication.
+   * PRIVATE members are not visible on the members page while PUBLIC members are visible.
+   */
+  privacyState: PublicationMemberPrivacyState;
+  /** The publication ID the user is a member of. */
+  publicationId: Scalars['ID']['input'];
+  /** The username of the user to change the role for. */
+  username: Scalars['String']['input'];
+};
+
+/** Response to changing the privacy state of a user in a publication. */
+export type ChangePublicationMemberVisibilityPayload = {
+  __typename?: 'ChangePublicationMemberVisibilityPayload';
+  /** The updated publication member. */
+  member: PublicationMember;
 };
 
 /**
@@ -844,6 +906,29 @@ export type CreateDraftTagInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Input to create a role based invite for a publication. */
+export type CreateRoleBasedInviteForPublicationInput = {
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: InputMaybe<Scalars['Int']['input']>;
+  /** Boolean to enable unlimited capacity. */
+  enableUnlimitedCapacity?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The expiry date of the invite. */
+  expiryDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** Invite token set for the invitation */
+  inviteToken?: InputMaybe<Scalars['String']['input']>;
+  /** The publication ID to create the invite for. */
+  publicationId: Scalars['ID']['input'];
+  /** The role to assign to the user in the publication. */
+  role: UserPublicationInviteRole;
+};
+
+/** Response to creating a role based invite for a publication. */
+export type CreateRoleBasedInviteForPublicationPayload = {
+  __typename?: 'CreateRoleBasedInviteForPublicationPayload';
+  /** The created role based invite. */
+  invite: RoleBasedInvite;
+};
+
 export type CreateSeriesInput = {
   /** The cover image of the series. */
   coverImage?: InputMaybe<Scalars['String']['input']>;
@@ -918,6 +1003,7 @@ export type DarkModePreferences = {
   logo?: Maybe<Scalars['String']['output']>;
 };
 
+/** Input to delete a role based invite. */
 export type DeleteRoleBasedInviteInput = {
   /** The ID of the role based invite. */
   inviteId: Scalars['ID']['input'];
@@ -1175,6 +1261,17 @@ export enum EmailImportStatus {
   /** Import was successful. New emails have been imported. */
   Success = 'SUCCESS',
 }
+
+/** Invitations that failed to be sent to the user */
+export type FailedInvite = {
+  __typename?: 'FailedInvite';
+  /** The email of the user that failed to invite. */
+  email?: Maybe<Scalars['String']['output']>;
+  /** The reason why the user failed to invite. */
+  errorMessage: Scalars['String']['output'];
+  /** The username of the user that failed to invite. */
+  username?: Maybe<Scalars['String']['output']>;
+};
 
 /** Common fields that describe a feature. */
 export type Feature = {
@@ -1540,6 +1637,25 @@ export type IUserPublicationsArgs = {
   first: Scalars['Int']['input'];
 };
 
+/** Input to invite users to a publication. */
+export type InviteUsersToPublicationInput = {
+  /** The publication ID to invite users to. */
+  publicationId: Scalars['ID']['input'];
+  /** The list of users  to invite to the publication. */
+  users: Array<UserInviteInput>;
+};
+
+/** Response to inviting users to a publication. */
+export type InviteUsersToPublicationPayload = {
+  __typename?: 'InviteUsersToPublicationPayload';
+  /** Invites that failed due to an error. */
+  failedInvites: Array<FailedInvite>;
+  /** Signifies if the mutation was successful for all users. */
+  success: Scalars['Boolean']['output'];
+  /** The number of successful invites. */
+  successfulInviteCount: Scalars['Int']['output'];
+};
+
 export type LikeCommentInput = {
   commentId: Scalars['ID']['input'];
   likesCount?: InputMaybe<Scalars['Int']['input']>;
@@ -1583,6 +1699,10 @@ export type MetaTagsInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Accepts an invitation to join a publication. The user is added as a member of the publication. */
+  acceptInviteToPublication: AcceptInviteToPublicationPayload;
+  /** Accepts a role based invite and adds the user as a member of the publication. The user is assigned the role specified in the invite. */
+  acceptRoleBasedInvite: AcceptRoleBasedInvitePayload;
   /** Adds a comment to a post. */
   addComment: AddCommentPayload;
   /** Adds a post to a series. */
@@ -1590,14 +1710,25 @@ export type Mutation = {
   /** Adds a reply to a comment. */
   addReply: AddReplyPayload;
   cancelScheduledDraft: CancelScheduledDraftPayload;
+  /** Changes the role of a user in a publication. */
+  changePublicationMemberRole: ChangePublicationMemberRolePayload;
+  /**
+   * Changes the privacy state of a user in a publication.
+   * PRIVATE members are not visible on the members page while PUBLIC members are visible.
+   */
+  changePublicationMemberVisibility: ChangePublicationMemberVisibilityPayload;
   /** Creates a new draft for a post. */
   createDraft: CreateDraftPayload;
+  /** Creates a role based invite for a publication and returns a link to invite users to a publication. */
+  createRoleBasedInviteForPublication: CreateRoleBasedInviteForPublicationPayload;
   /** Creates a new series. */
   createSeries: CreateSeriesPayload;
   createWebhook: CreateWebhookPayload;
   /** Deletes a role based invite. */
   deleteRoleBasedInvite: DeleteRoleBasedInvitePayload;
   deleteWebhook: DeleteWebhookPayload;
+  /** Invites users to a publication. Either by username or email. */
+  inviteUsersToPublication: InviteUsersToPublicationPayload;
   /** Likes a comment. */
   likeComment: LikeCommentPayload;
   /** Likes a post. */
@@ -1609,10 +1740,14 @@ export type Mutation = {
   /** Creates a new post. */
   publishPost: PublishPostPayload;
   recommendPublications: RecommendPublicationsPayload;
+  /** Resends an invitation to a user to join a publication. The user must have been previously invited. Sends an email to the user. */
+  reinviteUserToPublication: ReinviteUserToPublicationPayload;
   /** Removes a comment from a post. */
   removeComment: RemoveCommentPayload;
   /** Removes a post. */
   removePost: RemovePostPayload;
+  /** Removes a user from a teams publication. */
+  removePublicationMember: RemovePublicationMemberPayload;
   removeRecommendation: RemoveRecommendationPayload;
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload;
@@ -1623,6 +1758,8 @@ export type Mutation = {
   resendWebhookRequest: ResendWebhookRequestPayload;
   /** Restores a deleted post. */
   restorePost: RestorePostPayload;
+  /** Revokes a user invitation that was sent to join a publication. */
+  revokeUserInviteToPublication: RevokeUserInviteToPublicationPayload;
   scheduleDraft: ScheduleDraftPayload;
   subscribeToNewsletter: SubscribeToNewsletterPayload;
   /** Toggle allowContributorEdits flag to allow or restrict external contributors to further edit published articles. */
@@ -1634,6 +1771,8 @@ export type Mutation = {
    * Only available to the authenticated user.
    */
   toggleFollowUser: ToggleFollowUserPayload;
+  /** Toggles role based invite links' active status. Users can join the publication by the invite link only if it is active. */
+  toggleRoleBasedInviteLinks: ToggleRoleBasedInviteLinksPayload;
   triggerWebhookTest: TriggerWebhookTestPayload;
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
   /** Updates a comment on a post. */
@@ -1641,9 +1780,19 @@ export type Mutation = {
   updatePost: UpdatePostPayload;
   /** Updates a reply */
   updateReply: UpdateReplyPayload;
+  /** Updates a role based invite for a publication. */
+  updateRoleBasedInvite: UpdateRoleBasedInvitePayload;
   /** Updates a series. */
   updateSeries: UpdateSeriesPayload;
   updateWebhook: UpdateWebhookPayload;
+};
+
+export type MutationAcceptInviteToPublicationArgs = {
+  input: AcceptInviteToPublicationInput;
+};
+
+export type MutationAcceptRoleBasedInviteArgs = {
+  input: AcceptRoleBasedInviteInput;
 };
 
 export type MutationAddCommentArgs = {
@@ -1662,8 +1811,20 @@ export type MutationCancelScheduledDraftArgs = {
   input: CancelScheduledDraftInput;
 };
 
+export type MutationChangePublicationMemberRoleArgs = {
+  input: ChangePublicationMemberRoleInput;
+};
+
+export type MutationChangePublicationMemberVisibilityArgs = {
+  input: ChangePublicationMemberVisibilityInput;
+};
+
 export type MutationCreateDraftArgs = {
   input: CreateDraftInput;
+};
+
+export type MutationCreateRoleBasedInviteForPublicationArgs = {
+  input: CreateRoleBasedInviteForPublicationInput;
 };
 
 export type MutationCreateSeriesArgs = {
@@ -1680,6 +1841,10 @@ export type MutationDeleteRoleBasedInviteArgs = {
 
 export type MutationDeleteWebhookArgs = {
   id: Scalars['ID']['input'];
+};
+
+export type MutationInviteUsersToPublicationArgs = {
+  input: InviteUsersToPublicationInput;
 };
 
 export type MutationLikeCommentArgs = {
@@ -1706,12 +1871,20 @@ export type MutationRecommendPublicationsArgs = {
   input: RecommendPublicationsInput;
 };
 
+export type MutationReinviteUserToPublicationArgs = {
+  input: ReinviteUserToPublicationInput;
+};
+
 export type MutationRemoveCommentArgs = {
   input: RemoveCommentInput;
 };
 
 export type MutationRemovePostArgs = {
   input: RemovePostInput;
+};
+
+export type MutationRemovePublicationMemberArgs = {
+  input: RemovePublicationMemberInput;
 };
 
 export type MutationRemoveRecommendationArgs = {
@@ -1738,6 +1911,10 @@ export type MutationRestorePostArgs = {
   input: RestorePostInput;
 };
 
+export type MutationRevokeUserInviteToPublicationArgs = {
+  input: RevokeUserInviteToPublicationInput;
+};
+
 export type MutationScheduleDraftArgs = {
   input: ScheduleDraftInput;
 };
@@ -1753,6 +1930,10 @@ export type MutationToggleAllowContributorEditsArgs = {
 export type MutationToggleFollowUserArgs = {
   id?: InputMaybe<Scalars['ID']['input']>;
   username?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationToggleRoleBasedInviteLinksArgs = {
+  publicationId: Scalars['ID']['input'];
 };
 
 export type MutationTriggerWebhookTestArgs = {
@@ -1773,6 +1954,10 @@ export type MutationUpdatePostArgs = {
 
 export type MutationUpdateReplyArgs = {
   input: UpdateReplyInput;
+};
+
+export type MutationUpdateRoleBasedInviteArgs = {
+  input: UpdateRoleBasedInviteInput;
 };
 
 export type MutationUpdateSeriesArgs = {
@@ -1808,6 +1993,8 @@ export type MyUser = IUser &
     /** Whether or not the user is deactivated. */
     deactivated: Scalars['Boolean']['output'];
     drafts: UserDraftConnection;
+    /** Email address of the user. Only available to the authenticated user. */
+    email: Scalars['String']['output'];
     /** The users who are following this user */
     followers: UserConnection;
     /** The number of users that follow the requested user. Visible in the user's profile. */
@@ -1829,6 +2016,8 @@ export type MyUser = IUser &
     provider?: Maybe<Scalars['String']['output']>;
     /** Publications associated with the user. Includes personal and team publications. */
     publications: UserPublicationsConnection;
+    /** Returns the user's role if any. */
+    role: UserRole;
     /** The social media links of the user. Shown on the user's profile. */
     socialMediaLinks?: Maybe<SocialMediaLinks>;
     /** The tagline of the user. Shown on the user's profile below the name. */
@@ -2014,6 +2203,7 @@ export type PagesPreferences = {
   newsletter?: Maybe<Scalars['Boolean']['output']>;
 };
 
+/** Contains the pending invite information. */
 export type PendingInvite = Node & {
   __typename?: 'PendingInvite';
   /** The email of the user that was invited. */
@@ -2024,6 +2214,16 @@ export type PendingInvite = Node & {
   role: UserPublicationRole;
   /** Invited Hashnode user, returns null if the user is not a Hashnode user. */
   user?: Maybe<User>;
+};
+
+export type PendingInviteConnection = PageConnection & {
+  __typename?: 'PendingInviteConnection';
+  /** A list of invites */
+  nodes: Array<PendingInvite>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of invites. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /** Contains basic information about the tag returned by popularTags query. */
@@ -2430,6 +2630,8 @@ export type Publication = Node & {
   imprintV2?: Maybe<Content>;
   /** The integrations connected to the publication. */
   integrations?: Maybe<PublicationIntegrations>;
+  /** Details of publication invites. Returns null if publication is not a team publication. */
+  invites?: Maybe<PublicationInvite>;
   /** Returns true if GitHub backup is configured and active and false otherwise. */
   isGitHubBackupEnabled: Scalars['Boolean']['output'];
   /** A flag to indicate if the publication is using Headless CMS. This can be used to check if the post redirect needs authentication. */
@@ -2652,6 +2854,31 @@ export type PublicationIntegrations = {
   wmPaymentPointer?: Maybe<Scalars['String']['output']>;
 };
 
+/** Contains the publication invite information. */
+export type PublicationInvite = {
+  __typename?: 'PublicationInvite';
+  /**
+   * Signifies if invite links in role-based invites are active.
+   * Users trying to join by role-based invite can only join if this is enabled.
+   */
+  areRoleBasedInviteLinksActive: Scalars['Boolean']['output'];
+  pendingInvites: PendingInviteConnection;
+  /** The paginated list of role based invites. */
+  roleBasedInvites: RoleBasedInviteConnection;
+};
+
+/** Contains the publication invite information. */
+export type PublicationInvitePendingInvitesArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
+/** Contains the publication invite information. */
+export type PublicationInviteRoleBasedInvitesArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
+};
+
 /** Contains publication's layout choices. */
 export enum PublicationLayout {
   /** Changes the layout of blog into grid 3 post cards per row. */
@@ -2704,6 +2931,7 @@ export type PublicationMember = Node & {
   user?: Maybe<User>;
 };
 
+/** Publication member privacy state on members page */
 export enum PublicationMemberPrivacyState {
   /** The member is private and not visible on the members page. */
   Private = 'PRIVATE',
@@ -3068,6 +3296,21 @@ export type RedirectionRule = Node & {
   type: HttpRedirectionType;
 };
 
+/** Input to reinvite a user to a publication. */
+export type ReinviteUserToPublicationInput = {
+  /** The ID of the invitation to resend. */
+  inviteId: Scalars['ID']['input'];
+  /** The publication ID to resend the invitation from. */
+  publicationId: Scalars['ID']['input'];
+};
+
+/** Response to reinviting a user to a publication. */
+export type ReinviteUserToPublicationPayload = {
+  __typename?: 'ReinviteUserToPublicationPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
 export type RemoveCommentInput = {
   id: Scalars['ID']['input'];
 };
@@ -3086,6 +3329,21 @@ export type RemovePostPayload = {
   __typename?: 'RemovePostPayload';
   /** The deleted post. */
   post?: Maybe<Post>;
+};
+
+/** Input to remove a user from a publication. */
+export type RemovePublicationMemberInput = {
+  /** The publication ID the user is a member of. */
+  publicationId: Scalars['ID']['input'];
+  /** The username of the user to remove from the publication. */
+  username: Scalars['String']['input'];
+};
+
+/** Response to removing a user from a publication. */
+export type RemovePublicationMemberPayload = {
+  __typename?: 'RemovePublicationMemberPayload';
+  /** Returns the removed publication member. */
+  member: PublicationMember;
 };
 
 export type RemoveRecommendationInput = {
@@ -3176,6 +3434,22 @@ export type RestorePostPayload = {
   post?: Maybe<Post>;
 };
 
+/** Input to revoke a user invitation to a publication. */
+export type RevokeUserInviteToPublicationInput = {
+  /** The invite ID to revoke. */
+  inviteId: Scalars['ID']['input'];
+  /** The publication ID to revoke the invite from. */
+  publicationId: Scalars['ID']['input'];
+};
+
+/** Response to revoking a user invitation to a publication. */
+export type RevokeUserInviteToPublicationPayload = {
+  __typename?: 'RevokeUserInviteToPublicationPayload';
+  /** Signifies if the mutation was successful. */
+  success: Scalars['Boolean']['output'];
+};
+
+/** Contains the role based invite information. */
 export type RoleBasedInvite = Node & {
   __typename?: 'RoleBasedInvite';
   /** The capacity of how many members to be invited by the link. */
@@ -3194,6 +3468,16 @@ export type RoleBasedInvite = Node & {
   role: UserPublicationRole;
   /** The number of members that have already used the link to join the team. */
   usedCapacity?: Maybe<Scalars['Int']['output']>;
+};
+
+export type RoleBasedInviteConnection = PageConnection & {
+  __typename?: 'RoleBasedInviteConnection';
+  /** A list of invites */
+  nodes: Array<RoleBasedInvite>;
+  /** Information to aid in pagination. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of invites. */
+  totalDocuments: Scalars['Int']['output'];
 };
 
 /** Information to help in seo related meta tags. */
@@ -3247,10 +3531,12 @@ export enum Scope {
   AssignProPublications = 'assign_pro_publications',
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
+  DeleteDraft = 'delete_draft',
   DocsEditorOrOwner = 'docs_editor_or_owner',
   DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   InvitedTeamUser = 'invited_team_user',
+  MoveDraft = 'move_draft',
   PublicationAdmin = 'publication_admin',
   PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
@@ -3264,6 +3550,7 @@ export enum Scope {
   Signup = 'signup',
   TeamHashnode = 'team_hashnode',
   UpdateComment = 'update_comment',
+  UpdateDraft = 'update_draft',
   UpdatePost = 'update_post',
   UpdateReply = 'update_reply',
   WebhookAdmin = 'webhook_admin',
@@ -3428,7 +3715,7 @@ export type StaticPage = Node & {
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** Information about the static page's SEO metadata i.e. title and description. */
   seo?: Maybe<Seo>;
-  /** The slug of the static page. Used to access static page.  Example https://johndoe.com/my-page */
+  /** The slug of the static page. Used to access static page. Example `https://johndoe.com/my-page`. */
   slug: Scalars['String']['output'];
   /** The title of the static page. Shown in nav bar. */
   title: Scalars['String']['output'];
@@ -3582,6 +3869,13 @@ export type ToggleFollowUserPayload = {
   user?: Maybe<User>;
 };
 
+/** Response to toggling role based invite links. */
+export type ToggleRoleBasedInviteLinksPayload = {
+  __typename?: 'ToggleRoleBasedInviteLinksPayload';
+  /** Signifies the status of invite links after toggling. */
+  areRoleBasedInviteLinksActive: Scalars['Boolean']['output'];
+};
+
 export type TriggerWebhookTestInput = {
   webhookId: Scalars['ID']['input'];
 };
@@ -3698,6 +3992,28 @@ export type UpdateReplyInput = {
 export type UpdateReplyPayload = {
   __typename?: 'UpdateReplyPayload';
   reply?: Maybe<Reply>;
+};
+
+/** Input to update a role based invite. */
+export type UpdateRoleBasedInviteInput = {
+  /** The capacity of how many members to be invited by the link. */
+  capacity?: InputMaybe<Scalars['Int']['input']>;
+  /** Boolean to enable unlimited capacity. */
+  enableUnlimitedCapacity?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The expiry date of the invite. */
+  expiryDate?: InputMaybe<Scalars['DateTime']['input']>;
+  /** The ID of the role based invite. */
+  inviteId: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+  /** The role to assign to the user in the publication. */
+  role?: InputMaybe<UserPublicationInviteRole>;
+};
+
+/** Response to updating a role based invite for a publication. */
+export type UpdateRoleBasedInvitePayload = {
+  __typename?: 'UpdateRoleBasedInvitePayload';
+  /** The updated role based invite. */
+  invite: RoleBasedInvite;
 };
 
 export type UpdateSeriesInput = {
@@ -3877,6 +4193,15 @@ export type UserEdge = Edge & {
   node: User;
 };
 
+export type UserInviteInput = {
+  /** The email of the user to invite to the publication. */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** The role to assign to the user in the publication. */
+  role: UserPublicationInviteRole;
+  /** Username of the user to invite to the publication. */
+  username?: InputMaybe<Scalars['String']['input']>;
+};
+
 /**
  * Connection for posts written by a single user. Contains a list of edges containing nodes.
  * Each node is a post.
@@ -3940,6 +4265,17 @@ export enum UserPostsSort {
   DatePublishedDesc = 'DATE_PUBLISHED_DESC',
 }
 
+/** The invited role of the user in the publication. */
+export enum UserPublicationInviteRole {
+  /** Contributors can join the publication and contribute an article. They cannot directly publish a new article. */
+  Contributor = 'CONTRIBUTOR',
+  /**
+   * The editor has access to the publication dashboard to customize the blog and approve/reject posts.
+   * They also have access to the member panel to add/modify/remove members. Editors cannot remove other editors or update their roles.
+   */
+  Editor = 'EDITOR',
+}
+
 /** The role of the user in the publication. */
 export enum UserPublicationRole {
   /** Contributors can join the publication and contribute an article. They cannot directly publish a new article. */
@@ -4001,6 +4337,13 @@ export type UserRecommendingPublicationEdge = {
   /** The amount of followers the publication has gained by recommendations from the publication referenced in `node`. */
   totalFollowersGained: Scalars['Int']['output'];
 };
+
+/** Role of the user within Hashnode */
+export enum UserRole {
+  Moderator = 'MODERATOR',
+  Superuser = 'SUPERUSER',
+  User = 'USER',
+}
 
 export enum ValidationMethod {
   Id = 'ID',
@@ -4155,6 +4498,7 @@ export type DraftFragment = {
     id: string;
     name: string;
     slug: string;
+    description?: { __typename?: 'Content'; text: string } | null;
   } | null;
   author: {
     __typename?: 'User';
@@ -4230,6 +4574,7 @@ export type PostFragment = {
     id: string;
     name: string;
     slug: string;
+    description?: { __typename?: 'Content'; text: string } | null;
   } | null;
   author: {
     __typename?: 'User';
@@ -4283,6 +4628,7 @@ export type PostWithMarkdownContentFragment = {
     id: string;
     name: string;
     slug: string;
+    description?: { __typename?: 'Content'; text: string } | null;
   } | null;
   author: {
     __typename?: 'User';
@@ -4331,6 +4677,7 @@ export type PublicationPostConnectionFragment = {
         id: string;
         name: string;
         slug: string;
+        description?: { __typename?: 'Content'; text: string } | null;
       } | null;
       author: {
         __typename?: 'User';
@@ -4358,6 +4705,7 @@ export type SeriesFragment = {
   id: string;
   name: string;
   slug: string;
+  description?: { __typename?: 'Content'; text: string } | null;
 };
 
 export type SeriesPostConnectionFragment = {
@@ -4386,6 +4734,7 @@ export type SeriesPostConnectionFragment = {
         id: string;
         name: string;
         slug: string;
+        description?: { __typename?: 'Content'; text: string } | null;
       } | null;
       author: {
         __typename?: 'User';
@@ -4494,6 +4843,7 @@ export type DraftQuery = {
       id: string;
       name: string;
       slug: string;
+      description?: { __typename?: 'Content'; text: string } | null;
     } | null;
     author: {
       __typename?: 'User';
@@ -4562,6 +4912,7 @@ export type FeedPostsQuery = {
             id: string;
             name: string;
             slug: string;
+            description?: { __typename?: 'Content'; text: string } | null;
           } | null;
           author: {
             __typename?: 'User';
@@ -4630,6 +4981,7 @@ export type PostQuery = {
         id: string;
         name: string;
         slug: string;
+        description?: { __typename?: 'Content'; text: string } | null;
       } | null;
       author: {
         __typename?: 'User';
@@ -4715,6 +5067,7 @@ export type PostsQuery = {
             id: string;
             name: string;
             slug: string;
+            description?: { __typename?: 'Content'; text: string } | null;
           } | null;
           author: {
             __typename?: 'User';
@@ -4780,6 +5133,7 @@ export type PostsBySeriesQuery = {
               id: string;
               name: string;
               slug: string;
+              description?: { __typename?: 'Content'; text: string } | null;
             } | null;
             author: {
               __typename?: 'User';
@@ -4846,6 +5200,7 @@ export type PostsByTagQuery = {
             id: string;
             name: string;
             slug: string;
+            description?: { __typename?: 'Content'; text: string } | null;
           } | null;
           author: {
             __typename?: 'User';
@@ -4907,19 +5262,20 @@ export type SeriesQuery = {
       __typename?: 'Series';
       id: string;
       name: string;
-      description?: { __typename?: 'Content'; text: string } | null;
+      slug: string;
       posts: { __typename?: 'SeriesPostConnection'; totalDocuments: number };
+      description?: { __typename?: 'Content'; text: string } | null;
     } | null;
   } | null;
 };
 
-export type SeriesSlugsQueryVariables = Exact<{
+export type SeriesListQueryVariables = Exact<{
   host: Scalars['String']['input'];
   first: Scalars['Int']['input'];
   after?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type SeriesSlugsQuery = {
+export type SeriesListQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
@@ -4930,11 +5286,13 @@ export type SeriesSlugsQuery = {
         node: {
           __typename?: 'Series';
           id: string;
+          name: string;
           slug: string;
           posts: {
             __typename?: 'SeriesPostConnection';
             totalDocuments: number;
           };
+          description?: { __typename?: 'Content'; text: string } | null;
         };
       }>;
       pageInfo: {
@@ -4968,13 +5326,13 @@ export type StaticPageQuery = {
   } | null;
 };
 
-export type StaticPageSlugsQueryVariables = Exact<{
+export type StaticPagesQueryVariables = Exact<{
   host: Scalars['String']['input'];
   first: Scalars['Int']['input'];
   after?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type StaticPageSlugsQuery = {
+export type StaticPagesQuery = {
   __typename?: 'Query';
   publication?: {
     __typename?: 'Publication';
@@ -4986,6 +5344,7 @@ export type StaticPageSlugsQuery = {
         node: {
           __typename?: 'StaticPage';
           id: string;
+          title: string;
           slug: string;
           hidden: boolean;
         };
@@ -5158,6 +5517,16 @@ export const SeriesFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5451,6 +5820,16 @@ export const DraftFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5622,6 +6001,16 @@ export const PostFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5732,6 +6121,16 @@ export const PostWithMarkdownContentFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6019,6 +6418,16 @@ export const PublicationPostConnectionFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6226,6 +6635,16 @@ export const SeriesPostConnectionFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6570,6 +6989,16 @@ export const DraftDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6866,6 +7295,16 @@ export const FeedPostsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7118,6 +7557,16 @@ export const PostDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7616,6 +8065,16 @@ export const PostsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7981,6 +8440,16 @@ export const PostsBySeriesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -8272,6 +8741,16 @@ export const PostsByTagDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -8641,20 +9120,9 @@ export const SeriesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'description' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'text' },
-                            },
-                          ],
-                        },
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Series' },
                       },
                       {
                         kind: 'Field',
@@ -8685,15 +9153,41 @@ export const SeriesDocument = {
         ],
       },
     },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
   ],
 } as unknown as DocumentNode<SeriesQuery, SeriesQueryVariables>;
-export const SeriesSlugsDocument = {
+export const SeriesListDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'SeriesSlugs' },
+      name: { kind: 'Name', value: 'SeriesList' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -8782,12 +9276,8 @@ export const SeriesSlugsDocument = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'slug' },
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Series' },
                                   },
                                   {
                                     kind: 'Field',
@@ -8842,6 +9332,32 @@ export const SeriesSlugsDocument = {
     },
     {
       kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
       name: { kind: 'Name', value: 'PageInfo' },
       typeCondition: {
         kind: 'NamedType',
@@ -8856,7 +9372,7 @@ export const SeriesSlugsDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<SeriesSlugsQuery, SeriesSlugsQueryVariables>;
+} as unknown as DocumentNode<SeriesListQuery, SeriesListQueryVariables>;
 export const StaticPageDocument = {
   kind: 'Document',
   definitions: [
@@ -8979,13 +9495,13 @@ export const StaticPageDocument = {
     },
   ],
 } as unknown as DocumentNode<StaticPageQuery, StaticPageQueryVariables>;
-export const StaticPageSlugsDocument = {
+export const StaticPagesDocument = {
   kind: 'Document',
   definitions: [
     {
       kind: 'OperationDefinition',
       operation: 'query',
-      name: { kind: 'Name', value: 'StaticPageSlugs' },
+      name: { kind: 'Name', value: 'StaticPages' },
       variableDefinitions: [
         {
           kind: 'VariableDefinition',
@@ -9080,6 +9596,10 @@ export const StaticPageSlugsDocument = {
                                   },
                                   {
                                     kind: 'Field',
+                                    name: { kind: 'Name', value: 'title' },
+                                  },
+                                  {
+                                    kind: 'Field',
                                     name: { kind: 'Name', value: 'slug' },
                                   },
                                   {
@@ -9130,10 +9650,7 @@ export const StaticPageSlugsDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<
-  StaticPageSlugsQuery,
-  StaticPageSlugsQueryVariables
->;
+} as unknown as DocumentNode<StaticPagesQuery, StaticPagesQueryVariables>;
 export const TagDocument = {
   kind: 'Document',
   definitions: [

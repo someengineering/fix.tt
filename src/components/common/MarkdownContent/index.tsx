@@ -10,6 +10,7 @@ import ButtonLink from '@/components/common/links/ButtonLink';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import Heading from '@/components/common/MarkdownContent/Heading';
 import Icon from '@/components/common/MarkdownContent/Icon';
+import { siteConfig } from '@/constants/config';
 import { cn } from '@/utils/css';
 import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 
@@ -80,10 +81,7 @@ export default function MarkdownContent({
           if (props.children?.toString() === '%%[cta]') {
             return (
               <div className="my-12 space-x-5">
-                <ButtonLink
-                  href="https://app.fix.security/auth/register"
-                  size="lg"
-                >
+                <ButtonLink href={siteConfig.registerUrl} size="lg">
                   Try Fix Security for free
                 </ButtonLink>
               </div>

@@ -2,11 +2,7 @@ query Series($host: String!, $seriesSlug: String!) {
   publication(host: $host) {
     id
     series(slug: $seriesSlug) {
-      id
-      name
-      description {
-        text
-      }
+      ...Series
       posts(first: 1) {
         totalDocuments
       }

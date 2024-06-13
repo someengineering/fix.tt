@@ -1,7 +1,7 @@
 import { encodeXML } from 'entities';
 import { Feed } from 'feed';
 import { GraphQLClient } from 'graphql-request';
-import { flatten, uniq } from 'lodash';
+import { flatten, sortBy, uniq } from 'lodash';
 import 'server-only';
 
 import { siteConfig } from '@/constants/config';
@@ -37,17 +37,18 @@ import {
   PublicationQuery,
   PublicationQueryVariables,
   SeriesDocument,
+  SeriesFragment,
+  SeriesListDocument,
+  SeriesListQuery,
+  SeriesListQueryVariables,
   SeriesQuery,
   SeriesQueryVariables,
-  SeriesSlugsDocument,
-  SeriesSlugsQuery,
-  SeriesSlugsQueryVariables,
   StaticPageDocument,
   StaticPageQuery,
   StaticPageQueryVariables,
-  StaticPageSlugsDocument,
-  StaticPageSlugsQuery,
-  StaticPageSlugsQueryVariables,
+  StaticPagesDocument,
+  StaticPagesQuery,
+  StaticPagesQueryVariables,
   SubscribeToNewsletterDocument,
   SubscribeToNewsletterMutation,
   SubscribeToNewsletterMutationVariables,
@@ -162,27 +163,27 @@ export const getAllTagSlugs = async () => {
   return uniq(slugs);
 };
 
-export const getAllSeriesSlugs = async () => {
+export const getAllSeries = async () => {
   const data = await gqlClient.request<
-    SeriesSlugsQuery,
-    SeriesSlugsQueryVariables
-  >(SeriesSlugsDocument, {
+    SeriesListQuery,
+    SeriesListQueryVariables
+  >(SeriesListDocument, {
     host: HASHNODE_HOST,
     first: 20,
   });
 
-  let slugs: string[] = [];
+  let series: SeriesFragment[] = [];
 
   if (data.publication?.seriesList) {
-    slugs = data.publication.seriesList.edges
+    series = data.publication.seriesList.edges
       .filter((edge) => edge.node.posts.totalDocuments)
-      .map((edge) => edge.node.slug);
+      .map((edge) => edge.node);
 
     const fetchMore = async (after?: string) => {
       const data = await gqlClient.request<
-        SeriesSlugsQuery,
-        SeriesSlugsQueryVariables
-      >(SeriesSlugsDocument, {
+        SeriesListQuery,
+        SeriesListQueryVariables
+      >(SeriesListDocument, {
         host: HASHNODE_HOST,
         first: 20,
         after,
@@ -192,11 +193,11 @@ export const getAllSeriesSlugs = async () => {
         return;
       }
 
-      slugs = [
-        ...slugs,
+      series = [
+        ...series,
         ...data.publication.seriesList.edges
           .filter((edge) => edge.node.posts.totalDocuments)
-          .map((edge) => edge.node.slug),
+          .map((edge) => edge.node),
       ];
 
       if (
@@ -215,7 +216,13 @@ export const getAllSeriesSlugs = async () => {
     }
   }
 
-  return slugs;
+  return sortBy(series, 'name');
+};
+
+export const getAllSeriesSlugs = async () => {
+  const series = await getAllSeries();
+
+  return series.map((series) => series.slug);
 };
 
 export const getAllPostSlugs = async () => {
@@ -543,9 +550,9 @@ export const getDraft = async (id: string) => {
 
 export const getAllStaticPageSlugs = async () => {
   const data = await gqlClient.request<
-    StaticPageSlugsQuery,
-    StaticPageSlugsQueryVariables
-  >(StaticPageSlugsDocument, {
+    StaticPagesQuery,
+    StaticPagesQueryVariables
+  >(StaticPagesDocument, {
     host: HASHNODE_HOST,
     first: 20,
   });
@@ -559,9 +566,9 @@ export const getAllStaticPageSlugs = async () => {
 
     const fetchMore = async (after?: string) => {
       const data = await gqlClient.request<
-        StaticPageSlugsQuery,
-        StaticPageSlugsQueryVariables
-      >(StaticPageSlugsDocument, {
+        StaticPagesQuery,
+        StaticPagesQueryVariables
+      >(StaticPagesDocument, {
         host: HASHNODE_HOST,
         first: 20,
         after,
@@ -595,6 +602,66 @@ export const getAllStaticPageSlugs = async () => {
   }
 
   return slugs;
+};
+
+export const getAllComparePages = async () => {
+  const data = await gqlClient.request<
+    StaticPagesQuery,
+    StaticPagesQueryVariables
+  >(StaticPagesDocument, {
+    host: HASHNODE_HOST,
+    first: 20,
+  });
+
+  let pages: { title: string; slug: string }[] = [];
+
+  if (data.publication) {
+    pages = data.publication.staticPages.edges
+      .filter(
+        (edge) => !edge.node.hidden && edge.node.slug.startsWith('fix-vs-'),
+      )
+      .map((edge) => edge.node);
+
+    const fetchMore = async (after?: string) => {
+      const data = await gqlClient.request<
+        StaticPagesQuery,
+        StaticPagesQueryVariables
+      >(StaticPagesDocument, {
+        host: HASHNODE_HOST,
+        first: 20,
+        after,
+      });
+
+      if (!data.publication) {
+        return;
+      }
+
+      pages = [
+        ...pages,
+        ...data.publication.staticPages.edges
+          .filter(
+            (edge) => !edge.node.hidden && edge.node.slug.startsWith('fix-vs-'),
+          )
+          .map((edge) => edge.node),
+      ];
+
+      if (
+        data.publication.staticPages.pageInfo.hasNextPage &&
+        data.publication.staticPages.pageInfo.endCursor
+      ) {
+        await fetchMore(data.publication.staticPages.pageInfo.endCursor);
+      }
+    };
+
+    if (
+      data.publication.staticPages.pageInfo.hasNextPage &&
+      data.publication.staticPages.pageInfo.endCursor
+    ) {
+      await fetchMore(data.publication.staticPages.pageInfo.endCursor);
+    }
+  }
+
+  return pages;
 };
 
 export const getStaticPage = async (pageSlug: string) => {

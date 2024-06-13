@@ -1,10 +1,11 @@
-query StaticPageSlugs($host: String!, $first: Int!, $after: String) {
+query StaticPages($host: String!, $first: Int!, $after: String) {
   publication(host: $host) {
     id
     staticPages(first: $first, after: $after) {
       edges {
         node {
           id
+          title
           slug
           hidden
         }
