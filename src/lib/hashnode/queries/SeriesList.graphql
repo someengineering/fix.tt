@@ -3,9 +3,7 @@ query SeriesList($host: String!, $first: Int!, $after: String) {
     seriesList(first: $first, after: $after) {
       edges {
         node {
-          id
-          name
-          slug
+          ...Series
           posts(first: 1) {
             totalDocuments
           }

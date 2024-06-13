@@ -4498,6 +4498,7 @@ export type DraftFragment = {
     id: string;
     name: string;
     slug: string;
+    description?: { __typename?: 'Content'; text: string } | null;
   } | null;
   author: {
     __typename?: 'User';
@@ -4573,6 +4574,7 @@ export type PostFragment = {
     id: string;
     name: string;
     slug: string;
+    description?: { __typename?: 'Content'; text: string } | null;
   } | null;
   author: {
     __typename?: 'User';
@@ -4626,6 +4628,7 @@ export type PostWithMarkdownContentFragment = {
     id: string;
     name: string;
     slug: string;
+    description?: { __typename?: 'Content'; text: string } | null;
   } | null;
   author: {
     __typename?: 'User';
@@ -4674,6 +4677,7 @@ export type PublicationPostConnectionFragment = {
         id: string;
         name: string;
         slug: string;
+        description?: { __typename?: 'Content'; text: string } | null;
       } | null;
       author: {
         __typename?: 'User';
@@ -4701,6 +4705,7 @@ export type SeriesFragment = {
   id: string;
   name: string;
   slug: string;
+  description?: { __typename?: 'Content'; text: string } | null;
 };
 
 export type SeriesPostConnectionFragment = {
@@ -4729,6 +4734,7 @@ export type SeriesPostConnectionFragment = {
         id: string;
         name: string;
         slug: string;
+        description?: { __typename?: 'Content'; text: string } | null;
       } | null;
       author: {
         __typename?: 'User';
@@ -4837,6 +4843,7 @@ export type DraftQuery = {
       id: string;
       name: string;
       slug: string;
+      description?: { __typename?: 'Content'; text: string } | null;
     } | null;
     author: {
       __typename?: 'User';
@@ -4905,6 +4912,7 @@ export type FeedPostsQuery = {
             id: string;
             name: string;
             slug: string;
+            description?: { __typename?: 'Content'; text: string } | null;
           } | null;
           author: {
             __typename?: 'User';
@@ -4973,6 +4981,7 @@ export type PostQuery = {
         id: string;
         name: string;
         slug: string;
+        description?: { __typename?: 'Content'; text: string } | null;
       } | null;
       author: {
         __typename?: 'User';
@@ -5058,6 +5067,7 @@ export type PostsQuery = {
             id: string;
             name: string;
             slug: string;
+            description?: { __typename?: 'Content'; text: string } | null;
           } | null;
           author: {
             __typename?: 'User';
@@ -5123,6 +5133,7 @@ export type PostsBySeriesQuery = {
               id: string;
               name: string;
               slug: string;
+              description?: { __typename?: 'Content'; text: string } | null;
             } | null;
             author: {
               __typename?: 'User';
@@ -5189,6 +5200,7 @@ export type PostsByTagQuery = {
             id: string;
             name: string;
             slug: string;
+            description?: { __typename?: 'Content'; text: string } | null;
           } | null;
           author: {
             __typename?: 'User';
@@ -5250,8 +5262,9 @@ export type SeriesQuery = {
       __typename?: 'Series';
       id: string;
       name: string;
-      description?: { __typename?: 'Content'; text: string } | null;
+      slug: string;
       posts: { __typename?: 'SeriesPostConnection'; totalDocuments: number };
+      description?: { __typename?: 'Content'; text: string } | null;
     } | null;
   } | null;
 };
@@ -5279,6 +5292,7 @@ export type SeriesListQuery = {
             __typename?: 'SeriesPostConnection';
             totalDocuments: number;
           };
+          description?: { __typename?: 'Content'; text: string } | null;
         };
       }>;
       pageInfo: {
@@ -5503,6 +5517,16 @@ export const SeriesFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5796,6 +5820,16 @@ export const DraftFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -5967,6 +6001,16 @@ export const PostFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6077,6 +6121,16 @@ export const PostWithMarkdownContentFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6364,6 +6418,16 @@ export const PublicationPostConnectionFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6571,6 +6635,16 @@ export const SeriesPostConnectionFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -6915,6 +6989,16 @@ export const DraftDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7211,6 +7295,16 @@ export const FeedPostsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7463,6 +7557,16 @@ export const PostDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -7961,6 +8065,16 @@ export const PostsDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -8326,6 +8440,16 @@ export const PostsBySeriesDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -8617,6 +8741,16 @@ export const PostsByTagDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'name' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
         ],
       },
     },
@@ -8986,20 +9120,9 @@ export const SeriesDocument = {
                   selectionSet: {
                     kind: 'SelectionSet',
                     selections: [
-                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
-                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
                       {
-                        kind: 'Field',
-                        name: { kind: 'Name', value: 'description' },
-                        selectionSet: {
-                          kind: 'SelectionSet',
-                          selections: [
-                            {
-                              kind: 'Field',
-                              name: { kind: 'Name', value: 'text' },
-                            },
-                          ],
-                        },
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Series' },
                       },
                       {
                         kind: 'Field',
@@ -9024,6 +9147,32 @@ export const SeriesDocument = {
                     ],
                   },
                 },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
               ],
             },
           },
@@ -9127,16 +9276,8 @@ export const SeriesListDocument = {
                                 kind: 'SelectionSet',
                                 selections: [
                                   {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'id' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'name' },
-                                  },
-                                  {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'slug' },
+                                    kind: 'FragmentSpread',
+                                    name: { kind: 'Name', value: 'Series' },
                                   },
                                   {
                                     kind: 'Field',
@@ -9183,6 +9324,32 @@ export const SeriesListDocument = {
                     ],
                   },
                 },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Series' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Series' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'description' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
               ],
             },
           },

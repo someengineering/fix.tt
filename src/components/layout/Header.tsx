@@ -44,6 +44,7 @@ export default async function Header() {
       children: blogSeries.map((series) => ({
         name: series.name,
         href: `/blog/series/${series.slug}`,
+        description: series.description?.text,
       })),
       popoverContent: blogPosts?.edges.length ? (
         <>
