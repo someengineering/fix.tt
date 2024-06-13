@@ -24,6 +24,17 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
+  const url = request.nextUrl;
+
+  if (url.searchParams.has('qr')) {
+    url.searchParams.delete('qr');
+    url.searchParams.append('utm_source', 'event');
+    url.searchParams.append('utm_medium', 'qr_code');
+    url.searchParams.append('utm_campaign', 'cybersecurity_summit_2024');
+
+    return NextResponse.redirect(url);
+  }
+
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
@@ -37,7 +48,7 @@ export function middleware(request: NextRequest) {
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors ${request.nextUrl.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'none'"};
+    frame-ancestors ${url.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'none'"};
     upgrade-insecure-requests;
 `
     .replace(/\s{2,}/g, ' ')
