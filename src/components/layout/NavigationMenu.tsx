@@ -73,16 +73,14 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
                         <UnstyledLink
                           key={child.name}
                           href={child.href}
-                          className="relative flex items-center gap-x-6 rounded-lg p-4 leading-6 hover:bg-marian-blue-50 hover:text-gray-900"
+                          className="relative block rounded-lg px-4 py-3 leading-6 hover:bg-marian-blue-50 hover:text-gray-900"
                         >
-                          <div className="flex-auto">
-                            <span>{child.name}</span>
-                            {child.description ? (
-                              <p className="mt-1 font-medium text-gray-600">
-                                {child.description}
-                              </p>
-                            ) : null}
-                          </div>
+                          <span>{child.name}</span>
+                          {child.description ? (
+                            <p className="mt-1 font-medium text-gray-600">
+                              {child.description}
+                            </p>
+                          ) : null}
                         </UnstyledLink>
                       ))}
                     </div>

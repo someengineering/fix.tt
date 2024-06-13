@@ -55,11 +55,11 @@ export default async function Header() {
               See all <span aria-hidden="true">&rarr;</span>
             </PrimaryLink>
           </div>
-          <ul role="list" className="-mx-4 -mb-4 mt-4">
+          <ul role="list" className="mt-6 space-y-6">
             {blogPosts.edges
               .map((edge) => edge.node)
               .map((post) => (
-                <li key={post.id} className="relative p-4">
+                <li key={post.id} className="relative">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 text-xs font-bold uppercase leading-6 text-gray-600">
                     {post.series ? (
                       <UnstyledLink
@@ -80,7 +80,7 @@ export default async function Header() {
                         day: 'numeric',
                       })}
                     </time>
-                    <span className="flex items-center space-x-1.5 whitespace-nowrap">
+                    <span className="flex items-center space-x-1 whitespace-nowrap">
                       <LuBookOpen className="h-4 w-4" aria-hidden="true" />
                       <span>{post.readTimeInMinutes} min read</span>
                     </span>
@@ -110,7 +110,7 @@ export default async function Header() {
               See all <span aria-hidden="true">&rarr;</span>
             </PrimaryLink>
           </div>
-          <ul role="list" className="-mx-4 -mb-4 mt-4">
+          <ul role="list" className="mt-6 space-y-6">
             {podcastEpisodes.data.map((episode) => {
               const { title } = parseEpisodeTitle(episode.attributes.title);
               const durationHours = Math.floor(
@@ -121,7 +121,7 @@ export default async function Header() {
               );
 
               return (
-                <li key={episode.id} className="relative p-4">
+                <li key={episode.id} className="relative">
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 text-xs font-bold uppercase leading-6 text-gray-600">
                     <time
                       dateTime={episode.attributes.published_at}
@@ -135,7 +135,7 @@ export default async function Header() {
                         day: 'numeric',
                       })}
                     </time>
-                    <span className="flex items-center space-x-1.5 whitespace-nowrap">
+                    <span className="flex items-center space-x-1 whitespace-nowrap">
                       <LuPodcast className="h-4 w-4" aria-hidden="true" />
                       <span>{`${durationHours > 0 ? `${durationHours} hr ` : ''}${durationMinutes} min`}</span>
                     </span>
