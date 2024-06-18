@@ -87,7 +87,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
                   ) : null}
                   {item.popoverContent ? (
                     <div
-                      className={`p-8 ${item.children?.length ? 'bg-gray-50' : ''}`}
+                      className={`px-8 py-7 ${item.children?.length ? 'bg-gray-50' : ''}`}
                     >
                       {item.popoverContent}
                     </div>

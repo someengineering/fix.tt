@@ -4486,6 +4486,7 @@ export type DraftFragment = {
   id: string;
   title?: string | null;
   subtitle?: string | null;
+  slug: string;
   readTimeInMinutes: number;
   scheduledDate?: string | null;
   updatedAt: string;
@@ -4831,6 +4832,7 @@ export type DraftQuery = {
     id: string;
     title?: string | null;
     subtitle?: string | null;
+    slug: string;
     readTimeInMinutes: number;
     scheduledDate?: string | null;
     updatedAt: string;
@@ -5653,6 +5655,7 @@ export const DraftFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'tagsV2' },
@@ -7087,6 +7090,7 @@ export const DraftDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'id' } },
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'tagsV2' },

@@ -121,7 +121,7 @@ export default async function ComparisonPage({
           <h2 className="text-pretty text-4xl font-extrabold sm:text-5xl">
             {subtitle}
           </h2>
-          <MarkdownContent className="compare-page">
+          <MarkdownContent className="compare-page" linkHeadings={false}>
             {staticPage.content.markdown}
           </MarkdownContent>
         </div>

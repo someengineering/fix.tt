@@ -48,11 +48,9 @@ export default async function Header() {
       })),
       popoverContent: blogPosts?.edges.length ? (
         <>
-          <div className="flex justify-between">
-            <h3 className="text-sm font-semibold leading-6 text-gray-500">
-              Recent posts
-            </h3>
-            <PrimaryLink href="/blog" className="text-sm leading-6">
+          <div className="flex justify-between text-sm leading-6">
+            <h3 className="font-bold text-gray-500">Recent posts</h3>
+            <PrimaryLink href="/blog">
               See all <span aria-hidden="true">&rarr;</span>
             </PrimaryLink>
           </div>
@@ -103,11 +101,9 @@ export default async function Header() {
       href: '/podcast',
       popoverContent: blogPosts?.edges.length ? (
         <>
-          <div className="flex justify-between">
-            <h3 className="text-sm font-semibold leading-6 text-gray-500">
-              Recent episodes
-            </h3>
-            <PrimaryLink href="/podcast" className="text-sm leading-6">
+          <div className="flex justify-between text-sm leading-6">
+            <h3 className="font-bold text-gray-500">Recent episodes</h3>
+            <PrimaryLink href="/podcast">
               See all <span aria-hidden="true">&rarr;</span>
             </PrimaryLink>
           </div>

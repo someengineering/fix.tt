@@ -50,7 +50,7 @@ export default function TableOfContents({
     <Disclosure
       as="nav"
       id="toc"
-      className="my-8 rounded-2xl p-4 text-base ring-1 ring-gray-900/10"
+      className="mb-8 rounded-2xl p-4 text-base ring-1 ring-gray-900/10"
     >
       {({ open }) => (
         <>

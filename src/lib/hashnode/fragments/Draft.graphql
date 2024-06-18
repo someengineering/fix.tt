@@ -2,6 +2,7 @@ fragment Draft on Draft {
   id
   title
   subtitle
+  slug
   tagsV2 {
     ...DraftTag
   }

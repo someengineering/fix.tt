@@ -106,47 +106,49 @@ export default function Header({
       ) : (
         <meta itemProp="description" content={brief} />
       )}
-      <div
-        className="flex items-center gap-x-4 pt-2"
-        itemProp="author"
-        itemScope
-        itemType="https://schema.org/Person"
-      >
-        {author.profilePicture ? (
-          <Image
-            src={author.profilePicture}
-            width={48}
-            height={48}
-            sizes="48px"
-            alt=""
-            className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
-            itemProp="image"
-          />
-        ) : (
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-50 text-gray-300">
-            <LuUserCircle2 className="h-[110%] w-[110%] shrink-0" />
-          </div>
-        )}
-        <div>
-          <p className="text-lg font-semibold text-gray-900" itemProp="name">
-            {authorLink ? (
-              <UnstyledLink href={authorLink} itemProp="url">
-                {author.name}
-              </UnstyledLink>
-            ) : (
-              <>{author.name}</>
-            )}
-          </p>
-          {authorDescription ? (
-            <p
-              className="line-clamp-1 text-base font-medium text-gray-600"
-              itemProp="description"
-            >
-              {authorDescription}
+      {author.username !== 'fixteam' && series?.slug !== 'customer-stories' ? (
+        <div
+          className="flex items-center gap-x-4 pt-2"
+          itemProp="author"
+          itemScope
+          itemType="https://schema.org/Person"
+        >
+          {author.profilePicture ? (
+            <Image
+              src={author.profilePicture}
+              width={48}
+              height={48}
+              sizes="48px"
+              alt=""
+              className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-gray-50"
+              itemProp="image"
+            />
+          ) : (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-50 text-gray-300">
+              <LuUserCircle2 className="h-[110%] w-[110%] shrink-0" />
+            </div>
+          )}
+          <div>
+            <p className="text-lg font-semibold text-gray-900" itemProp="name">
+              {authorLink ? (
+                <UnstyledLink href={authorLink} itemProp="url">
+                  {author.name}
+                </UnstyledLink>
+              ) : (
+                <>{author.name}</>
+              )}
             </p>
-          ) : null}
+            {authorDescription ? (
+              <p
+                className="line-clamp-1 text-base font-medium text-gray-600"
+                itemProp="description"
+              >
+                {authorDescription}
+              </p>
+            ) : null}
+          </div>
         </div>
-      </div>
+      ) : null}
     </header>
   );
 }

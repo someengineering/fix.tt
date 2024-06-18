@@ -17,10 +17,12 @@ import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 export default function MarkdownContent({
   children,
   className,
+  linkHeadings,
   ...props
 }: {
   children?: string;
   className?: string;
+  linkHeadings?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>) {
   if (!children) {
     return null;
@@ -38,27 +40,47 @@ export default function MarkdownContent({
         ),
         h1: 'h2',
         h2: (props) => (
-          <Heading as="h2" slug={slugger.slug(getText(props.children))}>
+          <Heading
+            as="h2"
+            slug={slugger.slug(getText(props.children))}
+            hashLink={linkHeadings}
+          >
             {props.children}
           </Heading>
         ),
         h3: (props) => (
-          <Heading as="h3" slug={slugger.slug(getText(props.children))}>
+          <Heading
+            as="h3"
+            slug={slugger.slug(getText(props.children))}
+            hashLink={linkHeadings}
+          >
             {props.children}
           </Heading>
         ),
         h4: (props) => (
-          <Heading as="h4" slug={slugger.slug(getText(props.children))}>
+          <Heading
+            as="h4"
+            slug={slugger.slug(getText(props.children))}
+            hashLink={linkHeadings}
+          >
             {props.children}
           </Heading>
         ),
         h5: (props) => (
-          <Heading as="h5" slug={slugger.slug(getText(props.children))}>
+          <Heading
+            as="h5"
+            slug={slugger.slug(getText(props.children))}
+            hashLink={linkHeadings}
+          >
             {props.children}
           </Heading>
         ),
         h6: (props) => (
-          <Heading as="h6" slug={slugger.slug(getText(props.children))}>
+          <Heading
+            as="h6"
+            slug={slugger.slug(getText(props.children))}
+            hashLink={linkHeadings}
+          >
             {props.children}
           </Heading>
         ),

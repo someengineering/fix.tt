@@ -27,5 +27,5 @@ export default function CompetitorLogo({
   slug: string;
   className?: string;
 }) {
-  return logos[slug]({ className });
+  return hasLogo(slug) ? logos[slug]({ className }) : null;
 }

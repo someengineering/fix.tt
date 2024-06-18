@@ -1,4 +1,5 @@
 import Content from '@/components/blog/BlogPost/Content';
+import CustomerStory from '@/components/blog/BlogPost/CustomerStory';
 import Footer from '@/components/blog/BlogPost/Footer';
 import Header from '@/components/blog/BlogPost/Header';
 import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
@@ -43,14 +44,18 @@ export default function BlogDraft({
           publishedAt={draft.scheduledDate ?? draft.updatedAt}
           readTimeInMinutes={draft.readTimeInMinutes}
         />
-        <Content
-          markdown={draft.content.markdown}
-          tocItems={
-            draft.features.tableOfContents.isEnabled
-              ? draft.features.tableOfContents.items
-              : undefined
-          }
-        />
+        {draft.series?.slug === 'customer-stories' ? (
+          <CustomerStory slug={draft.slug} markdown={draft.content.markdown} />
+        ) : (
+          <Content
+            markdown={draft.content.markdown}
+            tocItems={
+              draft.features.tableOfContents.isEnabled
+                ? draft.features.tableOfContents.items
+                : undefined
+            }
+          />
+        )}
         <Footer title={draft.title} tags={draft.tagsV2} />
         {draft.series ? <RelatedPosts seriesSlug={draft.series.slug} /> : null}
       </article>

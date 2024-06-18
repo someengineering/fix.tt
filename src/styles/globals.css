@@ -81,6 +81,37 @@
     ::-webkit-scrollbar-thumb:hover {
       @apply bg-cornflower-blue-300;
     }
+
+    h2:first-child {
+      @apply mt-0;
+    }
+
+    :last-child {
+      @apply mb-0;
+    }
+  }
+
+  .about {
+    @apply text-base;
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      @apply mb-4 mt-8 text-base;
+    }
+
+    p,
+    ol,
+    ul {
+      @apply m-0 text-base;
+    }
+
+    ol,
+    ul {
+      @apply list-none space-y-2;
+    }
   }
 
   .static-page {
@@ -99,10 +130,6 @@
 
     h2 {
       @apply mx-auto mb-8 mt-32 max-w-prose text-balance text-4xl font-extrabold sm:mt-48 sm:text-5xl;
-
-      .hash-link {
-        @apply hidden;
-      }
     }
 
     p {

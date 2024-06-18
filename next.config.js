@@ -44,6 +44,11 @@ module.exports = withPlausibleProxy()({
         destination: `/blog/what-is-a-cnapp`,
       },
       {
+        source: '/customer(s?)/:path*',
+        permanent: true,
+        destination: `/blog/series/customer-stories/:path*`,
+      },
+      {
         source: '/blog/category/:path*',
         permanent: true,
         destination: `/blog/series/:path*`,

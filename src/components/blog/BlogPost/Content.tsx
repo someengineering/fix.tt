@@ -10,7 +10,7 @@ export default function Content({
   tocItems?: HashnodeTableOfContentsItem[];
 }) {
   return (
-    <div className="w-prose my-8 border-y border-gray-900/5">
+    <div className="w-prose my-8 border-y border-gray-900/5 py-8">
       {tocItems ? <TableOfContents items={tocItems} /> : null}
       <MarkdownContent itemProp="articleBody">{markdown}</MarkdownContent>
     </div>

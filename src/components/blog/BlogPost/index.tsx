@@ -1,5 +1,6 @@
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import Content from '@/components/blog/BlogPost/Content';
+import CustomerStory from '@/components/blog/BlogPost/CustomerStory';
 import Footer from '@/components/blog/BlogPost/Footer';
 import Header from '@/components/blog/BlogPost/Header';
 import RelatedPosts from '@/components/blog/BlogPost/RelatedPosts';
@@ -48,14 +49,18 @@ export default function BlogPost({
             updatedAt={post.updatedAt ?? undefined}
             readTimeInMinutes={post.readTimeInMinutes}
           />
-          <Content
-            markdown={post.content.markdown}
-            tocItems={
-              post.features.tableOfContents.isEnabled
-                ? post.features.tableOfContents.items
-                : undefined
-            }
-          />
+          {post.series?.slug === 'customer-stories' ? (
+            <CustomerStory slug={post.slug} markdown={post.content.markdown} />
+          ) : (
+            <Content
+              markdown={post.content.markdown}
+              tocItems={
+                post.features.tableOfContents.isEnabled
+                  ? post.features.tableOfContents.items
+                  : undefined
+              }
+            />
+          )}
           <Footer url={url} title={post.title} tags={post.tags ?? undefined} />
         </article>
         {post.series ? (
