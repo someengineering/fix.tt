@@ -66,6 +66,19 @@
       @apply overflow-x-auto rounded-xl bg-gray-50 p-3;
     }
 
+    blockquote {
+      @apply my-16 border-l border-cornflower-blue-600 py-4 pl-8;
+
+      p:only-child,
+      p:not(:last-child) {
+        @apply m-0 text-xl font-semibold text-gray-900 sm:text-2xl;
+      }
+
+      p:last-child:not(:only-child) {
+        @apply italic text-gray-500;
+      }
+    }
+
     ::-webkit-scrollbar {
       @apply max-h-2;
     }
