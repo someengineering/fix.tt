@@ -1,4 +1,5 @@
 import ArangodbLogo from '@/assets/customers/arangodb.svg';
+import DlthubLogo from '@/assets/customers/dlthub.svg';
 
 const logos: {
   [slug: string]: (
@@ -6,6 +7,7 @@ const logos: {
   ) => JSX.Element;
 } = {
   arangodb: (props) => <ArangodbLogo {...props} />,
+  dlthub: (props) => <DlthubLogo {...props} />,
 };
 
 export const hasLogo = (slug: string) => slug in logos;

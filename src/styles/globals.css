@@ -71,7 +71,7 @@
 
       p:only-child,
       p:not(:last-child) {
-        @apply m-0 text-xl font-semibold text-gray-900 sm:text-2xl;
+        @apply m-0 text-2xl font-semibold text-gray-900 sm:text-3xl;
       }
 
       p:last-child:not(:only-child) {
