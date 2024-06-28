@@ -1578,6 +1578,17 @@ input CreateDraftTagInput {
   slug: String
 }
 
+input CreateRedirectionRuleInput {
+  destination: URL!
+  publicationId: ID!
+  source: String!
+  type: HttpRedirectionType!
+}
+
+type CreateRedirectionRulePayload {
+  redirectionRule: RedirectionRule!
+}
+
 """
 Input to create a role based invite for a publication.
 """
@@ -1817,8 +1828,8 @@ type Draft implements Node {
   canonicalUrl: String
   """
   Returns the user details of the co-authors of the post.
-  Hashnode users can add up to 4 co-authors as collaborators to their posts.
-  This functionality is limited to teams publication.
+
+  Only available for team publications.
   """
   coAuthors: [User!]
   """
@@ -1843,6 +1854,12 @@ type Draft implements Node {
   """
   id: ID!
   """
+  Whether or not the draft has been submitted for review.
+
+  Only applicable to drafts in team publications.
+  """
+  isSubmittedForReview: Boolean
+  """
   Information about the last backup of the draft.
   """
   lastBackup: DraftBackup
@@ -1858,6 +1875,10 @@ type Draft implements Node {
   OG meta-data of the draft. Contains image url used in open graph meta tags.
   """
   ogMetaData: OpenGraphMetaData
+  """
+  The publication the draft belongs to.
+  """
+  publication: Publication
   readTimeInMinutes: Int!
   """
   The date the draft is scheduled to be published.
@@ -2802,6 +2823,9 @@ type Mutation {
     """
     input: CreateDraftInput!
   ): CreateDraftPayload!
+  createRedirectionRule(
+    input: CreateRedirectionRuleInput!
+  ): CreateRedirectionRulePayload!
   """
   Creates a role based invite for a publication and returns a link to invite users to a publication.
   """
@@ -2882,6 +2906,9 @@ type Mutation {
   removeRecommendation(
     input: RemoveRecommendationInput!
   ): RemoveRecommendationPayload!
+  removeRedirectionRule(
+    input: RemoveRedirectionRuleInput!
+  ): RemoveRedirectionRulePayload!
   """
   Removes a reply from a comment.
   """
@@ -2946,6 +2973,9 @@ type Mutation {
   """
   updateComment(input: UpdateCommentInput!): UpdateCommentPayload!
   updatePost(input: UpdatePostInput!): UpdatePostPayload!
+  updateRedirectionRule(
+    input: UpdateRedirectionRuleInput!
+  ): UpdateRedirectionRulePayload!
   """
   Updates a reply
   """
@@ -3158,7 +3188,7 @@ type NewsletterRecord implements Node {
   """
   Associated post it was sent with
   """
-  post: Post!
+  post: Post
   """
   The date the newsletter was sent.
   """
@@ -3532,6 +3562,14 @@ type Post implements Node {
   """
   preferences: PostPreferences!
   """
+  The previous slugs of the post. Only present if the slug has been changed.
+
+  This could be used to create redirects for all posts from all previous slugs to the current slug.
+
+  The latest slug is always the first element in the array.
+  """
+  previousSlugs: [String!]!
+  """
   The publication the post belongs to.
   """
   publication: Publication
@@ -3897,6 +3935,19 @@ type Publication implements Node {
   """
   about: Content
   """
+  Returns the list of drafts in the publication
+  """
+  allDrafts(
+    """
+    A cursor to the last item in the previous page.
+    """
+    after: String
+    """
+    The number of drafts to return.
+    """
+    first: Int!
+  ): DraftConnection!
+  """
   Boolean flag indicating if the publication allows edits by contributors
   """
   allowContributorEdits: Boolean!
@@ -3921,7 +3972,7 @@ type Publication implements Node {
   """
   domainInfo: DomainInfo!
   """
-  Returns the list of drafts in the publication.
+  Returns the list of drafts of the authenticated user in the publication.
   """
   drafts(
     """
@@ -3988,6 +4039,10 @@ type Publication implements Node {
   Returns true if GitHub backup is configured and active and false otherwise.
   """
   isGitHubBackupEnabled: Boolean!
+  """
+  Returns whether the publication's GitHub source repo is connected.
+  """
+  isGithubAsSourceConnected: Boolean!
   """
   A flag to indicate if the publication is using Headless CMS. This can be used to check if the post redirect needs authentication.
   """
@@ -4068,6 +4123,15 @@ type Publication implements Node {
     """
     pageSize: Int!
   ): PublicationUserRecommendingPublicationConnection!
+  """
+  Returns a post by a previous slug. It does not resolve a post by its current slug.
+
+  If a slug has been changed, we'll create a redirect from the old slug to the new one.
+  With `redirectedPost` you can resolve a post by the old slug.
+
+  This can be used to redirect a user to the new post slug (via `redirectedPost.slug`).
+  """
+  redirectedPost(slug: String!): Post
   """
   Configured redirection rules for the publication.
   """
@@ -4988,6 +5052,15 @@ type RemoveRecommendationPayload {
   recommendedPublication: Publication!
 }
 
+input RemoveRedirectionRuleInput {
+  id: ID!
+  publicationId: ID!
+}
+
+type RemoveRedirectionRulePayload {
+  redirectionRule: RedirectionRule!
+}
+
 input RemoveReplyInput {
   commentId: ID!
   replyId: ID!
@@ -5242,16 +5315,19 @@ enum Scope {
   invited_team_user
   move_draft
   publication_admin
+  publication_author
   publication_member
   publish_comment
   publish_draft
   publish_post
   publish_reply
   recommend_publications
+  reject_draft_submission
   remove_comment
   remove_reply
   restore_post
   signup
+  submit_draft
   team_hashnode
   update_comment
   update_draft
@@ -5881,6 +5957,18 @@ input UpdatePostSettingsInput {
   Pin the post to the blog homepage.
   """
   pinToBlog: Boolean
+}
+
+input UpdateRedirectionRuleInput {
+  destination: URL
+  id: ID!
+  publicationId: ID!
+  source: String
+  type: HttpRedirectionType
+}
+
+type UpdateRedirectionRulePayload {
+  redirectionRule: RedirectionRule!
 }
 
 input UpdateReplyInput {

@@ -1,0 +1,9 @@
+query RedirectedPost($host: String!, $postSlug: String!) {
+  publication(host: $host) {
+    id
+    redirectedPost(slug: $postSlug) {
+      id
+      slug
+    }
+  }
+}

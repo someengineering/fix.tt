@@ -36,6 +36,9 @@ import {
   PublicationIdQueryVariables,
   PublicationQuery,
   PublicationQueryVariables,
+  RedirectedPostDocument,
+  RedirectedPostQuery,
+  RedirectedPostQueryVariables,
   SeriesDocument,
   SeriesFragment,
   SeriesListDocument,
@@ -480,6 +483,18 @@ export const getPost = async (postSlug: string) => {
   }
 
   return data.publication?.post;
+};
+
+export const getRedirectedPost = async (postSlug: string) => {
+  const data = await gqlClient.request<
+    RedirectedPostQuery,
+    RedirectedPostQueryVariables
+  >(RedirectedPostDocument, {
+    host: HASHNODE_HOST,
+    postSlug,
+  });
+
+  return data.publication?.redirectedPost;
 };
 
 const tagNameMapping: Record<string, string> = {

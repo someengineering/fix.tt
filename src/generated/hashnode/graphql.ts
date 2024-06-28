@@ -906,6 +906,18 @@ export type CreateDraftTagInput = {
   slug?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type CreateRedirectionRuleInput = {
+  destination: Scalars['URL']['input'];
+  publicationId: Scalars['ID']['input'];
+  source: Scalars['String']['input'];
+  type: HttpRedirectionType;
+};
+
+export type CreateRedirectionRulePayload = {
+  __typename?: 'CreateRedirectionRulePayload';
+  redirectionRule: RedirectionRule;
+};
+
 /** Input to create a role based invite for a publication. */
 export type CreateRoleBasedInviteForPublicationInput = {
   /** The capacity of how many members to be invited by the link. */
@@ -1071,8 +1083,8 @@ export type Draft = Node & {
   canonicalUrl?: Maybe<Scalars['String']['output']>;
   /**
    * Returns the user details of the co-authors of the post.
-   * Hashnode users can add up to 4 co-authors as collaborators to their posts.
-   * This functionality is limited to teams publication.
+   *
+   * Only available for team publications.
    */
   coAuthors?: Maybe<Array<User>>;
   /** Content of the draft in HTML and markdown */
@@ -1088,6 +1100,12 @@ export type Draft = Node & {
   features: DraftFeatures;
   /** The ID of the draft. */
   id: Scalars['ID']['output'];
+  /**
+   * Whether or not the draft has been submitted for review.
+   *
+   * Only applicable to drafts in team publications.
+   */
+  isSubmittedForReview?: Maybe<Scalars['Boolean']['output']>;
   /** Information about the last backup of the draft. */
   lastBackup?: Maybe<DraftBackup>;
   /** The date the draft last failed to back up. */
@@ -1096,6 +1114,8 @@ export type Draft = Node & {
   lastSuccessfulBackupAt?: Maybe<Scalars['DateTime']['output']>;
   /** OG meta-data of the draft. Contains image url used in open graph meta tags. */
   ogMetaData?: Maybe<OpenGraphMetaData>;
+  /** The publication the draft belongs to. */
+  publication?: Maybe<Publication>;
   readTimeInMinutes: Scalars['Int']['output'];
   /** The date the draft is scheduled to be published. */
   scheduledDate?: Maybe<Scalars['DateTime']['output']>;
@@ -1719,6 +1739,7 @@ export type Mutation = {
   changePublicationMemberVisibility: ChangePublicationMemberVisibilityPayload;
   /** Creates a new draft for a post. */
   createDraft: CreateDraftPayload;
+  createRedirectionRule: CreateRedirectionRulePayload;
   /** Creates a role based invite for a publication and returns a link to invite users to a publication. */
   createRoleBasedInviteForPublication: CreateRoleBasedInviteForPublicationPayload;
   /** Creates a new series. */
@@ -1749,6 +1770,7 @@ export type Mutation = {
   /** Removes a user from a teams publication. */
   removePublicationMember: RemovePublicationMemberPayload;
   removeRecommendation: RemoveRecommendationPayload;
+  removeRedirectionRule: RemoveRedirectionRulePayload;
   /** Removes a reply from a comment. */
   removeReply: RemoveReplyPayload;
   /** Removes a series. */
@@ -1778,6 +1800,7 @@ export type Mutation = {
   /** Updates a comment on a post. */
   updateComment: UpdateCommentPayload;
   updatePost: UpdatePostPayload;
+  updateRedirectionRule: UpdateRedirectionRulePayload;
   /** Updates a reply */
   updateReply: UpdateReplyPayload;
   /** Updates a role based invite for a publication. */
@@ -1821,6 +1844,10 @@ export type MutationChangePublicationMemberVisibilityArgs = {
 
 export type MutationCreateDraftArgs = {
   input: CreateDraftInput;
+};
+
+export type MutationCreateRedirectionRuleArgs = {
+  input: CreateRedirectionRuleInput;
 };
 
 export type MutationCreateRoleBasedInviteForPublicationArgs = {
@@ -1891,6 +1918,10 @@ export type MutationRemoveRecommendationArgs = {
   input: RemoveRecommendationInput;
 };
 
+export type MutationRemoveRedirectionRuleArgs = {
+  input: RemoveRedirectionRuleInput;
+};
+
 export type MutationRemoveReplyArgs = {
   input: RemoveReplyInput;
 };
@@ -1950,6 +1981,10 @@ export type MutationUpdateCommentArgs = {
 
 export type MutationUpdatePostArgs = {
   input: UpdatePostInput;
+};
+
+export type MutationUpdateRedirectionRuleArgs = {
+  input: UpdateRedirectionRuleInput;
 };
 
 export type MutationUpdateReplyArgs = {
@@ -2102,7 +2137,7 @@ export type NewsletterRecord = Node & {
   /** The number of subscribers the newsletter was opened by. */
   openCount: Scalars['Int']['output'];
   /** Associated post it was sent with */
-  post: Post;
+  post?: Maybe<Post>;
   /** The date the newsletter was sent. */
   sentAt: Scalars['DateTime']['output'];
   /** The number of subscribers the newsletter was sent to. */
@@ -2327,6 +2362,14 @@ export type Post = Node & {
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** Preference settings for the post. Contains information about if the post is pinned to blog, comments are disabled, etc. */
   preferences: PostPreferences;
+  /**
+   * The previous slugs of the post. Only present if the slug has been changed.
+   *
+   * This could be used to create redirects for all posts from all previous slugs to the current slug.
+   *
+   * The latest slug is always the first element in the array.
+   */
+  previousSlugs: Array<Scalars['String']['output']>;
   /** The publication the post belongs to. */
   publication?: Maybe<Publication>;
   /** The date and time the post was published. */
@@ -2593,6 +2636,8 @@ export type Publication = Node & {
   __typename?: 'Publication';
   /** The about section of the publication. */
   about?: Maybe<Content>;
+  /** Returns the list of drafts in the publication */
+  allDrafts: DraftConnection;
   /** Boolean flag indicating if the publication allows edits by contributors */
   allowContributorEdits: Scalars['Boolean']['output'];
   /** The author who owns the publication. */
@@ -2605,7 +2650,7 @@ export type Publication = Node & {
   displayTitle?: Maybe<Scalars['String']['output']>;
   /** Domain information of the publication. */
   domainInfo: DomainInfo;
-  /** Returns the list of drafts in the publication. */
+  /** Returns the list of drafts of the authenticated user in the publication. */
   drafts: DraftConnection;
   /** Returns the publication's email imports, used with newsletter feature. */
   emailImport?: Maybe<EmailImport>;
@@ -2634,6 +2679,8 @@ export type Publication = Node & {
   invites?: Maybe<PublicationInvite>;
   /** Returns true if GitHub backup is configured and active and false otherwise. */
   isGitHubBackupEnabled: Scalars['Boolean']['output'];
+  /** Returns whether the publication's GitHub source repo is connected. */
+  isGithubAsSourceConnected: Scalars['Boolean']['output'];
   /** A flag to indicate if the publication is using Headless CMS. This can be used to check if the post redirect needs authentication. */
   isHeadless: Scalars['Boolean']['output'];
   /** True if the publication is a team publication and false otherwise. */
@@ -2657,6 +2704,15 @@ export type Publication = Node & {
   recommendedPublications: Array<UserRecommendedPublicationEdge>;
   /** Publications that are recommending this publication. */
   recommendingPublications: PublicationUserRecommendingPublicationConnection;
+  /**
+   * Returns a post by a previous slug. It does not resolve a post by its current slug.
+   *
+   * If a slug has been changed, we'll create a redirect from the old slug to the new one.
+   * With `redirectedPost` you can resolve a post by the old slug.
+   *
+   * This can be used to redirect a user to the new post slug (via `redirectedPost.slug`).
+   */
+  redirectedPost?: Maybe<Post>;
   /** Configured redirection rules for the publication. */
   redirectionRules: Array<RedirectionRule>;
   /** Returns the scheduled drafts of the publication. */
@@ -2684,6 +2740,15 @@ export type Publication = Node & {
   url: Scalars['String']['output'];
   /** Determines the structure of the post URLs. */
   urlPattern: UrlPattern;
+};
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationAllDraftsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first: Scalars['Int']['input'];
 };
 
 /**
@@ -2731,6 +2796,14 @@ export type PublicationPostsViaPageArgs = {
 export type PublicationRecommendingPublicationsArgs = {
   page: Scalars['Int']['input'];
   pageSize: Scalars['Int']['input'];
+};
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationRedirectedPostArgs = {
+  slug: Scalars['String']['input'];
 };
 
 /**
@@ -3356,6 +3429,16 @@ export type RemoveRecommendationPayload = {
   recommendedPublication: Publication;
 };
 
+export type RemoveRedirectionRuleInput = {
+  id: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+};
+
+export type RemoveRedirectionRulePayload = {
+  __typename?: 'RemoveRedirectionRulePayload';
+  redirectionRule: RedirectionRule;
+};
+
 export type RemoveReplyInput = {
   commentId: Scalars['ID']['input'];
   replyId: Scalars['ID']['input'];
@@ -3538,16 +3621,19 @@ export enum Scope {
   InvitedTeamUser = 'invited_team_user',
   MoveDraft = 'move_draft',
   PublicationAdmin = 'publication_admin',
+  PublicationAuthor = 'publication_author',
   PublicationMember = 'publication_member',
   PublishComment = 'publish_comment',
   PublishDraft = 'publish_draft',
   PublishPost = 'publish_post',
   PublishReply = 'publish_reply',
   RecommendPublications = 'recommend_publications',
+  RejectDraftSubmission = 'reject_draft_submission',
   RemoveComment = 'remove_comment',
   RemoveReply = 'remove_reply',
   RestorePost = 'restore_post',
   Signup = 'signup',
+  SubmitDraft = 'submit_draft',
   TeamHashnode = 'team_hashnode',
   UpdateComment = 'update_comment',
   UpdateDraft = 'update_draft',
@@ -3981,6 +4067,19 @@ export type UpdatePostSettingsInput = {
   isTableOfContentEnabled?: InputMaybe<Scalars['Boolean']['input']>;
   /** Pin the post to the blog homepage. */
   pinToBlog?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UpdateRedirectionRuleInput = {
+  destination?: InputMaybe<Scalars['URL']['input']>;
+  id: Scalars['ID']['input'];
+  publicationId: Scalars['ID']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<HttpRedirectionType>;
+};
+
+export type UpdateRedirectionRulePayload = {
+  __typename?: 'UpdateRedirectionRulePayload';
+  redirectionRule: RedirectionRule;
 };
 
 export type UpdateReplyInput = {
@@ -5248,6 +5347,20 @@ export type PublicationIdQueryVariables = Exact<{
 export type PublicationIdQuery = {
   __typename?: 'Query';
   publication?: { __typename?: 'Publication'; id: string } | null;
+};
+
+export type RedirectedPostQueryVariables = Exact<{
+  host: Scalars['String']['input'];
+  postSlug: Scalars['String']['input'];
+}>;
+
+export type RedirectedPostQuery = {
+  __typename?: 'Query';
+  publication?: {
+    __typename?: 'Publication';
+    id: string;
+    redirectedPost?: { __typename?: 'Post'; id: string; slug: string } | null;
+  } | null;
 };
 
 export type SeriesQueryVariables = Exact<{
@@ -9054,6 +9167,89 @@ export const PublicationIdDocument = {
     },
   ],
 } as unknown as DocumentNode<PublicationIdQuery, PublicationIdQueryVariables>;
+export const RedirectedPostDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'RedirectedPost' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'host' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'postSlug' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'publication' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'host' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'host' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'redirectedPost' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'slug' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'postSlug' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RedirectedPostQuery, RedirectedPostQueryVariables>;
 export const SeriesDocument = {
   kind: 'Document',
   definitions: [
