@@ -59,6 +59,9 @@ export default {
           ...defaultTheme.fontFamily.sans,
         ],
       },
+      fontSize: {
+        '5xl': ['3rem', { lineHeight: '3.25rem' }],
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
