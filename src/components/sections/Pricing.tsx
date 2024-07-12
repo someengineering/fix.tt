@@ -303,7 +303,7 @@ export default function Pricing() {
               Custom plans
             </h3>
             <p className="my-8 text-xl font-semibold leading-8 text-gray-600">
-              <UnstyledLink href="mailto:hi@fix.security">
+              <UnstyledLink href="mailto:info@fix.security">
                 Schedule a call with us &rarr;
               </UnstyledLink>
             </p>
