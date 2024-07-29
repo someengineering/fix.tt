@@ -79,6 +79,18 @@
       }
     }
 
+    table {
+      @apply my-6 border-collapse text-base;
+
+      th {
+        @apply bg-gray-50 p-2 text-left font-semibold text-gray-900;
+      }
+
+      td {
+        @apply border-t border-gray-200 p-2;
+      }
+    }
+
     ::-webkit-scrollbar {
       @apply max-h-2;
     }

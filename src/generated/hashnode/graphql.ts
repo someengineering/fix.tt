@@ -1041,6 +1041,130 @@ export enum DeviceType {
   Tablet = 'TABLET',
 }
 
+export type DocsViews = {
+  id: Scalars['ID']['output'];
+  /** The aggregated views. */
+  total: Scalars['Int']['output'];
+};
+
+export type DocsVisitors = {
+  id: Scalars['ID']['output'];
+  /** The aggregated number of visitors. */
+  total: Scalars['Int']['output'];
+};
+
+export type DocumentationGuide = IGuide & {
+  __typename?: 'DocumentationGuide';
+  hasChanges: Scalars['Boolean']['output'];
+  id: Scalars['ID']['output'];
+  lastModified: Scalars['DateTime']['output'];
+  name: Scalars['String']['output'];
+  /** OG meta-data of the page. Contains image url used in open graph meta tags. */
+  ogMetaData?: Maybe<OpenGraphMetaData>;
+  page?: Maybe<DocumentationPage>;
+  publishedPage?: Maybe<DocumentationPage>;
+  publishedSidebarItems: Array<DocumentationSidebarItem>;
+  /** SEO information of the page. Contains title and description used in meta tags. */
+  seo?: Maybe<Seo>;
+  sidebarItems: Array<DocumentationSidebarItem>;
+  slug: Scalars['String']['output'];
+  status: DocumentationGuideItemStatus;
+  /** Url of the published guide. */
+  url?: Maybe<Scalars['String']['output']>;
+  versionId?: Maybe<Scalars['String']['output']>;
+};
+
+export type DocumentationGuidePageArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DocumentationGuidePublishedPageArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  path?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DocumentationGuideItem = DocumentationGuide;
+
+export enum DocumentationGuideItemStatus {
+  Deleted = 'DELETED',
+  Published = 'PUBLISHED',
+  Unpublished = 'UNPUBLISHED',
+}
+
+export type DocumentationLink = IDocumentationSidebarItem & {
+  __typename?: 'DocumentationLink';
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  label: Scalars['String']['output'];
+  status: DocumentationSidebarItemStatus;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  url: Scalars['String']['output'];
+  visibility: DocumentationSidebarItemVisibility;
+};
+
+export type DocumentationPage = {
+  __typename?: 'DocumentationPage';
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  guideSlug: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  /** OG meta-data of the page. Contains image url used in open graph meta tags. */
+  ogMetaData?: Maybe<OpenGraphMetaData>;
+  path: Scalars['String']['output'];
+  /** SEO information of the page. Contains title and description used in meta tags. */
+  seo?: Maybe<Seo>;
+  status: DocumentationSidebarItemStatus;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** Url of the published page. */
+  url?: Maybe<Scalars['String']['output']>;
+  visibility: DocumentationSidebarItemVisibility;
+};
+
+export type DocumentationSection = IDocumentationNestableSidebarItem &
+  IDocumentationSidebarItem & {
+    __typename?: 'DocumentationSection';
+    createdAt: Scalars['DateTime']['output'];
+    id: Scalars['ID']['output'];
+    label: Scalars['String']['output'];
+    pages: Array<DocumentationSidebarItemPage>;
+    status: DocumentationSidebarItemStatus;
+    updatedAt?: Maybe<Scalars['DateTime']['output']>;
+    visibility: DocumentationSidebarItemVisibility;
+  };
+
+export type DocumentationSidebarItem =
+  | DocumentationLink
+  | DocumentationSection
+  | DocumentationSidebarItemPage;
+
+export type DocumentationSidebarItemPage = IDocumentationNestableSidebarItem &
+  IDocumentationSidebarItem & {
+    __typename?: 'DocumentationSidebarItemPage';
+    createdAt: Scalars['DateTime']['output'];
+    hasChanges: Scalars['Boolean']['output'];
+    id: Scalars['ID']['output'];
+    label: Scalars['String']['output'];
+    pages: Array<DocumentationSidebarItemPage>;
+    path: Scalars['String']['output'];
+    status: DocumentationSidebarItemStatus;
+    updatedAt?: Maybe<Scalars['DateTime']['output']>;
+    /** Url of the published page. */
+    url?: Maybe<Scalars['String']['output']>;
+    visibility: DocumentationSidebarItemVisibility;
+  };
+
+export enum DocumentationSidebarItemStatus {
+  Published = 'PUBLISHED',
+  Unpublished = 'UNPUBLISHED',
+}
+
+export enum DocumentationSidebarItemVisibility {
+  Hidden = 'HIDDEN',
+  Public = 'PUBLIC',
+}
+
 /** Contains the publication's domain information. */
 export type DomainInfo = {
   __typename?: 'DomainInfo';
@@ -1116,6 +1240,7 @@ export type Draft = Node & {
   ogMetaData?: Maybe<OpenGraphMetaData>;
   /** The publication the draft belongs to. */
   publication?: Maybe<Publication>;
+  publishAs?: Maybe<User>;
   readTimeInMinutes: Scalars['Int']['output'];
   /** The date the draft is scheduled to be published. */
   scheduledDate?: Maybe<Scalars['DateTime']['output']>;
@@ -1282,6 +1407,21 @@ export enum EmailImportStatus {
   Success = 'SUCCESS',
 }
 
+/** User's email notification preferences. */
+export type EmailNotificationPreferences = {
+  __typename?: 'EmailNotificationPreferences';
+  /** Indicates if the user has opted in to receive activity notifications. */
+  activityNotifications: Scalars['Boolean']['output'];
+  /** Indicates if the user has opted in to receive general announcements. */
+  generalAnnouncements: Scalars['Boolean']['output'];
+  /** Indicates if the user has opted in to receive monthly blog performance stats. */
+  monthlyBlogStats: Scalars['Boolean']['output'];
+  /** Indicates if the user has opted in to receive new followers weekly. */
+  newFollowersWeekly: Scalars['Boolean']['output'];
+  /** Indicates if the user has opted in to receive the Hashnode Weekly newsletter. */
+  weeklyNewsletterEmails: Scalars['Boolean']['output'];
+};
+
 /** Invitations that failed to be sent to the user */
 export type FailedInvite = {
   __typename?: 'FailedInvite';
@@ -1349,6 +1489,12 @@ export enum FeedType {
   Relevant = 'RELEVANT',
 }
 
+export type GptBotCrawlingFeature = Feature & {
+  __typename?: 'GPTBotCrawlingFeature';
+  /** A flag indicating if the GPT Bot Crawler feature is enabled or not. */
+  isEnabled: Scalars['Boolean']['output'];
+};
+
 /** Views implementation that will be returned if grouping by browser. */
 export type GroupedByBrowserViews = Node &
   Views & {
@@ -1411,6 +1557,206 @@ export type GroupedByDeviceTypeVisitors = Node &
     /** The type of device that these views belong to. */
     deviceType: DeviceType;
     id: Scalars['ID']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Views implementation that will be returned if grouping by browser. */
+export type GroupedByDocsBrowserViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsBrowserViews';
+    /** The browser that these views belong to. */
+    browser: Scalars['String']['output'];
+    id: Scalars['ID']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by browser. */
+export type GroupedByDocsBrowserVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsBrowserVisitors';
+    /** The browser that these views belong to. */
+    browser: Scalars['String']['output'];
+    id: Scalars['ID']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Views implementation that will be returned if grouping by country. */
+export type GroupedByDocsCountryViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsCountryViews';
+    /** The country that these views belong to. */
+    country: CountryCodeAlpha2;
+    id: Scalars['ID']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by country. */
+export type GroupedByDocsCountryVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsCountryVisitors';
+    /** The country that these views belong to. */
+    country: CountryCodeAlpha2;
+    id: Scalars['ID']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Views implementation that will be returned if grouping by device type. */
+export type GroupedByDocsDeviceTypeViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsDeviceTypeViews';
+    /** The type of device that these views belong to. */
+    deviceType: DeviceType;
+    id: Scalars['ID']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by device type. */
+export type GroupedByDocsDeviceTypeVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsDeviceTypeVisitors';
+    /** The type of device that these views belong to. */
+    deviceType: DeviceType;
+    id: Scalars['ID']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Grouped views by documentation guide or API reference guide. */
+export type GroupedByDocsGuideViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsGuideViews';
+    /** The documentation Guide or the API reference guide that these views belong to. */
+    guide?: Maybe<DocumentationGuideItem>;
+    id: Scalars['ID']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Grouped visitors by documentation guide or API reference guide. */
+export type GroupedByDocsGuideVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsGuideVisitors';
+    /** The documentation Guide or the API reference guide that these views belong to. */
+    guide?: Maybe<DocumentationGuideItem>;
+    id: Scalars['ID']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Views implementation that will be returned if grouping by operating system. */
+export type GroupedByDocsOperatingSystemViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsOperatingSystemViews';
+    id: Scalars['ID']['output'];
+    /** The operating system that these views belong to. */
+    operatingSystem: Scalars['String']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by operating system. */
+export type GroupedByDocsOperatingSystemVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsOperatingSystemVisitors';
+    id: Scalars['ID']['output'];
+    /** The operating system that these views belong to. */
+    operatingSystem: Scalars['String']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+export type GroupedByDocsPageViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsPageViews';
+    id: Scalars['ID']['output'];
+    /** The page that these views belong to. */
+    page: DocumentationPage;
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by docs page. */
+export type GroupedByDocsPageVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsPageVisitors';
+    id: Scalars['ID']['output'];
+    /** The page that these views belong to. */
+    page: DocumentationPage;
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Views implementation that will be returned if grouping by path. */
+export type GroupedByDocsPathViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsPathViews';
+    id: Scalars['ID']['output'];
+    /** The path that these views belong to. */
+    path: Scalars['String']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by path. */
+export type GroupedByDocsPathVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsPathVisitors';
+    id: Scalars['ID']['output'];
+    /** The path that these views belong to. */
+    path: Scalars['String']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Views implementation that will be returned if grouping by `REFERRER_HOST` dimension. */
+export type GroupedByDocsReferrerHostViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsReferrerHostViews';
+    id: Scalars['ID']['output'];
+    /** The referrer host that these views belong to. */
+    referrerHost: Scalars['String']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if grouping by `REFERRER_HOST` dimension. */
+export type GroupedByDocsReferrerHostVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsReferrerHostVisitors';
+    id: Scalars['ID']['output'];
+    /** The referrer host that these views belong to. */
+    referrerHost: Scalars['String']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
+
+export type GroupedByDocsTimeViews = DocsViews &
+  Node & {
+    __typename?: 'GroupedByDocsTimeViews';
+    /** The start of the time range that these views belong to. */
+    from: Scalars['DateTime']['output'];
+    id: Scalars['ID']['output'];
+    /** The end of the time range that these views belong to. */
+    to: Scalars['DateTime']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if a grouping by time is provided. */
+export type GroupedByDocsTimeVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'GroupedByDocsTimeVisitors';
+    /** The start of the time range that these visitors visited the page. */
+    from: Scalars['DateTime']['output'];
+    id: Scalars['ID']['output'];
+    /** The end of the time range that these visitors visited the page. */
+    to: Scalars['DateTime']['output'];
     /** The aggregated number of visitors. */
     total: Scalars['Int']['output'];
   };
@@ -1563,6 +1909,26 @@ export enum HttpRedirectionType {
   Temporary = 'TEMPORARY',
 }
 
+export type IDocumentationNestableSidebarItem = {
+  pages: Array<DocumentationSidebarItemPage>;
+};
+
+export type IDocumentationSidebarItem = {
+  createdAt: Scalars['DateTime']['output'];
+  id: Scalars['ID']['output'];
+  label: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  visibility: DocumentationSidebarItemVisibility;
+};
+
+export type IGuide = {
+  id: Scalars['ID']['output'];
+  lastModified: Scalars['DateTime']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  versionId?: Maybe<Scalars['String']['output']>;
+};
+
 /**
  * Contains basic information about the tag.
  * A tag is a label that categorizes posts with similar topics.
@@ -1626,6 +1992,8 @@ export type IUser = {
   tagline?: Maybe<Scalars['String']['output']>;
   /** Returns a list of tags that the user follows. */
   tagsFollowing: Array<Tag>;
+  /** Returns list of tags from user's expertise. Shown on the user's profile. */
+  techStack: UserTagsConnection;
   /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
   username: Scalars['String']['output'];
 };
@@ -1655,6 +2023,12 @@ export type IUserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+/** Basic information about a user on Hashnode. */
+export type IUserTechStackArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 /** Input to invite users to a publication. */
@@ -1793,8 +2167,12 @@ export type Mutation = {
    * Only available to the authenticated user.
    */
   toggleFollowUser: ToggleFollowUserPayload;
+  /** Toggle GPT bot crawling feature. */
+  toggleGPTBotCrawling: ToggleGptBotCrawlingPayload;
   /** Toggles role based invite links' active status. Users can join the publication by the invite link only if it is active. */
   toggleRoleBasedInviteLinks: ToggleRoleBasedInviteLinksPayload;
+  /** Toggle text selection sharer feature. */
+  toggleTextSelectionSharer: ToggleTextSelectionSharerPayload;
   triggerWebhookTest: TriggerWebhookTestPayload;
   unsubscribeFromNewsletter: UnsubscribeFromNewsletterPayload;
   /** Updates a comment on a post. */
@@ -1963,8 +2341,16 @@ export type MutationToggleFollowUserArgs = {
   username?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type MutationToggleGptBotCrawlingArgs = {
+  input: ToggleGptBotCrawlingInput;
+};
+
 export type MutationToggleRoleBasedInviteLinksArgs = {
   publicationId: Scalars['ID']['input'];
+};
+
+export type MutationToggleTextSelectionSharerArgs = {
+  input: ToggleTextSelectionSharerInput;
 };
 
 export type MutationTriggerWebhookTestArgs = {
@@ -2030,6 +2416,8 @@ export type MyUser = IUser &
     drafts: UserDraftConnection;
     /** Email address of the user. Only available to the authenticated user. */
     email: Scalars['String']['output'];
+    /** The email notification preferences of the user. */
+    emailNotificationPreferences: EmailNotificationPreferences;
     /** The users who are following this user */
     followers: UserConnection;
     /** The number of users that follow the requested user. Visible in the user's profile. */
@@ -2059,6 +2447,13 @@ export type MyUser = IUser &
     tagline?: Maybe<Scalars['String']['output']>;
     /** Returns a list of tags that the user follows. */
     tagsFollowing: Array<Tag>;
+    /** Returns list of tags from user's expertise. Shown on the user's profile. */
+    techStack: UserTagsConnection;
+    /**
+     * Unverified email address of the user. Only available to the authenticated user.
+     * This is set when the user has tried updating their email address but it is not verified yet.
+     */
+    unverifiedEmail?: Maybe<Scalars['String']['output']>;
     /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
     username: Scalars['String']['output'];
   };
@@ -2109,6 +2504,15 @@ export type MyUserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+/**
+ * Basic information about the authenticated user.
+ * User must be authenticated to use this type.
+ */
+export type MyUserTechStackArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 /**
@@ -2628,6 +3032,18 @@ export type ProTeamFeature = Feature & {
   isEnabled: Scalars['Boolean']['output'];
 };
 
+export type ProjectViewEdge = Edge & {
+  __typename?: 'ProjectViewEdge';
+  cursor: Scalars['String']['output'];
+  node: DocsViews;
+};
+
+export type ProjectVisitorsEdge = Edge & {
+  __typename?: 'ProjectVisitorsEdge';
+  cursor: Scalars['String']['output'];
+  node: DocsVisitors;
+};
+
 /**
  * Contains basic information about the publication.
  * A publication is a blog that can be created for a user or a team.
@@ -2638,6 +3054,8 @@ export type Publication = Node & {
   about?: Maybe<Content>;
   /** Returns the list of drafts in the publication */
   allDrafts: DraftConnection;
+  /** Returns all the scheduled drafts of the publication. */
+  allScheduledDrafts: DraftConnection;
   /** Boolean flag indicating if the publication allows edits by contributors */
   allowContributorEdits: Scalars['Boolean']['output'];
   /** The author who owns the publication. */
@@ -2715,7 +3133,7 @@ export type Publication = Node & {
   redirectedPost?: Maybe<Post>;
   /** Configured redirection rules for the publication. */
   redirectionRules: Array<RedirectionRule>;
-  /** Returns the scheduled drafts of the publication. */
+  /** Returns the scheduled drafts of the publication by the authenticated user. */
   scheduledDrafts: DraftConnection;
   /** Returns series by slug in the publication. */
   series?: Maybe<Series>;
@@ -2748,6 +3166,17 @@ export type Publication = Node & {
  */
 export type PublicationAllDraftsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PublicationSearchableDraftConnectionFilter>;
+  first: Scalars['Int']['input'];
+};
+
+/**
+ * Contains basic information about the publication.
+ * A publication is a blog that can be created for a user or a team.
+ */
+export type PublicationAllScheduledDraftsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  filter?: InputMaybe<PublicationSearchableDraftConnectionFilter>;
   first: Scalars['Int']['input'];
 };
 
@@ -2879,6 +3308,8 @@ export type PublicationFeatures = {
   audioBlog: AudioBlogFeature;
   /** Individual styling for the publication. */
   customCSS: CustomCssFeature;
+  /** GPT Bot crawler to index the publication. */
+  gptBotCrawling: GptBotCrawlingFeature;
   /** Headless CMS for the publication. */
   headlessCMS: HeadlessCmsFeature;
   /** Newsletter feature for the publication which adds a `/newsletter` route for collecting subscribers and allows sending out newsletters. */
@@ -2970,6 +3401,8 @@ export type PublicationLinks = {
   __typename?: 'PublicationLinks';
   /** Daily.dev URL of the publication. */
   dailydev?: Maybe<Scalars['String']['output']>;
+  /** Facebook URL of the publication. */
+  facebook?: Maybe<Scalars['String']['output']>;
   /** GitHub URL of the publication. */
   github?: Maybe<Scalars['String']['output']>;
   /** Hashnode profile of author of the publication. */
@@ -3107,6 +3540,17 @@ export type PublicationPostsViaPageFilter = {
    * It is an "OR" filter and not an "AND" filter.
    */
   tags?: InputMaybe<Array<Scalars['ID']['input']>>;
+};
+
+/**
+ * ConnectionFilter to get list of drafts in publications.
+ * The filters are combined with an "AND" operation.
+ */
+export type PublicationSearchableDraftConnectionFilter = {
+  /** An array of author Ids to filter the drafts. */
+  authorIds?: InputMaybe<Array<Scalars['ID']['input']>>;
+  /** Search filter will be applied to the title of a draft */
+  search?: InputMaybe<Scalars['String']['input']>;
 };
 
 /**
@@ -3615,7 +4059,7 @@ export enum Scope {
   ChangeProSubscription = 'change_pro_subscription',
   CreatePro = 'create_pro',
   DeleteDraft = 'delete_draft',
-  DocsEditorOrOwner = 'docs_editor_or_owner',
+  DocsAdminOrOwner = 'docs_admin_or_owner',
   DocsOwner = 'docs_owner',
   ImportSubscribersToPublication = 'import_subscribers_to_publication',
   InvitedTeamUser = 'invited_team_user',
@@ -3955,11 +4399,29 @@ export type ToggleFollowUserPayload = {
   user?: Maybe<User>;
 };
 
+export type ToggleGptBotCrawlingInput = {
+  publicationId: Scalars['ID']['input'];
+};
+
+export type ToggleGptBotCrawlingPayload = {
+  __typename?: 'ToggleGPTBotCrawlingPayload';
+  publication?: Maybe<Publication>;
+};
+
 /** Response to toggling role based invite links. */
 export type ToggleRoleBasedInviteLinksPayload = {
   __typename?: 'ToggleRoleBasedInviteLinksPayload';
   /** Signifies the status of invite links after toggling. */
   areRoleBasedInviteLinksActive: Scalars['Boolean']['output'];
+};
+
+export type ToggleTextSelectionSharerInput = {
+  publicationId: Scalars['ID']['input'];
+};
+
+export type ToggleTextSelectionSharerPayload = {
+  __typename?: 'ToggleTextSelectionSharerPayload';
+  publication?: Maybe<Publication>;
 };
 
 export type TriggerWebhookTestInput = {
@@ -3970,6 +4432,24 @@ export type TriggerWebhookTestPayload = {
   __typename?: 'TriggerWebhookTestPayload';
   webhook?: Maybe<Webhook>;
 };
+
+/** Views implementation that will be returned if no grouping is applied. */
+export type UngroupedDocsViews = DocsViews &
+  Node & {
+    __typename?: 'UngroupedDocsViews';
+    id: Scalars['ID']['output'];
+    /** The aggregated views. */
+    total: Scalars['Int']['output'];
+  };
+
+/** Visitors implementation that will be returned if no grouping is applied. */
+export type UngroupedDocsVisitors = DocsVisitors &
+  Node & {
+    __typename?: 'UngroupedDocsVisitors';
+    id: Scalars['ID']['output'];
+    /** The aggregated number of visitors. */
+    total: Scalars['Int']['output'];
+  };
 
 /** Views implementation that will be returned if no grouping is applied. */
 export type UngroupedViews = Node &
@@ -4217,6 +4697,8 @@ export type User = IUser &
     tagline?: Maybe<Scalars['String']['output']>;
     /** Returns a list of tags that the user follows. */
     tagsFollowing: Array<Tag>;
+    /** Returns list of tags from user's expertise. Shown on the user's profile. */
+    techStack: UserTagsConnection;
     /** The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username */
     username: Scalars['String']['output'];
   };
@@ -4246,6 +4728,12 @@ export type UserPublicationsArgs = {
   after?: InputMaybe<Scalars['String']['input']>;
   filter?: InputMaybe<UserPublicationsConnectionFilter>;
   first: Scalars['Int']['input'];
+};
+
+/** Basic information about a user on Hashnode. */
+export type UserTechStackArgs = {
+  page: Scalars['Int']['input'];
+  pageSize: Scalars['Int']['input'];
 };
 
 /**
@@ -4443,6 +4931,16 @@ export enum UserRole {
   Superuser = 'SUPERUSER',
   User = 'USER',
 }
+
+export type UserTagsConnection = PageConnection & {
+  __typename?: 'UserTagsConnection';
+  /** A list of tags */
+  nodes: Array<Tag>;
+  /** Information for page based pagination in users connection. */
+  pageInfo: OffsetPageInfo;
+  /** The total number of documents in the connection. */
+  totalDocuments: Scalars['Int']['output'];
+};
 
 export enum ValidationMethod {
   Id = 'ID',

@@ -1773,6 +1773,131 @@ enum DeviceType {
   TABLET
 }
 
+interface DocsViews implements Node {
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+interface DocsVisitors implements Node {
+  id: ID!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+type DocumentationGuide implements IGuide {
+  hasChanges: Boolean!
+  id: ID!
+  lastModified: DateTime!
+  name: String!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  page(id: ID, path: String): DocumentationPage
+  publishedPage(id: ID, path: String): DocumentationPage
+  publishedSidebarItems: [DocumentationSidebarItem!]!
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  sidebarItems: [DocumentationSidebarItem!]!
+  slug: String!
+  status: DocumentationGuideItemStatus!
+  """
+  Url of the published guide.
+  """
+  url: String
+  versionId: String
+}
+
+union DocumentationGuideItem = DocumentationGuide
+
+enum DocumentationGuideItemStatus {
+  DELETED
+  PUBLISHED
+  UNPUBLISHED
+}
+
+type DocumentationLink implements IDocumentationSidebarItem {
+  createdAt: DateTime!
+  id: ID!
+  label: String!
+  status: DocumentationSidebarItemStatus!
+  updatedAt: DateTime
+  url: String!
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+type DocumentationPage {
+  createdAt: DateTime!
+  description: String
+  guideSlug: String!
+  id: ID!
+  """
+  OG meta-data of the page. Contains image url used in open graph meta tags.
+  """
+  ogMetaData: OpenGraphMetaData
+  path: String!
+  """
+  SEO information of the page. Contains title and description used in meta tags.
+  """
+  seo: SEO
+  status: DocumentationSidebarItemStatus!
+  title: String!
+  updatedAt: DateTime
+  """
+  Url of the published page.
+  """
+  url: String
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+type DocumentationSection implements IDocumentationNestableSidebarItem & IDocumentationSidebarItem {
+  createdAt: DateTime!
+  id: ID!
+  label: String!
+  pages: [DocumentationSidebarItemPage!]!
+  status: DocumentationSidebarItemStatus!
+  updatedAt: DateTime
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+union DocumentationSidebarItem =
+  | DocumentationLink
+  | DocumentationSection
+  | DocumentationSidebarItemPage
+
+type DocumentationSidebarItemPage implements IDocumentationNestableSidebarItem & IDocumentationSidebarItem {
+  createdAt: DateTime!
+  hasChanges: Boolean!
+  id: ID!
+  label: String!
+  pages: [DocumentationSidebarItemPage!]!
+  path: String!
+  status: DocumentationSidebarItemStatus!
+  updatedAt: DateTime
+  """
+  Url of the published page.
+  """
+  url: String
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+enum DocumentationSidebarItemStatus {
+  PUBLISHED
+  UNPUBLISHED
+}
+
+enum DocumentationSidebarItemVisibility {
+  HIDDEN
+  PUBLIC
+}
+
 """
 Contains the publication's domain information.
 """
@@ -1879,6 +2004,7 @@ type Draft implements Node {
   The publication the draft belongs to.
   """
   publication: Publication
+  publishAs: User
   readTimeInMinutes: Int!
   """
   The date the draft is scheduled to be published.
@@ -2129,6 +2255,32 @@ enum EmailImportStatus {
 }
 
 """
+User's email notification preferences.
+"""
+type EmailNotificationPreferences {
+  """
+  Indicates if the user has opted in to receive activity notifications.
+  """
+  activityNotifications: Boolean!
+  """
+  Indicates if the user has opted in to receive general announcements.
+  """
+  generalAnnouncements: Boolean!
+  """
+  Indicates if the user has opted in to receive monthly blog performance stats.
+  """
+  monthlyBlogStats: Boolean!
+  """
+  Indicates if the user has opted in to receive new followers weekly.
+  """
+  newFollowersWeekly: Boolean!
+  """
+  Indicates if the user has opted in to receive the Hashnode Weekly newsletter.
+  """
+  weeklyNewsletterEmails: Boolean!
+}
+
+"""
 Invitations that failed to be sent to the user
 """
 type FailedInvite {
@@ -2229,6 +2381,13 @@ enum FeedType {
   RELEVANT
 }
 
+type GPTBotCrawlingFeature implements Feature {
+  """
+  A flag indicating if the GPT Bot Crawler feature is enabled or not.
+  """
+  isEnabled: Boolean!
+}
+
 """
 Views implementation that will be returned if grouping by browser.
 """
@@ -2313,6 +2472,278 @@ type GroupedByDeviceTypeVisitors implements Node & Visitors {
   """
   deviceType: DeviceType!
   id: ID!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by browser.
+"""
+type GroupedByDocsBrowserViews implements DocsViews & Node {
+  """
+  The browser that these views belong to.
+  """
+  browser: String!
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by browser.
+"""
+type GroupedByDocsBrowserVisitors implements DocsVisitors & Node {
+  """
+  The browser that these views belong to.
+  """
+  browser: String!
+  id: ID!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by country.
+"""
+type GroupedByDocsCountryViews implements DocsViews & Node {
+  """
+  The country that these views belong to.
+  """
+  country: CountryCodeAlpha2!
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by country.
+"""
+type GroupedByDocsCountryVisitors implements DocsVisitors & Node {
+  """
+  The country that these views belong to.
+  """
+  country: CountryCodeAlpha2!
+  id: ID!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by device type.
+"""
+type GroupedByDocsDeviceTypeViews implements DocsViews & Node {
+  """
+  The type of device that these views belong to.
+  """
+  deviceType: DeviceType!
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by device type.
+"""
+type GroupedByDocsDeviceTypeVisitors implements DocsVisitors & Node {
+  """
+  The type of device that these views belong to.
+  """
+  deviceType: DeviceType!
+  id: ID!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+"""
+Grouped views by documentation guide or API reference guide.
+"""
+type GroupedByDocsGuideViews implements DocsViews & Node {
+  """
+  The documentation Guide or the API reference guide that these views belong to.
+  """
+  guide: DocumentationGuideItem
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Grouped visitors by documentation guide or API reference guide.
+"""
+type GroupedByDocsGuideVisitors implements DocsVisitors & Node {
+  """
+  The documentation Guide or the API reference guide that these views belong to.
+  """
+  guide: DocumentationGuideItem
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by operating system.
+"""
+type GroupedByDocsOperatingSystemViews implements DocsViews & Node {
+  id: ID!
+  """
+  The operating system that these views belong to.
+  """
+  operatingSystem: String!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by operating system.
+"""
+type GroupedByDocsOperatingSystemVisitors implements DocsVisitors & Node {
+  id: ID!
+  """
+  The operating system that these views belong to.
+  """
+  operatingSystem: String!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+type GroupedByDocsPageViews implements DocsViews & Node {
+  id: ID!
+  """
+  The page that these views belong to.
+  """
+  page: DocumentationPage!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by docs page.
+"""
+type GroupedByDocsPageVisitors implements DocsVisitors & Node {
+  id: ID!
+  """
+  The page that these views belong to.
+  """
+  page: DocumentationPage!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by path.
+"""
+type GroupedByDocsPathViews implements DocsViews & Node {
+  id: ID!
+  """
+  The path that these views belong to.
+  """
+  path: String!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by path.
+"""
+type GroupedByDocsPathVisitors implements DocsVisitors & Node {
+  id: ID!
+  """
+  The path that these views belong to.
+  """
+  path: String!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+"""
+Views implementation that will be returned if grouping by `REFERRER_HOST` dimension.
+"""
+type GroupedByDocsReferrerHostViews implements DocsViews & Node {
+  id: ID!
+  """
+  The referrer host that these views belong to.
+  """
+  referrerHost: String!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if grouping by `REFERRER_HOST` dimension.
+"""
+type GroupedByDocsReferrerHostVisitors implements DocsVisitors & Node {
+  id: ID!
+  """
+  The referrer host that these views belong to.
+  """
+  referrerHost: String!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
+
+type GroupedByDocsTimeViews implements DocsViews & Node {
+  """
+  The start of the time range that these views belong to.
+  """
+  from: DateTime!
+  id: ID!
+  """
+  The end of the time range that these views belong to.
+  """
+  to: DateTime!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if a grouping by time is provided.
+"""
+type GroupedByDocsTimeVisitors implements DocsVisitors & Node {
+  """
+  The start of the time range that these visitors visited the page.
+  """
+  from: DateTime!
+  id: ID!
+  """
+  The end of the time range that these visitors visited the page.
+  """
+  to: DateTime!
   """
   The aggregated number of visitors.
   """
@@ -2522,6 +2953,26 @@ enum HttpRedirectionType {
   TEMPORARY
 }
 
+interface IDocumentationNestableSidebarItem {
+  pages: [DocumentationSidebarItemPage!]!
+}
+
+interface IDocumentationSidebarItem {
+  createdAt: DateTime!
+  id: ID!
+  label: String!
+  updatedAt: DateTime
+  visibility: DocumentationSidebarItemVisibility!
+}
+
+interface IGuide {
+  id: ID!
+  lastModified: DateTime!
+  name: String!
+  slug: String!
+  versionId: String
+}
+
 """
 Contains basic information about the tag.
 A tag is a label that categorizes posts with similar topics.
@@ -2689,6 +3140,19 @@ interface IUser {
   Returns a list of tags that the user follows.
   """
   tagsFollowing: [Tag!]!
+  """
+  Returns list of tags from user's expertise. Shown on the user's profile.
+  """
+  techStack(
+    """
+    The page number that should be returned.
+    """
+    page: Int!
+    """
+    The number of tags to return on a single page.
+    """
+    pageSize: Int!
+  ): UserTagsConnection!
   """
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
@@ -2957,11 +3421,23 @@ type Mutation {
   """
   toggleFollowUser(id: ID, username: String): ToggleFollowUserPayload!
   """
+  Toggle GPT bot crawling feature.
+  """
+  toggleGPTBotCrawling(
+    input: ToggleGPTBotCrawlingInput!
+  ): ToggleGPTBotCrawlingPayload!
+  """
   Toggles role based invite links' active status. Users can join the publication by the invite link only if it is active.
   """
   toggleRoleBasedInviteLinks(
     publicationId: ID!
   ): ToggleRoleBasedInviteLinksPayload!
+  """
+  Toggle text selection sharer feature.
+  """
+  toggleTextSelectionSharer(
+    input: ToggleTextSelectionSharerInput!
+  ): ToggleTextSelectionSharerPayload!
   triggerWebhookTest(
     input: TriggerWebhookTestInput!
   ): TriggerWebhookTestPayload!
@@ -3043,6 +3519,10 @@ type MyUser implements IUser & Node {
   Email address of the user. Only available to the authenticated user.
   """
   email: String!
+  """
+  The email notification preferences of the user.
+  """
+  emailNotificationPreferences: EmailNotificationPreferences!
   """
   The users who are following this user
   """
@@ -3148,6 +3628,24 @@ type MyUser implements IUser & Node {
   Returns a list of tags that the user follows.
   """
   tagsFollowing: [Tag!]!
+  """
+  Returns list of tags from user's expertise. Shown on the user's profile.
+  """
+  techStack(
+    """
+    The page number that should be returned.
+    """
+    page: Int!
+    """
+    The number of tags to return on a single page.
+    """
+    pageSize: Int!
+  ): UserTagsConnection!
+  """
+  Unverified email address of the user. Only available to the authenticated user.
+  This is set when the user has tried updating their email address but it is not verified yet.
+  """
+  unverifiedEmail: String
   """
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
@@ -3925,6 +4423,16 @@ type ProTeamFeature implements Feature {
   isEnabled: Boolean!
 }
 
+type ProjectViewEdge implements Edge {
+  cursor: String!
+  node: DocsViews!
+}
+
+type ProjectVisitorsEdge implements Edge {
+  cursor: String!
+  node: DocsVisitors!
+}
+
 """
 Contains basic information about the publication.
 A publication is a blog that can be created for a user or a team.
@@ -3943,7 +4451,28 @@ type Publication implements Node {
     """
     after: String
     """
+    The filters to be applied to the draft list.
+    """
+    filter: PublicationSearchableDraftConnectionFilter
+    """
     The number of drafts to return.
+    """
+    first: Int!
+  ): DraftConnection!
+  """
+  Returns all the scheduled drafts of the publication.
+  """
+  allScheduledDrafts(
+    """
+    A cursor to the last item in the previous page.
+    """
+    after: String
+    """
+    The filters to be applied to the scheduled draft list.
+    """
+    filter: PublicationSearchableDraftConnectionFilter
+    """
+    The number of scheduled drafts to return.
     """
     first: Int!
   ): DraftConnection!
@@ -4137,7 +4666,7 @@ type Publication implements Node {
   """
   redirectionRules: [RedirectionRule!]!
   """
-  Returns the scheduled drafts of the publication.
+  Returns the scheduled drafts of the publication by the authenticated user.
   """
   scheduledDrafts(
     """
@@ -4258,6 +4787,10 @@ type PublicationFeatures {
   Individual styling for the publication.
   """
   customCSS: CustomCSSFeature!
+  """
+  GPT Bot crawler to index the publication.
+  """
+  gptBotCrawling: GPTBotCrawlingFeature!
   """
   Headless CMS for the publication.
   """
@@ -4404,6 +4937,10 @@ type PublicationLinks {
   Daily.dev URL of the publication.
   """
   dailydev: String
+  """
+  Facebook URL of the publication.
+  """
+  facebook: String
   """
   GitHub URL of the publication.
   """
@@ -4609,6 +5146,21 @@ input PublicationPostsViaPageFilter {
   It is an "OR" filter and not an "AND" filter.
   """
   tags: [ID!]
+}
+
+"""
+ConnectionFilter to get list of drafts in publications.
+The filters are combined with an "AND" operation.
+"""
+input PublicationSearchableDraftConnectionFilter {
+  """
+  An array of author Ids to filter the drafts.
+  """
+  authorIds: [ID!]
+  """
+  Search filter will be applied to the title of a draft
+  """
+  search: String
 }
 
 """
@@ -5309,7 +5861,7 @@ enum Scope {
   change_pro_subscription
   create_pro
   delete_draft
-  docs_editor_or_owner
+  docs_admin_or_owner
   docs_owner
   import_subscribers_to_publication
   invited_team_user
@@ -5804,6 +6356,14 @@ type ToggleFollowUserPayload {
   user: User
 }
 
+input ToggleGPTBotCrawlingInput {
+  publicationId: ID!
+}
+
+type ToggleGPTBotCrawlingPayload {
+  publication: Publication
+}
+
 """
 Response to toggling role based invite links.
 """
@@ -5812,6 +6372,14 @@ type ToggleRoleBasedInviteLinksPayload {
   Signifies the status of invite links after toggling.
   """
   areRoleBasedInviteLinksActive: Boolean!
+}
+
+input ToggleTextSelectionSharerInput {
+  publicationId: ID!
+}
+
+type ToggleTextSelectionSharerPayload {
+  publication: Publication
 }
 
 input TriggerWebhookTestInput {
@@ -5823,6 +6391,28 @@ type TriggerWebhookTestPayload {
 }
 
 scalar URL
+
+"""
+Views implementation that will be returned if no grouping is applied.
+"""
+type UngroupedDocsViews implements DocsViews & Node {
+  id: ID!
+  """
+  The aggregated views.
+  """
+  total: Int!
+}
+
+"""
+Visitors implementation that will be returned if no grouping is applied.
+"""
+type UngroupedDocsVisitors implements DocsVisitors & Node {
+  id: ID!
+  """
+  The aggregated number of visitors.
+  """
+  total: Int!
+}
 
 """
 Views implementation that will be returned if no grouping is applied.
@@ -6227,6 +6817,19 @@ type User implements IUser & Node {
   """
   tagsFollowing: [Tag!]!
   """
+  Returns list of tags from user's expertise. Shown on the user's profile.
+  """
+  techStack(
+    """
+    The page number that should be returned.
+    """
+    page: Int!
+    """
+    The number of tags to return on a single page.
+    """
+    pageSize: Int!
+  ): UserTagsConnection!
+  """
   The username of the user. It is unique and tied with user's profile URL. Example - https://hashnode.com/@username
   """
   username: String!
@@ -6520,6 +7123,21 @@ enum UserRole {
   MODERATOR
   SUPERUSER
   USER
+}
+
+type UserTagsConnection implements PageConnection {
+  """
+  A list of tags
+  """
+  nodes: [Tag!]!
+  """
+  Information for page based pagination in users connection.
+  """
+  pageInfo: OffsetPageInfo!
+  """
+  The total number of documents in the connection.
+  """
+  totalDocuments: Int!
 }
 
 enum ValidationMethod {

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { isValidElement } from 'react';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
 import remarkSmartypants from 'remark-smartypants';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
@@ -33,7 +34,7 @@ export default function MarkdownContent({
   return (
     <Markdown
       rehypePlugins={[rehypeRaw]}
-      remarkPlugins={[remarkSmartypants]}
+      remarkPlugins={[remarkSmartypants, remarkGfm]}
       components={{
         a: (props) => (
           <PrimaryLink href={props.href ?? ''}>{props.children}</PrimaryLink>
