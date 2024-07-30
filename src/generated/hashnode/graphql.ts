@@ -5087,6 +5087,7 @@ export type DraftFragment = {
   readTimeInMinutes: number;
   scheduledDate?: string | null;
   updatedAt: string;
+  coverImage?: { __typename?: 'DraftCoverImage'; url: string } | null;
   tagsV2: Array<
     | { __typename?: 'DraftBaseTag'; name: string; slug: string }
     | { __typename?: 'Tag'; id: string; name: string; slug: string }
@@ -5433,6 +5434,7 @@ export type DraftQuery = {
     readTimeInMinutes: number;
     scheduledDate?: string | null;
     updatedAt: string;
+    coverImage?: { __typename?: 'DraftCoverImage'; url: string } | null;
     tagsV2: Array<
       | { __typename?: 'DraftBaseTag'; name: string; slug: string }
       | { __typename?: 'Tag'; id: string; name: string; slug: string }
@@ -6267,6 +6269,16 @@ export const DraftFragmentDoc = {
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'tagsV2' },
@@ -7702,6 +7714,16 @@ export const DraftDocument = {
           { kind: 'Field', name: { kind: 'Name', value: 'title' } },
           { kind: 'Field', name: { kind: 'Name', value: 'subtitle' } },
           { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'coverImage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
           {
             kind: 'Field',
             name: { kind: 'Name', value: 'tagsV2' },

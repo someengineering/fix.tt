@@ -54,11 +54,16 @@ export default function BlogDraft({
                 ? draft.features.tableOfContents.items
                 : undefined
             }
+            coverImage={draft.coverImage?.url}
           />
         )}
         <Footer title={draft.title} tags={draft.tagsV2} />
-        {draft.series ? <RelatedPosts seriesSlug={draft.series.slug} /> : null}
       </article>
+      {draft.tagsV2?.find((tag) => tag.slug === 'launch-week') ? (
+        <RelatedPosts tagSlug="launch-week" />
+      ) : draft.series ? (
+        <RelatedPosts seriesSlug={draft.series.slug} />
+      ) : null}
     </div>
   );
 }

@@ -3,6 +3,9 @@ fragment Draft on Draft {
   title
   subtitle
   slug
+  coverImage {
+    url
+  }
   tagsV2 {
     ...DraftTag
   }

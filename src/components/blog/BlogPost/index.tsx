@@ -59,11 +59,14 @@ export default function BlogPost({
                   ? post.features.tableOfContents.items
                   : undefined
               }
+              coverImage={post.coverImage?.url}
             />
           )}
           <Footer url={url} title={post.title} tags={post.tags ?? undefined} />
         </article>
-        {post.series ? (
+        {post.tags?.find((tag) => tag.slug === 'launch-week') ? (
+          <RelatedPosts tagSlug="launch-week" />
+        ) : post.series ? (
           <RelatedPosts
             seriesSlug={post.series.slug}
             excludePostSlug={post.slug}

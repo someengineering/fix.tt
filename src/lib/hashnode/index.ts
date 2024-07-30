@@ -498,6 +498,7 @@ export const getRedirectedPost = async (postSlug: string) => {
 };
 
 const tagNameMapping: Record<string, string> = {
+  cli: 'CLI',
   cnapp: 'CNAPP',
   cspm: 'CSPM',
 };

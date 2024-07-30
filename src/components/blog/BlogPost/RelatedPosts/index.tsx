@@ -1,17 +1,26 @@
 import Item from '@/components/blog/BlogPost/RelatedPosts/Item';
-import { getPostsBySeries } from '@/lib/hashnode';
+import { getPostsBySeries, getPostsByTag } from '@/lib/hashnode';
 
 export default async function RelatedPosts({
   seriesSlug,
+  tagSlug,
   excludePostSlug,
 }: {
-  seriesSlug: string;
+  seriesSlug?: string;
+  tagSlug?: string;
   excludePostSlug?: string;
 }) {
-  const posts = await getPostsBySeries({
-    first: excludePostSlug ? 4 : 3,
-    seriesSlug,
-  });
+  const posts = seriesSlug
+    ? await getPostsBySeries({
+        first: excludePostSlug ? 4 : 3,
+        seriesSlug,
+      })
+    : tagSlug
+      ? await getPostsByTag({
+          first: excludePostSlug ? 4 : 3,
+          tagSlug,
+        })
+      : null;
 
   if (!posts) {
     return null;

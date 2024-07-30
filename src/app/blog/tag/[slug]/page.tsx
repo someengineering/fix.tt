@@ -35,7 +35,7 @@ export async function generateMetadata({
 
   const url = `${siteConfig.url}/blog/tag/${params.slug}`;
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)} | Blog`;
-  const description = `Guides, how-tos, and news about ${tag} from the Fix Security team.`;
+  const description = `Guides, how-tos, and news from the Fix Security team.`;
   const ogImage = openGraph({
     title,
     description,
@@ -103,8 +103,7 @@ export default async function BlogTagPage({
               {tagName.slice(1)}
             </h1>
             <p className="mt-6 text-pretty text-lg font-semibold text-gray-900 sm:text-xl">
-              Guides, how-tos, and news about {tagName} from the Fix Security
-              team.
+              Guides, how-tos, and news about from the Fix Security team.
             </p>
             <BlogPostList
               initialPosts={posts.edges.map((edge) => edge.node)}
