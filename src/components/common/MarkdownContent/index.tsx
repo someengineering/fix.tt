@@ -3,6 +3,8 @@ import GithubSlugger from 'github-slugger';
 import Image from 'next/image';
 import React, { isValidElement } from 'react';
 import Markdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import remarkSmartypants from 'remark-smartypants';
@@ -100,6 +102,32 @@ export default function MarkdownContent({
             ) : null}
           </figure>
         ),
+        code: (props) => {
+          const match = /language-(?<language>\w+)/.exec(props.className || '');
+          return match ? (
+            <SyntaxHighlighter
+              PreTag="div"
+              language={match?.groups?.language}
+              style={ghcolors}
+              customStyle={{
+                color: 'inherit',
+                fontFamily: 'inherit',
+                fontSize: 'inherit',
+                lineHeight: 'inherit',
+                background: 'none',
+                border: 0,
+                margin: '-1rem',
+                padding: '1rem',
+                borderRadius: '1rem',
+              }}
+              codeTagProps={{ style: {} }}
+            >
+              {String(props.children)}
+            </SyntaxHighlighter>
+          ) : (
+            <code className={props.className}>{props.children}</code>
+          );
+        },
         p: (props) => {
           if (String(props.children) === '%%[cta]') {
             return (
