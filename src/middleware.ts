@@ -41,9 +41,10 @@ export function middleware(request: NextRequest) {
     connect-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
     style-src 'self' 'unsafe-inline';
-    img-src 'self' blob: data:;
+    style-src-elem 'self' https://cdn.jsdelivr.net;
+    img-src 'self' https://i.ytimg.com blob: data:;
     media-src 'self' https://media.transistor.fm https://audio.transistor.fm;
-    frame-src 'self' https://www.google.com https://recaptcha.google.com;
+    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';

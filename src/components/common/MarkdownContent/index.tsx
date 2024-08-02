@@ -34,7 +34,7 @@ export default function MarkdownContent({
   return (
     <Markdown
       rehypePlugins={[rehypeRaw]}
-      remarkPlugins={[remarkSmartypants, remarkGfm]}
+      remarkPlugins={[remarkGfm, remarkSmartypants]}
       components={{
         a: (props) => (
           <PrimaryLink href={props.href ?? ''}>{props.children}</PrimaryLink>
@@ -101,7 +101,7 @@ export default function MarkdownContent({
           </figure>
         ),
         p: (props) => {
-          if (props.children?.toString() === '%%[cta]') {
+          if (String(props.children) === '%%[cta]') {
             return (
               <div className="my-12 space-x-5">
                 <ButtonLink href={siteConfig.registerUrl} size="lg">
@@ -111,9 +111,9 @@ export default function MarkdownContent({
             );
           }
 
-          const icon = props.children
-            ?.toString()
-            .match(/^%%\[icon-(?<iconName>\w+)]$/);
+          const icon = String(props.children).match(
+            /^%%\[icon-(?<iconName>\w+)]$/,
+          );
 
           if (icon?.groups?.iconName) {
             return (
@@ -127,9 +127,9 @@ export default function MarkdownContent({
             );
           }
 
-          const youtubeEmbed = props.children
-            ?.toString()
-            .match(/^%\[https:\/\/youtu\.be\/(?<videoId>[\w\d\-_]{11})]$/);
+          const youtubeEmbed = String(props.children).match(
+            /^::youtube\[(?<videoId>[\w\d\-_]{11})]$/,
+          );
 
           if (youtubeEmbed?.groups?.videoId) {
             return (
