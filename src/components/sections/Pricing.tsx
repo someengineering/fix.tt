@@ -41,7 +41,7 @@ const tiers: {
     support: ['Community support'],
   },
   {
-    name: 'Pro',
+    name: 'Business',
     href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Business',
     icon: (props) => <LuBuilding {...props} />,
     cta: 'Get started',
@@ -51,7 +51,7 @@ const tiers: {
     scanFrequency: 'Hourly',
     features: [
       'Audit History',
-      'Alerting Integrations',
+      'Monitoring and Alerting',
       'Data Export',
       'Custom Integrations',
     ],
@@ -139,7 +139,7 @@ export default function Pricing() {
                   </p>
                   {'maximum' in tier.cloudAccounts ? (
                     <p className="mt-0.5 md:mb-6 xl:mb-12">
-                      maximum of {tier.cloudAccounts.maximum} cloud account
+                      {tier.cloudAccounts.maximum} cloud account
                     </p>
                   ) : (
                     <>
