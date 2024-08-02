@@ -44,7 +44,7 @@ const tiers: {
     name: 'Business',
     href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Business',
     icon: (props) => <LuBuilding {...props} />,
-    cta: 'Get started',
+    cta: 'Start free trial',
     price: { monthly: '$400' },
     description: 'Automate cloud infrastructure security.',
     cloudAccounts: { included: 10, additionalCost: 40 },
