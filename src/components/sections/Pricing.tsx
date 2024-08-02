@@ -41,7 +41,7 @@ const tiers: {
     support: ['Community support'],
   },
   {
-    name: 'Business',
+    name: 'Pro',
     href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Business',
     icon: (props) => <LuBuilding {...props} />,
     cta: 'Get started',
