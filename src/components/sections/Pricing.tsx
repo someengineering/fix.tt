@@ -5,11 +5,9 @@ import { usePathname } from 'next/navigation';
 import {
   LuArmchair,
   LuBuilding,
-  LuBuilding2,
   LuCheck,
   LuPencilRuler,
   LuPersonStanding,
-  LuWarehouse,
 } from 'react-icons/lu';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
@@ -33,7 +31,6 @@ const tiers: {
         additionalCost: number;
       };
   scanFrequency: string;
-  seats: { included?: number; maximum?: number };
   features: string[];
   support: string[];
   mostPopular?: boolean;
@@ -44,41 +41,11 @@ const tiers: {
     icon: (props) => <LuPersonStanding {...props} />,
     cta: 'Get started',
     price: '$0',
-    description:
-      'For solo software engineers who want to secure a single cloud account.',
+    description: 'Start your cloud compliance journey.',
     cloudAccounts: { maximum: 1 },
     scanFrequency: 'Monthly',
-    seats: { maximum: 1 },
-    features: [
-      '1-month history',
-      'Asset inventory',
-      'Inventory search',
-      'Neighborhood view',
-      'Security benchmarks',
-      'Monthly email report',
-      'Remediation recommendations',
-      'Core CSPM scanning capabilities',
-    ],
+    features: ['Cloud Inventory', 'Compliance Benchmarks'],
     support: ['Community support'],
-  },
-  {
-    name: 'Plus',
-    href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Plus',
-    icon: (props) => <LuWarehouse {...props} />,
-    cta: 'Get started',
-    price: { monthly: '$90' },
-    description:
-      'For growing teams looking to stay secure as they build out infrastructure.',
-    cloudAccounts: { included: 3, additionalCost: 30 },
-    scanFrequency: 'Daily',
-    seats: { included: 2, maximum: 20 },
-    features: [
-      '3-month history',
-      'Email alerts',
-      'Weekly email report',
-      'Data export (CSV, JSON, PDF)',
-    ],
-    support: ['Product support via email'],
   },
   {
     name: 'Business',
@@ -86,44 +53,20 @@ const tiers: {
     icon: (props) => <LuBuilding {...props} />,
     cta: 'Get started',
     price: { monthly: '$400' },
-    description:
-      'For engineering teams looking to automate cloud infrastructure security.',
+    description: 'Automate cloud infrastructure security.',
     cloudAccounts: { included: 10, additionalCost: 40 },
     scanFrequency: 'Hourly',
-    seats: { included: 5, maximum: 50 },
     features: [
-      '6-month history',
-      'Custom policies (coming soon!)',
-      'Alerting integrations (PD, Slack, Discord, Teams)',
-      'Task management integrations (coming soon!)',
-    ],
-    support: ['Product support via email and live chat'],
-    mostPopular: true,
-  },
-  {
-    name: 'Enterprise',
-    href: 'https://app.fix.security/workspace-settings/billing-receipts?tier=Enterprise',
-    icon: (props) => <LuBuilding2 {...props} />,
-    cta: 'Get started',
-    price: { monthly: '$1250' },
-    description:
-      'For dedicated security teams looking to built an integrated security toolchain.',
-    cloudAccounts: { included: 25, additionalCost: 50 },
-    scanFrequency: 'Hourly',
-    seats: { included: 20 },
-    features: [
-      '18-month history',
-      'API access',
-      'Custom alerting webhooks',
-      'Single Sign on (coming soon!)',
-      'Workspace analytics (coming soon!)',
-      'Snowflake data export (coming soon!)	',
+      'Audit History',
+      'Alerting Integrations',
+      'Data Export',
+      'Custom Integrations',
     ],
     support: [
-      'Product support via email, live chat, and video call',
-      'Integration advice for your specific cloud environment via video call',
+      'Product support via email and live chat, and video calls',
       'Optional professional services',
     ],
+    mostPopular: true,
   },
 ];
 
@@ -152,9 +95,8 @@ export default function Pricing() {
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl">
-          Fix Security pricing scales on a per-cloud-account basis, with an
-          add-on to buy more seats for your team. We offer a free tier and
-          two-week trials.
+          Fix Security pricing scales on a per-cloud-account basis. We offer a
+          free tier and two-week trials.
         </p>
         <div className="mt-20 flow-root">
           <div className="mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
@@ -220,11 +162,6 @@ export default function Pricing() {
                 </div>
                 <div className="gap-y-2 text-base">
                   <p>{tier.scanFrequency} scans</p>
-                  <p>
-                    {tier.seats.included
-                      ? `${tier.seats.included} seats included${tier.seats.maximum ? ` (${tier.seats.maximum} max)` : ''}`
-                      : `${tier.seats.maximum} seat${tier.seats.maximum === 1 ? '' : 's'} maximum`}
-                  </p>
                 </div>
                 <p className="mt-6 text-base font-semibold text-gray-900">
                   {index === 0
