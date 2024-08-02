@@ -80,15 +80,19 @@
     }
 
     table {
-      @apply my-6 border-collapse text-sm sm:text-base;
+      @apply my-6 w-full border-collapse text-sm sm:text-base;
 
       th {
         @apply bg-gray-50 p-2 text-left font-semibold text-gray-900;
       }
 
       td {
-        @apply border-t border-gray-200 p-2;
+        @apply border-t border-gray-300 p-2;
       }
+    }
+
+    hr {
+      @apply my-8 border-gray-900/5;
     }
 
     ::-webkit-scrollbar {
