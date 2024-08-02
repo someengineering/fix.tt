@@ -82,7 +82,7 @@ export default function Pricing() {
             Pricing
           </Heading>
           <p className="mx-auto max-w-prose text-balance text-4xl font-extrabold sm:text-5xl">
-            Foundational AWS security for your whole company.{' '}
+            Foundational cloud security for your whole company.{' '}
             <span className="text-cornflower-blue-600">
               Free for engineers to try.
             </span>
