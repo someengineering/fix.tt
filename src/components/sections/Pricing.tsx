@@ -53,7 +53,8 @@ const tiers: {
       'Audit History',
       'Monitoring and Alerting',
       'Data Export',
-      'Custom Integrations',
+      'API Access',
+      'CLI Access',
     ],
     support: [
       'Product support via email and live chat, and video calls',
