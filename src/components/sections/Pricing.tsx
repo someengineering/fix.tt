@@ -2,16 +2,9 @@
 
 import GithubSlugger from 'github-slugger';
 import { usePathname } from 'next/navigation';
-import {
-  LuArmchair,
-  LuBuilding,
-  LuCheck,
-  LuPencilRuler,
-  LuPersonStanding,
-} from 'react-icons/lu';
+import { LuBuilding, LuCheck, LuPersonStanding } from 'react-icons/lu';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
-import UnstyledLink from '@/components/common/links/UnstyledLink';
 import { siteConfig } from '@/constants/config';
 import { cn } from '@/utils/css';
 
@@ -214,40 +207,6 @@ export default function Pricing() {
                 </ButtonLink>
               </div>
             ))}
-          </div>
-        </div>
-        <div className="mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-2xl lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-2">
-          <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
-            <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
-              <LuArmchair />
-              Additional seats
-            </h3>
-            <p className="my-8 flex items-baseline gap-x-1">
-              <span className="text-3xl font-bold tracking-tight text-gray-900">
-                $5
-              </span>
-              <span className="ml-1 text-sm font-semibold leading-6 text-gray-600">
-                per seat, per month
-              </span>
-            </p>
-            <p className="text-base text-gray-600">
-              Add additional seats to any paid plan.
-            </p>
-          </div>
-          <div className="flex flex-col rounded-2xl p-8 ring-1 ring-gray-200">
-            <h3 className="flex items-center gap-3 text-3xl font-bold leading-7 text-cornflower-blue-600">
-              <LuPencilRuler />
-              Custom plans
-            </h3>
-            <p className="my-8 text-xl font-semibold leading-8 text-gray-600">
-              <UnstyledLink href="mailto:info@fix.security">
-                Schedule a call with us &rarr;
-              </UnstyledLink>
-            </p>
-            <p className="text-base text-gray-600">
-              Need more seats, support for custom data sources, or private
-              deployment options?
-            </p>
           </div>
         </div>
       </div>
