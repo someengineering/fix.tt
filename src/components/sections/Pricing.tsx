@@ -16,13 +16,8 @@ const tiers: {
   ) => JSX.Element;
   cta: string;
   price: string | { monthly: string; annually?: string };
+  priceDescription: string;
   description: string;
-  cloudAccounts:
-    | { maximum: number }
-    | {
-        included: number;
-        additionalCost: number;
-      };
   scanFrequency: string;
   features: string[];
   support: string[];
@@ -34,8 +29,8 @@ const tiers: {
     icon: (props) => <LuPersonStanding {...props} />,
     cta: 'Get started',
     price: '$0',
+    priceDescription: 'for 1 cloud account',
     description: 'Start your cloud compliance journey.',
-    cloudAccounts: { maximum: 1 },
     scanFrequency: 'Monthly',
     features: ['Cloud inventory', 'Compliance benchmarks'],
     support: ['Community support'],
@@ -46,8 +41,8 @@ const tiers: {
     icon: (props) => <LuBuilding {...props} />,
     cta: 'Start free trial',
     price: { monthly: '$40' },
+    priceDescription: 'per cloud account',
     description: 'Automate cloud infrastructure security.',
-    cloudAccounts: { included: 1, additionalCost: 40 },
     scanFrequency: 'Hourly',
     features: [
       'Audit history',
@@ -122,36 +117,24 @@ export default function Pricing() {
                 <p className="flex items-baseline gap-x-1">
                   {typeof tier.price === 'string' ? (
                     <>
-                      <span className="text-3xl font-medium tracking-tight text-gray-900">
+                      <span className="text-4xl font-bold tracking-tight text-gray-900">
                         {tier.price}
                       </span>
                     </>
                   ) : (
                     <>
-                      <span className="text-3xl font-bold tracking-tight text-gray-900">
+                      <span className="text-4xl font-bold tracking-tight text-gray-900">
                         {tier.price.monthly}
                       </span>
-                      <span className="ml-1 text-lg font-semibold leading-6 text-gray-900">
+                      <span className="ml-0.5 text-xl font-semibold leading-6 text-gray-900">
                         / month
                       </span>
                     </>
                   )}
                 </p>
-                {'maximum' in tier.cloudAccounts ? (
-                  <p className="mt-0.5 md:mb-6">
-                    {tier.cloudAccounts.maximum} cloud account
-                  </p>
-                ) : (
-                  <>
-                    <p className="mt-0.5">
-                      {tier.cloudAccounts.included} cloud accounts included
-                    </p>
-                    <p>
-                      (${tier.cloudAccounts.additionalCost} / month per
-                      additional account)
-                    </p>
-                  </>
-                )}
+                <p className="mt-0.5 font-semibold text-gray-600">
+                  {tier.priceDescription}
+                </p>
               </div>
               <div className="gap-y-2 text-base">
                 <p>{tier.scanFrequency} scans</p>
