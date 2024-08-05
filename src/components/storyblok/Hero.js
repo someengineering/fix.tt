@@ -39,6 +39,8 @@ const Hero = ({ blok }) => {
         <Image
           src={blok.Picture.filename}
           alt={blok.Picture.alt || 'Hero Image'}
+          width={625}
+          height={420}
         />
       )}
     </>

@@ -13,6 +13,8 @@ const Testimonials = ({ blok }) => (
           <Image
             src={testimonial.picture.filename}
             alt={testimonial.company_name}
+            width={100}
+            height={50}
             className="h-8 w-auto max-w-[6rem] self-start"
           />
 
@@ -24,6 +26,8 @@ const Testimonials = ({ blok }) => (
               <Image
                 src={testimonial.author_picture.filename}
                 alt={testimonial.author_name}
+                width={100}
+                height={50}
                 className="h-12 w-12 rounded-full bg-gray-50"
               />
               <div>

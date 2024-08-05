@@ -29,6 +29,8 @@ const Customers = ({ blok }) => {
               className="h-8 max-w-[8rem] lg:h-10 lg:max-w-[10rem]"
               src={customer.filename}
               alt={customer.alt || 'Customer Image'}
+              width={100}
+              height={50}
             />
           </div>
         ))}

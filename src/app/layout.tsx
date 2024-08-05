@@ -86,11 +86,6 @@ storyblokInit({
   apiOptions: {
     cache: { type: 'memory', clear: 'auto' }, // Set cache to memory and clear it automatically
   },
-  experimental: {
-    readOptions: {
-      cache: 'no-store',
-    },
-  },
 });
 
 export default function RootLayout({
