@@ -35,13 +35,23 @@ const Hero = ({ blok }) => {
           </ButtonLink>
         </div>
       </div>
-      {blok.Picture && (
+      {blok.picture && (
         <Image
-          src={blok.Picture.filename}
-          alt={blok.Picture.alt || 'Hero Image'}
+          className="mx-auto hidden w-full max-w-3xl flex-shrink-0 sm:flex lg:w-7/12"
+          src={blok.picture.filename}
+          alt={blok.picture.alt || 'Hero Image'}
           width={625}
           height={420}
         />
+      )}
+      {blok.pictureMobile && (
+          <Image
+              className="w-full sm:hidden"
+              src={blok.pictureMobile.filename}
+              alt={blok.pictureMobile.alt || 'Hero Image'}
+              width={625}
+              height={420}
+          />
       )}
     </>
   );
