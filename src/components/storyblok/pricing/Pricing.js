@@ -36,7 +36,7 @@ const Pricing = ({ blok }) => {
   return (
     <>
       <div className="mt-20 flow-root" {...storyblokEditable(blok)}>
-        <div className="mx-auto mt-10 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2 lg:max-w-4xl xl:mx-0 xl:max-w-none xl:grid-cols-4">
+        <div className="mx-auto mt-20 grid max-w-md grid-cols-1 items-stretch gap-8 text-left md:max-w-3xl md:grid-cols-2">
           {blok.body.map((tier, index) => (
             <div
               key={`tier-${tier.name}`}
