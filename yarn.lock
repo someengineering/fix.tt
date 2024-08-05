@@ -2159,6 +2159,20 @@
   resolved "https://registry.yarnpkg.com/@rushstack/eslint-patch/-/eslint-patch-1.10.4.tgz#427d5549943a9c6fce808e39ea64dbe60d4047f1"
   integrity sha512-WJgX9nzTqknM393q1QJDJmoW28kUfEnybeTfVNcNAPnIx210RXm2DiXiHzfNPJNIUUb1tJnz/l4QGtJ30PgWmA==
 
+"@storyblok/js@^3.0.8":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@storyblok/js/-/js-3.0.8.tgz#22d9ecc25f333e80ffa936c287317a2dcc0f166c"
+  integrity sha512-JY+abbswBId84Ubr0yRwNpq5Klf9546Ia2Qs1pn6en5Trz8o6EcBJIwxvR6evjJ0Vp2cLKT7MV1yfGLAtnzycA==
+  dependencies:
+    storyblok-js-client "^6.7.2"
+
+"@storyblok/react@^3.0.10":
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/@storyblok/react/-/react-3.0.10.tgz#86335335099ed602c03168fe7ae3f0cf58e5c07c"
+  integrity sha512-7cyUdCoT/kTXFJLojPhqhguvcTjvIizPh3wf90Q99zrD7quMALX9E6Ag/gSGkyWdMTQ7Wcbh2zEQaZxEDx0FRg==
+  dependencies:
+    "@storyblok/js" "^3.0.8"
+
 "@svgr/babel-plugin-add-jsx-attribute@8.0.0":
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/@svgr/babel-plugin-add-jsx-attribute/-/babel-plugin-add-jsx-attribute-8.0.0.tgz#4001f5d5dd87fa13303e36ee106e3ff3a7eb8b22"
@@ -7575,6 +7589,16 @@ stop-iteration-iterator@^1.0.0:
   integrity sha512-iCGQj+0l0HOdZ2AEeBADlsRC+vsnDsZsbdSiH1yNSjcfKM7fdpCMfqAL/dwF5BLiw/XhRft/Wax6zQbhq2BcjQ==
   dependencies:
     internal-slot "^1.0.4"
+
+storyblok-js-client@^6.7.2:
+  version "6.8.1"
+  resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-6.8.1.tgz#f830c761f1e871776134b4a94f0e2c4216bb1840"
+  integrity sha512-/iH67CRmDi3nGds5B6X9B7dDyA1DA0B4UOxuPia/RF+tVc+lBnM0sac2qLxijMNmLKAeVGuSmB70MNUe6uD3NQ==
+
+storyblok-rich-text-react-renderer@^2.9.2:
+  version "2.9.2"
+  resolved "https://registry.yarnpkg.com/storyblok-rich-text-react-renderer/-/storyblok-rich-text-react-renderer-2.9.2.tgz#3450a11d6b2a2f55fd849e7a5564f2480be499f1"
+  integrity sha512-ELOuDVoPDpThM0/yYRgZlh1yP2ELSN6N1mh9/i4Z0qwwzQ7mK+mrhGeOJACx1FB7kuaLzFhtDEjVttu0OPYI2A==
 
 streamsearch@^1.1.0:
   version "1.1.0"

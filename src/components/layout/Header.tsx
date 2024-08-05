@@ -108,7 +108,7 @@ export default async function Header() {
             </PrimaryLink>
           </div>
           <ul role="list" className="mt-6 space-y-6">
-            {podcastEpisodes.data.map((episode) => {
+            {podcastEpisodes.data && podcastEpisodes.data.map((episode) => {
               const { title } = parseEpisodeTitle(episode.attributes.title);
               const durationHours = Math.floor(
                 episode.attributes.duration / 60 / 60,
