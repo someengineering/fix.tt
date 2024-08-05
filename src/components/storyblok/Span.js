@@ -1,4 +1,4 @@
-import { storyblokEditable, StoryblokComponent } from "@storyblok/react";
+import { StoryblokComponent, storyblokEditable } from '@storyblok/react';
 
 const Span = ({ blok }) => {
   return (

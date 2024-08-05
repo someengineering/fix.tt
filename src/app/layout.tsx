@@ -1,12 +1,15 @@
+import { apiPlugin, storyblokInit } from '@storyblok/react';
+import StoryblokBridgeLoader from '@storyblok/react/bridge-loader';
 import { Metadata, Viewport } from 'next';
 import { headers } from 'next/headers';
+import Script from 'next/script';
 import PlausibleProvider from 'next-plausible';
 import React, { Suspense } from 'react';
+import '../../storyblok';
 
 import '@/styles/globals.css';
 
 import { plusJakartaSans } from '@/app/fonts';
-import CookieConsent from '@/components/analytics/CookieConsent';
 import PosthogPageView from '@/components/analytics/PosthogPageView';
 import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 import Footer from '@/components/layout/Footer';
@@ -15,11 +18,8 @@ import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import PosthogProvider from '@/providers/posthog';
 import { openGraph } from '@/utils/og';
-import "../../storyblok";
-import {apiPlugin, storyblokInit} from "@storyblok/react";
-import components from "../../storyblok";
-import StoryblokBridgeLoader from "@storyblok/react/bridge-loader";
-import Script from "next/script";
+
+import components from '../../storyblok';
 
 const url = siteConfig.url;
 const title = siteConfig.title;
@@ -84,13 +84,13 @@ storyblokInit({
   use: [apiPlugin],
   components,
   apiOptions: {
-    cache: { type: 'memory', clear: 'auto' }  // Set cache to memory and clear it automatically
+    cache: { type: 'memory', clear: 'auto' }, // Set cache to memory and clear it automatically
   },
   experimental: {
     readOptions: {
-      cache: 'no-store'
-    }
-  }
+      cache: 'no-store',
+    },
+  },
 });
 
 export default function RootLayout({
@@ -102,16 +102,16 @@ export default function RootLayout({
 
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
-    <head>
-      <Script
+      <head>
+        <Script
           id="Cookiebot"
           src="https://consent.cookiebot.com/uc.js"
           data-cbid={process.env.COOKIEBOT_ID}
           data-blockingmode="auto"
           type="text/javascript"
           strategy="afterInteractive"
-      />
-      <Script
+        />
+        <Script
           id="google-tag-manager"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
@@ -123,36 +123,39 @@ export default function RootLayout({
                 })(window,document,'script','dataLayer','${process.env.GOOGLE_TAG_MANAGER_CODE}');
               `,
           }}
-      />
-      <PlausibleProvider domain="fix.security" scriptProps={{nonce}}/>
-      <Script
+        />
+        <PlausibleProvider domain="fix.security" scriptProps={{ nonce }} />
+        <Script
           src="https://app.storyblok.com/f/storyblok-v2-latest.js"
           async
           strategy="afterInteractive"
-      />
-    </head>
-    <body className="bg-white">
-    <noscript>
-      <iframe src={`https://www.googletagmanager.com/ns.html?id=${process.env.GOOGLE_TAG_MANAGER_CODE}`}
-              height="0" width="0" style={{ display: 'none', visibility: 'hidden' }}>
-      </iframe>
-    </noscript>
-    <PosthogProvider>
-      <Header/>
-      <main>
-        {children}
-        <Suspense>
-          <BlogNewsletterForm nonce={nonce}/>
-        </Suspense>
-      </main>
-      <Footer/>
-      {/*<CookieConsent/>*/}
-      <Suspense>
-        <PosthogPageView/>
-      </Suspense>
-    </PosthogProvider>
-    </body>
-    <StoryblokBridgeLoader options={{}}/>
+        />
+      </head>
+      <body className="bg-white">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${process.env.GOOGLE_TAG_MANAGER_CODE}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          ></iframe>
+        </noscript>
+        <PosthogProvider>
+          <Header />
+          <main>
+            {children}
+            <Suspense>
+              <BlogNewsletterForm nonce={nonce} />
+            </Suspense>
+          </main>
+          <Footer />
+          {/*<CookieConsent/>*/}
+          <Suspense>
+            <PosthogPageView />
+          </Suspense>
+        </PosthogProvider>
+      </body>
+      <StoryblokBridgeLoader options={{}} />
     </html>
   );
 }
