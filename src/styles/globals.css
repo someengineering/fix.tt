@@ -194,48 +194,58 @@
 
 /* HERO */
 section.hero .header-text-block__introduction p {
-  @apply sm:text-xl;
-  @apply lg:text-pretty;
+  @apply sm:text-xl lg:text-pretty;
 }
 
+section.hero .header-text-block__introduction ul {
+  @apply max-w-prose text-balance;
+}
 section.hero .header-text-block__introduction ul p {
-  @apply text-gray-600;
-  @apply sm:text-lg;
+  @apply text-gray-600 sm:text-lg;
 }
 
 /* SECTION */
 section .header-text-block__introduction {
-  @apply text-lg;
-  @apply leading-8;
-  @apply text-gray-600;
+  @apply text-lg leading-8 text-gray-600;
 }
+
+section .header-text-block__introduction h2 {
+  @apply text-xl sm:text-2xl font-bold mt-12 text-gray-900;
+}
+
+section .header-text-block__introduction h3 {
+  @apply text-xl sm:text-xl font-bold mt-12 text-gray-900;
+}
+
+section .header-text-block__introduction h4 {
+  @apply text-xl sm:text-xl font-bold mt-12 text-gray-900;
+}
+
 section .header-text-block__introduction p {
-  @apply mt-6;
-  @apply text-gray-600;
+  @apply mt-6 text-gray-600;
 }
+
 section .header-text-block__introduction ul {
-  @apply text-gray-600;
-  @apply mx-auto;
-  @apply mt-3 ;
-  @apply max-w-prose;
-  @apply list-inside;
-  @apply list-disc;
-  @apply text-balance;
-  @apply lg:ml-4;
-  @apply lg:list-outside;
-  @apply lg:text-pretty;
+  @apply text-gray-600 mx-auto mt-3 list-inside list-disc lg:ml-4 lg:list-outside lg:text-pretty;
 }
 
 section .header-text-block__introduction ul p {
-  @apply mt-0 ;
+  @apply mt-0;
+}
+
+section .header-text-block__introduction ul li p {
+  @apply mt-2;
 }
 
 section .header-text-block__introduction p b {
-  @apply font-semibold;
-  @apply text-gray-900;
+  @apply font-semibold text-gray-900;
+}
+
+section .header-text-block__introduction p a,
+section .header-text-block__introduction p a b {
+  @apply focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-cornflower-blue-500 focus-visible:ring-offset-2 font-semibold text-cornflower-blue-500 hover:text-cornflower-blue-600 active:text-cornflower-blue-700 disabled:text-cornflower-blue-200;
 }
 
 section .section--centered-text .header-text-block__introduction {
-  @apply text-center;
-  @apply mx-auto;
+  @apply text-center mx-auto;
 }
