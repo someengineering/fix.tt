@@ -53,22 +53,24 @@ const Pricing = ({ blok }) => {
                 {icons.filter((it) => it.name === tier.name)[0].icon()}
                 {tier.name}
                 {tier.mostPopular ? (
-                  <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 text-xs xl:hidden">
+                  <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 text-xs">
                     Most popular
                   </span>
                 ) : null}
               </h3>
-              <p className="mt-6 text-base font-medium leading-6 text-gray-900 xl:min-h-[6rem]">
+
+              <p className="mt-6 text-base font-medium leading-6 text-gray-900">
                 {tier.description}
               </p>
+
               <div className="my-8 border-b border-gray-900/10 pb-8 text-base">
                 <p className="flex items-baseline gap-x-1">
-                  <span className="text-3xl font-medium tracking-tight text-gray-900">
+                  <span className="text-4xl font-bold tracking-tight text-gray-900">
                     {tier.price}
                   </span>
                 </p>
                 {tier.price_description.length === 1 ? (
-                  <p className="mt-0.5 md:mb-6 xl:mb-12">
+                  <p className="mt-0.5 font-semibold text-gray-600">
                     {tier.price_description[0].value}
                   </p>
                 ) : (
@@ -83,6 +85,7 @@ const Pricing = ({ blok }) => {
                   )
                 )}
               </div>
+
               <div className="gap-y-2 text-base">
                 {tier.scans.map((scan, index) => (
                   <p key={index}>{scan.value}</p>
@@ -95,7 +98,7 @@ const Pricing = ({ blok }) => {
               </p>
               <ul
                 role="list"
-                className={`mt-1.5 space-y-1.5 text-sm leading-6 text-gray-600 ${index < 2 ? 'md:min-h-[14.625rem]' : 'md:min-h-[10.875rem]'} xl:min-h-[17.625rem]`}
+                className="mt-1.5 space-y-1.5 text-sm leading-6 text-gray-600 md:min-h-36"
               >
                 {tier.price_feature_items.map((feature, index) => (
                   <li

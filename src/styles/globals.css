@@ -119,7 +119,6 @@
   .about {
     @apply text-base;
 
-    h2,
     h3,
     h4,
     h5,
@@ -127,7 +126,6 @@
       @apply mb-4 mt-8 text-base;
     }
 
-    p,
     ol,
     ul {
       @apply m-0 text-base;
