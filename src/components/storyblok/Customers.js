@@ -1,5 +1,5 @@
 import { storyblokEditable } from '@storyblok/react';
-import Image from 'next/image';
+import StoryblokImage from "@/components/storyblok/StoryblokImage";
 
 const Customers = ({ blok }) => {
   if (!blok || !Array.isArray(blok.pictures)) {
@@ -25,13 +25,7 @@ const Customers = ({ blok }) => {
         {blok.pictures.map((customer, index) => (
           <div key={`customer-${index}`}>
             <span className="sr-only">{customer.alt}</span>
-            <Image
-              className="h-8 max-w-[8rem] lg:h-10 lg:max-w-[10rem]"
-              src={customer.filename}
-              alt={customer.alt || 'Customer Image'}
-              width={100}
-              height={50}
-            />
+              <StoryblokImage blok={blok} picture={customer} className="h-8 max-w-[8rem] lg:h-10 lg:max-w-[10rem]" />
           </div>
         ))}
       </div>

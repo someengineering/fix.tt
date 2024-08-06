@@ -16,7 +16,7 @@ const extractDimensionsFromUrl = (url) => {
 const StoryblokImage = ({ blok, picture, className }) => {
     const isSVG = picture.filename.endsWith('.svg');
     const { width, height } = extractDimensionsFromUrl(picture.filename);
-
+    className = `${className || ''} ${blok.roundedCorners || ''} ${blok.shadow || ''}`.trim();
 
     if (isSVG) {
         return (
@@ -25,7 +25,7 @@ const StoryblokImage = ({ blok, picture, className }) => {
                 alt={picture.alt || 'Image'}
                 width={width}
                 height={height}
-                className={`${className} ${blok.roundedCorners} ${blok.shadow}`}
+                className={`${className}`}
             />
         );
     }
@@ -37,7 +37,7 @@ const StoryblokImage = ({ blok, picture, className }) => {
             <img
                 src={picture.filename}
                 alt={picture.alt}
-                className={`${className} ${blok.roundedCorners} ${blok.shadow}`}
+                className={`${className}`}
             />
         </picture>
     );

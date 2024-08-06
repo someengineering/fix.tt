@@ -1,5 +1,4 @@
 import { storyblokEditable } from '@storyblok/react';
-import Image from 'next/image';
 import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
