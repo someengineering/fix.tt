@@ -11,8 +11,8 @@ export default async function Page({ params }) {
   const { data } = await fetchData(params.slug.join('/')); // Join the slug array to form the correct path
 
   return (
-      <div>
+      <>
         <StoryblokComponent blok={data.story.content} />
-      </div>
+      </>
   );
 }

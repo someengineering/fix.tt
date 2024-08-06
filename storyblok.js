@@ -23,7 +23,8 @@ import Div from '@/components/storyblok/Div';
 import Header1 from '@/components/storyblok/Header1';
 import RichText from '@/components/storyblok/RichText';
 import Page from '@/components/storyblok/Page';
-import HeadlineTextBlock from '@/components/storyblok/HeaderTextBlock';
+import HeadlineTextBlock from '@/components/storyblok/HeadlineTextBlock';
+import HeadlineTextBlockMinimal from '@/components/storyblok/HeadlineTextBlockMinimal';
 import Picture from "@/components/storyblok/Picture";
 
 const components = {
@@ -54,6 +55,7 @@ const components = {
   header1: Header1,
   richtext: RichText,
   headlineTextBlock: HeadlineTextBlock,
+  headlineTextBlockMinimal: HeadlineTextBlockMinimal,
   picture: Picture
 };
 
