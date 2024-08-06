@@ -25,7 +25,7 @@ const Customers = ({ blok }) => {
         {blok.pictures.map((customer, index) => (
           <div key={`customer-${index}`}>
             <span className="sr-only">{customer.alt}</span>
-              <StoryblokImage blok={blok} picture={customer} className="h-8 max-w-[8rem] lg:h-10 lg:max-w-[10rem]" />
+              <StoryblokImage blok={blok} picture={customer} className="h-8 max-w-[8rem] lg:h-10 w-auto lg:max-w-[10rem]" />
           </div>
         ))}
       </div>

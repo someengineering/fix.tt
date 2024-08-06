@@ -20,8 +20,8 @@ const StoryblokImage = ({ blok, picture, className }) => {
 
     if (isSVG) {
         return (
-            <Image
-                src={picture.filename + '/m/filters:quality(20)'}
+            <img
+                src={picture.filename + ''}
                 alt={picture.alt || 'Image'}
                 width={width}
                 height={height}
@@ -32,10 +32,10 @@ const StoryblokImage = ({ blok, picture, className }) => {
 
     return (
         <picture {...storyblokEditable(blok)}>
-            <source srcSet={`${picture.filename}/m/0x0/filters:format(webp):quality(20)`} type="image/webp" />
-            <source srcSet={`${picture.filename}/m/0x0/filters:format(png):quality(20)`} type="image/png" />
+            <source srcSet={`${picture.filename}/m/0x0/filters:format(webp):quality(50)`} type="image/webp" />
+            <source srcSet={`${picture.filename}/m/0x0/filters:format(png):quality(50)`} type="image/png" />
             <img
-                src={picture.filename + '/m/filters:quality(20)'}
+                src={picture.filename + '/m/filters:quality(50)'}
                 alt={picture.alt}
                 className={`${className}`}
             />
