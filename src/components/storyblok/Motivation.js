@@ -72,23 +72,8 @@ const features = [
 ];
 
 const Motivation = ({ blok }) => (
-  <div className="mx-auto max-w-7xl px-6 lg:px-8" {...storyblokEditable(blok)}>
-    <div className="mx-auto max-w-2xl lg:mx-0">
-      <h2 className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
-        {blok.caption}
-      </h2>
-      <p className="max-w-prose text-pretty text-4xl font-extrabold sm:text-5xl">
-        <span className="text-cornflower-blue-600">{blok.header_span}</span>
-        {blok.header_text}
-      </p>
-      <div className="max-w-prose text-lg leading-8 text-gray-600">
-        {blok.description.map((desc, index) => (
-          <div key={index} className="mt-6">
-            <RichTextRenderer document={desc.value} />
-          </div>
-        ))}
-      </div>
-      <dl className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-10 sm:mt-12 lg:max-w-none lg:grid-cols-3">
+    <>
+      <dl className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-10 sm:mt-12 lg:max-w-none lg:grid-cols-3" {...storyblokEditable(blok)}>
         {blok.motivation_items.map((feature, index) => (
           <div key={`feature-${index}`} className="flex flex-col">
             <dt className="text-lg font-bold text-gray-900">
@@ -109,8 +94,7 @@ const Motivation = ({ blok }) => (
           </div>
         ))}
       </dl>
-    </div>
-  </div>
+    </>
 );
 
 export default Motivation;
