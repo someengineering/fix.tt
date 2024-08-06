@@ -163,7 +163,7 @@
       @apply m-0 mx-auto mt-10 grid max-w-xl grid-cols-1 gap-10 sm:mt-16 lg:max-w-none lg:grid-cols-3;
 
       > li {
-        @apply !m-0 flex flex-col lg:text-left;
+        @apply m-0 flex flex-col lg:text-left;
 
         > strong:first-of-type {
           @apply text-lg font-bold text-gray-900;
