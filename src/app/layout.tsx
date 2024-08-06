@@ -7,7 +7,7 @@ import PlausibleProvider from 'next-plausible';
 import React, { Suspense } from 'react';
 import '../../storyblok';
 
-import '@/styles/globals.css';
+import '@/styles/main.scss';
 
 import { plusJakartaSans } from '@/app/fonts';
 import PosthogPageView from '@/components/analytics/PosthogPageView';
@@ -149,8 +149,8 @@ export default function RootLayout({
             <PosthogPageView />
           </Suspense>
         </PosthogProvider>
+        <StoryblokBridgeLoader options={{}} />
       </body>
-      <StoryblokBridgeLoader options={{}} />
     </html>
   );
 }
