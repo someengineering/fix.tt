@@ -14,8 +14,6 @@ import {
   LuShuffle,
 } from 'react-icons/lu';
 
-import { RichTextRenderer } from '@/utils/richTextRenderer';
-
 const features = [
   {
     name: 'CSPM',
@@ -73,10 +71,10 @@ const features = [
 
 const Motivation = ({ blok }) => (
     <>
-      <dl className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-10 sm:mt-12 lg:max-w-none lg:grid-cols-3" {...storyblokEditable(blok)}>
+      <dl className="mx-auto mt-8 grid max-w-xl grid-cols-1 gap-10 sm:mt-12 lg:max-w-none lg:grid-cols-3 motivation" {...storyblokEditable(blok)}>
         {blok.motivation_items.map((feature, index) => (
-          <div key={`feature-${index}`} className="flex flex-col">
-            <dt className="text-lg font-bold text-gray-900">
+          <div key={`feature-${index}`} className="flex flex-col motivation__inner">
+            <dt className="text-lg font-bold text-gray-900 motivation__header">
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50">
                 {features.filter((f) => f.name === feature.caption)[0] &&
                   features
@@ -88,7 +86,7 @@ const Motivation = ({ blok }) => (
               </div>
               {feature.caption}
             </dt>
-            <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600">
+            <dd className="mt-1 flex flex-auto flex-col text-base leading-7 text-gray-600 motivation__text">
               <p className="flex-auto">{feature.text}</p>
             </dd>
           </div>
