@@ -1,6 +1,7 @@
 import { storyblokEditable } from '@storyblok/react';
 import Image from 'next/image';
 import React from "react";
+import StoryblokImage from "@/components/storyblok/StoryblokImage";
 
 const Testimonials = ({ blok }) => (
     <div className="mx-auto -mt-10 grid max-w-2xl grid-cols-1 gap-y-10 divide-y divide-gray-900/10 sm:-mt-16 sm:gap-y-16 lg:mx-0 lg:-ml-8 lg:mt-0 lg:max-w-none lg:grid-cols-3 lg:gap-x-8 lg:divide-x lg:divide-y-0"  {...storyblokEditable(blok)}>
@@ -10,14 +11,7 @@ const Testimonials = ({ blok }) => (
           key={`testimonial-${index}`}
         >
           <span className="sr-only">{testimonial.company_name}</span>
-          <Image
-            src={testimonial.picture.filename}
-            alt={testimonial.company_name}
-            width={100}
-            height={50}
-            className="h-8 w-auto max-w-[6rem] self-start"
-          />
-
+            <StoryblokImage blok={testimonial} picture={testimonial.picture} className="h-8 w-auto max-w-[6rem] self-start" />
           <figure className="flex flex-auto flex-col justify-between space-y-8">
             <blockquote className="text-lg font-medium leading-8 text-gray-900">
               <p>&ldquo;{testimonial.testimonial}&rdquo;</p>

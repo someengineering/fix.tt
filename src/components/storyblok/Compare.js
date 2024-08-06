@@ -1,9 +1,9 @@
 import { storyblokEditable } from '@storyblok/react';
-import Image from 'next/image';
 import React from 'react';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { RichTextRenderer } from '@/utils/richTextRenderer';
+import StoryblokImage from "@/components/storyblok/StoryblokImage";
 
 const Compare = ({ blok }) => (
   <div className="px-6 py-16 sm:py-24 lg:px-8">
@@ -12,19 +12,11 @@ const Compare = ({ blok }) => (
         className="mb-12 flex items-center justify-center space-x-10"
         aria-hidden="true"
       >
-        <Image
-          src={blok.picture_1.filename}
-          alt={blok.picture_1.alt}
-          className="h-24 w-24 text-cornflower-blue-600"
-        />
+        <StoryblokImage blok={blok} picture={blok.picture_1} className="h-24 w-24 text-cornflower-blue-600" />
         <span className="h-10 w-10 rounded-full bg-marian-blue-50 text-lg font-extrabold leading-10">
           VS
         </span>
-        <Image
-          src={blok.picture_2.filename}
-          alt={blok.picture_2.alt}
-          className="h-24 w-24"
-        />
+        <StoryblokImage blok={blok} picture={blok.picture_2} className="h-24 w-24" />
       </div>
       <h2 className="text-pretty text-4xl font-extrabold sm:text-5xl">
         {blok.caption}

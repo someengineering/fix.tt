@@ -4,6 +4,8 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import { RichTextRenderer } from '@/utils/richTextRenderer';
+import StoryblokImage from "@/components/storyblok/StoryblokImage";
+import React from "react";
 
 const Team = ({ blok }) => (
   <div
@@ -27,11 +29,7 @@ const Team = ({ blok }) => (
           key={person.name}
           className="flex flex-col items-start gap-x-6 gap-y-10 pt-12 sm:flex-row"
         >
-          <Image
-            src={person.picture.filename}
-            alt={person.picture.alt}
-            className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
-          />
+          <StoryblokImage blok={person} picture={person.picture} className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]" />
           <div className="max-w-xl flex-auto">
             <h3 className="text-3xl font-extrabold text-cornflower-blue-600">
               {person.name}

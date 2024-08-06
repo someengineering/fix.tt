@@ -1,8 +1,8 @@
 import { StoryblokComponent, storyblokEditable } from '@storyblok/react';
-import Image from 'next/image';
 
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
+import StoryblokImage from "@/components/storyblok/StoryblokImage";
 
 const Hero = ({ blok }) => {
   if (!blok) {
@@ -20,25 +20,13 @@ const Hero = ({ blok }) => {
               Start for free
             </ButtonLink>
           </div>
-
         </div>
+
         {blok.picture && (
-            <Image
-                className="mx-auto hidden w-full max-w-3xl flex-shrink-0 sm:flex lg:w-7/12"
-                src={blok.picture.filename}
-                alt={blok.picture.alt || 'Hero Image'}
-                width={625}
-                height={420}
-            />
+            <StoryblokImage blok={blok} picture={blok.picture} className="mx-auto hidden w-full max-w-3xl flex-shrink-0 sm:flex lg:w-7/12" />
         )}
         {blok.pictureMobile && (
-            <Image
-                className="w-full sm:hidden"
-                src={blok.pictureMobile.filename}
-                alt={blok.pictureMobile.alt || 'Hero Image'}
-                width={625}
-                height={420}
-            />
+            <StoryblokImage blok={blok} picture={blok.pictureMobile} className="w-full sm:hidden" />
         )}
       </>
   );

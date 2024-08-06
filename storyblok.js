@@ -24,6 +24,7 @@ import Header1 from '@/components/storyblok/Header1';
 import RichText from '@/components/storyblok/RichText';
 import Page from '@/components/storyblok/Page';
 import HeadlineTextBlock from '@/components/storyblok/HeaderTextBlock';
+import Picture from "@/components/storyblok/Picture";
 
 const components = {
   customers: Customers,
@@ -53,6 +54,7 @@ const components = {
   header1: Header1,
   richtext: RichText,
   headlineTextBlock: HeadlineTextBlock,
+  picture: Picture
 };
 
 export default components;
