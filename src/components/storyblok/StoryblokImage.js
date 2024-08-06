@@ -32,8 +32,8 @@ const StoryblokImage = ({ blok, picture, className }) => {
 
     return (
         <picture {...storyblokEditable(blok)}>
-            <source srcSet={`${picture.filename}/m/0x0/filters:format(webp)`} type="image/webp" />
-            <source srcSet={`${picture.filename}/m/0x0/filters:format(png)`} type="image/png" />
+            <source srcSet={`${picture.filename}/m/0x0/filters:format(webp):quality(20)`} type="image/webp" />
+            <source srcSet={`${picture.filename}/m/0x0/filters:format(png):quality(20)`} type="image/png" />
             <img
                 src={picture.filename + '/m/filters:quality(20)'}
                 alt={picture.alt}
