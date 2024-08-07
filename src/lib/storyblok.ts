@@ -28,8 +28,8 @@ export function generateMetadataFromStory(story: ISbResult) {
 
   return {
     title: {
-      default: `${title} | ${siteConfig.title}`,
-      template: `${title} | ${siteConfig.title}`,
+      default: `${title}`,
+      template: `${title}`,
     },
     description,
     robots: isProd
