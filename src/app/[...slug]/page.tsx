@@ -2,9 +2,10 @@ import {getStoryblokApi, StoryblokComponent} from '@storyblok/react/rsc';
 import {Metadata} from 'next';
 import {notFound} from 'next/navigation';
 import {generateMetadataFromStory} from "@/lib/storyblok";
+import {ISbStoriesParams} from "@storyblok/react";
 
 async function fetchData(slug: string) {
-    const sbParams = { version: 'draft' };
+    const sbParams: ISbStoriesParams = { version: 'draft' };
     const storyblokApi = getStoryblokApi();
 
     if (!storyblokApi) {
