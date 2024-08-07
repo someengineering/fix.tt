@@ -16,7 +16,7 @@ export const fetchStory = async (slug: string) => {
   }
 };
 
-export function generateMetadataFromStory(story: ISbResult) {
+export function generateMetadataFromStory(story: ISbResult, isHomePage: boolean) {
   const content = story.data.story.content.seo;
   const title = (content && content.title) || `${siteConfig.title}`;
   const description = content && content.description;
@@ -28,8 +28,8 @@ export function generateMetadataFromStory(story: ISbResult) {
 
   return {
     title: {
-      default: `${title}`,
-      template: `${title}`,
+      default: isHomePage ? `${title} : ${siteConfig.tagline}` : `${title} | ${siteConfig.title}`,
+      template: isHomePage ? `${title} : ${siteConfig.tagline}` : `${title} | ${siteConfig.title}`,
     },
     description,
     robots: isProd

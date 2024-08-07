@@ -24,7 +24,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const story = await fetchData(params.slug ? params.slug.join('/') : 'home');
 
-  return generateMetadataFromStory(story);
+  return generateMetadataFromStory(story, true);
 }
 
 export default async function Page() {
