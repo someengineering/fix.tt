@@ -19,7 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return {};
   }
 
-  const title = publication.title || `${siteConfig.title} Blog`;
+  const title = `${(publication.title || `${siteConfig.title} Blog`)} | ${siteConfig.title}`;
   const description = publication.about?.text;
   const ogImage = openGraph({
     title,
