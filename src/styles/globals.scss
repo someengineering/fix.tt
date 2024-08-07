@@ -59,7 +59,7 @@
     }
 
     pre {
-      @apply overflow-x-auto rounded-xl bg-gray-50 p-3;
+      @apply my-6 overflow-x-auto rounded-xl bg-gray-50 p-4 text-xs sm:text-sm;
     }
 
     blockquote {
@@ -76,15 +76,19 @@
     }
 
     table {
-      @apply my-6 border-collapse text-base;
+      @apply my-6 w-full border-collapse text-sm sm:text-base;
 
       th {
         @apply bg-gray-50 p-2 text-left font-semibold text-gray-900;
       }
 
       td {
-        @apply border-t border-gray-200 p-2;
+        @apply border-t border-gray-300 p-2;
       }
+    }
+
+    hr {
+      @apply my-8 border-gray-900/5;
     }
 
     ::-webkit-scrollbar {
@@ -92,11 +96,11 @@
     }
 
     ::-webkit-scrollbar-track {
-      @apply rounded-xl bg-cornflower-blue-50;
+      @apply rounded-b-full bg-cornflower-blue-50;
     }
 
     ::-webkit-scrollbar-thumb {
-      @apply rounded-xl bg-cornflower-blue-200;
+      @apply rounded-b-full bg-cornflower-blue-200;
     }
 
     ::-webkit-scrollbar-thumb:hover {
