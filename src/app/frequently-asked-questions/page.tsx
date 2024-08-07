@@ -1,9 +1,10 @@
 import { Metadata } from 'next';
 
-import { metadata as rootMetadata } from '../metadata'
 import Faq from '@/components/sections/Faq';
 import { siteConfig } from '@/constants/config';
 import { openGraph } from '@/utils/og';
+
+import { metadata as rootMetadata } from '../metadata';
 
 const url = `${siteConfig.url}/frequently-asked-questions`;
 const title = 'Frequently asked questions';

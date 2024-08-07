@@ -1,9 +1,10 @@
-import {getStoryblokApi, ISbResult} from '@storyblok/react';
-import {siteConfig} from "@/constants/config";
-import {openGraph} from "@/utils/og";
-import {isProd} from "@/constants/env";
+import { getStoryblokApi, ISbResult } from '@storyblok/react';
 
-export const fetchStory = async (slug) => {
+import { siteConfig } from '@/constants/config';
+import { isProd } from '@/constants/env';
+import { openGraph } from '@/utils/og';
+
+export const fetchStory = async (slug: string) => {
   const storyblokApi = getStoryblokApi();
   try {
     const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
@@ -32,8 +33,8 @@ export function generateMetadataFromStory(story: ISbResult) {
     },
     description,
     robots: isProd
-        ? {index: true, follow: true}
-        : {index: false, follow: false},
+      ? { index: true, follow: true }
+      : { index: false, follow: false },
     icons: {
       icon: '/favicon.ico',
       shortcut: '/favicon-16x16.png',
@@ -43,13 +44,13 @@ export function generateMetadataFromStory(story: ISbResult) {
     alternates: {
       types: {
         'application/rss+xml': [
-          {url: '/blog/rss.xml', title: 'Fix Security blog RSS feed'},
+          { url: '/blog/rss.xml', title: 'Fix Security blog RSS feed' },
         ],
         'application/atom+xml': [
-          {url: '/blog/atom.xml', title: 'Fix Security blog Atom feed'},
+          { url: '/blog/atom.xml', title: 'Fix Security blog Atom feed' },
         ],
         'application/json': [
-          {url: '/blog/feed.json', title: 'Fix Security blog JSON feed'},
+          { url: '/blog/feed.json', title: 'Fix Security blog JSON feed' },
         ],
       },
     },

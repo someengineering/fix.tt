@@ -1,8 +1,10 @@
+import { ISbStoriesParams } from '@storyblok/react';
+import { getStoryblokApi } from '@storyblok/react/rsc';
+import { Metadata } from 'next';
+
+import { generateMetadataFromStory } from '@/lib/storyblok';
+
 import PageComponent from '../components/PageComponent';
-import {Metadata} from "next";
-import {getStoryblokApi} from "@storyblok/react/rsc";
-import {generateMetadataFromStory} from "@/lib/storyblok";
-import {ISbStoriesParams} from "@storyblok/react";
 
 async function fetchData(slug: string) {
   const sbParams: ISbStoriesParams = { version: 'draft' };
@@ -15,7 +17,11 @@ async function fetchData(slug: string) {
   return await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
 }
 
-export async function generateMetadata({ params }: { params: { slug: string[] } }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string[] };
+}): Promise<Metadata> {
   const story = await fetchData(params.slug ? params.slug.join('/') : 'home');
 
   return generateMetadataFromStory(story);

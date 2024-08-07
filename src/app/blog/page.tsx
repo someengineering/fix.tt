@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { metadata as rootMetadata } from '../metadata'
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { getPosts, getPublication } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+
+import { metadata as rootMetadata } from '../metadata';
 
 const url = `${siteConfig.url}/blog`;
 

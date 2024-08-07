@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 
 import { siteConfig } from '@/constants/config';
-import {openGraph} from "@/utils/og";
-import {isProd} from "@/constants/env";
+import { isProd } from '@/constants/env';
+import { openGraph } from '@/utils/og';
 
 const url = siteConfig.url;
 const title = siteConfig.title;
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
   },
   description,
   robots: isProd
-      ? { index: true, follow: true }
-      : { index: false, follow: false },
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',

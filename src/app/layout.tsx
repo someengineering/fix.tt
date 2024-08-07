@@ -1,5 +1,6 @@
 import { apiPlugin, storyblokInit } from '@storyblok/react';
 import StoryblokBridgeLoader from '@storyblok/react/bridge-loader';
+import { Viewport } from 'next';
 import { headers } from 'next/headers';
 import Script from 'next/script';
 import PlausibleProvider from 'next-plausible';
@@ -16,7 +17,6 @@ import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
 
 import components from '../../storyblok';
-import {Viewport} from "next";
 
 export const viewport: Viewport = {
   themeColor: '#3d58d3',

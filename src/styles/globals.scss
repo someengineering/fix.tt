@@ -185,9 +185,9 @@
   }
 }
 .highlight-text {
-  @apply text-cornflower-blue-600
+  @apply text-cornflower-blue-600;
 }
-.highlight-text.break{
+.highlight-text.break {
   @apply text-cornflower-blue-600;
   display: block;
 }
