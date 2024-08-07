@@ -17,8 +17,8 @@ export const fetchStory = async (slug) => {
 
 export function generateMetadataFromStory(story: ISbResult) {
   const content = story.data.story.content.seo;
-  const title = content.title || `${siteConfig.title}`;
-  const description = content.description;
+  const title = (content && content.title) || `${siteConfig.title}`;
+  const description = content && content.description;
   const url = siteConfig.url;
   const ogImage = openGraph({
     title: siteConfig.tagline,

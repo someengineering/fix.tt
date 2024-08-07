@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 
-import { metadata as rootMetadata } from '@/app/layout';
+import { metadata as rootMetadata } from '../../metadata'
 import PodcastEpisode from '@/components/podcast/PodcastEpisode';
 import { siteConfig } from '@/constants/config';
 import { getUser } from '@/lib/hashnode';

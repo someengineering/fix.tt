@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 
-import { metadata as rootMetadata } from '@/app/layout';
+import { metadata as rootMetadata } from '../../metadata'
 import { metadata as notFoundMetadata } from '@/app/not-found';
 import BlogPost from '@/components/blog/BlogPost';
 import { siteConfig } from '@/constants/config';

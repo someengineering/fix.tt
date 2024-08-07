@@ -16,6 +16,12 @@ import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
 
 import components from '../../storyblok';
+import {Viewport} from "next";
+
+export const viewport: Viewport = {
+  themeColor: '#3d58d3',
+  colorScheme: 'only light',
+};
 
 storyblokInit({
   accessToken: process.env.STORYBLOK_OAUTH_TOKEN,

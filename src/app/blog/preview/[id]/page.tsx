@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { metadata as rootMetadata } from '@/app/layout';
+import { metadata as rootMetadata } from '../../../metadata'
 import BlogDraft from '@/components/blog/BlogDraft';
 import { siteConfig } from '@/constants/config';
 import { getDraft, getPublication } from '@/lib/hashnode';

@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
-
-import { metadata as rootMetadata } from '@/app/layout';
+import { metadata as rootMetadata } from '../metadata'
 import ListenAnywhere from '@/components/podcast/ListenAnywhere';
 import PodcastEpisodeList from '@/components/podcast/PodcastEpisodeList';
 import { siteConfig } from '@/constants/config';
