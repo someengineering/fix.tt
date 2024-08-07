@@ -20,6 +20,7 @@ const StoryblokImage = ({ blok, picture, className }) => {
 
   if (isSVG) {
     return (
+        // eslint-disable-next-line @next/next/no-img-element
       <img
         src={picture.filename + ''}
         alt={picture.alt || 'Image'}

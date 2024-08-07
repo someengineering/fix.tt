@@ -33,7 +33,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     const response = await fetchData(slugPath);
     data = response.data;
   } catch (error) {
-    console.error('Error fetching Storyblok data:', error);
     notFound();
   }
   return (
