@@ -1,6 +1,5 @@
 /* HERO */
 section.hero {
-
   .header-text-block {
     &__introduction {
       @apply mx-auto;
@@ -79,7 +78,7 @@ section {
     }
 
     ul {
-      @apply mx-auto mt-3 list-disc text-gray-600 ml-0 list-inside lg:text-pretty;
+      @apply mx-auto ml-0 mt-3 list-inside list-disc text-gray-600 lg:text-pretty;
       p {
         @apply mt-0 inline;
       }

@@ -14,7 +14,7 @@ const url = `${siteConfig.url}/podcast`;
 export async function generateMetadata(): Promise<Metadata> {
   const show = await getShow();
 
-  const title = `${(show.attributes.title || `${siteConfig.title} Podcast`)} | ${siteConfig.title}`;
+  const title = `${show.attributes.title || `${siteConfig.title} Podcast`} | ${siteConfig.title}`;
   const description = show.attributes.description;
   const ogImage = openGraph({
     title,

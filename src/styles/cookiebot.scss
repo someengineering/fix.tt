@@ -40,10 +40,12 @@ div#CybotCookiebotDialogPoweredByText {
 
 #CybotCookiebotDialogFooter {
   .CybotCookiebotDialogBodyButton {
-    font-family: __Plus_Jakarta_Sans_e3c363, __Plus_Jakarta_Sans_Fallback_e3c363, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+    font-family: __Plus_Jakarta_Sans_e3c363, __Plus_Jakarta_Sans_Fallback_e3c363,
+      ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+      'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji' !important;
     display: inline-block !important;
     width: auto !important;
-    @apply inline-flex items-center whitespace-nowrap font-bold focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500 border disabled:opacity-50 transition-colors duration-75 rounded-md px-4 py-2 text-base disabled:bg-cornflower-blue-600 disabled:cursor-not-allowed border-cornflower-blue-700 hover:opacity-100 !important;
+    @apply inline-flex items-center whitespace-nowrap rounded-md border border-cornflower-blue-700 px-4 py-2 text-base font-bold transition-colors duration-75 hover:opacity-100 focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500 disabled:cursor-not-allowed disabled:bg-cornflower-blue-600 disabled:opacity-50 !important;
   }
 
   #CybotCookiebotDialogBodyButtonDecline,
@@ -52,7 +54,7 @@ div#CybotCookiebotDialogPoweredByText {
   }
 
   #CybotCookiebotDialogBodyLevelButtonCustomize {
-    @apply focus:outline-none focus-visible:ring mb-0 focus-visible:ring-cornflower-blue-500 disabled:opacity-50 text-cornflower-blue-600 border border-transparent hover:border-cornflower-blue-600 active:border-cornflower-blue-700 !important;
+    @apply mb-0 border border-transparent text-cornflower-blue-600 hover:border-cornflower-blue-600 focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500 active:border-cornflower-blue-700 disabled:opacity-50 !important;
   }
 }
 
@@ -69,7 +71,6 @@ div#CybotCookiebotDialogPoweredByText {
     @media screen and (min-width: 600px) {
       @apply mb-0 !important;
     }
-
   }
 }
 
