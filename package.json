@@ -20,6 +20,7 @@
     "@headlessui/react": "2.1.2",
     "@hookform/resolvers": "3.9.0",
     "@next/third-parties": "14.2.5",
+    "@storyblok/react": "^3.0.10",
     "clsx": "2.1.1",
     "entities": "5.0.0",
     "feed": "4.2.2",
@@ -45,8 +46,10 @@
     "remark": "15.0.1",
     "remark-gfm": "4.0.0",
     "remark-smartypants": "3.0.2",
+    "sass": "^1.77.8",
     "server-only": "0.0.1",
     "sharp": "0.33.4",
+    "storyblok-rich-text-react-renderer": "^2.9.2",
     "tailwind-merge": "2.4.0",
     "zod": "3.23.8",
     "zod-form-data": "2.0.2"

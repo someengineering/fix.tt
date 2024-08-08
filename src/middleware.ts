@@ -38,18 +38,18 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
-    connect-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
+    connect-src 'self' https://consentcdn.cookiebot.com;
+    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://consent.cookiebot.com https://app.storyblok.com${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
     style-src 'self' 'unsafe-inline';
     style-src-elem 'self' https://cdn.jsdelivr.net;
-    img-src 'self' https://i.ytimg.com blob: data:;
+    img-src 'self' https://i.ytimg.com https://a.storyblok.com blob: data: https://imgsct.cookiebot.com;
     media-src 'self' https://media.transistor.fm https://audio.transistor.fm;
     frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com;
-    font-src 'self';
+    font-src 'self' data:;
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors ${url.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'none'"};
+    frame-ancestors ${url.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'self' https://app.storyblok.com https://consent.cookiebot.com"};
     upgrade-insecure-requests;
 `
     .replace(/\s{2,}/g, ' ')
