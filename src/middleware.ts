@@ -40,11 +40,10 @@ export function middleware(request: NextRequest) {
     default-src 'self';
     connect-src 'self' https://consentcdn.cookiebot.com;
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://consent.cookiebot.com https://app.storyblok.com${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
-    style-src 'self' 'unsafe-inline';
-    style-src-elem 'self' https://cdn.jsdelivr.net;
+    style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
     img-src 'self' https://i.ytimg.com https://a.storyblok.com blob: data: https://imgsct.cookiebot.com;
     media-src 'self' https://media.transistor.fm https://audio.transistor.fm;
-    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com;
+    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com https://consent.cookiebot.com https://consentcdn.cookiebot.com;
     font-src 'self' data:;
     object-src 'none';
     base-uri 'self';
