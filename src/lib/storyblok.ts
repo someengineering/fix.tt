@@ -8,7 +8,7 @@ export const fetchStory = async (slug: string) => {
   const storyblokApi = getStoryblokApi();
   try {
     const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
-      version: 'draft',
+      version: isProd ? 'published' : 'draft',
     });
     return data?.story || null;
   } catch (error) {
