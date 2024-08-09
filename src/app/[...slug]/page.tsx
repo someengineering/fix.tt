@@ -3,11 +3,13 @@ import { getStoryblokApi, StoryblokComponent } from '@storyblok/react/rsc';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { isProd } from '@/constants/env';
 import { generateMetadataFromStory } from '@/lib/storyblok';
-import {isProd} from "@/constants/env";
 
 async function fetchData(slug: string) {
-  const sbParams: ISbStoriesParams = { version: isProd ? 'published' : 'draft' };
+  const sbParams: ISbStoriesParams = {
+    version: isProd ? 'published' : 'draft',
+  };
   const storyblokApi = getStoryblokApi();
 
   if (!storyblokApi) {

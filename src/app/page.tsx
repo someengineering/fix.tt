@@ -2,13 +2,15 @@ import { ISbStoriesParams } from '@storyblok/react';
 import { getStoryblokApi } from '@storyblok/react/rsc';
 import { Metadata } from 'next';
 
+import { isProd } from '@/constants/env';
 import { generateMetadataFromStory } from '@/lib/storyblok';
 
 import PageComponent from '../components/PageComponent';
-import {isProd} from "@/constants/env";
 
 async function fetchData(slug: string) {
-  const sbParams: ISbStoriesParams = { version: isProd ? 'published' : 'draft' };
+  const sbParams: ISbStoriesParams = {
+    version: isProd ? 'published' : 'draft',
+  };
   const storyblokApi = getStoryblokApi();
 
   if (!storyblokApi) {
