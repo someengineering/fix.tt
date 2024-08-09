@@ -27,9 +27,6 @@ storyblokInit({
   accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
   use: [apiPlugin],
   components,
-  apiOptions: {
-    cache: { type: 'memory', clear: 'auto' }, // Set cache to memory and clear it automatically
-  },
 });
 
 export default function RootLayout({
