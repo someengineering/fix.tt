@@ -5,9 +5,10 @@ import { Metadata } from 'next';
 import { generateMetadataFromStory } from '@/lib/storyblok';
 
 import PageComponent from '../components/PageComponent';
+import {isProd} from "@/constants/env";
 
 async function fetchData(slug: string) {
-  const sbParams: ISbStoriesParams = { version: 'draft' };
+  const sbParams: ISbStoriesParams = { version: isProd ? 'published' : 'draft' };
   const storyblokApi = getStoryblokApi();
 
   if (!storyblokApi) {
