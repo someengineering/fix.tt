@@ -1,5 +1,5 @@
 import { apiPlugin, storyblokInit } from '@storyblok/react';
-import StoryblokBridgeLoader from '@storyblok/react/bridge-loader';
+// import StoryblokBridgeLoader from '@storyblok/react/bridge-loader';
 import { Viewport } from 'next';
 import { headers } from 'next/headers';
 import Script from 'next/script';
@@ -17,6 +17,7 @@ import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
 
 import components from '../../storyblok';
+import StoryblokBridgeLoader from "@/components/storyblok/StoryblokBridgeLoader";
 
 export const viewport: Viewport = {
   themeColor: '#3d58d3',
@@ -42,33 +43,28 @@ export default function RootLayout({
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
-        <Script
-          id="Cookiebot"
-          src="https://consent.cookiebot.com/uc.js"
-          data-cbid={process.env.COOKIEBOT_ID}
-          data-blockingmode="auto"
-          type="text/javascript"
-          strategy="afterInteractive"
-        />
-        <Script
-          id="google-tag-manager"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','${process.env.GOOGLE_TAG_MANAGER_CODE}');
-              `,
-          }}
-        />
+        {/*<Script*/}
+        {/*  id="Cookiebot"*/}
+        {/*  src="https://consent.cookiebot.com/uc.js"*/}
+        {/*  data-cbid={process.env.COOKIEBOT_ID}*/}
+        {/*  data-blockingmode="auto"*/}
+        {/*  type="text/javascript"*/}
+        {/*  strategy="afterInteractive"*/}
+        {/*/>*/}
+        {/*<Script*/}
+        {/*  id="google-tag-manager"*/}
+        {/*  strategy="afterInteractive"*/}
+        {/*  dangerouslySetInnerHTML={{*/}
+        {/*    __html: `*/}
+        {/*        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':*/}
+        {/*        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],*/}
+        {/*        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=*/}
+        {/*        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);*/}
+        {/*        })(window,document,'script','dataLayer','${process.env.GOOGLE_TAG_MANAGER_CODE}');*/}
+        {/*      `,*/}
+        {/*  }}*/}
+        {/*/>*/}
         <PlausibleProvider domain="fix.security" scriptProps={{ nonce }} />
-        <Script
-          src="https://app.storyblok.com/f/storyblok-v2-latest.js"
-          async
-          strategy="afterInteractive"
-        />
       </head>
       <body className="bg-white">
         <noscript>
@@ -92,7 +88,7 @@ export default function RootLayout({
             <PosthogPageView />
           </Suspense>
         </PosthogProvider>
-        <StoryblokBridgeLoader options={{}} />
+        <StoryblokBridgeLoader />
       </body>
     </html>
   );

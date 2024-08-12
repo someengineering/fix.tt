@@ -3051,7 +3051,7 @@ braces@^3.0.3, braces@~3.0.2:
   dependencies:
     fill-range "^7.1.1"
 
-browserslist@^4.23.0, browserslist@^4.23.1, browserslist@^4.23.3:
+browserslist@^4.23.1, browserslist@^4.23.3:
   version "4.23.3"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.23.3.tgz#debb029d3c93ebc97ffbc8d9cbb03403e227c800"
   integrity sha512-btwCFJVjI4YWDNfau8RhZ+B1Q/VLoUITrm3RlP6y1tYGWIOa+InuYiRGXUBXo8nA1qKmHMyLB/iVQg5TT4eFoA==
@@ -3122,7 +3122,7 @@ camelcase@^6.2.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-6.3.0.tgz#5685b95eb209ac9c0c177467778c9c84df58ba9a"
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
-caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001599, caniuse-lite@^1.0.30001646:
+caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001646:
   version "1.0.30001650"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001650.tgz#dd1eba0938e39536d184c3c99b2569a13788bc16"
   integrity sha512-fgEc7hP/LB7iicdXHUI9VsBsMZmUmlVJeQP2qqQW+3lkqVhbmjEU8zp+h5stWeilX+G7uXuIUIIlWlDw9jdt8g==
@@ -7772,6 +7772,11 @@ storyblok-js-client@^6.7.2:
   version "6.8.1"
   resolved "https://registry.yarnpkg.com/storyblok-js-client/-/storyblok-js-client-6.8.1.tgz#f830c761f1e871776134b4a94f0e2c4216bb1840"
   integrity sha512-/iH67CRmDi3nGds5B6X9B7dDyA1DA0B4UOxuPia/RF+tVc+lBnM0sac2qLxijMNmLKAeVGuSmB70MNUe6uD3NQ==
+
+storyblok-react@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/storyblok-react/-/storyblok-react-0.1.2.tgz#798672e1111cec68dc487985b1fbba15129fc90d"
+  integrity sha512-68KtSgkAT/0XZ9diz3wfoPl6xOt3WJmCv03qZOZUNPs1uDFh1FHF7P9OHt6TfMcxPrv3ldjTypkQXbFdT7JnvA==
 
 storyblok-rich-text-react-renderer@^2.9.2:
   version "2.9.2"
