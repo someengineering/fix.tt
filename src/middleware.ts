@@ -38,7 +38,7 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
-    connect-src 'self' https://consentcdn.cookiebot.com;
+    connect-src 'self' https://consentcdn.cookiebot.com https://sst.fix.security;
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://consent.cookiebot.com https://app.storyblok.com${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
     style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
     img-src 'self' https://i.ytimg.com https://a.storyblok.com blob: data: https://imgsct.cookiebot.com;
