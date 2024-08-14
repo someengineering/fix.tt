@@ -1,14 +1,14 @@
-import {
-  getStoryblokApi,
-  ISbStoriesParams,
-} from '@storyblok/react';
+import { getStoryblokApi, ISbStoriesParams } from '@storyblok/react';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import StoryblokRenderer from '@/app/StoryblokRenderer';
 import { generateMetadataFromStory } from '@/lib/storyblok';
 
-async function fetchData(slug: string, version: "published" | "draft" | undefined) {
+async function fetchData(
+  slug: string,
+  version: 'published' | 'draft' | undefined,
+) {
   const sbParams: ISbStoriesParams = {
     version: version,
   };
@@ -32,9 +32,9 @@ export async function generateMetadata({
 }
 
 export default async function Page({
-                                     params,
-                                     searchParams,
-                                   }: {
+  params,
+  searchParams,
+}: {
   params: { slug: string[] };
   searchParams: { _storyblok?: string };
 }) {

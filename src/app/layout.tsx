@@ -1,3 +1,4 @@
+import { apiPlugin, storyblokInit } from '@storyblok/react';
 import { Viewport } from 'next';
 import { headers } from 'next/headers';
 import Script from 'next/script';
@@ -13,8 +14,8 @@ import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
 import StoryblokProvider from '@/providers/StoryblokProvider';
-import components from "../../storyblok";
-import {apiPlugin, storyblokInit} from "@storyblok/react";
+
+import components from '../../storyblok';
 
 storyblokInit({
   accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
