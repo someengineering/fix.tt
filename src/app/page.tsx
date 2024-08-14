@@ -9,8 +9,10 @@ async function fetchData(
   slug: string,
   version: 'published' | 'draft' | undefined,
 ) {
+  const cacheVersion = Math.floor(Date.now() / 1000);
   const sbParams: ISbStoriesParams = {
     version: version,
+    cv: cacheVersion,  // Force bypass cache
   };
   const storyblokApi = getStoryblokApi();
 
@@ -22,7 +24,7 @@ async function fetchData(
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const story = await fetchData('home', 'draft');
+  const story = await fetchData('home', 'published');
 
   return generateMetadataFromStory(story, false);
 }
@@ -37,7 +39,7 @@ export default async function Page({
   let data;
   try {
     const version = searchParams._storyblok ? 'draft' : 'published';
-    const response = await fetchData(slugPath, 'draft');
+    const response = await fetchData(slugPath, version);
     data = response.data;
   } catch (error) {
     notFound();

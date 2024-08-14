@@ -9,8 +9,10 @@ async function fetchData(
   slug: string,
   version: 'published' | 'draft' | undefined,
 ) {
+  const cacheVersion = Math.floor(Date.now() / 1000);
   const sbParams: ISbStoriesParams = {
     version: version,
+    cv: cacheVersion,  // Force bypass cache
   };
   const storyblokApi = getStoryblokApi();
 
@@ -26,7 +28,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const story = await fetchData(params.slug.join('/'), 'draft');
+  const story = await fetchData(params.slug.join('/'), 'published');
 
   return generateMetadataFromStory(story, false);
 }
@@ -42,7 +44,7 @@ export default async function Page({
   let data;
   try {
     const version = searchParams._storyblok ? 'draft' : 'published';
-    const response = await fetchData(slugPath, 'draft');
+    const response = await fetchData(slugPath, version);
     data = response.data;
     console.log(`data = ${JSON.stringify(data)}`);
   } catch (error) {
