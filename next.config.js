@@ -178,7 +178,7 @@ module.exports = withPlausibleProxy()({
         headers: [
           {
             key: 'Cache-Control',
-            value: 's-maxage=1, stale-while-revalidate=59',
+            value: 'no-cache, no-store, must-revalidate', // Ensure fresh content is fetched
           },
         ],
       },
