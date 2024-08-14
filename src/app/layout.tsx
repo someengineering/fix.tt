@@ -12,7 +12,7 @@ import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
-import StoryblokProvider from "@/providers/StoryblokProvider";
+import StoryblokProvider from '@/providers/StoryblokProvider';
 
 export const viewport: Viewport = {
   themeColor: '#3d58d3',
@@ -64,9 +64,7 @@ export default function RootLayout({
         <PosthogProvider>
           <Header />
           <main>
-            <StoryblokProvider>
-              {children}
-            </StoryblokProvider>
+            <StoryblokProvider>{children}</StoryblokProvider>
             <Suspense>
               <BlogNewsletterForm nonce={nonce} />
             </Suspense>
