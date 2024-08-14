@@ -6,12 +6,11 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import StoryblokRenderer from '@/app/StoryblokRenderer';
-import { isProd } from '@/constants/env';
 import { generateMetadataFromStory } from '@/lib/storyblok';
 
-async function fetchData(slug: string) {
+async function fetchData(slug: string, version: "published" | "draft" | undefined) {
   const sbParams: ISbStoriesParams = {
-    version: isProd ? 'published' : 'draft',
+    version: version,
   };
   const storyblokApi = getStoryblokApi();
 
@@ -27,16 +26,23 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const story = await fetchData(params.slug.join('/'));
+  const story = await fetchData(params.slug.join('/'), 'published');
 
   return generateMetadataFromStory(story, false);
 }
 
-export default async function Page({ params }: { params: { slug: string[] } }) {
+export default async function Page({
+                                     params,
+                                     searchParams,
+                                   }: {
+  params: { slug: string[] };
+  searchParams: { _storyblok?: string };
+}) {
   const slugPath = params.slug.join('/');
   let data;
   try {
-    const response = await fetchData(slugPath);
+    const version = searchParams._storyblok ? 'draft' : 'published';
+    const response = await fetchData(slugPath, version);
     data = response.data;
   } catch (error) {
     notFound();
