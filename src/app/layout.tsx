@@ -13,6 +13,14 @@ import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
 import StoryblokProvider from '@/providers/StoryblokProvider';
+import components from "../../storyblok";
+import {apiPlugin, storyblokInit} from "@storyblok/react";
+
+storyblokInit({
+  accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
+  use: [apiPlugin],
+  components,
+});
 
 export const viewport: Viewport = {
   themeColor: '#3d58d3',
