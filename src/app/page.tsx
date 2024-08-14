@@ -1,11 +1,16 @@
-import { ISbStoriesParams } from '@storyblok/react';
-import { getStoryblokApi } from '@storyblok/react/rsc';
-import { Metadata } from 'next';
+import StoryblokRenderer from "@/app/StoryblokRenderer";
+import {apiPlugin, getStoryblokApi, ISbStoriesParams, storyblokInit, useStoryblokApi} from "@storyblok/react";
+import {isProd} from "@/constants/env";
+import {Metadata} from "next";
+import {generateMetadataFromStory} from "@/lib/storyblok";
+import {notFound} from "next/navigation";
+import components from "../../storyblok";
 
-import { isProd } from '@/constants/env';
-import { generateMetadataFromStory } from '@/lib/storyblok';
-
-import PageComponent from '../components/PageComponent';
+storyblokInit({
+  accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
+  use: [apiPlugin],
+  components,
+});
 
 async function fetchData(slug: string) {
   const sbParams: ISbStoriesParams = {
@@ -25,12 +30,21 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const story = await fetchData(params.slug ? params.slug.join('/') : 'home');
+  const story = await fetchData('home');
 
-  return generateMetadataFromStory(story, true);
+  return generateMetadataFromStory(story, false);
 }
 
-export default async function Page() {
-  const slug = 'home';
-  return <PageComponent slug={slug} />;
+export default async function Page({ params }: { params: { slug: string[] } }) {
+  const slugPath = 'home';
+  let data;
+  try {
+    const response = await fetchData(slugPath);
+    data = response.data;
+  } catch (error) {
+    notFound();
+  }
+  return (
+      <StoryblokRenderer story={data.story} />
+  );
 }

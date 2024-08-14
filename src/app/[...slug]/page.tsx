@@ -1,10 +1,16 @@
-import { ISbStoriesParams } from '@storyblok/react';
-import { getStoryblokApi, StoryblokComponent } from '@storyblok/react/rsc';
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import StoryblokRenderer from "@/app/StoryblokRenderer";
+import {apiPlugin, getStoryblokApi, ISbStoriesParams, storyblokInit, useStoryblokApi} from "@storyblok/react";
+import components from "../../../storyblok";
+import {isProd} from "@/constants/env";
+import {Metadata} from "next";
+import {generateMetadataFromStory} from "@/lib/storyblok";
+import {notFound} from "next/navigation";
 
-import { isProd } from '@/constants/env';
-import { generateMetadataFromStory } from '@/lib/storyblok';
+storyblokInit({
+  accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
+  use: [apiPlugin],
+  components,
+});
 
 async function fetchData(slug: string) {
   const sbParams: ISbStoriesParams = {
@@ -39,8 +45,6 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
     notFound();
   }
   return (
-    <>
-      <StoryblokComponent blok={data.story.content} />
-    </>
+      <StoryblokRenderer story={data.story} />
   );
 }
