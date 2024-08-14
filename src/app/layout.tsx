@@ -1,11 +1,9 @@
 import { apiPlugin, storyblokInit } from '@storyblok/react';
-import StoryblokBridgeLoader from '@storyblok/react/bridge-loader';
 import { Viewport } from 'next';
 import { headers } from 'next/headers';
 import Script from 'next/script';
 import PlausibleProvider from 'next-plausible';
 import React, { Suspense } from 'react';
-import '../../storyblok';
 
 import '@/styles/main.scss';
 
@@ -15,19 +13,20 @@ import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import PosthogProvider from '@/providers/posthog';
+import StoryblokProvider from '@/providers/StoryblokProvider';
 
 import components from '../../storyblok';
-
-export const viewport: Viewport = {
-  themeColor: '#3d58d3',
-  colorScheme: 'only light',
-};
 
 storyblokInit({
   accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
   use: [apiPlugin],
   components,
 });
+
+export const viewport: Viewport = {
+  themeColor: '#3d58d3',
+  colorScheme: 'only light',
+};
 
 export default function RootLayout({
   children,
@@ -61,11 +60,6 @@ export default function RootLayout({
           }}
         />
         <PlausibleProvider domain="fix.security" scriptProps={{ nonce }} />
-        <Script
-          src="https://app.storyblok.com/f/storyblok-v2-latest.js"
-          async
-          strategy="afterInteractive"
-        />
       </head>
       <body className="bg-white">
         <noscript>
@@ -79,7 +73,7 @@ export default function RootLayout({
         <PosthogProvider>
           <Header />
           <main>
-            {children}
+            <StoryblokProvider>{children}</StoryblokProvider>
             <Suspense>
               <BlogNewsletterForm nonce={nonce} />
             </Suspense>
@@ -89,7 +83,6 @@ export default function RootLayout({
             <PosthogPageView />
           </Suspense>
         </PosthogProvider>
-        <StoryblokBridgeLoader options={{}} />
       </body>
     </html>
   );
