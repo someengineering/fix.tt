@@ -9,10 +9,13 @@ storyblokInit({
   use: [apiPlugin],
   components,
   apiOptions: {
-    cache: {
-      type: 'none',
-    },
+    cache: { type: 'memory', clear: 'auto' }
   },
+  experimental: {
+    readOptions: {
+      cache: 'no-store'
+    }
+  }
 });
 
 export default function StoryblokProvider({
