@@ -26,7 +26,7 @@ export async function generateMetadata({
 }: {
   params: { slug: string[] };
 }): Promise<Metadata> {
-  const story = await fetchData(params.slug.join('/'), 'published');
+  const story = await fetchData(params.slug.join('/'), 'draft');
 
   return generateMetadataFromStory(story, false);
 }
@@ -42,7 +42,7 @@ export default async function Page({
   let data;
   try {
     const version = searchParams._storyblok ? 'draft' : 'published';
-    const response = await fetchData(slugPath, version);
+    const response = await fetchData(slugPath, 'draft');
     data = response.data;
     console.log(`data = ${JSON.stringify(data)}`);
   } catch (error) {

@@ -4,18 +4,6 @@ import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { openGraph } from '@/utils/og';
 
-export const fetchStory = async (slug: string) => {
-  const storyblokApi = getStoryblokApi();
-  try {
-    const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
-      version: isProd ? 'published' : 'draft',
-    });
-    return data?.story || null;
-  } catch (error) {
-    return null;
-  }
-};
-
 export function generateMetadataFromStory(
   story: ISbResult,
   isHomePage: boolean,

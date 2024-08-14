@@ -22,7 +22,7 @@ async function fetchData(
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const story = await fetchData('home', 'published');
+  const story = await fetchData('home', 'draft');
 
   return generateMetadataFromStory(story, false);
 }
@@ -37,7 +37,7 @@ export default async function Page({
   let data;
   try {
     const version = searchParams._storyblok ? 'draft' : 'published';
-    const response = await fetchData(slugPath, version);
+    const response = await fetchData(slugPath, 'draft');
     data = response.data;
   } catch (error) {
     notFound();
