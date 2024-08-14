@@ -22,7 +22,7 @@ storyblokInit({
   use: [apiPlugin],
   components,
   apiOptions: {
-    cache: { type: 'none' }
+    cache: { type: 'none' },
   },
 });
 
