@@ -21,6 +21,11 @@ storyblokInit({
   accessToken: process.env.STORYBLOK_OAUTH_TOKEN,
   use: [apiPlugin],
   components,
+  apiOptions: {
+    cache: {
+      type: 'none',
+    },
+  },
 });
 
 export const viewport: Viewport = {
