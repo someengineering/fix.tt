@@ -1,4 +1,4 @@
-import { getStoryblokApi, ISbResult } from '@storyblok/react';
+import { ISbResult } from '@storyblok/react';
 
 import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';

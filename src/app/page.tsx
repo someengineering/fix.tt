@@ -12,7 +12,7 @@ async function fetchData(
   const cacheVersion = Math.floor(Date.now() / 1000);
   const sbParams: ISbStoriesParams = {
     version: version,
-    cv: cacheVersion,  // Force bypass cache
+    cv: cacheVersion, // Force bypass cache
   };
   const storyblokApi = getStoryblokApi();
 
