@@ -171,20 +171,6 @@ module.exports = withPlausibleProxy()({
     return config;
   },
 
-  async headers() {
-    return [
-      {
-        source: '/:path*',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-cache, no-store, must-revalidate', // Ensure fresh content is fetched
-          },
-        ],
-      },
-    ];
-  },
-
   experimental: {
     webpackBuildWorker: true,
   },

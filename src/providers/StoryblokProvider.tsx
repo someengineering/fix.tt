@@ -9,7 +9,7 @@ storyblokInit({
   use: [apiPlugin],
   components,
   apiOptions: {
-    cache: { type: 'none', clear: 'auto' },
+    cache: { type: 'none' },
   },
 });
 
