@@ -46,7 +46,6 @@ export default async function Page({
     const version = searchParams._storyblok ? 'draft' : 'published';
     const response = await fetchData(slugPath, version);
     data = response.data;
-    console.log(`data = ${JSON.stringify(data)}`);
   } catch (error) {
     notFound();
   }
