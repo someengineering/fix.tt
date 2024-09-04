@@ -5,7 +5,7 @@ export const parseEpisodeTitle = (
   guest: { name?: string; title?: string };
 } => {
   const [title, guest] = str.split(' - ');
-  const [guestName, guestTitle] = guest.split(', ');
+  const [guestName = '', guestTitle = ''] = guest?.split(', ') || [];
 
   return {
     title,
