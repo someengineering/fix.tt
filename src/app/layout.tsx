@@ -1,4 +1,5 @@
 import { apiPlugin, storyblokInit } from '@storyblok/react';
+import { StoryblokBridgeLoader } from '@storyblok/react/rsc';
 import { Viewport } from 'next';
 import { headers } from 'next/headers';
 import Script from 'next/script';
@@ -86,6 +87,7 @@ export default function RootLayout({
             <PosthogPageView />
           </Suspense>
         </PosthogProvider>
+        <StoryblokBridgeLoader options={{}} />
       </body>
     </html>
   );

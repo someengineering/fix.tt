@@ -9,8 +9,10 @@ async function fetchData(
   slug: string,
   version: 'published' | 'draft' | undefined,
 ) {
+  const cacheVersion = Math.floor(Date.now() / 1000);
   const sbParams: ISbStoriesParams = {
     version: version,
+    cv: cacheVersion, // Force bypass cache
   };
   const storyblokApi = getStoryblokApi();
 
