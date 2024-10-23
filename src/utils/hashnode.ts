@@ -14,7 +14,7 @@ export const getUserTitle = (user: HashnodeUser): string | undefined => {
     return userTitleMapping[user.username];
   }
 
-  return 'Engineer';
+  return 'Engineer at Fix Security';
 };
 
 export const getUserLink = (user: HashnodeUser): string | undefined => {
