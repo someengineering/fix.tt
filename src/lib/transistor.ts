@@ -130,7 +130,7 @@ export const getAllEpisodeSlugs = async () => {
         !data?.data?.length ||
         data.meta.currentPage >= data.meta.totalPages
       ) {
-        return;
+        return slugs;
       }
 
       slugs = [
@@ -166,7 +166,7 @@ export const getAllEpisodes = async () => {
         !data?.data?.length ||
         data.meta.currentPage >= data.meta.totalPages
       ) {
-        return;
+        return episodes;
       }
 
       episodes = [...episodes, ...data.data];
