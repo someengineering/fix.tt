@@ -14,7 +14,7 @@ export default async function Hero() {
       <div className="mx-auto max-w-xl lg:mx-0 lg:flex-shrink-0">
         <div className="mx-auto pb-12 lg:p-0">
           {latestBlogPost ? (
-            <div className="mb-6">
+            <div className="mb-8">
               <Link
                 href={`/blog/${latestBlogPost.slug}`}
                 className="inline-flex space-x-4"
@@ -35,10 +35,10 @@ export default async function Hero() {
           <h1 className="max-w-prose text-balance text-5xl font-bold sm:text-6xl lg:text-pretty">
             Get a secure and compliant cloud
           </h1>
-          <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-medium text-gray-900 sm:text-xl lg:text-pretty">
+          <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-medium text-gray-500 sm:text-xl lg:text-pretty">
             {siteConfig.description}
           </p>
-          <div className="mt-6 space-x-5">
+          <div className="mt-8 space-x-5">
             <ButtonLink
               href={siteConfig.registerUrl}
               size="lg"
