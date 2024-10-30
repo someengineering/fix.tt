@@ -44,7 +44,7 @@ export default async function HomePage() {
             src={inventoryScreenshot}
             sizes="(max-width: 1140px) 100vw, 1140px"
             placeholder="blur"
-            alt="Fix Security dashboard displays changes detected in the last week, security score, and top 5 possible security enhancements."
+            alt="Fix Security's Inventory view showing cloud resources. Left sidebar displays resource categories. Main panel shows a filtered list of resources across AWS, Azure, and GCP, with dropdown filters for clouds, accounts, regions, and kinds."
             className="rounded-xl shadow-md"
           />
         </div>
