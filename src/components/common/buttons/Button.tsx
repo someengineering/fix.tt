@@ -1,16 +1,15 @@
+import { cn } from '@/utils/css';
 import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 import { ImSpinner2 } from 'react-icons/im';
 
-import { cn } from '@/utils/css';
-
-const ButtonVariant = ['default', 'outline', 'ghost', 'light', 'dark'] as const;
-const ButtonSize = ['sm', 'base', 'lg'] as const;
+type ButtonVariant = 'default' | 'outline' | 'ghost' | 'light' | 'dark';
+type ButtonSize = 'sm' | 'base' | 'lg';
 
 type ButtonProps = {
   isLoading?: boolean;
-  variant?: (typeof ButtonVariant)[number];
-  size?: (typeof ButtonSize)[number];
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   leftIcon?: IconType;
   rightIcon?: IconType;
   classNames?: {
@@ -152,5 +151,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
+
+Button.displayName = 'Button';
 
 export default Button;

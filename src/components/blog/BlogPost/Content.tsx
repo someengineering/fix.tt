@@ -1,8 +1,7 @@
-import Image from 'next/image';
-
 import TableOfContents from '@/components/blog/BlogPost/TableOfContents';
 import MarkdownContent from '@/components/common/MarkdownContent';
 import { TableOfContentsItemFragment as HashnodeTableOfContentsItem } from '@/generated/hashnode/graphql';
+import Image from 'next/image';
 
 export default function Content({
   markdown,

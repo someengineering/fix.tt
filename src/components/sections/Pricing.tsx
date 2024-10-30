@@ -1,12 +1,11 @@
 'use client';
 
-import GithubSlugger from 'github-slugger';
-import { usePathname } from 'next/navigation';
-import { LuBuilding, LuCheck, LuPersonStanding } from 'react-icons/lu';
-
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
 import { cn } from '@/utils/css';
+import GithubSlugger from 'github-slugger';
+import { usePathname } from 'next/navigation';
+import { LuBuilding, LuCheck, LuPersonStanding } from 'react-icons/lu';
 
 const tiers: {
   name: string;

@@ -1,6 +1,3 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
@@ -13,6 +10,8 @@ import {
   getTagName,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await getAllTagSlugs();
@@ -22,18 +21,17 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const tag = await getTagName(params.slug);
+  const { slug } = await props.params;
+  const tag = await getTagName(slug);
 
   if (!tag) {
     return {};
   }
 
-  const url = `${siteConfig.url}/blog/tag/${params.slug}`;
+  const url = `${siteConfig.url}/blog/tag/${slug}`;
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)} | Blog`;
   const description = `Guides, how-tos, and news from the Fix Security team.`;
   const ogImage = openGraph({
@@ -64,14 +62,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogTagPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogTagPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await props.params;
   const publicationData = getPublication();
-  const tagNameData = getTagName(params.slug);
-  const postsData = getPostsByTag({ tagSlug: params.slug });
+  const tagNameData = getTagName(slug);
+  const postsData = getPostsByTag({ tagSlug: slug });
 
   const [publication, tagName, posts] = await Promise.all([
     publicationData,
@@ -112,7 +109,7 @@ export default async function BlogTagPage({
                 'use server';
 
                 return await getPostsByTag({
-                  tagSlug: params.slug,
+                  tagSlug: slug,
                   after,
                 });
               }}

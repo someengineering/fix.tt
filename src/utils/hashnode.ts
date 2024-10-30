@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 
 const userTitleMapping: Record<string, string> = {

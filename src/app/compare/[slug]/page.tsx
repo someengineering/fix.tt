@@ -1,6 +1,3 @@
-import type { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
 import FixLogo from '@/assets/logo.svg';
@@ -17,6 +14,8 @@ import {
   getStaticPage,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+import type { Metadata } from 'next';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 export const revalidate = 300;
 
@@ -30,12 +29,11 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const staticPage = await getStaticPage(params.slug);
+  const { slug } = await props.params;
+  const staticPage = await getStaticPage(slug);
 
   if (!staticPage) {
     return notFoundMetadata;
@@ -70,17 +68,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function ComparisonPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function ComparisonPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
-  if (!params.slug.startsWith('fix-vs-')) {
-    permanentRedirect(`/${params.slug}`);
+  const { slug } = await props.params;
+  if (!slug.startsWith('fix-vs-')) {
+    permanentRedirect(`/${slug}`);
   }
 
   const publicationIdData = getPublicationId();
-  const staticPageData = getStaticPage(params.slug);
+  const staticPageData = getStaticPage(slug);
 
   const [publicationId, staticPage] = await Promise.all([
     publicationIdData,
@@ -93,7 +90,7 @@ export default async function ComparisonPage({
 
   const title = `Fix Security vs. ${staticPage.title}`;
   const subtitle = `Why engineers choose Fix Security over ${staticPage.title}`;
-  const competitorSlug = params.slug.replace('fix-vs-', '');
+  const competitorSlug = slug.replace('fix-vs-', '');
 
   return (
     <>

@@ -1,6 +1,3 @@
-import Image from 'next/image';
-import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
-
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import {
@@ -11,6 +8,8 @@ import {
 } from '@/generated/hashnode/graphql';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
+import Image from 'next/image';
+import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
 export default function Header({
   url,

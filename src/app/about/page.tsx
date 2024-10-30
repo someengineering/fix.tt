@@ -1,6 +1,3 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
@@ -11,6 +8,8 @@ import { siteConfig } from '@/constants/config';
 import { isProd } from '@/constants/env';
 import { getPublicationId, getStaticPage } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const revalidate = 300;
 

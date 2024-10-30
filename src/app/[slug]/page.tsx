@@ -1,6 +1,3 @@
-import type { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
@@ -13,6 +10,8 @@ import {
   getStaticPage,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+import type { Metadata } from 'next';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 export const revalidate = 300;
 
@@ -26,12 +25,11 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const staticPage = await getStaticPage(params.slug);
+  const { slug } = await props.params;
+  const staticPage = await getStaticPage(slug);
 
   if (!staticPage) {
     return notFoundMetadata;
@@ -66,17 +64,16 @@ export async function generateMetadata({
   };
 }
 
-export default async function StaticPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function StaticPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
-  if (params.slug.startsWith('fix-vs-')) {
-    permanentRedirect(`/compare/${params.slug}`);
+  const { slug } = await props.params;
+  if (slug.startsWith('fix-vs-')) {
+    permanentRedirect(`/compare/${slug}`);
   }
 
   const publicationIdData = getPublicationId();
-  const staticPageData = getStaticPage(params.slug);
+  const staticPageData = getStaticPage(slug);
 
   const [publicationId, staticPage] = await Promise.all([
     publicationIdData,

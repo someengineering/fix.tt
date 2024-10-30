@@ -1,0 +1,88 @@
+/* Branding on the banner */
+a#CybotCookiebotDialogPoweredbyCybot,
+div#CybotCookiebotDialogPoweredByText {
+  @apply hidden;
+}
+
+/* Branding on the Privacy trigger */
+#CookiebotWidget .CookiebotWidget-body .CookiebotWidget-main-logo {
+  @apply hidden;
+}
+
+#CybotCookiebotDialog {
+  @apply !bottom-0 !top-auto !rounded-none;
+  border: 7px solid var(--color-primary--light) !important;
+  transform: translate(-50%, -10px) !important;
+
+  .CybotCookiebotDialogContentWrapper {
+    @apply !max-w-screen-xl !items-center;
+
+    #CybotCookiebotDialogBodyUnderlay {
+      * {
+        @apply !text-sm;
+      }
+    }
+
+    #CybotCookiebotDialogBodyContent {
+      #CybotCookiebotDialogBodyContentTitle,
+      .CybotCookiebotDialogBodyBottomWrapper {
+        @apply !hidden;
+      }
+    }
+  }
+}
+
+#CybotCookiebotDialogFooter {
+  .CybotCookiebotDialogBodyButton {
+    @apply !inline-block !w-auto items-center whitespace-nowrap rounded-md border border-cornflower-blue-700 px-4 py-2 !font-sans text-base font-bold transition-colors duration-75 hover:opacity-100 focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500 disabled:cursor-not-allowed disabled:bg-cornflower-blue-600 disabled:opacity-50 !important;
+  }
+
+  #CybotCookiebotDialogBodyButtonDecline,
+  #CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll {
+    @apply bg-cornflower-blue-600 text-white hover:bg-cornflower-blue-700 hover:text-white active:border-cornflower-blue-800 active:bg-cornflower-blue-800 disabled:border-cornflower-blue-600 !important;
+  }
+
+  #CybotCookiebotDialogBodyLevelButtonCustomize {
+    @apply mb-0 border border-transparent text-cornflower-blue-600 hover:border-cornflower-blue-600 focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500 active:border-cornflower-blue-700 disabled:opacity-50 !important;
+  }
+}
+
+#CybotCookiebotDialog.CybotEdge #CybotCookiebotDialogFooter {
+  #CybotCookiebotDialogBodyButtonsWrapper {
+    @apply !gap-x-2;
+
+    @media screen and (min-width: 600px) {
+      @apply !flex-row-reverse;
+    }
+  }
+
+  .CybotCookiebotDialogBodyButton:not(:first-of-type) {
+    @media screen and (min-width: 600px) {
+      @apply !mb-0;
+    }
+  }
+}
+
+CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll {
+  @apply !border-none;
+}
+
+#CybotCookiebotDialog #CybotCookiebotDialogFooter .CybotCookiebotDialogHide,
+#CybotCookiebotDialogPoweredByText {
+  @apply !hidden;
+}
+
+#CybotCookiebotDialogNav .CybotCookiebotDialogNavItemLink {
+  @apply !px-[1em] !pb-[1em] !pt-[1.8em];
+}
+
+#CybotCookiebotDialog .CybotCookiebotScrollContainer,
+#CybotCookiebotDialog #CybotCookiebotDialogBody .CybotCookiebotScrollContainer,
+#CybotCookiebotDialogNav,
+#CybotCookiebotDialogHeader {
+  @apply !border-none;
+}
+
+#CybotCookiebotDialogHeader {
+  @apply !hidden;
+}

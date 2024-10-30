@@ -1,5 +1,5 @@
-import CspmDiagram from '@/assets/diagrams/cspm.svg';
 import CspmDiagramMobile from '@/assets/diagrams/cspm-mobile.svg';
+import CspmDiagram from '@/assets/diagrams/cspm.svg';
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
 

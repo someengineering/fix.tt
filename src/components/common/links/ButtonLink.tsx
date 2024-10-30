@@ -1,23 +1,16 @@
-import { forwardRef } from 'react';
-import { IconType } from 'react-icons';
-
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/common/links/UnstyledLink';
 import { cn } from '@/utils/css';
+import { forwardRef } from 'react';
+import { IconType } from 'react-icons';
 
-const ButtonLinkVariant = [
-  'default',
-  'outline',
-  'ghost',
-  'light',
-  'dark',
-] as const;
-const ButtonLinkSize = ['sm', 'base', 'lg'] as const;
+type ButtonLinkVariant = 'default' | 'outline' | 'ghost' | 'light' | 'dark';
+type ButtonLinkSize = 'sm' | 'base' | 'lg';
 
 type ButtonLinkProps = {
-  variant?: (typeof ButtonLinkVariant)[number];
-  size?: (typeof ButtonLinkSize)[number];
+  variant?: ButtonLinkVariant;
+  size?: ButtonLinkSize;
   leftIcon?: IconType;
   rightIcon?: IconType;
   classNames?: {
@@ -134,5 +127,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     );
   },
 );
+
+ButtonLink.displayName = 'ButtonLink';
 
 export default ButtonLink;

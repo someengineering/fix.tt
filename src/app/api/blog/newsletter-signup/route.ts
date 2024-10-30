@@ -1,10 +1,9 @@
-import type { NextRequest } from 'next/server';
-import { z } from 'zod';
-import { zfd } from 'zod-form-data';
-
 import { addPerson as addPersonToAttio } from '@/lib/attio';
 import { validateCaptcha } from '@/lib/google/recaptcha';
 import { subscribeToNewsletter } from '@/lib/hashnode';
+import type { NextRequest } from 'next/server';
+import { z } from 'zod';
+import { zfd } from 'zod-form-data';
 
 export async function POST(req: NextRequest) {
   const schema = zfd.formData({
@@ -22,7 +21,7 @@ export async function POST(req: NextRequest) {
 
   try {
     await addPersonToAttio(email);
-  } catch (e) {
+  } catch {
     // do nothing
   }
 

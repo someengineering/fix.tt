@@ -1,6 +1,10 @@
-module.exports = {
-  singleQuote: true,
+/** @type {import("prettier").Config} */
+const config = {
   plugins: ['prettier-plugin-organize-imports', 'prettier-plugin-tailwindcss'],
+  singleQuote: true,
   tailwindConfig: './tailwind.config.ts',
+  tailwindAttributes: ['tw'],
   tailwindFunctions: ['clsx', 'cn'],
 };
+
+export default config;

@@ -1,5 +1,7 @@
 'use client';
 
+import Button from '@/components/common/buttons/Button';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { usePostHog } from 'posthog-js/react';
@@ -7,9 +9,6 @@ import { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-import Button from '@/components/common/buttons/Button';
-import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const validationSchema = z.object({
   email: z

@@ -1,20 +1,18 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import BlogDraft from '@/components/blog/BlogDraft';
 import { siteConfig } from '@/constants/config';
 import { getDraft, getPublication } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export const revalidate = 0;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  const draft = await getDraft(params.id);
+  const { id } = await props.params;
+  const draft = await getDraft(id);
 
   if (!draft) {
     return {
@@ -57,13 +55,12 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPreviewPage({
-  params,
-}: {
-  params: { id: string };
+export default async function BlogPreviewPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await props.params;
   const publicationData = getPublication();
-  const draftData = getDraft(params.id);
+  const draftData = getDraft(id);
 
   const [publication, draft] = await Promise.all([publicationData, draftData]);
 

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import { getText } from '@/utils/hashnode';
 

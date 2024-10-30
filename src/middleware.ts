@@ -14,7 +14,7 @@ export const config = {
      */
     {
       source:
-        '/((?!api|_next/static|_next/image|favicon|apple-touch-icon|android-chrome-|site.webmanifest).*)',
+        '/((?!api|js/|_next/static|_next/image|favicon|apple-touch-icon|android-chrome-|site.webmanifest|sitemap.xml|robots.txt).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
@@ -38,19 +38,25 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
-    connect-src 'self';
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
+    connect-src 'self' https://consentcdn.cookiebot.com https://consent.cookiebot.com;
+    script-src 'self' 'unsafe-inline'${
+      process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"
+    }${
+      request.nextUrl.pathname.startsWith('/studio')
+        ? ''
+        : ` 'nonce-${nonce}' 'strict-dynamic'`
+    };
     style-src 'self' 'unsafe-inline';
     style-src-elem 'self' https://cdn.jsdelivr.net;
-    img-src 'self' https://i.ytimg.com blob: data:;
+    img-src 'self' https://i.ytimg.com https://imgsct.cookiebot.com blob: data:;
     media-src 'self' https://media.transistor.fm https://audio.transistor.fm;
-    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com;
+    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com https://consentcdn.cookiebot.com https://consent.cookiebot.com;
     font-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
     frame-ancestors ${url.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'none'"};
-    upgrade-insecure-requests;
+    ${process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'upgrade-insecure-requests;' : ''}
 `
     .replace(/\s{2,}/g, ' ')
     .trim();

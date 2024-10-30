@@ -1,20 +1,19 @@
-import { Metadata, Viewport } from 'next';
-import { headers } from 'next/headers';
-import PlausibleProvider from 'next-plausible';
-import { Suspense } from 'react';
-
+import '@/styles/cookiebot.css';
 import '@/styles/globals.css';
 
-import { plusJakartaSans } from '@/app/fonts';
-import CookieConsent from '@/components/analytics/CookieConsent';
-import PosthogPageView from '@/components/analytics/PosthogPageView';
 import BlogNewsletterForm from '@/components/blog/BlogNewsletterForm';
 import Footer from '@/components/layout/Footer';
 import Header from '@/components/layout/Header';
 import { siteConfig } from '@/constants/config';
+import { COOKIEBOT_ID } from '@/constants/cookiebot';
 import { isProd } from '@/constants/env';
-import PosthogProvider from '@/providers/posthog';
+import { GTM_CONTAINER_ID } from '@/constants/google';
 import { openGraph } from '@/utils/og';
+import { Metadata, Viewport } from 'next';
+import { Plus_Jakarta_Sans } from 'next/font/google';
+import { headers } from 'next/headers';
+import Script from 'next/script';
+import { Suspense } from 'react';
 
 const url = siteConfig.url;
 const title = siteConfig.title;
@@ -74,33 +73,72 @@ export const viewport: Viewport = {
   colorScheme: 'only light',
 };
 
-export default function RootLayout({
+const plusJakartaSans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-plus-jakarta-sans',
+});
+
+const gtmScript = `
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');
+`;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const nonce = headers().get('x-nonce') ?? undefined;
+  const nonce = (await headers()).get('x-nonce') ?? undefined;
 
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
       <head>
-        <PlausibleProvider domain="fix.security" scriptProps={{ nonce }} />
+        <Script
+          src="/js/script.js"
+          data-domain="fix.security"
+          strategy="afterInteractive"
+          nonce={nonce}
+        />
+        {COOKIEBOT_ID ? (
+          <Script
+            id="Cookiebot"
+            src="/js/uc.js"
+            data-cbid={COOKIEBOT_ID}
+            data-blockingmode="auto"
+            strategy="afterInteractive"
+            nonce={nonce}
+          />
+        ) : null}
+        {GTM_CONTAINER_ID ? (
+          <Script
+            id="google-tag-manager"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{ __html: gtmScript }}
+            nonce={nonce}
+          />
+        ) : null}
       </head>
       <body className="bg-white">
-        <PosthogProvider>
-          <Header />
-          <main>
-            {children}
-            <Suspense>
-              <BlogNewsletterForm nonce={nonce} />
-            </Suspense>
-          </main>
-          <Footer />
-          <CookieConsent />
+        <Header />
+        <main>
+          {children}
           <Suspense>
-            <PosthogPageView />
+            <BlogNewsletterForm nonce={nonce} />
           </Suspense>
-        </PosthogProvider>
+        </main>
+        <Footer />
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
+            className="invisible hidden"
+            height={0}
+            width={0}
+          />
+        </noscript>
       </body>
     </html>
   );

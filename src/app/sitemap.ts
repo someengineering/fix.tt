@@ -1,6 +1,3 @@
-import { max } from 'lodash';
-import { MetadataRoute } from 'next';
-
 import { siteConfig } from '@/constants/config';
 import {
   getAllPosts,
@@ -9,6 +6,8 @@ import {
   getAllTagSlugs,
 } from '@/lib/hashnode';
 import { getAllEpisodes, getShow } from '@/lib/transistor';
+import { max } from 'lodash';
+import { MetadataRoute } from 'next';
 
 type SitemapField = {
   url: string;

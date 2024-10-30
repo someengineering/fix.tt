@@ -1,6 +1,3 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
 import { metadata as rootMetadata } from '@/app/layout';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
@@ -13,6 +10,8 @@ import {
   getSeries,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await getAllSeriesSlugs();
@@ -22,18 +21,17 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const series = await getSeries(params.slug);
+  const { slug } = await props.params;
+  const series = await getSeries(slug);
 
   if (!series || !series.posts.totalDocuments) {
     return {};
   }
 
-  const url = `${siteConfig.url}/blog/series/${params.slug}`;
+  const url = `${siteConfig.url}/blog/series/${slug}`;
   const title = `${series.name} | Blog`;
   const description = series.description?.text;
   const ogImage = openGraph({
@@ -64,14 +62,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogSeriesPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogSeriesPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await props.params;
   const publicationData = getPublication();
-  const seriesInfoData = getSeries(params.slug);
-  const postsData = getPostsBySeries({ seriesSlug: params.slug });
+  const seriesInfoData = getSeries(slug);
+  const postsData = getPostsBySeries({ seriesSlug: slug });
 
   const [publication, seriesInfo, posts] = await Promise.all([
     publicationData,
@@ -118,7 +115,7 @@ export default async function BlogSeriesPage({
                 'use server';
 
                 return await getPostsBySeries({
-                  seriesSlug: params.slug,
+                  seriesSlug: slug,
                   after,
                 });
               }}

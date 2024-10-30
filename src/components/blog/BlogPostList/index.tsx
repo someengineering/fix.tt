@@ -1,8 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
-
 import Item from '@/components/blog/BlogPostList/Item';
 import {
   PageInfo as HashnodePageInfo,
@@ -10,6 +7,8 @@ import {
   PublicationPostConnectionFragment,
   SeriesPostConnectionFragment,
 } from '@/generated/hashnode/graphql';
+import { useState } from 'react';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 export default function BlogPostList({
   initialPosts,

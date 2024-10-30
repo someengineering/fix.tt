@@ -1,13 +1,12 @@
-import { forwardRef } from 'react';
-
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/common/links/UnstyledLink';
 import { cn } from '@/utils/css';
+import { forwardRef } from 'react';
 
-const PrimaryLinkVariant = ['default', 'basic', 'light'] as const;
+type PrimaryLinkVariant = 'default' | 'basic' | 'light';
 type PrimaryLinkProps = {
-  variant?: (typeof PrimaryLinkVariant)[number];
+  variant?: PrimaryLinkVariant;
 } & UnstyledLinkProps;
 
 const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
@@ -41,5 +40,7 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
     );
   },
 );
+
+PrimaryLink.displayName = 'PrimaryLink';
 
 export default PrimaryLink;

@@ -1,24 +1,43 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-// @ts-check
+import { flatten } from 'lodash';
+import type { NextConfig } from 'next';
 
-const { flatten } = require('lodash');
-const { withPlausibleProxy } = require('next-plausible');
-
-/** @type {import('next').NextConfig} */
-module.exports = withPlausibleProxy()({
+const nextConfig: NextConfig = {
   eslint: {
     dirs: ['src'],
   },
 
   reactStrictMode: true,
-  swcMinify: true,
 
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.hashnode.com' },
       { protocol: 'https', hostname: 'i.scdn.co' },
       { protocol: 'https', hostname: 'img.transistor.fm' },
+      { protocol: 'https', hostname: 'cdn.sanity.io' },
+      { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
     ],
+  },
+
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          // {
+          //   key: 'Strict-Transport-Security',
+          //   value: 'max-age=31536000; includeSubDomains; preload',
+          // },
+        ],
+      },
+    ];
   },
 
   async redirects() {
@@ -124,6 +143,18 @@ module.exports = withPlausibleProxy()({
   async rewrites() {
     return [
       {
+        source: '/js/uc.js',
+        destination: 'https://plausible.io/js/script.outbound-links.js',
+      },
+      {
+        source: '/js/script.js',
+        destination: 'https://plausible.io/js/script.outbound-links.js',
+      },
+      {
+        source: '/api/event',
+        destination: 'https://plausible.io/api/event',
+      },
+      {
         source: '/api/analytics',
         destination: 'https://user-analytics.hashnode.com/api/analytics',
       },
@@ -140,7 +171,8 @@ module.exports = withPlausibleProxy()({
 
   webpack(config) {
     // Grab the existing rule that handles SVG imports
-    const fileLoaderRule = config.module.rules.find((rule) =>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const fileLoaderRule = config.module.rules.find((rule: any) =>
       rule.test?.test?.('.svg'),
     );
 
@@ -170,7 +202,21 @@ module.exports = withPlausibleProxy()({
     return config;
   },
 
+  compiler:
+    process.env.NEXT_PUBLIC_VERCEL_ENV === 'production'
+      ? {
+          reactRemoveProperties: true,
+          removeConsole: true,
+        }
+      : undefined,
+
   experimental: {
+    staleTimes: {
+      dynamic: 30,
+    },
+    taint: true,
     webpackBuildWorker: true,
   },
-});
+};
+
+export default nextConfig;

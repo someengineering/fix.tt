@@ -1,3 +1,10 @@
+import ButtonLink from '@/components/common/links/ButtonLink';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
+import Heading from '@/components/common/MarkdownContent/Heading';
+import Icon from '@/components/common/MarkdownContent/Icon';
+import { siteConfig } from '@/constants/config';
+import { cn } from '@/utils/css';
+import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 import { YouTubeEmbed } from '@next/third-parties/google';
 import GithubSlugger from 'github-slugger';
 import Image from 'next/image';
@@ -8,14 +15,6 @@ import { ghcolors } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
 import remarkSmartypants from 'remark-smartypants';
-
-import ButtonLink from '@/components/common/links/ButtonLink';
-import PrimaryLink from '@/components/common/links/PrimaryLink';
-import Heading from '@/components/common/MarkdownContent/Heading';
-import Icon from '@/components/common/MarkdownContent/Icon';
-import { siteConfig } from '@/constants/config';
-import { cn } from '@/utils/css';
-import { getText, sanitizeMarkdown } from '@/utils/hashnode';
 
 export default function MarkdownContent({
   children,

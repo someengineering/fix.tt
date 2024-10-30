@@ -1,5 +1,3 @@
-import { LuBookOpen, LuPodcast } from 'react-icons/lu';
-
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import NavigationMenu, {
@@ -8,6 +6,7 @@ import NavigationMenu, {
 import { getAllComparePages, getAllSeries, getPosts } from '@/lib/hashnode';
 import { getEpisodes } from '@/lib/transistor';
 import { parseEpisodeTitle } from '@/utils/transistor';
+import { LuBookOpen, LuPodcast } from 'react-icons/lu';
 
 export default async function Header() {
   const comparePagesData = getAllComparePages();
@@ -108,7 +107,7 @@ export default async function Header() {
             </PrimaryLink>
           </div>
           <ul role="list" className="mt-6 space-y-6">
-            {podcastEpisodes.data.map((episode) => {
+            {podcastEpisodes?.data.map((episode) => {
               const { title } = parseEpisodeTitle(episode.attributes.title);
               const durationHours = Math.floor(
                 episode.attributes.duration / 60 / 60,

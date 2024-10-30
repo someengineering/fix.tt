@@ -1,5 +1,6 @@
 'use client';
 
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 import {
   Disclosure,
   DisclosureButton,
@@ -7,8 +8,6 @@ import {
 } from '@headlessui/react';
 import { usePathname } from 'next/navigation';
 import { LuMinus, LuPlus } from 'react-icons/lu';
-
-import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const faqs: {
   question: string | JSX.Element;
@@ -334,7 +333,7 @@ const faqs: {
         <PrimaryLink href="mailto:info@fix.security">
           info@fix.security
         </PrimaryLink>
-        ! We'll be more than happy to assist you.
+        ! We&rsquo;ll be more than happy to assist you.
       </p>
     ),
   },
