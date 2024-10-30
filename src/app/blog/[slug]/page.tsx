@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound, permanentRedirect } from 'next/navigation';
 
+import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
 import BlogPost from '@/components/blog/BlogPost';
 import { siteConfig } from '@/constants/config';
@@ -11,8 +12,6 @@ import {
   getRedirectedPost,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
-
-import { metadata as rootMetadata } from '../../metadata';
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();

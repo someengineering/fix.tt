@@ -99,7 +99,7 @@ export default async function Header() {
     {
       name: 'Podcast',
       href: '/podcast',
-      popoverContent: blogPosts?.edges.length ? (
+      popoverContent: podcastEpisodes?.data?.length ? (
         <>
           <div className="flex justify-between text-sm leading-6">
             <h3 className="font-bold text-gray-500">Recent episodes</h3>
@@ -108,45 +108,44 @@ export default async function Header() {
             </PrimaryLink>
           </div>
           <ul role="list" className="mt-6 space-y-6">
-            {podcastEpisodes.data &&
-              podcastEpisodes.data.map((episode) => {
-                const { title } = parseEpisodeTitle(episode.attributes.title);
-                const durationHours = Math.floor(
-                  episode.attributes.duration / 60 / 60,
-                );
-                const durationMinutes = Math.floor(
-                  (episode.attributes.duration / 60) % 60,
-                );
+            {podcastEpisodes.data.map((episode) => {
+              const { title } = parseEpisodeTitle(episode.attributes.title);
+              const durationHours = Math.floor(
+                episode.attributes.duration / 60 / 60,
+              );
+              const durationMinutes = Math.floor(
+                (episode.attributes.duration / 60) % 60,
+              );
 
-                return (
-                  <li key={episode.id} className="relative">
-                    <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 text-xs font-bold uppercase leading-6 text-gray-600">
-                      <time
-                        dateTime={episode.attributes.published_at}
-                        className="whitespace-nowrap"
-                      >
-                        {new Date(
-                          episode.attributes.published_at,
-                        ).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric',
-                        })}
-                      </time>
-                      <span className="flex items-center space-x-1 whitespace-nowrap">
-                        <LuPodcast className="h-4 w-4" aria-hidden="true" />
-                        <span>{`${durationHours > 0 ? `${durationHours} hr ` : ''}${durationMinutes} min`}</span>
-                      </span>
-                    </div>
-                    <PrimaryLink
-                      href={`/podcast/${episode.attributes.slug}`}
-                      className="line-clamp-2 block font-extrabold leading-6"
+              return (
+                <li key={episode.id} className="relative">
+                  <div className="flex flex-wrap items-center gap-x-4 gap-y-0.5 text-xs font-bold uppercase leading-6 text-gray-600">
+                    <time
+                      dateTime={episode.attributes.published_at}
+                      className="whitespace-nowrap"
                     >
-                      {title}
-                    </PrimaryLink>
-                  </li>
-                );
-              })}
+                      {new Date(
+                        episode.attributes.published_at,
+                      ).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                      })}
+                    </time>
+                    <span className="flex items-center space-x-1 whitespace-nowrap">
+                      <LuPodcast className="h-4 w-4" aria-hidden="true" />
+                      <span>{`${durationHours > 0 ? `${durationHours} hr ` : ''}${durationMinutes} min`}</span>
+                    </span>
+                  </div>
+                  <PrimaryLink
+                    href={`/podcast/${episode.attributes.slug}`}
+                    className="line-clamp-2 block font-extrabold leading-6"
+                  >
+                    {title}
+                  </PrimaryLink>
+                </li>
+              );
+            })}
           </ul>
         </>
       ) : undefined,
