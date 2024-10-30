@@ -1,5 +1,6 @@
 export const siteConfig = {
   title: 'Fix Security',
+  shortTitle: 'Fix',
   tagline: 'Continuous cloud security',
   description:
     'Your cloud is dynamic and changes by the hour. Built on open source, Fix Security regularly scans and checks your cloud so you stay secure and compliant.',

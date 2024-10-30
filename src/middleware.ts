@@ -4,17 +4,21 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon (favicon files)
+     * - api/ (API routes)
+     * - js/ (JavaScript files)
+     * - _next/static/ (static files)
+     * - _next/image/ (image optimization files)
+     * - favicon.ico (favicon file)
      * - apple-touch-icon (Apple touch icon files)
-     * - android-chrome- (Android Chrome files)
-     * - site.webmanifest (web manifest file)
+     * - icon- (icon files)
+     * - icon.svg (SVG icon file)
+     * - sitemap.xml (sitemap file)
+     * - manifest.webmanifest (web manifest file)
+     * - robots.txt (robots file)
      */
     {
       source:
-        '/((?!api|js/|_next/static|_next/image|favicon|apple-touch-icon|android-chrome-|site.webmanifest|sitemap.xml|robots.txt).*)',
+        '/((?!api/|js/|_next/static/|_next/image/|favicon.ico|apple-touch-icon|icon-|icon.svg|sitemap.xml|manifest.webmanifest|robots.txt)(?!.*opengraph-image-).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },

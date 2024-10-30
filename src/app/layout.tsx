@@ -15,9 +15,7 @@ import { headers } from 'next/headers';
 import Script from 'next/script';
 import { Suspense } from 'react';
 
-const url = siteConfig.url;
-const title = siteConfig.title;
-const description = siteConfig.description;
+const { url, title, description } = siteConfig;
 const ogImage = openGraph({
   title: siteConfig.tagline,
   description,
@@ -29,14 +27,28 @@ export const metadata: Metadata = {
     template: `%s | ${title}`,
   },
   description,
+  metadataBase: isProd ? new URL(url) : undefined,
   robots: isProd
     ? { index: true, follow: true }
     : { index: false, follow: false },
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon-16x16.png',
-    apple: '/apple-touch-icon.png',
-  },
+  icons: [
+    {
+      url: '/favicon.ico',
+      type: 'image/x-icon',
+      sizes: '16x16 32x32',
+    },
+    {
+      url: '/icon.svg',
+      type: 'image/svg+xml',
+      sizes: 'any',
+    },
+    {
+      rel: 'apple-touch-icon',
+      url: '/apple-touch-icon.png',
+      type: 'image/png',
+      sizes: '180x180',
+    },
+  ],
   manifest: '/site.webmanifest',
   alternates: {
     types: {
@@ -59,12 +71,6 @@ export const metadata: Metadata = {
     images: [ogImage],
     type: 'website',
     locale: 'en_US',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title,
-    description,
-    images: [ogImage],
   },
 };
 
@@ -96,7 +102,15 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className={`scroll-smooth ${plusJakartaSans.variable}`}>
-      <head>
+      <body className="bg-white">
+        <Header />
+        <main>
+          {children}
+          <Suspense>
+            <BlogNewsletterForm nonce={nonce} />
+          </Suspense>
+        </main>
+        <Footer />
         <Script
           src="/js/script.js"
           data-domain="fix.security"
@@ -121,16 +135,6 @@ export default async function RootLayout({
             nonce={nonce}
           />
         ) : null}
-      </head>
-      <body className="bg-white">
-        <Header />
-        <main>
-          {children}
-          <Suspense>
-            <BlogNewsletterForm nonce={nonce} />
-          </Suspense>
-        </main>
-        <Footer />
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
