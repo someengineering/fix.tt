@@ -1,6 +1,4 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
+import { metadata as rootMetadata } from '@/app/layout';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
 import { siteConfig } from '@/constants/config';
@@ -12,8 +10,8 @@ import {
   getSeries,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
-
-import { metadata as rootMetadata } from '../../../metadata';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await getAllSeriesSlugs();
@@ -23,18 +21,17 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const series = await getSeries(params.slug);
+  const { slug } = await props.params;
+  const series = await getSeries(slug);
 
   if (!series || !series.posts.totalDocuments) {
     return {};
   }
 
-  const url = `${siteConfig.url}/blog/series/${params.slug}`;
+  const url = `${siteConfig.url}/blog/series/${slug}`;
   const title = `${series.name} | Blog`;
   const description = series.description?.text;
   const ogImage = openGraph({
@@ -65,14 +62,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogSeriesPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogSeriesPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await props.params;
   const publicationData = getPublication();
-  const seriesInfoData = getSeries(params.slug);
-  const postsData = getPostsBySeries({ seriesSlug: params.slug });
+  const seriesInfoData = getSeries(slug);
+  const postsData = getPostsBySeries({ seriesSlug: slug });
 
   const [publication, seriesInfo, posts] = await Promise.all([
     publicationData,
@@ -101,7 +97,7 @@ export default async function BlogSeriesPage({
           >
             <meta itemProp="name" content={publication.title} />
             <meta itemProp="description" content={publication.about?.text} />
-            <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
+            <p className="mb-2 text-lg font-bold uppercase leading-8 text-purple-600 sm:text-xl">
               Blog series
             </p>
             <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
@@ -119,7 +115,7 @@ export default async function BlogSeriesPage({
                 'use server';
 
                 return await getPostsBySeries({
-                  seriesSlug: params.slug,
+                  seriesSlug: slug,
                   after,
                 });
               }}

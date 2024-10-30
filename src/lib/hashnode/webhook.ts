@@ -134,7 +134,7 @@ function compareSignatures(signatureA: string, signatureB: string) {
       Buffer.from(signatureA),
       Buffer.from(signatureB),
     );
-  } catch (error) {
+  } catch {
     return false;
   }
 }

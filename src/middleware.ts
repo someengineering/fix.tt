@@ -4,17 +4,21 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon (favicon files)
+     * - api/ (API routes)
+     * - js/ (JavaScript files)
+     * - _next/static/ (static files)
+     * - _next/image/ (image optimization files)
+     * - favicon.ico (favicon file)
      * - apple-touch-icon (Apple touch icon files)
-     * - android-chrome- (Android Chrome files)
-     * - site.webmanifest (web manifest file)
+     * - icon- (icon files)
+     * - icon.svg (SVG icon file)
+     * - sitemap.xml (sitemap file)
+     * - manifest.webmanifest (web manifest file)
+     * - robots.txt (robots file)
      */
     {
       source:
-        '/((?!api|_next/static|_next/image|favicon|apple-touch-icon|android-chrome-|site.webmanifest).*)',
+        '/((?!api/|js/|_next/static/|_next/image/|favicon.ico|apple-touch-icon|icon-|icon.svg|sitemap.xml|manifest.webmanifest|robots.txt)(?!.*opengraph-image-).*)',
       missing: [
         { type: 'header', key: 'next-router-prefetch' },
         { type: 'header', key: 'purpose', value: 'prefetch' },
@@ -38,18 +42,25 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
-    connect-src 'self' https://consentcdn.cookiebot.com https://sst.fix.security;
-    script-src 'self' 'nonce-${nonce}' 'strict-dynamic' https://consent.cookiebot.com https://app.storyblok.com${process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"};
-    style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
-    img-src 'self' https://i.ytimg.com https://a.storyblok.com blob: data: https://imgsct.cookiebot.com;
+    connect-src 'self' https://consentcdn.cookiebot.com https://consent.cookiebot.com;
+    script-src 'self' 'unsafe-inline'${
+      process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"
+    }${
+      request.nextUrl.pathname.startsWith('/studio')
+        ? ''
+        : ` 'nonce-${nonce}' 'strict-dynamic'`
+    };
+    style-src 'self' 'unsafe-inline';
+    style-src-elem 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
+    img-src 'self' https://i.ytimg.com https://imgsct.cookiebot.com blob: data:;
     media-src 'self' https://media.transistor.fm https://audio.transistor.fm;
-    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com https://consent.cookiebot.com https://consentcdn.cookiebot.com;
-    font-src 'self' data:;
+    frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com https://consentcdn.cookiebot.com https://consent.cookiebot.com;
+    font-src 'self';
     object-src 'none';
     base-uri 'self';
     form-action 'self';
-    frame-ancestors ${url.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'self' https://app.storyblok.com https://consent.cookiebot.com"};
-    upgrade-insecure-requests;
+    frame-ancestors ${url.pathname.startsWith('/blog/preview') ? 'https://hashnode.com' : "'none'"};
+    ${process.env.NEXT_PUBLIC_VERCEL_ENV === 'production' ? 'upgrade-insecure-requests;' : ''}
 `
     .replace(/\s{2,}/g, ' ')
     .trim();

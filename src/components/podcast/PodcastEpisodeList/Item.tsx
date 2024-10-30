@@ -1,6 +1,3 @@
-import Image from 'next/image';
-import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
-
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import { siteConfig } from '@/constants/config';
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
@@ -8,6 +5,8 @@ import { Episode as TransistorEpisode } from '@/lib/transistor';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
 import { parseEpisodeTitle } from '@/utils/transistor';
+import Image from 'next/image';
+import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
 export default function Item({
   episode,
@@ -61,7 +60,7 @@ export default function Item({
         </header>
         <div className="group relative space-y-4">
           <h2
-            className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
+            className="mt-2 text-pretty text-3xl font-extrabold text-purple-600 group-hover:text-purple-700"
             itemProp="headline"
           >
             <UnstyledLink

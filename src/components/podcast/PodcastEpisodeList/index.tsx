@@ -1,8 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import useInfiniteScroll from 'react-infinite-scroll-hook';
-
 import Item from '@/components/podcast/PodcastEpisodeList/Item';
 import { UserFragment as HashnodeUser } from '@/generated/hashnode/graphql';
 import {
@@ -10,6 +7,8 @@ import {
   EpisodesResult as TransistorEpisodesResult,
   PageInfo as TransistorPageInfo,
 } from '@/lib/transistor';
+import { useState } from 'react';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 export default function PodcastEpisodeList({
   initialEpisodes,

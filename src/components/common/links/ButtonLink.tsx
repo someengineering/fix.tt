@@ -1,23 +1,16 @@
-import { forwardRef } from 'react';
-import { IconType } from 'react-icons';
-
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/common/links/UnstyledLink';
 import { cn } from '@/utils/css';
+import { forwardRef } from 'react';
+import { IconType } from 'react-icons';
 
-const ButtonLinkVariant = [
-  'default',
-  'outline',
-  'ghost',
-  'light',
-  'dark',
-] as const;
-const ButtonLinkSize = ['sm', 'base', 'lg'] as const;
+type ButtonLinkVariant = 'default' | 'outline' | 'ghost' | 'light' | 'dark';
+type ButtonLinkSize = 'sm' | 'base' | 'lg';
 
 type ButtonLinkProps = {
-  variant?: (typeof ButtonLinkVariant)[number];
-  size?: (typeof ButtonLinkSize)[number];
+  variant?: ButtonLinkVariant;
+  size?: ButtonLinkSize;
   leftIcon?: IconType;
   rightIcon?: IconType;
   classNames?: {
@@ -46,7 +39,8 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         {...rest}
         className={cn(
           'inline-flex items-center whitespace-nowrap font-bold',
-          'focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500',
+          'focus:outline-none focus-visible:ring focus-visible:ring-purple-500',
+          'border',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
@@ -59,30 +53,30 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           //#region  //*=========== Variants ===========
           [
             variant === 'default' && [
-              'border-cornflower-blue-600 bg-cornflower-blue-600 text-white',
-              'hover:border-cornflower-blue-700 hover:bg-cornflower-blue-700 hover:text-white',
-              'active:border-cornflower-blue-800 active:bg-cornflower-blue-800',
-              'disabled:border-cornflower-blue-600 disabled:bg-cornflower-blue-600',
+              'border-purple-600 bg-purple-600 text-white',
+              'hover:border-purple-700 hover:bg-purple-700 hover:text-white',
+              'active:border-purple-800 active:bg-purple-800',
+              'disabled:border-purple-600 disabled:bg-purple-600',
             ],
             variant === 'outline' && [
-              'text-cornflower-blue-600',
-              'border border-cornflower-blue-600',
-              'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
+              'text-purple-600',
+              'border-purple-600',
+              'hover:bg-purple-50 active:bg-purple-100 disabled:bg-purple-100',
             ],
             variant === 'ghost' && [
-              'text-cornflower-blue-600',
-              'border border-transparent',
-              'hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
+              'text-purple-600',
+              'border-transparent',
+              'hover:border-purple-600 active:border-purple-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
-              'border border-white',
+              'border-white',
               'hover:border-white/75 hover:bg-white/75 hover:text-gray-800',
               'active:border-white/50 active:bg-white/50 disabled:border-gray-200 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
               'bg-gray-900 text-white',
-              'border border-gray-600',
+              'border-gray-600',
               'hover:bg-gray-800 active:bg-gray-700 disabled:bg-gray-700',
             ],
           ],
@@ -134,5 +128,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
     );
   },
 );
+
+ButtonLink.displayName = 'ButtonLink';
 
 export default ButtonLink;

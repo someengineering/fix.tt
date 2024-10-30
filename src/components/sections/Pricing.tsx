@@ -1,12 +1,11 @@
 'use client';
 
-import GithubSlugger from 'github-slugger';
-import { usePathname } from 'next/navigation';
-import { LuBuilding, LuCheck, LuPersonStanding } from 'react-icons/lu';
-
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
 import { cn } from '@/utils/css';
+import GithubSlugger from 'github-slugger';
+import { usePathname } from 'next/navigation';
+import { LuBuilding, LuCheck, LuPersonStanding } from 'react-icons/lu';
 
 const tiers: {
   name: string;
@@ -78,9 +77,7 @@ export default function Pricing() {
           </Heading>
           <p className="mx-auto max-w-prose text-balance text-4xl font-extrabold sm:text-5xl">
             Foundational cloud security for your whole company.{' '}
-            <span className="text-cornflower-blue-600">
-              Free for engineers to try.
-            </span>
+            <span className="text-purple-600">Free for engineers to try.</span>
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl">
@@ -93,19 +90,19 @@ export default function Pricing() {
               key={`tier-${slugger.slug(tier.name)}`}
               className={cn(
                 tier.mostPopular
-                  ? 'ring-2 ring-cornflower-blue-600'
+                  ? 'ring-2 ring-purple-600'
                   : 'ring-1 ring-gray-200',
                 'flex flex-col rounded-2xl p-8',
               )}
             >
               <h3
                 id={`tier-${slugger.slug(tier.name)}`}
-                className="flex items-center gap-3 text-3xl font-bold text-cornflower-blue-600"
+                className="flex items-center gap-3 text-3xl font-bold text-purple-600"
               >
                 <tier.icon />
                 {tier.name}
                 {tier.mostPopular ? (
-                  <span className="inline-flex items-center whitespace-nowrap rounded-md bg-marian-blue-50 px-2 py-1 text-xs">
+                  <span className="inline-flex items-center whitespace-nowrap rounded-md bg-purple-50 px-2 py-1 text-xs">
                     Most popular
                   </span>
                 ) : null}
@@ -154,7 +151,7 @@ export default function Pricing() {
                     className="flex gap-x-2"
                   >
                     <LuCheck
-                      className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-600"
+                      className="my-0.5 h-5 w-5 flex-none text-purple-600"
                       aria-hidden="true"
                     />
                     {feature}
@@ -174,7 +171,7 @@ export default function Pricing() {
                     className="flex gap-x-2"
                   >
                     <LuCheck
-                      className="my-0.5 h-5 w-5 flex-none text-cornflower-blue-600"
+                      className="my-0.5 h-5 w-5 flex-none text-purple-600"
                       aria-hidden="true"
                     />
                     {option}

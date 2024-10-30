@@ -1,6 +1,3 @@
-import Image from 'next/image';
-import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
-
 import SocialShareButtons from '@/components/blog/SocialShareButtons';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
 import {
@@ -11,6 +8,8 @@ import {
 } from '@/generated/hashnode/graphql';
 import { getUserLink, getUserTitle } from '@/utils/hashnode';
 import { openGraph } from '@/utils/og';
+import Image from 'next/image';
+import { LuPodcast, LuUserCircle2 } from 'react-icons/lu';
 
 export default function Header({
   url,
@@ -82,7 +81,7 @@ export default function Header({
         ) : null}
       </div>
       <h1
-        className="text-pretty text-4xl font-extrabold text-cornflower-blue-600 sm:text-5xl"
+        className="text-pretty text-4xl font-extrabold text-purple-600 sm:text-5xl"
         itemProp="headline"
       >
         {title}

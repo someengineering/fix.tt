@@ -1,5 +1,6 @@
 'use client';
 
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 import {
   Disclosure,
   DisclosureButton,
@@ -7,8 +8,6 @@ import {
 } from '@headlessui/react';
 import { usePathname } from 'next/navigation';
 import { LuMinus, LuPlus } from 'react-icons/lu';
-
-import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const faqs: {
   question: string | JSX.Element;
@@ -133,10 +132,8 @@ const faqs: {
     question: 'Which cloud providers are supported?',
     answer: (
       <p>
-        Fix Security currently only supports{' '}
-        <abbr title="Amazon Web Services">AWS</abbr>, but we&rsquo;re working on
-        rolling out support for Kubernetes, Google Cloud, Azure, and
-        DigitalOcean.
+        Fix Security currently supports{' '}
+        <abbr title="Amazon Web Services">AWS</abbr>, Google Cloud, and Azure.
       </p>
     ),
   },
@@ -165,7 +162,7 @@ const faqs: {
       'How does Fix Security ensure the security and compliance of its systems?',
     answer: (
       <p>
-        Fix Security is currently undergoing{' '}
+        Fix Security has undergone{' '}
         <PrimaryLink href="https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2">
           <abbr title="Service Organization Control Type 2">SOC 2</abbr>
         </PrimaryLink>{' '}
@@ -222,25 +219,6 @@ const faqs: {
     ),
   },
   {
-    question: (
-      <>
-        Can Fix Security run in my{' '}
-        <abbr title="virtual private cloud">VPC</abbr> or hybrid environment?
-      </>
-    ),
-    answer: (
-      <p>
-        Yes! This is supported in our{' '}
-        <PrimaryLink href="#pricing">Enterprise plan</PrimaryLink>. Please
-        contact us via email at{' '}
-        <PrimaryLink href="mailto:info@fix.security">
-          info@fix.security
-        </PrimaryLink>{' '}
-        for details.
-      </p>
-    ),
-  },
-  {
     question: 'What compliance checks are supported?',
     answer: (
       <>
@@ -250,7 +228,7 @@ const faqs: {
             <abbr title="Center for Internet Security">CIS</abbr>{' '}
             <abbr title="Amazon Web Services">AWS</abbr> Benchmark
           </PrimaryLink>{' '}
-          (v1.5 &amp; v2.0) and{' '}
+          and{' '}
           <PrimaryLink href="https://docs.aws.amazon.com/wellarchitected/latest/security-pillar/welcome.html">
             <abbr title="Amazon Web Services">AWS</abbr> Well-Architected
             Framework Security Pillar
@@ -275,17 +253,6 @@ const faqs: {
           .
         </p>
       </>
-    ),
-  },
-  {
-    question: 'What cloud resources are supported?',
-    answer: (
-      <p>
-        Fix Security currently supports over 150{' '}
-        <abbr title="Amazon Web Services">AWS</abbr> resources, including the
-        most popular <abbr title="Amazon Web Services">AWS</abbr> compute,
-        storage, database, and network products: EC2, S3, RDS, and API Gateway.
-      </p>
     ),
   },
   {
@@ -334,7 +301,7 @@ const faqs: {
         <PrimaryLink href="mailto:info@fix.security">
           info@fix.security
         </PrimaryLink>
-        ! We'll be more than happy to assist you.
+        ! We&rsquo;ll be more than happy to assist you.
       </p>
     ),
   },

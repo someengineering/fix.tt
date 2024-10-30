@@ -120,14 +120,17 @@ export const getAllEpisodeSlugs = async () => {
 
   let slugs: string[] = [];
 
-  if (data.data.length) {
+  if (data?.data?.length) {
     slugs = data.data.map((episode) => episode.attributes.slug);
 
     const fetchMore = async (pageNumber?: number) => {
       const data = await getEpisodes({ pageNumber, pageSize: 20 });
 
-      if (!data.data.length || data.meta.currentPage >= data.meta.totalPages) {
-        return;
+      if (
+        !data?.data?.length ||
+        data.meta.currentPage >= data.meta.totalPages
+      ) {
+        return slugs;
       }
 
       slugs = [
@@ -153,14 +156,17 @@ export const getAllEpisodes = async () => {
 
   let episodes: Episode[] = [];
 
-  if (data.data.length) {
+  if (data?.data?.length) {
     episodes = data.data;
 
     const fetchMore = async (pageNumber?: number) => {
       const data = await getEpisodes({ pageNumber, pageSize: 20 });
 
-      if (!data.data.length || data.meta.currentPage >= data.meta.totalPages) {
-        return;
+      if (
+        !data?.data?.length ||
+        data.meta.currentPage >= data.meta.totalPages
+      ) {
+        return episodes;
       }
 
       episodes = [...episodes, ...data.data];
@@ -185,7 +191,7 @@ export const getEpisode = async (query: string): Promise<Episode | null> => {
     pageSize: 1,
   });
 
-  return data.data[0] ?? null;
+  return data?.data[0] ?? null;
 };
 
 export const getFeed = async (): Promise<string> => {

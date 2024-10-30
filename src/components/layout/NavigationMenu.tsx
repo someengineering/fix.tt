@@ -1,5 +1,10 @@
 'use client';
 
+import Logo from '@/assets/logo.svg';
+import ButtonLink from '@/components/common/links/ButtonLink';
+import UnstyledLink from '@/components/common/links/UnstyledLink';
+import { siteConfig } from '@/constants/config';
+import { cn } from '@/utils/css';
 import {
   Dialog,
   Disclosure,
@@ -8,12 +13,6 @@ import {
 } from '@headlessui/react';
 import { useState } from 'react';
 import { LuChevronDown, LuMenu, LuX } from 'react-icons/lu';
-
-import Logo from '@/assets/logo.svg';
-import ButtonLink from '@/components/common/links/ButtonLink';
-import UnstyledLink from '@/components/common/links/UnstyledLink';
-import { siteConfig } from '@/constants/config';
-import { cn } from '@/utils/css';
 
 export type NavigationItem = {
   name: string;
@@ -31,11 +30,11 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
 
   return (
     <>
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:gap-x-12 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-6 lg:gap-x-12 lg:px-8">
         <div className="flex">
           <UnstyledLink
             href="/"
-            className="-m-1.5 p-1.5 text-cornflower-blue-600 hover:text-cornflower-blue-700"
+            className="-m-1.5 p-1.5 text-purple-600 hover:text-purple-700"
           >
             <span className="sr-only">{siteConfig.title}</span>
             <Logo className="h-16 w-auto" />
@@ -73,7 +72,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
                         <UnstyledLink
                           key={child.name}
                           href={child.href}
-                          className="relative block rounded-lg px-4 py-3 leading-6 hover:bg-marian-blue-50 hover:text-gray-900"
+                          className="relative block rounded-lg px-4 py-3 leading-6 hover:bg-purple-50 hover:text-gray-900"
                         >
                           <span>{child.name}</span>
                           {child.description ? (
@@ -132,7 +131,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
           <div className="flex items-center justify-between">
             <UnstyledLink href="/" className="-m-1.5 p-1.5">
               <span className="sr-only">{siteConfig.title}</span>
-              <Logo className="h-16 w-auto text-cornflower-blue-600 hover:text-cornflower-blue-700" />
+              <Logo className="h-16 w-auto text-purple-600 hover:text-purple-700" />
             </UnstyledLink>
             <button
               type="button"
@@ -151,7 +150,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
                     <Disclosure key={item.name} as="div" className="-mx-3">
                       {({ open }) => (
                         <>
-                          <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 leading-7 text-gray-700 hover:bg-marian-blue-50 hover:text-gray-900">
+                          <DisclosureButton className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 leading-7 text-gray-700 hover:bg-purple-50 hover:text-gray-900">
                             {item.name}
                             <LuChevronDown
                               className={cn(
@@ -167,7 +166,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
                                 key={item.name}
                                 as="a"
                                 href={item.href}
-                                className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-700 hover:bg-marian-blue-50 hover:text-gray-900"
+                                className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-700 hover:bg-purple-50 hover:text-gray-900"
                               >
                                 {item.name}
                               </DisclosureButton>
@@ -180,7 +179,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
                     <UnstyledLink
                       key={item.name}
                       href={item.href ?? '#'}
-                      className="-mx-3 block rounded-lg px-3 py-2 text-gray-700 hover:bg-marian-blue-50 hover:text-gray-900"
+                      className="-mx-3 block rounded-lg px-3 py-2 text-gray-700 hover:bg-purple-50 hover:text-gray-900"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.name}

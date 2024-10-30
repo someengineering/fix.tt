@@ -1,13 +1,12 @@
-import { forwardRef } from 'react';
-
 import UnstyledLink, {
   UnstyledLinkProps,
 } from '@/components/common/links/UnstyledLink';
 import { cn } from '@/utils/css';
+import { forwardRef } from 'react';
 
-const PrimaryLinkVariant = ['default', 'basic', 'light'] as const;
+type PrimaryLinkVariant = 'default' | 'basic' | 'light';
 type PrimaryLinkProps = {
-  variant?: (typeof PrimaryLinkVariant)[number];
+  variant?: PrimaryLinkVariant;
 } & UnstyledLinkProps;
 
 const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
@@ -17,12 +16,12 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
         ref={ref}
         {...rest}
         className={cn(
-          'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-cornflower-blue-500 focus-visible:ring-offset-2',
+          'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-offset-2',
           'font-semibold',
           //#region  //*=========== Variant ===========
           variant === 'default' && [
-            'text-cornflower-blue-500 hover:text-cornflower-blue-600 active:text-cornflower-blue-700',
-            'disabled:text-cornflower-blue-200',
+            'text-purple-500 hover:text-purple-600 active:text-purple-700',
+            'disabled:text-purple-200',
           ],
           variant === 'basic' && [
             'text-black hover:text-gray-600 active:text-gray-800',
@@ -41,5 +40,7 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
     );
   },
 );
+
+PrimaryLink.displayName = 'PrimaryLink';
 
 export default PrimaryLink;

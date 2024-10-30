@@ -1,11 +1,10 @@
-import Image from 'next/image';
-import { FaGithub, FaLinkedin } from 'react-icons/fa6';
-
 import larsPhoto from '@/assets/team/lars.jpg';
 import lukasPhoto from '@/assets/team/lukas.jpg';
 import matthiasPhoto from '@/assets/team/matthias.jpg';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import UnstyledLink from '@/components/common/links/UnstyledLink';
+import Image from 'next/image';
+import { FaGithub, FaLinkedin } from 'react-icons/fa6';
 
 const people = [
   {
@@ -143,7 +142,7 @@ export default function Team() {
                 className="aspect-[4/5] w-52 flex-none rounded-full object-cover sm:aspect-[2/3]"
               />
               <div className="max-w-xl flex-auto">
-                <h3 className="text-3xl font-extrabold text-cornflower-blue-600">
+                <h3 className="text-3xl font-extrabold text-purple-600">
                   {person.name}
                 </h3>
                 <p className="text-lg font-bold text-gray-900">{person.role}</p>

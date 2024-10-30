@@ -1,3 +1,5 @@
+import UnstyledLink from '@/components/common/links/UnstyledLink';
+import { siteConfig } from '@/constants/config';
 import {
   FaDiscord,
   FaGithub,
@@ -5,9 +7,6 @@ import {
   FaSpotify,
   FaSquareRss,
 } from 'react-icons/fa6';
-
-import UnstyledLink from '@/components/common/links/UnstyledLink';
-import { siteConfig } from '@/constants/config';
 
 const navigation = [
   { name: 'About', href: '/about' },

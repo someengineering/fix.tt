@@ -1,14 +1,12 @@
-import type { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
-
+import { metadata as rootMetadata } from '@/app/layout';
 import PodcastEpisode from '@/components/podcast/PodcastEpisode';
 import { siteConfig } from '@/constants/config';
 import { getUser } from '@/lib/hashnode';
 import { getAllEpisodeSlugs, getEpisode } from '@/lib/transistor';
 import { openGraph } from '@/utils/og';
 import { parseEpisodeTitle } from '@/utils/transistor';
-
-import { metadata as rootMetadata } from '../../metadata';
+import type { Metadata } from 'next';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await getAllEpisodeSlugs();
@@ -18,12 +16,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const episode = await getEpisode(params.slug);
+  const { slug } = await props.params;
+  const episode = await getEpisode(slug);
 
   if (!episode) {
     return {};
@@ -62,12 +59,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function PodcastEpisodePage({
-  params,
-}: {
-  params: { slug: string };
+export default async function PodcastEpisodePage(props: {
+  params: Promise<{ slug: string }>;
 }) {
-  const episodeData = getEpisode(params.slug);
+  const { slug } = await props.params;
+  const episodeData = getEpisode(slug);
   const hostData = getUser('scapecast');
 
   const [episode, host] = await Promise.all([episodeData, hostData]);
@@ -76,7 +72,7 @@ export default async function PodcastEpisodePage({
     notFound();
   }
 
-  if (params.slug !== episode.attributes.slug) {
+  if (slug !== episode.attributes.slug) {
     permanentRedirect(`/podcast/${episode.attributes.slug}`);
   }
 

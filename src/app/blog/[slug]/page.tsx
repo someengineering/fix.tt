@@ -1,6 +1,4 @@
-import type { Metadata } from 'next';
-import { notFound, permanentRedirect } from 'next/navigation';
-
+import { metadata as rootMetadata } from '@/app/layout';
 import { metadata as notFoundMetadata } from '@/app/not-found';
 import BlogPost from '@/components/blog/BlogPost';
 import { siteConfig } from '@/constants/config';
@@ -11,8 +9,8 @@ import {
   getRedirectedPost,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
-
-import { metadata as rootMetadata } from '../../metadata';
+import type { Metadata } from 'next';
+import { notFound, permanentRedirect } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs();
@@ -22,12 +20,11 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const post = await getPost(params.slug);
+  const { slug } = await props.params;
+  const post = await getPost(slug);
 
   if (!post) {
     return {};
@@ -69,18 +66,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogPostPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await props.params;
   const publicationData = getPublication();
-  const postData = getPost(params.slug);
+  const postData = getPost(slug);
 
   const [publication, post] = await Promise.all([publicationData, postData]);
 
   if (!publication || !post) {
-    const redirectedPost = await getRedirectedPost(params.slug);
+    const redirectedPost = await getRedirectedPost(slug);
 
     if (redirectedPost) {
       permanentRedirect(`/blog/${redirectedPost.slug}`);

@@ -1,6 +1,4 @@
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
+import { metadata as rootMetadata } from '@/app/layout';
 import HashnodePageView from '@/components/analytics/HashnodePageView';
 import BlogPostList from '@/components/blog/BlogPostList';
 import { siteConfig } from '@/constants/config';
@@ -12,8 +10,8 @@ import {
   getTagName,
 } from '@/lib/hashnode';
 import { openGraph } from '@/utils/og';
-
-import { metadata as rootMetadata } from '../../../metadata';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export async function generateStaticParams() {
   const slugs = await getAllTagSlugs();
@@ -23,18 +21,17 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const tag = await getTagName(params.slug);
+  const { slug } = await props.params;
+  const tag = await getTagName(slug);
 
   if (!tag) {
     return {};
   }
 
-  const url = `${siteConfig.url}/blog/tag/${params.slug}`;
+  const url = `${siteConfig.url}/blog/tag/${slug}`;
   const title = `${tag.charAt(0).toUpperCase()}${tag.slice(1)} | Blog`;
   const description = `Guides, how-tos, and news from the Fix Security team.`;
   const ogImage = openGraph({
@@ -65,14 +62,13 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogTagPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogTagPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const { slug } = await props.params;
   const publicationData = getPublication();
-  const tagNameData = getTagName(params.slug);
-  const postsData = getPostsByTag({ tagSlug: params.slug });
+  const tagNameData = getTagName(slug);
+  const postsData = getPostsByTag({ tagSlug: slug });
 
   const [publication, tagName, posts] = await Promise.all([
     publicationData,
@@ -96,7 +92,7 @@ export default async function BlogTagPage({
           >
             <meta itemProp="name" content={publication.title} />
             <meta itemProp="description" content={publication.about?.text} />
-            <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
+            <p className="mb-2 text-lg font-bold uppercase leading-8 text-purple-600 sm:text-xl">
               From the blog
             </p>
             <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">
@@ -113,7 +109,7 @@ export default async function BlogTagPage({
                 'use server';
 
                 return await getPostsByTag({
-                  tagSlug: params.slug,
+                  tagSlug: slug,
                   after,
                 });
               }}

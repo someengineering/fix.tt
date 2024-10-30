@@ -1,15 +1,12 @@
 'use client';
 
+import Button from '@/components/common/buttons/Button';
+import PrimaryLink from '@/components/common/links/PrimaryLink';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { usePathname, useSearchParams } from 'next/navigation';
-import { usePostHog } from 'posthog-js/react';
 import { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
-import Button from '@/components/common/buttons/Button';
-import PrimaryLink from '@/components/common/links/PrimaryLink';
 
 const validationSchema = z.object({
   email: z
@@ -20,9 +17,6 @@ const validationSchema = z.object({
 type ValidationSchema = z.infer<typeof validationSchema>;
 
 export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const posthog = usePostHog();
   const captchaRef = useRef<ReCAPTCHA>(null);
   const [captchaEnabled, setCaptchaEnabled] = useState(false);
 
@@ -55,11 +49,9 @@ export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
       className="mx-auto max-w-7xl py-16 sm:px-6 sm:py-24 lg:px-8"
       id="subscribe-to-newsletter"
     >
-      <div className="bg-marian-blue-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
+      <div className="bg-purple-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
         <h2 className="mx-auto mb-10 max-w-2xl text-balance text-center text-3xl font-extrabold sm:text-4xl">
-          <span className="text-cornflower-blue-600">
-            Subscribe to our newsletter
-          </span>{' '}
+          <span className="text-purple-600">Subscribe to our newsletter</span>{' '}
           to get notified of new articles and updates.
         </h2>
         {isSubmitted ? (
@@ -87,11 +79,6 @@ export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
                   if (!response.ok) {
                     throw new Error(await response.text());
                   }
-
-                  posthog.capture('subscribed to Hashnode newsletter', {
-                    $current_url: `${window.origin}${pathname}${searchParams ? (searchParams.toString() ? `?${searchParams.toString()}` : '') : ''}`,
-                    $set: { email: data.email },
-                  });
                 } catch (e) {
                   if (e instanceof Error) {
                     setError('root.serverError', {
@@ -115,7 +102,7 @@ export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
                 {...register('email', { required: true })}
                 className={`min-w-0 flex-auto rounded-lg border-0 bg-white px-3.5 py-2 text-base text-gray-900 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                   !touchedFields.email || !errors.email
-                    ? 'ring-gray-400 focus:ring-cornflower-blue-600'
+                    ? 'ring-gray-400 focus:ring-purple-600'
                     : 'ring-amaranth-600 focus:ring-amaranth-600'
                 }`}
               />

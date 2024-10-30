@@ -1,0 +1,90 @@
+#CybotCookiebotDialog {
+  @apply rounded-xl p-0 font-sans !important;
+
+  * {
+    @apply text-base !important;
+  }
+
+  .CybotCookiebotDialogContentWrapper {
+    @apply max-w-7xl p-6 lg:px-8 !important;
+
+    #CybotCookiebotDialogNav {
+      .CybotCookiebotDialogNavItemLink {
+        @apply whitespace-nowrap border-x-0 border-b-2 border-t-0 border-transparent px-1 py-4 text-sm font-semibold text-gray-500 hover:border-gray-300 hover:text-gray-700 !important;
+      }
+
+      .CybotCookiebotDialogNavItemLink.CybotCookiebotDialogActive {
+        @apply border-b-2 border-purple-500 text-purple-600 !important;
+      }
+    }
+
+    #CybotCookiebotDialogTabContent {
+      @apply ml-0 !important;
+
+      .CybotCookiebotScrollContainer,
+      .CybotCookiebotScrollArea {
+        @apply px-0 !important;
+
+        #CybotCookiebotDialogBodyContentText,
+        #CybotCookiebotDialogDetailBodyContentTextAbout {
+          @apply text-sm !important;
+        }
+      }
+    }
+
+    .CybotCookiebotDialogDetailBodyContentCookieTypeIntro {
+      @apply text-sm !important;
+    }
+
+    .CybotCookiebotDialogBodyLevelButtonSlider {
+      @apply inline-flex h-6 w-11 rounded-full border-2 border-transparent bg-gray-200 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2 !important;
+    }
+
+    input:checked + .CybotCookiebotDialogBodyLevelButtonSlider {
+      @apply bg-purple-600 !important;
+    }
+
+    .CybotCookiebotDialogBodyLevelButtonSlider:before {
+      @apply pointer-events-none bottom-0 left-0 inline-block h-5 w-5 rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out !important;
+    }
+
+    input:checked + .CybotCookiebotDialogBodyLevelButtonSlider:before {
+      @apply translate-x-5 !important;
+    }
+  }
+
+  #CybotCookiebotDialogFooter {
+    @apply p-0 !important;
+  }
+
+  #CybotCookiebotDialogBodyButtonsWrapper {
+    @apply space-x-2 space-y-2 !important;
+
+    .CybotCookiebotDialogBodyButton {
+      @apply m-0 min-w-min max-w-36 whitespace-nowrap rounded border border-transparent px-3 py-1.5 text-sm font-bold text-purple-600 transition-colors duration-75 hover:border-purple-600 focus:outline-none focus-visible:ring active:border-purple-700 disabled:opacity-50 !important;
+    }
+
+    #CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll {
+      @apply border-purple-600 bg-purple-600 text-white hover:border-purple-700 hover:bg-purple-700 active:border-purple-800 active:bg-purple-800 disabled:border-purple-600 disabled:bg-purple-600 !important;
+    }
+
+    .CybotCookiebotDialogBodyButton:hover {
+      @apply opacity-100 !important;
+    }
+  }
+
+  .CybotCookiebotDialogBodyBottomWrapper {
+    @apply mt-0 !important;
+
+    #CybotCookiebotDialogBodyEdgeMoreDetails * {
+      @apply text-sm !important;
+    }
+  }
+
+  #CybotCookiebotDialogHeader,
+  .CybotCookiebotDialogArrow,
+  #CybotCookiebotDialogDetailFooter,
+  a:after {
+    @apply hidden !important;
+  }
+}

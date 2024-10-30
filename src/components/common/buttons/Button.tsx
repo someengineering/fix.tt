@@ -1,16 +1,15 @@
+import { cn } from '@/utils/css';
 import { forwardRef } from 'react';
 import { IconType } from 'react-icons';
 import { ImSpinner2 } from 'react-icons/im';
 
-import { cn } from '@/utils/css';
-
-const ButtonVariant = ['default', 'outline', 'ghost', 'light', 'dark'] as const;
-const ButtonSize = ['sm', 'base', 'lg'] as const;
+type ButtonVariant = 'default' | 'outline' | 'ghost' | 'light' | 'dark';
+type ButtonSize = 'sm' | 'base' | 'lg';
 
 type ButtonProps = {
   isLoading?: boolean;
-  variant?: (typeof ButtonVariant)[number];
-  size?: (typeof ButtonSize)[number];
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   leftIcon?: IconType;
   rightIcon?: IconType;
   classNames?: {
@@ -44,7 +43,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled}
         className={cn(
           'inline-flex items-center whitespace-nowrap font-bold',
-          'focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500',
+          'focus:outline-none focus-visible:ring focus-visible:ring-purple-500',
           'border',
           'disabled:opacity-50',
           'transition-colors duration-75',
@@ -58,30 +57,30 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           //#region  //*=========== Variants ===========
           [
             variant === 'default' && [
-              'border-cornflower-blue-600 bg-cornflower-blue-600 text-white',
-              'hover:border-cornflower-blue-700 hover:bg-cornflower-blue-700 hover:text-white',
-              'active:border-cornflower-blue-800 active:bg-cornflower-blue-800',
-              'disabled:border-cornflower-blue-600 disabled:bg-cornflower-blue-600',
+              'border-purple-600 bg-purple-600 text-white',
+              'hover:border-purple-700 hover:bg-purple-700 hover:text-white',
+              'active:border-purple-800 active:bg-purple-800',
+              'disabled:border-purple-600 disabled:bg-purple-600',
             ],
             variant === 'outline' && [
-              'text-cornflower-blue-600',
-              'border border-cornflower-blue-600',
-              'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
+              'text-purple-600',
+              'border-purple-600',
+              'hover:bg-purple-50 active:bg-purple-100 disabled:bg-purple-100',
             ],
             variant === 'ghost' && [
-              'text-cornflower-blue-600',
-              'border border-transparent',
-              'hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
+              'text-purple-600',
+              'border-transparent',
+              'hover:border-purple-600 active:border-purple-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
-              'border border-white',
+              'border-white',
               'hover:border-white/75 hover:bg-white/75 hover:text-gray-800',
               'active:border-white/50 active:bg-white/50 disabled:border-gray-200 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
               'bg-gray-900 text-white',
-              'border border-gray-600',
+              'border-gray-600',
               'hover:bg-gray-800 active:bg-gray-700 disabled:bg-gray-700',
             ],
           ],
@@ -100,9 +99,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               {
                 'text-white': ['default', 'dark'].includes(variant),
                 'text-black': ['light'].includes(variant),
-                'text-cornflower-blue-500': ['outline', 'ghost'].includes(
-                  variant,
-                ),
+                'text-purple-500': ['outline', 'ghost'].includes(variant),
               },
             )}
           >
@@ -152,5 +149,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     );
   },
 );
+
+Button.displayName = 'Button';
 
 export default Button;

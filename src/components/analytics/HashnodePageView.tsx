@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-
 import { isProd } from '@/constants/env';
+import { useEffect } from 'react';
 
 export default function HashnodePageView({
   publicationId,
@@ -50,7 +49,7 @@ export default function HashnodePageView({
         if (navigator.sendBeacon) {
           beaconSent = navigator.sendBeacon('/api/analytics', blob);
         }
-      } catch (e) {
+      } catch {
         /* do not throw */
       }
 

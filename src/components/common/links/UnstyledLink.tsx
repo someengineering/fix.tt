@@ -45,4 +45,6 @@ const UnstyledLink = forwardRef<HTMLAnchorElement, UnstyledLinkProps>(
   },
 );
 
+UnstyledLink.displayName = 'UnstyledLink';
+
 export default UnstyledLink;
