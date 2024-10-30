@@ -1,12 +1,12 @@
-import CspmDiagramMobile from '@/assets/diagrams/cspm-mobile.svg';
-import CspmDiagram from '@/assets/diagrams/cspm.svg';
+import inventoryScreenshot from '@/assets/screenshots/inventory.png';
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
+import Image from 'next/image';
 
 export default function Hero() {
   return (
-    <section className="py-16 sm:py-24">
-      <div className="mx-auto max-w-7xl px-6 text-center lg:flex lg:items-center lg:gap-x-4 lg:px-8 lg:text-left">
+    <section className="mx-auto max-w-7xl px-6 py-16 text-center sm:py-24 lg:flex lg:items-center lg:px-8 lg:text-left">
+      <div className="mx-auto max-w-xl lg:mx-0 lg:flex-shrink-0">
         <div className="mx-auto pb-12 lg:p-0">
           <div className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
             For developers and security engineers
@@ -29,8 +29,17 @@ export default function Hero() {
             </ButtonLink>
           </div>
         </div>
-        <CspmDiagramMobile className="w-full sm:hidden" />
-        <CspmDiagram className="mx-auto hidden w-full max-w-3xl flex-shrink-0 sm:flex lg:w-7/12" />
+      </div>
+      <div className="mx-auto mt-8 flex max-w-2xl lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-16">
+        <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
+          <Image
+            src={inventoryScreenshot}
+            sizes="(min-width: 640px) 960px, 720px"
+            placeholder="blur"
+            alt="Fix Security's Inventory view showing cloud resources. Left sidebar displays resource categories. Main panel shows a filtered list of resources across AWS, Azure, and GCP, with dropdown filters for clouds, accounts, regions, and kinds."
+            className="w-[64rem] flex-none rounded-xl shadow-2xl ring-1 ring-gray-900/10 lg:rounded-2xl"
+          />
+        </div>
       </div>
     </section>
   );

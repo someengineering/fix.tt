@@ -30,7 +30,7 @@ export default function NavigationMenu({ items }: { items: NavigationItem[] }) {
 
   return (
     <>
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:gap-x-12 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 pt-6 lg:gap-x-12 lg:px-8">
         <div className="flex">
           <UnstyledLink
             href="/"
