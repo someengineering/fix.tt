@@ -1,31 +1,58 @@
 import inventoryScreenshot from '@/assets/screenshots/inventory.png';
 import ButtonLink from '@/components/common/links/ButtonLink';
 import { siteConfig } from '@/constants/config';
+import { getPosts } from '@/lib/hashnode';
 import Image from 'next/image';
+import Link from 'next/link';
+import { LuChevronRight } from 'react-icons/lu';
 
-export default function Hero() {
+export default async function Hero() {
+  const latestBlogPost = (await getPosts({ first: 1 }))?.edges[0].node;
+
   return (
     <section className="mx-auto max-w-7xl px-6 py-16 text-center sm:py-24 lg:flex lg:items-center lg:px-8 lg:text-left">
       <div className="mx-auto max-w-xl lg:mx-0 lg:flex-shrink-0">
         <div className="mx-auto pb-12 lg:p-0">
-          <div className="mb-3 text-lg font-bold uppercase text-gray-600 sm:text-xl">
-            For developers and security engineers
-          </div>
-          <h1 className="max-w-prose text-balance text-4xl font-extrabold sm:text-5xl lg:text-pretty">
-            <span className="font-extrabold text-purple-600">Continuous</span>{' '}
-            cloud security
+          {latestBlogPost ? (
+            <div className="mb-6">
+              <Link
+                href={`/blog/${latestBlogPost.slug}`}
+                className="inline-flex space-x-4"
+              >
+                <span className="rounded-full bg-purple-600/10 px-3 py-1 text-sm/6 font-semibold text-purple-600 ring-1 ring-inset ring-purple-600/10">
+                  What&rsquo;s new
+                </span>
+                <span className="inline-flex items-center space-x-1 text-sm/6 font-medium text-gray-600">
+                  <span>{latestBlogPost?.title}</span>
+                  <LuChevronRight
+                    aria-hidden="true"
+                    className="h-4 w-4 text-gray-400"
+                  />
+                </span>
+              </Link>
+            </div>
+          ) : null}
+          <h1 className="max-w-prose text-balance text-5xl font-bold sm:text-6xl lg:text-pretty">
+            Get a secure and compliant cloud
           </h1>
-          <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl lg:text-pretty">
+          <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-medium text-gray-900 sm:text-xl lg:text-pretty">
             {siteConfig.description}
           </p>
-          <ul className="mx-auto mt-3 max-w-prose list-inside list-disc text-balance lg:ml-4 lg:list-outside lg:text-pretty">
-            <li>Agentless scanning</li>
-            <li>Developer-friendly API and CLI</li>
-            <li>Preconfigured benchmarks and queries</li>
-          </ul>
           <div className="mt-6 space-x-5">
-            <ButtonLink href={siteConfig.registerUrl} size="lg">
+            <ButtonLink
+              href={siteConfig.registerUrl}
+              size="lg"
+              title="For SMBs & startups"
+            >
               Start for free
+            </ButtonLink>
+            <ButtonLink
+              href={siteConfig.demoUrl}
+              size="lg"
+              variant="outline"
+              title="For enterprises"
+            >
+              Book a demo
             </ButtonLink>
           </div>
         </div>
@@ -37,7 +64,7 @@ export default function Hero() {
             sizes="(min-width: 640px) 960px, 720px"
             placeholder="blur"
             alt="Fix Security's Inventory view showing cloud resources. Left sidebar displays resource categories. Main panel shows a filtered list of resources across AWS, Azure, and GCP, with dropdown filters for clouds, accounts, regions, and kinds."
-            className="w-[64rem] flex-none rounded-xl shadow-2xl ring-1 ring-gray-900/10 lg:rounded-2xl"
+            className="w-[76rem] flex-none rounded-xl shadow-2xl ring-1 ring-gray-900/10 lg:rounded-2xl"
           />
         </div>
       </div>
