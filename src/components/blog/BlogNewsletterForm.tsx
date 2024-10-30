@@ -4,7 +4,6 @@ import Button from '@/components/common/buttons/Button';
 import PrimaryLink from '@/components/common/links/PrimaryLink';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { usePostHog } from 'posthog-js/react';
 import { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useForm } from 'react-hook-form';
@@ -21,7 +20,6 @@ type ValidationSchema = z.infer<typeof validationSchema>;
 export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const posthog = usePostHog();
   const captchaRef = useRef<ReCAPTCHA>(null);
   const [captchaEnabled, setCaptchaEnabled] = useState(false);
 
@@ -84,11 +82,6 @@ export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
                   if (!response.ok) {
                     throw new Error(await response.text());
                   }
-
-                  posthog.capture('subscribed to Hashnode newsletter', {
-                    $current_url: `${window.origin}${pathname}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`,
-                    $set: { email: data.email },
-                  });
                 } catch (e) {
                   if (e instanceof Error) {
                     setError('root.serverError', {

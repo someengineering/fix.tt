@@ -158,14 +158,6 @@ const nextConfig: NextConfig = {
         source: '/api/analytics',
         destination: 'https://user-analytics.hashnode.com/api/analytics',
       },
-      {
-        source: '/api/ingest/static/:path*',
-        destination: 'https://eu-assets.i.posthog.com/static/:path*',
-      },
-      {
-        source: '/api/ingest/:path*',
-        destination: 'https://eu.i.posthog.com/:path*',
-      },
     ];
   },
 
