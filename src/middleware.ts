@@ -47,7 +47,7 @@ export function middleware(request: NextRequest) {
         : ` 'nonce-${nonce}' 'strict-dynamic'`
     };
     style-src 'self' 'unsafe-inline';
-    style-src-elem 'self' https://cdn.jsdelivr.net;
+    style-src-elem 'self' 'unsafe-inline' https://cdn.jsdelivr.net;
     img-src 'self' https://i.ytimg.com https://imgsct.cookiebot.com blob: data:;
     media-src 'self' https://media.transistor.fm https://audio.transistor.fm;
     frame-src 'self' https://www.google.com https://recaptcha.google.com https://www.youtube-nocookie.com https://consentcdn.cookiebot.com https://consent.cookiebot.com;
