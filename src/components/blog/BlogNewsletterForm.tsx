@@ -54,11 +54,9 @@ export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
       className="mx-auto max-w-7xl py-16 sm:px-6 sm:py-24 lg:px-8"
       id="subscribe-to-newsletter"
     >
-      <div className="bg-marian-blue-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
+      <div className="bg-purple-50 px-6 py-16 sm:rounded-2xl sm:px-24 xl:py-24">
         <h2 className="mx-auto mb-10 max-w-2xl text-balance text-center text-3xl font-extrabold sm:text-4xl">
-          <span className="text-cornflower-blue-600">
-            Subscribe to our newsletter
-          </span>{' '}
+          <span className="text-purple-600">Subscribe to our newsletter</span>{' '}
           to get notified of new articles and updates.
         </h2>
         {isSubmitted ? (
@@ -114,7 +112,7 @@ export default function BlogNewsletterForm({ nonce }: { nonce?: string }) {
                 {...register('email', { required: true })}
                 className={`min-w-0 flex-auto rounded-lg border-0 bg-white px-3.5 py-2 text-base text-gray-900 ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset ${
                   !touchedFields.email || !errors.email
-                    ? 'ring-gray-400 focus:ring-cornflower-blue-600'
+                    ? 'ring-gray-400 focus:ring-purple-600'
                     : 'ring-amaranth-600 focus:ring-amaranth-600'
                 }`}
               />

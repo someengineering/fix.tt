@@ -92,7 +92,7 @@ export default async function BlogTagPage(props: {
           >
             <meta itemProp="name" content={publication.title} />
             <meta itemProp="description" content={publication.about?.text} />
-            <p className="mb-2 text-lg font-bold uppercase leading-8 text-cornflower-blue-600 sm:text-xl">
+            <p className="mb-2 text-lg font-bold uppercase leading-8 text-purple-600 sm:text-xl">
               From the blog
             </p>
             <h1 className="text-pretty text-4xl font-extrabold sm:text-5xl">

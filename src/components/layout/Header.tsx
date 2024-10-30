@@ -63,7 +63,7 @@ export default async function Header() {
                       <UnstyledLink
                         href={`/blog/series/${post.series.slug}`}
                         title="This post is part of a series"
-                        className="whitespace-nowrap rounded-md bg-cornflower-blue-800 px-2 py-1 font-extrabold leading-none text-white hover:bg-cornflower-blue-900"
+                        className="whitespace-nowrap rounded-md bg-purple-800 px-2 py-1 font-extrabold leading-none text-white hover:bg-purple-900"
                       >
                         {post.series.name}
                       </UnstyledLink>

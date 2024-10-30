@@ -71,7 +71,7 @@ export default async function AboutPage() {
           </h1>
           <p className="text-pretty text-4xl font-extrabold sm:text-5xl">
             We don&rsquo;t have a{' '}
-            <span className="text-cornflower-blue-600">
+            <span className="text-purple-600">
               silver bullet for cloud security
             </span>
             .

@@ -103,8 +103,8 @@ export default async function ComparisonPage(props: {
                 className="mb-12 flex items-center justify-center space-x-10"
                 aria-hidden="true"
               >
-                <FixLogo className="h-24 w-24 text-cornflower-blue-600" />
-                <span className="h-10 w-10 rounded-full bg-marian-blue-50 text-lg font-extrabold leading-10">
+                <FixLogo className="h-24 w-24 text-purple-600" />
+                <span className="h-10 w-10 rounded-full bg-purple-50 text-lg font-extrabold leading-10">
                   VS
                 </span>
                 <CompetitorLogo slug={competitorSlug} className="h-24 w-24" />

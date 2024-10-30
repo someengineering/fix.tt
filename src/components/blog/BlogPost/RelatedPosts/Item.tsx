@@ -72,7 +72,7 @@ export default function Item({
         </header>
         <div className="group relative space-y-2">
           <h3
-            className="mt-0.5 text-pretty text-2xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
+            className="mt-0.5 text-pretty text-2xl font-extrabold text-purple-600 group-hover:text-purple-700"
             itemProp="headline"
           >
             <UnstyledLink href={`/blog/${post.slug}`} itemProp="url">
@@ -131,11 +131,11 @@ export default function Item({
               ) : null}
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap gap-1.5 text-xs font-semibold text-cornflower-blue-600">
+          <div className="mt-4 flex flex-wrap gap-1.5 text-xs font-semibold text-purple-600">
             {post.tags?.map((tag) => (
               <UnstyledLink
                 href={`/blog/tag/${tag.slug}`}
-                className="z-10 text-nowrap rounded-md bg-gray-50 px-3 py-1.5 hover:bg-marian-blue-50"
+                className="z-10 text-nowrap rounded-md bg-gray-50 px-3 py-1.5 hover:bg-purple-50"
                 key={`tag-${tag.slug}`}
               >
                 {tag.name}

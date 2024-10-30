@@ -12,9 +12,7 @@ export default function Hero() {
             For developers and security engineers
           </div>
           <h1 className="max-w-prose text-balance text-4xl font-extrabold sm:text-5xl lg:text-pretty">
-            <span className="font-extrabold text-cornflower-blue-600">
-              Continuous
-            </span>{' '}
+            <span className="font-extrabold text-purple-600">Continuous</span>{' '}
             cloud security
           </h1>
           <p className="mx-auto mt-6 max-w-prose text-balance text-lg font-semibold text-gray-900 sm:text-xl lg:text-pretty">

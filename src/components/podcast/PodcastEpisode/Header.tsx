@@ -81,7 +81,7 @@ export default function Header({
         ) : null}
       </div>
       <h1
-        className="text-pretty text-4xl font-extrabold text-cornflower-blue-600 sm:text-5xl"
+        className="text-pretty text-4xl font-extrabold text-purple-600 sm:text-5xl"
         itemProp="headline"
       >
         {title}

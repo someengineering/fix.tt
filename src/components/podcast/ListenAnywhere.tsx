@@ -68,7 +68,7 @@ export default function ListenAnywhere({
             <UnstyledLink
               key={`app-${index}`}
               href={app.url}
-              className="flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-cornflower-blue-500 focus-within:ring-offset-2 hover:border-gray-400"
+              className="flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-3 py-2 shadow-sm focus-within:ring-2 focus-within:ring-purple-500 focus-within:ring-offset-2 hover:border-gray-400"
             >
               <app.logo className="h-8 w-8 flex-shrink-0" aria-hidden="true" />
               <div className="flex flex-col pr-3 text-sm leading-tight">

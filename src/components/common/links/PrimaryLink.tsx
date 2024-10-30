@@ -16,12 +16,12 @@ const PrimaryLink = forwardRef<HTMLAnchorElement, PrimaryLinkProps>(
         ref={ref}
         {...rest}
         className={cn(
-          'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-cornflower-blue-500 focus-visible:ring-offset-2',
+          'focus:outline-none focus-visible:rounded focus-visible:ring focus-visible:ring-purple-500 focus-visible:ring-offset-2',
           'font-semibold',
           //#region  //*=========== Variant ===========
           variant === 'default' && [
-            'text-cornflower-blue-500 hover:text-cornflower-blue-600 active:text-cornflower-blue-700',
-            'disabled:text-cornflower-blue-200',
+            'text-purple-500 hover:text-purple-600 active:text-purple-700',
+            'disabled:text-purple-200',
           ],
           variant === 'basic' && [
             'text-black hover:text-gray-600 active:text-gray-800',

@@ -52,7 +52,7 @@ export default function WhyFix() {
             Why Fix Security?
           </h2>
           <p className="max-w-prose text-pretty text-4xl font-extrabold sm:text-5xl">
-            <span className="text-cornflower-blue-600">
+            <span className="text-purple-600">
               Detect, prioritize, and remediate
             </span>{' '}
             critical cloud risks.
@@ -80,9 +80,9 @@ export default function WhyFix() {
           {features.map((feature, index) => (
             <div key={`feature-${index}`} className="flex flex-col">
               <dt className="text-lg font-bold text-gray-900">
-                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50">
+                <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50">
                   <feature.icon
-                    className="h-6 w-6 text-cornflower-blue-600"
+                    className="h-6 w-6 text-purple-600"
                     aria-hidden="true"
                   />
                 </div>

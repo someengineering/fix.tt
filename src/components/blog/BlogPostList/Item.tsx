@@ -42,7 +42,7 @@ export default function Item({ post }: { post: HashnodePost }) {
             <UnstyledLink
               href={`/blog/series/${post.series.slug}`}
               title="This post is part of a series"
-              className="whitespace-nowrap rounded-md bg-cornflower-blue-800 px-2 py-1 font-extrabold leading-none text-white hover:bg-cornflower-blue-900"
+              className="whitespace-nowrap rounded-md bg-purple-800 px-2 py-1 font-extrabold leading-none text-white hover:bg-purple-900"
             >
               {post.series.name}
             </UnstyledLink>
@@ -77,7 +77,7 @@ export default function Item({ post }: { post: HashnodePost }) {
         </header>
         <div className="group relative space-y-2">
           <h2
-            className="mt-1 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
+            className="mt-1 text-pretty text-3xl font-extrabold text-purple-600 group-hover:text-purple-700"
             itemProp="headline"
           >
             <UnstyledLink href={`/blog/${post.slug}`} itemProp="url">
@@ -136,11 +136,11 @@ export default function Item({ post }: { post: HashnodePost }) {
             </div>
           </div>
         </div>
-        <footer className="mt-4 flex flex-wrap gap-1.5 text-sm font-semibold text-cornflower-blue-600">
+        <footer className="mt-4 flex flex-wrap gap-1.5 text-sm font-semibold text-purple-600">
           {post.tags?.map((tag) => (
             <UnstyledLink
               href={`/blog/tag/${tag.slug}`}
-              className="z-10 text-nowrap rounded-md bg-gray-50 px-3 py-1.5 hover:bg-marian-blue-50"
+              className="z-10 text-nowrap rounded-md bg-gray-50 px-3 py-1.5 hover:bg-purple-50"
               key={`tag-${tag.slug}`}
             >
               {tag.name}

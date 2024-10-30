@@ -60,7 +60,7 @@ export default function Item({
         </header>
         <div className="group relative space-y-4">
           <h2
-            className="mt-2 text-pretty text-3xl font-extrabold text-cornflower-blue-600 group-hover:text-cornflower-blue-700"
+            className="mt-2 text-pretty text-3xl font-extrabold text-purple-600 group-hover:text-purple-700"
             itemProp="headline"
           >
             <UnstyledLink

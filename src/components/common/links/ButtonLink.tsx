@@ -39,7 +39,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         {...rest}
         className={cn(
           'inline-flex items-center whitespace-nowrap font-bold',
-          'focus:outline-none focus-visible:ring focus-visible:ring-cornflower-blue-500',
+          'focus:outline-none focus-visible:ring focus-visible:ring-purple-500',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
@@ -52,20 +52,20 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
           //#region  //*=========== Variants ===========
           [
             variant === 'default' && [
-              'border-cornflower-blue-600 bg-cornflower-blue-600 text-white',
-              'hover:border-cornflower-blue-700 hover:bg-cornflower-blue-700 hover:text-white',
-              'active:border-cornflower-blue-800 active:bg-cornflower-blue-800',
-              'disabled:border-cornflower-blue-600 disabled:bg-cornflower-blue-600',
+              'border-purple-600 bg-purple-600 text-white',
+              'hover:border-purple-700 hover:bg-purple-700 hover:text-white',
+              'active:border-purple-800 active:bg-purple-800',
+              'disabled:border-purple-600 disabled:bg-purple-600',
             ],
             variant === 'outline' && [
-              'text-cornflower-blue-600',
-              'border border-cornflower-blue-600',
-              'hover:bg-cornflower-blue-50 active:bg-cornflower-blue-100 disabled:bg-cornflower-blue-100',
+              'text-purple-600',
+              'border border-purple-600',
+              'hover:bg-purple-50 active:bg-purple-100 disabled:bg-purple-100',
             ],
             variant === 'ghost' && [
-              'text-cornflower-blue-600',
+              'text-purple-600',
               'border border-transparent',
-              'hover:border-cornflower-blue-600 active:border-cornflower-blue-700',
+              'hover:border-purple-600 active:border-purple-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',

@@ -45,7 +45,7 @@ export default function Header({
             <UnstyledLink
               href={`/blog/series/${series.slug}`}
               title="This post is part of a series"
-              className="rounded-md bg-cornflower-blue-800 px-3 py-1.5 font-extrabold leading-none text-white hover:bg-cornflower-blue-900"
+              className="rounded-md bg-purple-800 px-3 py-1.5 font-extrabold leading-none text-white hover:bg-purple-900"
             >
               {series.name}
             </UnstyledLink>
@@ -93,7 +93,7 @@ export default function Header({
         ) : null}
       </div>
       <h1
-        className="text-pretty text-4xl font-extrabold text-cornflower-blue-600 sm:text-5xl"
+        className="text-pretty text-4xl font-extrabold text-purple-600 sm:text-5xl"
         itemProp="headline"
       >
         {title}

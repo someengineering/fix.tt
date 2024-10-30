@@ -67,7 +67,7 @@
     }
 
     blockquote {
-      @apply my-16 border-l border-cornflower-blue-600 py-4 pl-8;
+      @apply my-16 border-l border-purple-600 py-4 pl-8;
 
       p:only-child,
       p:not(:last-child) {
@@ -100,15 +100,15 @@
     }
 
     ::-webkit-scrollbar-track {
-      @apply rounded-b-full bg-cornflower-blue-50;
+      @apply rounded-b-full bg-purple-50;
     }
 
     ::-webkit-scrollbar-thumb {
-      @apply rounded-b-full bg-cornflower-blue-200;
+      @apply rounded-b-full bg-purple-200;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      @apply bg-cornflower-blue-300;
+      @apply bg-purple-300;
     }
 
     h2:first-child {
@@ -183,10 +183,10 @@
   }
 
   audio::-webkit-media-controls-panel {
-    @apply bg-marian-blue-50;
+    @apply bg-purple-50;
   }
 
   audio::-webkit-media-controls-play-button {
-    @apply text-cornflower-blue-600;
+    @apply text-purple-600;
   }
 }

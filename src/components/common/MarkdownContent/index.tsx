@@ -144,10 +144,10 @@ export default function MarkdownContent({
 
           if (icon?.groups?.iconName) {
             return (
-              <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-marian-blue-50 lg:mx-0">
+              <div className="mx-auto mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-purple-50 lg:mx-0">
                 <Icon
                   name={icon.groups.iconName}
-                  className="h-6 w-6 text-cornflower-blue-600"
+                  className="h-6 w-6 text-purple-600"
                   aria-hidden="true"
                 />
               </div>
