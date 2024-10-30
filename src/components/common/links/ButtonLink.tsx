@@ -40,6 +40,7 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         className={cn(
           'inline-flex items-center whitespace-nowrap font-bold',
           'focus:outline-none focus-visible:ring focus-visible:ring-purple-500',
+          'border',
           'disabled:opacity-50',
           'transition-colors duration-75',
           //#region  //*=========== Size ===========
@@ -59,23 +60,23 @@ const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
             ],
             variant === 'outline' && [
               'text-purple-600',
-              'border border-purple-600',
+              'border-purple-600',
               'hover:bg-purple-50 active:bg-purple-100 disabled:bg-purple-100',
             ],
             variant === 'ghost' && [
               'text-purple-600',
-              'border border-transparent',
+              'border-transparent',
               'hover:border-purple-600 active:border-purple-700',
             ],
             variant === 'light' && [
               'bg-white text-gray-700',
-              'border border-white',
+              'border-white',
               'hover:border-white/75 hover:bg-white/75 hover:text-gray-800',
               'active:border-white/50 active:bg-white/50 disabled:border-gray-200 disabled:bg-gray-200',
             ],
             variant === 'dark' && [
               'bg-gray-900 text-white',
-              'border border-gray-600',
+              'border-gray-600',
               'hover:bg-gray-800 active:bg-gray-700 disabled:bg-gray-700',
             ],
           ],
