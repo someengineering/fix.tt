@@ -143,10 +143,6 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: '/js/uc.js',
-        destination: 'https://plausible.io/js/script.outbound-links.js',
-      },
-      {
         source: '/js/script.js',
         destination: 'https://plausible.io/js/script.outbound-links.js',
       },

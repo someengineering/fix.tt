@@ -120,7 +120,7 @@ export default async function RootLayout({
         {COOKIEBOT_ID ? (
           <Script
             id="Cookiebot"
-            src="/js/uc.js"
+            src="https://consent.cookiebot.com/uc.js"
             data-cbid={COOKIEBOT_ID}
             data-blockingmode="auto"
             strategy="afterInteractive"
