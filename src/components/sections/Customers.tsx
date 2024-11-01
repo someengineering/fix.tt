@@ -1,9 +1,9 @@
-import BloomreachLogo from '@/assets/customers/bloomreach.svg';
-import DespegarLogo from '@/assets/customers/despegar.svg';
-import ElectronicArtsLogo from '@/assets/customers/electronic-arts.svg';
-import KelloggsLogo from '@/assets/customers/kelloggs.svg';
-import MarsLogo from '@/assets/customers/mars.svg';
-import PayplugLogo from '@/assets/customers/payplug.svg';
+import AmperityLogo from '@/assets/customers/amperity.svg';
+import AnzenLogo from '@/assets/customers/anzen.svg';
+import ArangodbLogo from '@/assets/customers/arangodb.svg';
+import CloudzoneLogo from '@/assets/customers/cloudzone.svg';
+import DlthubLogo from '@/assets/customers/dlthub.svg';
+import PaybackLogo from '@/assets/customers/payback.svg';
 
 const customers: {
   name: string;
@@ -12,28 +12,28 @@ const customers: {
   ) => JSX.Element;
 }[] = [
   {
-    name: 'Mars',
-    logo: (props) => <MarsLogo {...props} />,
+    name: 'Anzen',
+    logo: (props) => <AnzenLogo {...props} />,
   },
   {
-    name: 'Kellogg’s',
-    logo: (props) => <KelloggsLogo {...props} />,
+    name: 'dltHub',
+    logo: (props) => <DlthubLogo {...props} />,
   },
   {
-    name: 'Electronic Arts',
-    logo: (props) => <ElectronicArtsLogo {...props} />,
+    name: 'CloudZone',
+    logo: (props) => <CloudzoneLogo {...props} />,
   },
   {
-    name: 'Despegar',
-    logo: (props) => <DespegarLogo {...props} />,
+    name: 'Amperity',
+    logo: (props) => <AmperityLogo {...props} />,
   },
   {
-    name: 'Payplug',
-    logo: (props) => <PayplugLogo {...props} />,
+    name: 'Payback',
+    logo: (props) => <PaybackLogo {...props} />,
   },
   {
-    name: 'Bloomreach',
-    logo: (props) => <BloomreachLogo {...props} />,
+    name: 'ArangoDB',
+    logo: (props) => <ArangodbLogo {...props} />,
   },
 ];
 
@@ -41,16 +41,16 @@ export default function Customers() {
   return (
     <div className="bg-gray-50 py-16 sm:py-24" id="customers">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <h2 className="text-balance text-center text-2xl font-bold leading-8 text-gray-900">
-          Security engineers at startups and Fortune 500 companies use Fix
-          Security:
+        <h2 className="text-balance text-center text-lg/8 font-semibold text-gray-900">
+          Fix Security is used by startups and IT departments at large
+          companies:
         </h2>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-6 lg:mt-10 lg:justify-between lg:gap-x-0">
+        <div className="mx-auto mt-10 grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-10 text-gray-500 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none">
           {customers.map((customer, index) => (
-            <div key={`customer-${index}`}>
+            <div key={`customer-${index}`} className="col-span-2 lg:col-span-1">
               <span className="sr-only">{customer.name}</span>
               <customer.logo
-                className="h-8 max-w-[8rem] lg:h-10 lg:max-w-[10rem]"
+                className="max-h-7 w-full object-contain"
                 aria-hidden="true"
               />
             </div>
