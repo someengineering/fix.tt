@@ -42,7 +42,7 @@ export function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const cspHeader = `
     default-src 'self';
-    connect-src 'self' https://consentcdn.cookiebot.com https://consent.cookiebot.com;
+    connect-src 'self' https://consentcdn.cookiebot.com https://consent.cookiebot.com https://sst.fix.security;
     script-src 'self' 'unsafe-inline'${
       process.env.NODE_ENV === 'production' ? '' : " 'unsafe-eval'"
     }${
